@@ -14,6 +14,10 @@ class World {
     }
   }
 
+  add(entity) {
+    this.entities.push(entity);
+  }
+
   moveToSpace(entity) {
     for (let x = entity.x; x < this.width; x++) {
       for (let y = entity.y; y < this.height; y++) {
@@ -74,9 +78,7 @@ class World {
   draw(context) {
     for (let x = 0; x < this.width; x++) {
       for (let y = 0; y < this.height; y++) {
-        if (this.worldmap[x][y] === 1) {
-          this.drawWall(context, x, y);
-        }
+        if (this.worldmap[x][y] === 1) this.drawWall(context, x, y);
       }
     }
     this.entities.forEach((entity) => {
