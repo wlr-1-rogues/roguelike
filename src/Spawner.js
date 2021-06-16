@@ -14,9 +14,9 @@ const lootTable = [
     offset: { x: 0, y: 0 },
   },
   {
-    name: "Gold Coin",
+    name: "Gold",
     color: "yellow",
-    ascii: "🪙",
+    ascii: "💰",
     offset: { x: 0, y: 0 },
   },
   {
