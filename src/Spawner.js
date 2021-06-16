@@ -1,5 +1,6 @@
 import Loot from "./Loot";
 import Monster from "./Monster";
+import Stairs from "./Stairs";
 
 const monsterTable = [
   {
@@ -91,6 +92,16 @@ class Spawner {
         monsterTable[getRandomInt(monsterTable.length)]
       );
     });
+  }
+
+  spawnStairs() {
+    let stairs = new Stairs(
+      this.world.width - 10,
+      this.world.height - 10,
+      this.world.tilesize
+    );
+    this.world.add(stairs);
+    this.world.moveToSpace(stairs);
   }
 }
 
