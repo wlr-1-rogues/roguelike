@@ -26,7 +26,7 @@ class World {
   moveToSpace(entity) {
     for (let x = entity.x; x < this.width; x++) {
       for (let y = entity.y; y < this.height; y++) {
-        if (this.worldmap[x][y] === 0) {
+        if (this.worldmap[x][y] === 0 && !this.getEntityAtLocation(x, y)) {
           entity.x = x;
           entity.y = y;
           return;
@@ -113,6 +113,7 @@ class World {
 
   addToHistory(history) {
     this.history.push(history);
+    if (this.history.length > 6) this.history.shift();
   }
 }
 
