@@ -1,4 +1,36 @@
 import Loot from "./Loot";
+import Monster from "./Monster";
+
+const monsterTable = [
+  {
+    name: "Ghost",
+    color: "lightgrey",
+    ascii: "👻",
+    offset: { x: 0, y: 0 },
+    health: 6,
+  },
+  {
+    name: "Wolf",
+    color: "gray",
+    ascii: "🐕",
+    offset: { x: 0, y: 0 },
+    health: 3,
+  },
+  {
+    name: "Dragon",
+    color: "darkgreen",
+    ascii: "🐉",
+    offset: { x: 0, y: 0 },
+    health: 10,
+  },
+  {
+    name: "Snake",
+    color: "green",
+    ascii: "🐍",
+    offset: { x: 0, y: 0 },
+    health: 1,
+  },
+];
 
 const lootTable = [
   {
@@ -46,6 +78,17 @@ class Spawner {
         getRandomInt(this.world.height - 1),
         this.world.tilesize,
         lootTable[getRandomInt(lootTable.length)]
+      );
+    });
+  }
+
+  spawnMonsters(spawnCount) {
+    this.spawn(spawnCount, () => {
+      return new Monster(
+        getRandomInt(this.world.width - 1),
+        getRandomInt(this.world.height - 1),
+        this.world.tilesize,
+        monsterTable[getRandomInt(monsterTable.length)]
       );
     });
   }
