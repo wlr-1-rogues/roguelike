@@ -98,59 +98,6 @@ class World {
     }
   }
 
-  // let distance = Math.sqrt(
-  //   (entity.x - player.x) ** 2 + (entity.y - player.y) ** 2
-  // );
-  // if (distance < 6) {
-  //   console.log("you're going to jail now!");
-  //   let astar = new Path.AStar(
-  //     entity.x,
-  //     entity.y,
-  //     this.isPassable.bind(this)
-  //   );
-  //   let path = [];
-  //   astar.compute(player.x, player.y, (x, y) => {
-  //     path.push({ x: x, y: y });
-  //   });
-  //   let desiredX = path[path.length - 2]?.x;
-  //   let desiredY = path[path.length - 2]?.y;
-  //   let xDiff = Math.sqrt((entity.x - player.x) ** 2);
-  //   let yDiff = Math.sqrt((entity.y - player.y) ** 2);
-  //   if (xDiff > yDiff) {
-  //     if (!this.isWall(desiredX, entity.y)) {
-  //       console.log("move x 1");
-  //       if (player.x === desiredX && player.y === entity.y) {
-  //         entity.action("bump", this);
-  //       } else {
-  //         entity.x = desiredX;
-  //       }
-  //     } else if (!this.isWall(entity.x, desiredY)) {
-  //       console.log("move y 1");
-  //       if (player.x === entity.y && player.y === desiredY) {
-  //         entity.action("bump", this);
-  //       } else {
-  //         entity.y = desiredY;
-  //       }
-  //     }
-  //   } else {
-  //     if (!this.isWall(entity.x, desiredY)) {
-  //       console.log("move y 2");
-  //       if (player.x === entity.y && player.y === desiredY) {
-  //         entity.action("bump", this);
-  //       } else {
-  //         entity.y = desiredY;
-  //       }
-  //     } else if (!this.isWall(desiredX, entity.y)) {
-  //       console.log("move x 2");
-  //       if (player.x === desiredX && player.y === entity.y) {
-  //         entity.action("bump", this);
-  //       } else {
-  //         entity.x = desiredX;
-  //       }
-  //     }
-  //   }
-  // }
-
   moveMonsters() {
     const player = this.entities[0];
 
@@ -174,7 +121,6 @@ class World {
         (monster.x - player.x) ** 2 + (monster.y - player.y) ** 2
       );
       if (distance < 6) {
-        console.log("you're going to jail now!");
         let astar = new Path.AStar(
           monster.x,
           monster.y,
@@ -190,7 +136,6 @@ class World {
           (player.x === monster.x || player.y === monster.y)
         ) {
           //in range to fight
-          console.log("monster attacks");
           monster.action("monsterBump", this);
         } else {
           // move closer
@@ -201,7 +146,13 @@ class World {
             closestNextSquare.y === monster.y
           ) {
             //it's not a diagonal square, so we can move there as long as it's not a wall
-            if (!this.isWall(closestNextSquare.x, closestNextSquare.y)) {
+            if (
+              !this.isWall(closestNextSquare.x, closestNextSquare.y) &&
+              !this.getEntityAtLocation(
+                closestNextSquare.x,
+                closestNextSquare.y
+              )
+            ) {
               monster.x = closestNextSquare.x;
               monster.y = closestNextSquare.y;
             }
@@ -210,12 +161,18 @@ class World {
             let coinFlip = Math.random();
             if (coinFlip > 0.5) {
               //move x axis
-              if (!this.isWall(closestNextSquare.x, monster.y)) {
+              if (
+                !this.isWall(closestNextSquare.x, monster.y) &&
+                !this.getEntityAtLocation(closestNextSquare.x, monster.y)
+              ) {
                 monster.x = closestNextSquare.x;
               }
             } else {
               //move y axis
-              if (!this.isWall(monster.x, closestNextSquare.y)) {
+              if (
+                !this.isWall(monster.x, closestNextSquare.y) &&
+                !this.getEntityAtLocation(monster.x, closestNextSquare.y)
+              ) {
                 monster.y = closestNextSquare.y;
               }
             }
