@@ -70,6 +70,7 @@ const ReactRogue = ({ width, height, tilesize }) => {
           <li key={index}>{item.attributes.name}</li>
         ))}
       </ul>
+      <div>gold: {world.player.gold}</div>
       <ul>
         {world.history.map((item, index) => (
           <li key={index}>{item}</li>
