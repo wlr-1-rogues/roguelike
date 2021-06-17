@@ -15,8 +15,14 @@ const ReactRogue = ({ width, height, tilesize }) => {
     Object.assign(newWorld, world);
     if(action === 'move') {
       newWorld.movePlayer(data.x, data.y)
+    } else if(action === 'inspect') {
+      newWorld.inspectItem(data)
     } else if(action === 'equip') {
       newWorld.equipItem(data)
+    } else if (action === 'unequip') {
+      newWorld.unequipItem(data)
+    } else if (action === 'drop') {
+      newWorld.dropItem(data)
     }
     setWorld(newWorld);
   };
@@ -64,6 +70,7 @@ const ReactRogue = ({ width, height, tilesize }) => {
           <li key={index}>{item[0].attributes.name}</li>
         ))}
       </ul>
+      <div>inspect</div>
       <div>inventory</div>
       <ul>
         {world.player.inventory.map((item, index) => (

@@ -67,9 +67,24 @@ class World {
     }
   }
 
+  inspectItem(itemIndex) {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.inspect(itemIndex)
+  }
+
   equipItem(itemIndex) {
     let tempPlayer = this.player.copyPlayer();
     tempPlayer.equip(itemIndex)
+  }
+
+  unequipItem(itemIndex) {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.unequip(itemIndex)
+  }
+
+  dropItem(itemIndex) {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.drop(itemIndex)
   }
 
   createCellularMap() {

@@ -1,9 +1,11 @@
 import Entity from "./Entity";
 
 class Player extends Entity {
-  hands = []
-  inventory = [];
+  
   gold = 0;
+  inventory = [];
+  inspecting = [];
+  hands = [];
 
   attributes = {
     name: "Player",
@@ -27,34 +29,45 @@ class Player extends Entity {
     : this.inventory.push(item)
   }
 
+  inspect(item) {
+    if(this.inventory[item]){
+      if(this.inspecting.length === 1) {
+        this.inspecting.splice(0, 1)
+      } else {
+        this.inspecting.push(this.inventory.splice(item, 1))
+      }
+    } else {
+      console.log('add an item to your inventory first!')
+    }
+    console.log(this.inspecting)
+    console.log(this.inventory)
+  }
+
   equip(item) {
-    if(this.inventory[item]) {
-      const {attributes} = this.inventory[item]
+    if(this.inspecting[item]) {
+      const {attributes} = this.inspecting[item]
       // 1h weapons
       if(attributes.class === "1h" && this.hands.length < 2) {
-        this.hands.push(this.inventory.splice(item, 1))
         this.attributes.attack += attributes.mod1 
         this.attributes.damage += attributes.mod2
-        console.log(this.attributes)
+        this.hands.push(attributes.splice(item, 1))
         console.log(this.hands)
       // 2h weapons
       } else if(attributes.class === "2h" && this.hands.length === 0) {
-        this.hands.push(this.inventory.splice(item, 1))
         this.attributes.attack += attributes.mod1 
         this.attributes.damage += attributes.mod2
-        console.log(this.attributes)
+        this.hands.push(attributes.splice(item, 1))
         console.log(this.hands)
       // shields
       } else if(attributes.class === "shield" && this.hands.length === 0) {
         this.attributes.defense += attributes.mod1 
         this.attributes.armor += attributes.mod2
-        console.log(this.attributes)
-        this.hands.push(this.inventory.splice(item, 1))
+        this.hands.push(attributes.splice(item, 1))
       // consumables
       } else if(attributes.class === "health") {
         this.attributes.health += attributes.mod1
         console.log(`you use the ${attributes.name} and gain ${attributes.modifier} health points`)
-        this.inventory.splice(item, 1)
+        attributes.splice(item, 1)
       } else {
         console.log('you cannot equip this item!', attributes.class)
       }
