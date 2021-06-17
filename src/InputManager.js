@@ -28,6 +28,30 @@ class InputManager {
       case 40:
         this.broadcast("move", { x: 0, y: 1 });
         break;
+      case 49:
+        this.broadcast("inspect", 0)
+        break;
+      case 50:
+        this.broadcast("inspect", 1)
+        break;
+      case 51:
+        this.broadcast("inspect", 2)
+        break;
+      case 52:
+        this.broadcast("inspect", 3)
+        break;
+      case 53:
+        this.broadcast("inspect", 4)
+        break;
+      case 54:
+        this.broadcast("inspect", 5)
+        break;
+      case 55:
+        this.broadcast("inspect", 6)
+        break;
+      case 69:
+        this.broadcast("equip", 0)
+        break;
       default:
         break;
     }
