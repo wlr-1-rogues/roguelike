@@ -30,11 +30,12 @@ class Player extends Entity {
   }
 
   inspect(item) {
+    console.log(item)
     if(this.inventory[item]){
       if(this.inspecting.length === 1) {
         this.inspecting.splice(0, 1)
       } else {
-        this.inspecting.push(this.inventory.splice(item, 1))
+        this.inspecting.push(item)
       }
     } else {
       console.log('add an item to your inventory first!')
@@ -44,8 +45,8 @@ class Player extends Entity {
   }
 
   equip(item) {
-    if(this.inspecting[item]) {
-      const {attributes} = this.inspecting[item]
+    if(this.inspecting.length === 1) {
+      const {attributes} = this.inventory[this.inspecting[item]]
       // 1h weapons
       if(attributes.class === "1h" && this.hands.length < 2) {
         this.attributes.attack += attributes.mod1 
@@ -72,7 +73,7 @@ class Player extends Entity {
         console.log('you cannot equip this item!', attributes.class)
       }
     } else {
-      console.log('no item to equip!')
+      console.log('inspect an item in your inventory to equip!')
     }
   }
 
