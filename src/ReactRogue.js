@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import InputManager from "./InputManager";
 import Player from "./Player";
+import Equip from "./Equip"
 import Spawner from "./Spawner";
 import World from "./World";
 
@@ -54,6 +55,7 @@ const ReactRogue = ({ width, height, tilesize }) => {
         height={height * tilesize}
         style={{ border: "1px solid black", background: "DimGray" }}
       ></canvas>
+      <Equip inventory={world.player.inventory}/>
       <ul>
         {world.player.inventory.map((item, index) => (
           <li key={index}>{item.attributes.name}</li>
