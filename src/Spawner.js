@@ -51,24 +51,43 @@ const lootTable = [
     color: "darkgrey",
     ascii: "🗡️",
     offset: { x: 0, y: 0 },
+    class: "1h",
+    mod1: 1,
+    mod2: 2
+  },
+  {
+    name: "Great Sword",
+    color: "darkgrey",
+    ascii: "🗡️",
+    offset: { x: 0, y: 0 },
+    class: "2h",
+    mod1: 1,
+    mod2: 4
   },
   {
     name: "Health Potion",
     color: "red",
     ascii: "🧪",
     offset: { x: 0, y: 0 },
+    class: "health",
+    mod1: 5
   },
   {
     name: "Gold",
     color: "yellow",
     ascii: "💰",
     offset: { x: 0, y: 0 },
+    class: "gold",
+    mod1: 1
   },
   {
-    name: "Armor",
+    name: "Buckler",
     color: "lightgrey",
     ascii: "🛡️",
     offset: { x: 0, y: 0 },
+    class: "shield",
+    mod1: 2,
+    mod2: 1
   },
 ];
 
