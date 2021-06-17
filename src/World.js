@@ -205,6 +205,20 @@ class World {
               monster.x = closestNextSquare.x;
               monster.y = closestNextSquare.y;
             }
+          } else {
+            //it's a diagonal
+            let coinFlip = Math.random();
+            if (coinFlip > 0.5) {
+              //move x axis
+              if (!this.isWall(closestNextSquare.x, monster.y)) {
+                monster.x = closestNextSquare.x;
+              }
+            } else {
+              //move y axis
+              if (!this.isWall(monster.x, closestNextSquare.y)) {
+                monster.y = closestNextSquare.y;
+              }
+            }
           }
         }
       }
