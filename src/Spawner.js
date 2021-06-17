@@ -8,6 +8,9 @@ const monsterTable = [
     color: "lightgrey",
     ascii: "👻",
     offset: { x: 0, y: 0 },
+    attack: 1,
+    defense: 9,
+    damage:2,
     health: 6,
   },
   {
@@ -15,6 +18,9 @@ const monsterTable = [
     color: "gray",
     ascii: "🐕",
     offset: { x: 0, y: 0 },
+    attack: 2,
+    defense: 10,
+    damage:2,
     health: 3,
   },
   {
@@ -22,6 +28,9 @@ const monsterTable = [
     color: "darkgreen",
     ascii: "🐉",
     offset: { x: 0, y: 0 },
+    attack: 4,
+    defense: 15,
+    damage: 4,
     health: 10,
   },
   {
@@ -29,6 +38,9 @@ const monsterTable = [
     color: "green",
     ascii: "🐍",
     offset: { x: 0, y: 0 },
+    attack: 2,
+    defense: 8,
+    damage: 3,
     health: 1,
   },
 ];
