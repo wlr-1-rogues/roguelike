@@ -70,7 +70,14 @@ const ReactRogue = ({ width, height, tilesize }) => {
           <li key={index}>{item[0].attributes.name}</li>
         ))}
       </ul>
-      <div>inspect</div>
+      {world.player.inspecting.length === 1 &&
+        <>
+          <div>readied</div>
+          <ul>
+              <li>{world.player.inventory[world.player.inspecting[0]].attributes.name}</li>
+          </ul>
+        </>
+      }
       <div>inventory</div>
       <ul>
         {world.player.inventory.map((item, index) => (
