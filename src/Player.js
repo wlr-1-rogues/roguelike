@@ -7,6 +7,10 @@ class Player extends Entity {
   attributes = {
     name: "Player",
     ascii: "🤺",
+    attack: 2,
+    defense: 12,
+    damage: 2,
+    armor: 0,
     health: 10,
   };
 
