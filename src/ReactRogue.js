@@ -10,15 +10,14 @@ const ReactRogue = ({ width, height, tilesize }) => {
   const [world, setWorld] = useState(new World(width, height, tilesize));
   let inputManager = new InputManager();
   const handleInput = (action, data) => {
-    console.log(`handle input: ${action} ${JSON.stringify(data)}`);
     let newWorld = new World();
     Object.assign(newWorld, world);
     newWorld.movePlayer(data.x, data.y);
+    newWorld.moveMonsters();
     setWorld(newWorld);
   };
 
   useEffect(() => {
-    console.log("create-map");
     let newWorld = new World();
     Object.assign(newWorld, world);
     newWorld.createCellularMap();
@@ -31,7 +30,6 @@ const ReactRogue = ({ width, height, tilesize }) => {
   }, []);
 
   useEffect(() => {
-    console.log("Bind input");
     inputManager.bindKeys();
     inputManager.subscribe(handleInput);
     return () => {
@@ -41,7 +39,6 @@ const ReactRogue = ({ width, height, tilesize }) => {
   });
 
   useEffect(() => {
-    console.log("Draw");
     const ctx = canvasRef.current.getContext("2d");
     ctx.clearRect(0, 0, width * tilesize, height * tilesize);
     world.draw(ctx);

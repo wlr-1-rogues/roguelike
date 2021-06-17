@@ -89,15 +89,126 @@ class World {
     tempPlayer.move(dx, dy);
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
     if (entity) {
-      console.log("an entity", entity);
       entity.action("bump", this);
       return;
     }
     if (this.isWall(tempPlayer.x, tempPlayer.y)) {
-      console.log("it's a wall :(");
     } else {
       this.player.move(dx, dy);
     }
+  }
+
+  // let distance = Math.sqrt(
+  //   (entity.x - player.x) ** 2 + (entity.y - player.y) ** 2
+  // );
+  // if (distance < 6) {
+  //   console.log("you're going to jail now!");
+  //   let astar = new Path.AStar(
+  //     entity.x,
+  //     entity.y,
+  //     this.isPassable.bind(this)
+  //   );
+  //   let path = [];
+  //   astar.compute(player.x, player.y, (x, y) => {
+  //     path.push({ x: x, y: y });
+  //   });
+  //   let desiredX = path[path.length - 2]?.x;
+  //   let desiredY = path[path.length - 2]?.y;
+  //   let xDiff = Math.sqrt((entity.x - player.x) ** 2);
+  //   let yDiff = Math.sqrt((entity.y - player.y) ** 2);
+  //   if (xDiff > yDiff) {
+  //     if (!this.isWall(desiredX, entity.y)) {
+  //       console.log("move x 1");
+  //       if (player.x === desiredX && player.y === entity.y) {
+  //         entity.action("bump", this);
+  //       } else {
+  //         entity.x = desiredX;
+  //       }
+  //     } else if (!this.isWall(entity.x, desiredY)) {
+  //       console.log("move y 1");
+  //       if (player.x === entity.y && player.y === desiredY) {
+  //         entity.action("bump", this);
+  //       } else {
+  //         entity.y = desiredY;
+  //       }
+  //     }
+  //   } else {
+  //     if (!this.isWall(entity.x, desiredY)) {
+  //       console.log("move y 2");
+  //       if (player.x === entity.y && player.y === desiredY) {
+  //         entity.action("bump", this);
+  //       } else {
+  //         entity.y = desiredY;
+  //       }
+  //     } else if (!this.isWall(desiredX, entity.y)) {
+  //       console.log("move x 2");
+  //       if (player.x === desiredX && player.y === entity.y) {
+  //         entity.action("bump", this);
+  //       } else {
+  //         entity.x = desiredX;
+  //       }
+  //     }
+  //   }
+  // }
+
+  moveMonsters() {
+    const player = this.entities[0];
+
+    let movingMonsters = new Set();
+
+    this.fov.compute(
+      player.x,
+      player.y,
+      player.attributes.sightRadius,
+      (x, y) => {
+        let entity = this.getEntityAtLocation(x, y);
+
+        if (entity instanceof Monster) {
+          movingMonsters.add(entity);
+        }
+      }
+    );
+
+    movingMonsters.forEach((monster) => {
+      let distance = Math.sqrt(
+        (monster.x - player.x) ** 2 + (monster.y - player.y) ** 2
+      );
+      if (distance < 6) {
+        console.log("you're going to jail now!");
+        let astar = new Path.AStar(
+          monster.x,
+          monster.y,
+          this.isPassable.bind(this)
+        );
+        let path = [];
+        astar.compute(player.x, player.y, (x, y) => {
+          path.push({ x: x, y: y });
+        });
+        console.log(path);
+        if (
+          path.length === 2 &&
+          (player.x === monster.x || player.y === monster.y)
+        ) {
+          //in range to fight
+          console.log("monster attacks");
+          monster.action("monsterBump", this);
+        } else {
+          // move closer
+          let closestNextSquare = path[path.length - 2];
+
+          if (
+            closestNextSquare.x === monster.x ||
+            closestNextSquare.y === monster.y
+          ) {
+            //it's not a diagonal square, so we can move there as long as it's not a wall
+            if (!this.isWall(closestNextSquare.x, closestNextSquare.y)) {
+              monster.x = closestNextSquare.x;
+              monster.y = closestNextSquare.y;
+            }
+          }
+        }
+      }
+    });
   }
 
   draw(context) {
@@ -119,55 +230,12 @@ class World {
         } else {
           this.drawGround(context, x, y);
         }
-        this.entities.forEach((entity) => {
-          if (entity.x === x && entity.y === y) {
-            if (entity instanceof Monster) {
-              let distance = Math.sqrt(
-                (entity.x - player.x) ** 2 + (entity.y - player.y) ** 2
-              );
-              if (distance < 6) {
-                console.log("you're going to jail now!");
-                let astar = new Path.AStar(
-                  entity.x,
-                  entity.y,
-                  this.isPassable.bind(this)
-                );
 
-                let path = [];
-                astar.compute(player.x, player.y, (x, y) => {
-                  path.push({ x: x, y: y });
-                });
+        let entity = this.getEntityAtLocation(x, y);
 
-                let desiredX = path[path.length - 2].x;
-                let desiredY = path[path.length - 2].y;
-
-                let xDiff = Math.sqrt((entity.x - player.x) ** 2);
-                let yDiff = Math.sqrt((entity.y - player.y) ** 2);
-
-                if (xDiff > yDiff) {
-                  if (!this.isWall(desiredX, entity.y)) {
-                    console.log("move x 1");
-                    entity.x = desiredX;
-                  } else if (!this.isWall(entity.x, desiredY)) {
-                    console.log("move y 1");
-                    entity.y = desiredY;
-                  }
-                } else {
-                  if (!this.isWall(entity.x, desiredY)) {
-                    console.log("move y 2");
-                    entity.y = desiredY;
-                  } else if (!this.isWall(desiredX, entity.y)) {
-                    console.log("move x 2");
-                    entity.x = desiredX;
-                  }
-                }
-              }
-            }
-            entity.draw(context);
-          }
-        });
-        //this is called twice maybe not needed
-        player.draw(context);
+        if (entity) {
+          entity.draw(context);
+        }
       }
     );
   }

@@ -12,9 +12,10 @@ class Monster extends Entity {
         world.addToHistory(
           `${this.attributes.name}'s health = ${this.attributes.health}`
         );
-
-        world.player.attributes.health = world.player.attributes.health - 1;
       }
+    }
+    if (verb === "monsterBump") {
+      world.player.attributes.health = world.player.attributes.health - 1;
       if (world.player.attributes.health <= 0) {
         world.addToHistory("You have died");
       } else {
