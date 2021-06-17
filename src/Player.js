@@ -1,7 +1,7 @@
 import Entity from "./Entity";
 
 class Player extends Entity {
-  equipped = {}
+  hands = []
   inventory = [];
 
   attributes = {
@@ -21,8 +21,24 @@ class Player extends Entity {
   }
 
   equip(item) {
-    this.equipped = this.inventory[item]
-    console.log(this.equipped)
+    if(this.inventory[item]) {
+      const {attributes} = this.inventory[item]
+      if(attributes.class === "1h" && this.hands.length < 2) {
+        this.hands.push(this.inventory.splice(item, 1))
+        console.log(this.hands)
+      } else if(attributes.class === "2h" && this.hands.length === 0) {
+        this.hands.push(this.inventory.splice(item, 1))
+        console.log(this.hands)
+      } else if(attributes.class === "consumable") {
+        this.attributes.health += attributes.modifier
+        console.log(`you use the ${attributes.name} and gain ${attributes.modifier} health points`)
+        this.inventory.splice(item, 1)
+      } else {
+        console.log('you cannot equip this item!', attributes.class)
+      }
+    } else {
+      console.log('no item to equip!')
+    }
   }
 
   copyPlayer() {

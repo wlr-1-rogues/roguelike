@@ -13,7 +13,11 @@ const ReactRogue = ({ width, height, tilesize }) => {
     console.log(`handle input: ${action} ${JSON.stringify(data)}`);
     let newWorld = new World();
     Object.assign(newWorld, world);
-    newWorld.movePlayer(data.x, data.y);
+    if(action === 'move') {
+      newWorld.movePlayer(data.x, data.y)
+    } else if(action === 'equip') {
+      newWorld.equipItem(data)
+    }
     setWorld(newWorld);
   };
 
@@ -54,6 +58,13 @@ const ReactRogue = ({ width, height, tilesize }) => {
         height={height * tilesize}
         style={{ border: "1px solid black", background: "DimGray" }}
       ></canvas>
+      <div>equipped</div>
+      <ul>
+        {world.player.hands.map((item, index) => (
+          <li key={index}>{item[0].attributes.name}</li>
+        ))}
+      </ul>
+      <div>inventory</div>
       <ul>
         {world.player.inventory.map((item, index) => (
           <li key={index}>{item.attributes.name}</li>

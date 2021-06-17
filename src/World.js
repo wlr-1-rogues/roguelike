@@ -67,6 +67,11 @@ class World {
     }
   }
 
+  equipItem(itemIndex) {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.equip(itemIndex)
+  }
+
   createCellularMap() {
     let map = new Map.Cellular(this.width, this.height, { connected: true });
     map.randomize(0.5);
