@@ -52,7 +52,9 @@ const ReactRogue = ({ width, height, tilesize }) => {
         ref={canvasRef}
         width={width * tilesize}
         height={height * tilesize}
-        style={{ border: "1px solid black", background: "DimGray" }}
+        style={{
+          border: "1px solid SaddleBrown",
+        }}
       ></canvas>
       <ul>
         {world.player.inventory.map((item, index) => (

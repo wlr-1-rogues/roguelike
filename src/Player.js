@@ -7,6 +7,7 @@ class Player extends Entity {
     name: "Player",
     ascii: "🤺",
     health: 10,
+    sightRadius: 10,
   };
 
   move(dx, dy) {

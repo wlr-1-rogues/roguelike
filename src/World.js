@@ -1,4 +1,4 @@
-import { Map } from "rot-js";
+import { Map, FOV } from "rot-js";
 import Player from "./Player";
 
 class World {
@@ -13,6 +13,30 @@ class World {
     for (let x = 0; x < this.width; x++) {
       this.worldmap[x] = new Array(this.height);
     }
+
+    this.fov = new FOV.RecursiveShadowcasting(this.lightPasses.bind(this));
+  }
+
+  lightPasses(x, y) {
+    if (this.worldmap[x][y] === 0) {
+      return true;
+    }
+    return false;
+  }
+
+  createCellularMap() {
+    let map = new Map.Cellular(this.width, this.height, { connected: true });
+    map.randomize(0.5);
+    let userCallback = (x, y, value) => {
+      if (x === 0 || y === 0 || x === this.width - 1 || y === this.height - 1) {
+        this.worldmap[x][y] = 1; //creates walls on edges
+        return;
+      }
+      this.worldmap[x][y] = value === 0 ? 1 : 0;
+    };
+
+    map.create(userCallback);
+    map.connect(userCallback, 1);
   }
 
   add(entity) {
@@ -67,41 +91,55 @@ class World {
     }
   }
 
-  createCellularMap() {
-    let map = new Map.Cellular(this.width, this.height, { connected: true });
-    map.randomize(0.5);
-    let userCallback = (x, y, value) => {
-      if (x === 0 || y === 0 || x === this.width - 1 || y === this.height - 1) {
-        this.worldmap[x][y] = 1; //creates walls on edges
-        return;
-      }
-      this.worldmap[x][y] = value === 0 ? 1 : 0;
-    };
-
-    map.create(userCallback);
-    map.connect(userCallback, 1);
-  }
-
-  createRandomMap() {
-    for (let x = 0; x < this.width; x++) {
-      for (let y = 0; y < this.height; y++) {
-        this.worldmap[x][y] = Math.round(Math.random());
-      }
-    }
-  }
-
   draw(context) {
+    const player = this.entities[0];
+
     for (let x = 0; x < this.width; x++) {
       for (let y = 0; y < this.height; y++) {
-        if (this.worldmap[x][y] === 1) this.drawWall(context, x, y);
+        this.drawShadow(context, x, y);
       }
     }
-    this.entities.forEach((entity) => {
-      entity.draw(context);
-    });
+
+    this.fov.compute(
+      player.x,
+      player.y,
+      player.attributes.sightRadius,
+      (x, y) => {
+        if (this.worldmap[x][y] === 1) {
+          this.drawWall(context, x, y);
+        } else {
+          this.drawGround(context, x, y);
+        }
+        this.entities.forEach((entity) => {
+          entity.draw(context);
+        });
+
+        player.draw(context);
+      }
+    );
   }
 
   drawWall(context, x, y) {
+    context.fillStyle = "#937c5d";
+    context.fillRect(
+      x * this.tilesize,
+      y * this.tilesize,
+      this.tilesize,
+      this.tilesize
+    );
+  }
+
+  drawGround(context, x, y) {
+    context.fillStyle = "#e6d9b1";
+    context.fillRect(
+      x * this.tilesize,
+      y * this.tilesize,
+      this.tilesize,
+      this.tilesize
+    );
+  }
+
+  drawShadow(context, x, y) {
     context.fillStyle = "#000";
     context.fillRect(
       x * this.tilesize,
