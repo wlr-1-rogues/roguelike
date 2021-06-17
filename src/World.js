@@ -111,7 +111,9 @@ class World {
           this.drawGround(context, x, y);
         }
         this.entities.forEach((entity) => {
-          entity.draw(context);
+          if (entity.x === x && entity.y === y) {
+            entity.draw(context);
+          }
         });
 
         player.draw(context);
