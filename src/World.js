@@ -1,4 +1,6 @@
-import { Map, FOV } from "rot-js";
+import { Map, FOV, Path } from "rot-js";
+import Entity from "./Entity";
+import Monster from "./Monster";
 import Player from "./Player";
 
 class World {
@@ -18,6 +20,13 @@ class World {
   }
 
   lightPasses(x, y) {
+    if (this.worldmap[x][y] === 0) {
+      return true;
+    }
+    return false;
+  }
+
+  isPassable(x, y) {
     if (this.worldmap[x][y] === 0) {
       return true;
     }
@@ -112,10 +121,52 @@ class World {
         }
         this.entities.forEach((entity) => {
           if (entity.x === x && entity.y === y) {
+            if (entity instanceof Monster) {
+              let distance = Math.sqrt(
+                (entity.x - player.x) ** 2 + (entity.y - player.y) ** 2
+              );
+              if (distance < 6) {
+                console.log("you're going to jail now!");
+                let astar = new Path.AStar(
+                  entity.x,
+                  entity.y,
+                  this.isPassable.bind(this)
+                );
+
+                let path = [];
+                astar.compute(player.x, player.y, (x, y) => {
+                  path.push({ x: x, y: y });
+                });
+
+                let desiredX = path[path.length - 2].x;
+                let desiredY = path[path.length - 2].y;
+
+                let xDiff = Math.sqrt((entity.x - player.x) ** 2);
+                let yDiff = Math.sqrt((entity.y - player.y) ** 2);
+
+                if (xDiff > yDiff) {
+                  if (!this.isWall(desiredX, entity.y)) {
+                    console.log("move x 1");
+                    entity.x = desiredX;
+                  } else if (!this.isWall(entity.x, desiredY)) {
+                    console.log("move y 1");
+                    entity.y = desiredY;
+                  }
+                } else {
+                  if (!this.isWall(entity.x, desiredY)) {
+                    console.log("move y 2");
+                    entity.y = desiredY;
+                  } else if (!this.isWall(desiredX, entity.y)) {
+                    console.log("move x 2");
+                    entity.x = desiredX;
+                  }
+                }
+              }
+            }
             entity.draw(context);
           }
         });
-
+        //this is called twice maybe not needed
         player.draw(context);
       }
     );
