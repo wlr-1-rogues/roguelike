@@ -1,6 +1,7 @@
 import Entity from "./Entity";
 
 class Player extends Entity {
+  equipped = {}
   inventory = [];
 
   attributes = {
@@ -17,6 +18,11 @@ class Player extends Entity {
 
   add(item) {
     this.inventory.push(item);
+  }
+
+  equip(item) {
+    this.equipped = this.inventory[item]
+    console.log(this.equipped)
   }
 
   copyPlayer() {
