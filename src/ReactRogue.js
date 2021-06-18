@@ -78,8 +78,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           <ul>
             <li>
               {
-                world.player.inventory[world.player.inspecting[0]].attributes
-                  .name
+                world.player.inspecting[0][1].attributes.name
               }
             </li>
           </ul>

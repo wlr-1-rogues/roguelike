@@ -1,10 +1,11 @@
 import Entity from "./Entity";
 
 class Player extends Entity {
-  gold = 0;
   inventory = [];
   inspecting = [];
   hands = [];
+  head = [];
+  torso = [];
 
   attributes = {
     name: "Player",
@@ -25,11 +26,12 @@ class Player extends Entity {
   }
 
   add(item) {
-    if (item.attributes.class === "gold")
-      return (this.gold += item.attributes.mod1);
-    this.inventory.length + this.hands.length === 6
-      ? console.log("inventory full!")
-      : this.inventory.push(item);
+    if(this.inventory.length === 5) {
+      return "inventory full!"
+    } else {
+      this.inventory.push(item);
+      return `picked up ${item.attributes.name}`
+    }
   }
 
   inspect(item) {
@@ -38,27 +40,22 @@ class Player extends Entity {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
-        this.inspecting.push(item);
+        this.inspecting.push([item, this.inventory[item]]);
       } else {
-        this.inspecting.push(item);
+        this.inspecting.push([item, this.inventory[item]]);
       }
     } else {
-      console.log("add an item to your inventory first!");
+      return "add an item to your inventory first!"
     }
+    console.log(this.inspecting)
   }
 
-  equip(item, world) {
+  equip(item) {
     console.log(this.inventory[this.inspecting[item]]);
     if (this.inspecting.length === 1) {
       const { attributes } = this.inventory[this.inspecting[item]];
         // 1h weapons
       if (attributes.class === "1h" && this.hands.length < 2) {
-        this.attributes.attack += attributes.mod1;
-        this.attributes.damage += attributes.mod2;
-        this.hands.push(this.inventory.splice(this.inspecting[item], 1));
-        this.inspecting.splice(0, 1);
-        // 2h weapons
-      } else if (attributes.class === "2h" && this.hands.length === 0) {
         this.attributes.attack += attributes.mod1;
         this.attributes.damage += attributes.mod2;
         this.hands.push(this.inventory.splice(this.inspecting[item], 1));
@@ -93,7 +90,9 @@ class Player extends Entity {
   }
 
   drop(item) {
-    this.inventory.splice(item, 1);
+    console.log(`the ${this.inventory[this.inspecting[item]].attributes.name} crumbles into dust...`)
+    this.inspecting.splice(item, 1)
+    this.inventory.splice(this.inspecting[item], 1);
   }
 
   copyPlayer() {

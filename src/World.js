@@ -88,22 +88,22 @@ class World {
 
   inspectItem(itemIndex) {
     let tempPlayer = this.player.copyPlayer();
-    tempPlayer.inspect(itemIndex);
+    this.addToHistory(tempPlayer.inspect(itemIndex))
   }
 
   equipItem(itemIndex) {
     let tempPlayer = this.player.copyPlayer();
-    tempPlayer.equip(itemIndex);
+    this.addToHistory(tempPlayer.equip(itemIndex));
   }
 
   unequipItem(itemIndex) {
     let tempPlayer = this.player.copyPlayer();
-    tempPlayer.unequip(itemIndex);
+    this.addToHistory(tempPlayer.unequip(itemIndex));
   }
 
   dropItem(itemIndex) {
     let tempPlayer = this.player.copyPlayer();
-    tempPlayer.drop(itemIndex);
+    this.addToHistory(tempPlayer.drop(itemIndex));
   }
 
   movePlayer(dx, dy) {

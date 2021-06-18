@@ -43,14 +43,11 @@ class InputManager {
       case 53:
         this.broadcast("inspect", 4)
         break;
-      case 54:
-        this.broadcast("inspect", 5)
-        break;
-      case 55:
-        this.broadcast("inspect", 6)
-        break;
       case 69:
         this.broadcast("equip", 0)
+        break;
+      case 82:
+        this.broadcast("drop", 0)
         break;
       default:
         break;
