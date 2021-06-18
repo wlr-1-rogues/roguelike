@@ -4,10 +4,12 @@ import Player from "./Player";
 import Spawner from "./Spawner";
 import World from "./World";
 
-const ReactRogue = ({ width, height, tilesize }) => {
+const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
-  //const [player, setPlayer] = useState(new Player(1, 2, tilesize));
-  const [world, setWorld] = useState(new World(width, height, tilesize));
+  const [world, setWorld] = useState(
+    new World(width, height, tilesize, atlases)
+  );
+
   let inputManager = new InputManager();
   const handleInput = (action, data) => {
     let newWorld = new World();

@@ -5,7 +5,7 @@ import Player from "./Player";
 import terrain from "./assets/uf_terrain.png";
 
 class World {
-  constructor(width, height, tilesize) {
+  constructor(width, height, tilesize, atlases) {
     this.width = width;
     this.height = height;
     this.tilesize = tilesize;
@@ -18,6 +18,8 @@ class World {
     }
 
     this.fov = new FOV.RecursiveShadowcasting(this.lightPasses.bind(this));
+
+    this.atlases = atlases;
   }
 
   lightPasses(x, y) {
@@ -232,55 +234,33 @@ class World {
   }
 
   drawWall(context, x, y) {
-    // context.fillStyle = "#937c5d";
-    // context.fillRect(
+    //todo wire terrainAtlas
+    // context.drawImage(
+    //   null,
+    //   240,
+    //   768,
+    //   48,
+    //   48,
     //   x * this.tilesize,
     //   y * this.tilesize,
     //   this.tilesize,
     //   this.tilesize
     // );
-
-    const terrainAtlas = new Image();
-    terrainAtlas.src = terrain;
-    terrainAtlas.onload = () => {
-      context.drawImage(
-        terrainAtlas,
-        240,
-        768,
-        48,
-        48,
-        x * this.tilesize,
-        y * this.tilesize,
-        this.tilesize,
-        this.tilesize
-      );
-    };
   }
 
   drawGround(context, x, y) {
-    //   context.fillStyle = "#e6d9b1";
-    //   context.fillRect(
-    //     x * this.tilesize,
-    //     y * this.tilesize,
-    //     this.tilesize,
-    //     this.tilesize
-    //   );
-
-    const terrainAtlas = new Image();
-    terrainAtlas.src = terrain;
-    terrainAtlas.onload = () => {
-      context.drawImage(
-        terrainAtlas,
-        288,
-        384,
-        48,
-        48,
-        x * this.tilesize,
-        y * this.tilesize,
-        this.tilesize,
-        this.tilesize
-      );
-    };
+    //todo wire terrain atlas
+    // context.drawImage(
+    //   null,
+    //   288,
+    //   384,
+    //   48,
+    //   48,
+    //   x * this.tilesize,
+    //   y * this.tilesize,
+    //   this.tilesize,
+    //   this.tilesize
+    // );
   }
 
   drawShadow(context, x, y) {
