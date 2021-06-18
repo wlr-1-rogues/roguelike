@@ -3,11 +3,11 @@ import Spawner from "./Spawner.js";
 
 class Stairs extends Entity {
   attributes = {
-    name: "Ladder",
-    color: "black",
-    ascii: "🪜",
-    offset: { x: 0, y: 0 },
-    type: "stairs",
+    spriteSheet: "terrainAtlas",
+    spriteSheetCoordinates: {
+      x: 432,
+      y: 96,
+    },
   };
 
   action(verb, world) {
