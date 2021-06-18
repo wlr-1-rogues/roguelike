@@ -58,6 +58,9 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     ctx.clearRect(0, 0, width * tilesize, height * tilesize);
     world.draw(ctx);
   });
+  console.log(world.player.inspecting)
+  console.log(world.player.left)
+  console.log(world.player.inventory)
   return (
     <div style={{display:'flex'}}>
       <canvas
@@ -71,22 +74,22 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       <div>equipped</div>
       <ul>
         {world.player.left.map((item, index) => (
-          <li key={index}>{item[0].attributes.name}</li>
+          <li key={index}>{item.attributes.name}</li>
         ))}
       </ul>
       <ul>
         {world.player.right.map((item, index) => (
-          <li key={index}>{item[0].attributes.name}</li>
+          <li key={index}>{item.attributes.name}</li>
         ))}
       </ul>
       <ul>
         {world.player.head.map((item, index) => (
-          <li key={index}>{item[0].attributes.name}</li>
+          <li key={index}>{item.attributes.name}</li>
         ))}
       </ul>
       <ul>
         {world.player.torso.map((item, index) => (
-          <li key={index}>{item[0].attributes.name}</li>
+          <li key={index}>{item.attributes.name}</li>
         ))}
       </ul>
       <div>inspect</div>

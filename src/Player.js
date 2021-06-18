@@ -95,8 +95,8 @@ class Player extends Entity {
     }
   }
 
-  unequip(index) {
-    if (typeof this.inspecting[0]?.index === 'string') {
+  equip(index) {
+    if (this.inspecting.length === 1) {
       const { attributes } = this.inspecting[index].item;
       const health = `you use the ${attributes.name} and gain ${attributes.mod1} health points`
       const equip = `you equip the ${attributes.name}`
@@ -105,7 +105,8 @@ class Player extends Entity {
         this.attributes.attack += attributes.mod1;
         this.attributes.damage += attributes.mod2;
         if(attributes.mod3) this.attributes.sightRadius += attributes.mod3;
-        this.left.push(this.inventory.splice(this.inspecting[index].index, 1));
+        this.left.push(this.inventory[this.inspecting[index].index]);
+        this.inventory.splice(this.inspecting[index].index, 1)
         this.inspecting.splice(0, 1);
         return equip
       } else if (attributes.class === "weapon" && this.left.length === 1) {
@@ -161,69 +162,60 @@ class Player extends Entity {
     }
   }
 
-  equip(index) {
-    if (this.inspecting.length === 1) {
+  unequip(index) {
+    console.log(this.inspecting)
+    console.log(this.left)
+    console.log(this.inventory)
+    if (typeof this.inspecting[0]?.index === 'string') {
       const { attributes } = this.inspecting[index].item;
-      const health = `you use the ${attributes.name} and gain ${attributes.mod1} health points`
-      const equip = `you equip the ${attributes.name}`
+      const unequip = `you unequip the ${attributes.name}`
         // WEAPONS
-      if (attributes.class === "weapon" && this.left.length === 0) {
-        this.attributes.attack += attributes.mod1;
-        this.attributes.damage += attributes.mod2;
-        if(attributes.mod3) this.attributes.sightRadius += attributes.mod3;
-        this.left.push(this.inventory.splice(this.inspecting[index].index, 1));
+      if (this.inspecting[index] === "left" && this.inventory.length < 5) {
+        this.attributes.attack -= attributes.mod1;
+        this.attributes.damage -= attributes.mod2;
+        if(attributes.mod3) this.attributes.sightRadius -= attributes.mod3;
+        this.inventory.push(this.left[0].item);
         this.inspecting.splice(0, 1);
-        return equip
-      } else if (attributes.class === "weapon" && this.left.length === 1) {
-        this.attributes.attack += attributes.mod1;
-        this.attributes.damage += attributes.mod2;
-        if(attributes.mod3) this.attributes.sightRadius += attributes.mod3;
-        this.right.push(this.inventory.splice(this.inspecting[index].index, 1));
+        return unequip
+      } else if (this.inspecting[index] === "right" && this.inventory.length < 5) {
+        this.attributes.attack -= attributes.mod1;
+        this.attributes.damage -= attributes.mod2;
+        if(attributes.mod3) this.attributes.sightRadius -= attributes.mod3;
+        this.inventory.push(this.right.splice(this.inspecting[index].index, 1));
         this.inspecting.splice(0, 1);
-        return equip
+        return unequip
         // SHIELDS
-      } else if (attributes.class === "shield" && this.left.length === 0) {
-        this.attributes.defense += attributes.mod1;
-        this.attributes.armor += attributes.mod2;
-        this.left.push(this.inventory.splice(this.inspecting[index].index, 1));
+      } else if (this.inspecting[index] === "left" && this.inventory.length < 5) {
+        this.attributes.defense -= attributes.mod1;
+        this.attributes.armor -= attributes.mod2;
+        this.inventory.push(this.left.splice(this.inspecting[index].index, 1));
         this.inspecting.splice(0, 1);
-        return equip
-      } else if (attributes.class === "shield" && this.left.length === 1) {
-        this.attributes.defense += attributes.mod1;
-        this.attributes.armor += attributes.mod2;
-        this.right.push(this.inventory.splice(this.inspecting[index].index, 1));
+        return unequip
+      } else if (this.inspecting[index] === "right" && this.inventory.length < 5) {
+        this.attributes.defense -= attributes.mod1;
+        this.attributes.armor -= attributes.mod2;
+        this.inventory.push(this.right.splice(this.inspecting[index].index, 1));
         this.inspecting.splice(0, 1);
-        return equip
+        return unequip
         // HEAD
-      } else if (attributes.class === "head" && this.head.length === 0) {
-        this.attributes.defense += attributes.mod1;
-        this.attributes.armor += attributes.mod2;
-        this.head.push(this.inventory.splice(this.inspecting[index].index, 1));
+      } else if (this.inspecting[index] === "head" && this.inventory.length < 5) {
+        this.attributes.defense -= attributes.mod1;
+        this.attributes.armor -= attributes.mod2;
+        this.inventory.push(this.head.splice(this.inspecting[index].index, 1));
         this.inspecting.splice(0, 1);
-        return equip
+        return unequip
         // TORSO
-      } else if (attributes.class === "torso" && this.torso.length === 0) {
-        this.attributes.defense += attributes.mod1;
-        this.attributes.armor += attributes.mod2;
-        this.torso.push(this.inventory.splice(this.inspecting[index].index, 1));
+      } else if (this.inspecting[index] === "torso" && this.inventory.length < 5) {
+        this.attributes.defense -= attributes.mod1;
+        this.attributes.armor -= attributes.mod2;
+        this.inventory.push(this.torso.splice(this.inspecting[index].index, 1));
         this.inspecting.splice(0, 1);
-        return equip
-        // CONSUMABLES
-      } else if (attributes.class === "healthCon") {
-        this.attributes.health += attributes.mod1;
-        this.inventory.splice(this.inspecting[index].index, 1);
-        this.inspecting.splice(0, 1);
-        return health
-      } else if (attributes.class === "shieldCon") {
-        this.attributes.armor += attributes.mod1;
-        this.inventory.splice(this.inspecting[index].index, 1);
-        this.inspecting.splice(0, 1);
-        return health
+        return unequip
       } else {
-        return "you cannot equip this item!";
+        return "drop an item before unequipping";
       }
     } else {
-      return "inspect an item in your inventory to equip!";
+      return "inspect an equipped item to unequip!";
     }
   }
 
