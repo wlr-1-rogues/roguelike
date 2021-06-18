@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import MonsterDisplay from './MonsterDisplay'
 import InputManager from "./InputManager";
 import Player from "./Player";
 import Spawner from "./Spawner";
