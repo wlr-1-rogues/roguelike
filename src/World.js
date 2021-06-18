@@ -234,34 +234,51 @@ class World {
           entity.draw(context, entity, this.atlases);
         }
       }
-      );
+    );
 
-      // USE THIS TO DEBUG WHEN WORKING WITH FOG OF WAR
-      
-      // this.entities.forEach(entity => {
-      //   entity.draw(context, entity, this.atlases);
-      // })
+    // USE THIS TO DEBUG WHEN WORKING WITH FOG OF WAR
+
+    // this.entities.forEach(entity => {
+    //   entity.draw(context, entity, this.atlases);
+    // })
   }
 
   drawWall(context, x, y) {
-    context.drawImage(
-      this.atlases.terrainAtlas,
-      240,
-      768,
-      48,
-      48,
-      x * this.tilesize,
-      y * this.tilesize,
-      this.tilesize,
-      this.tilesize
-    );
+    if (this.worldmap[x][y + 1] === 0) {
+      context.drawImage(
+        this.atlases.terrainAtlas,
+        248,
+        1392,
+        48,
+        48,
+        x * this.tilesize,
+        y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    } else {
+      context.drawImage(
+        this.atlases.terrainAtlas,
+        248,
+        1344,
+        48,
+        48,
+        x * this.tilesize,
+        y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    }
   }
 
   drawGround(context, x, y) {
+    //stone ground
+    // 480,
+    // 288,
     context.drawImage(
       this.atlases.terrainAtlas,
-      288,
-      384,
+      48,
+      336,
       48,
       48,
       x * this.tilesize,
