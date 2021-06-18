@@ -57,7 +57,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     world.draw(ctx);
   });
   return (
-    <>
+    <div style={{display:'flex'}}>
       <canvas
         ref={canvasRef}
         width={width * tilesize}
@@ -96,7 +96,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           <li key={index}>{item}</li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 
