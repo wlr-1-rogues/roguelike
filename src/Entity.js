@@ -11,56 +11,55 @@ class Entity {
     console.log(`Verb: ${verb}`);
   }
 
-  draw(context, entity) {
-    //todo get accsss to each atlas globally
+  draw(context, entity, atlases) {
     if (entity.attributes.type === "player") {
-      // context.drawImage(
-      //   null,
-      //   48,
-      //   48,
-      //   48,
-      //   48,
-      //   this.x * this.tilesize,
-      //   this.y * this.tilesize,
-      //   this.tilesize,
-      //   this.tilesize
-      // );
+      context.drawImage(
+        atlases.heroAtlas,
+        48,
+        48,
+        48,
+        48,
+        this.x * this.tilesize,
+        this.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
     } else if (entity.attributes.type === "monster") {
-      // context.drawImage(
-      //   null,
-      //   240,
-      //   144,
-      //   48,
-      //   48,
-      //   this.x * this.tilesize,
-      //   this.y * this.tilesize,
-      //   this.tilesize,
-      //   this.tilesize
-      // );
+      context.drawImage(
+        atlases.heroAtlas,
+        240,
+        144,
+        48,
+        48,
+        this.x * this.tilesize,
+        this.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
     } else if (entity.attributes.type === "loot") {
-      // context.drawImage(
-      //   null,
-      //   336,
-      //   48,
-      //   48,
-      //   48,
-      //   this.x * this.tilesize,
-      //   this.y * this.tilesize,
-      //   this.tilesize,
-      //   this.tilesize
-      // );
+      context.drawImage(
+        atlases.itemAtlas,
+        336,
+        48,
+        48,
+        48,
+        this.x * this.tilesize,
+        this.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
     } else if (entity.attributes.type === "stairs") {
-      // context.drawImage(
-      //   null,
-      //   432,
-      //   96,
-      //   48,
-      //   48,
-      //   this.x * this.tilesize,
-      //   this.y * this.tilesize,
-      //   this.tilesize,
-      //   this.tilesize
-      // );
+      context.drawImage(
+        atlases.terrain,
+        432,
+        96,
+        48,
+        48,
+        this.x * this.tilesize,
+        this.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
     }
   }
 }

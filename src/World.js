@@ -2,7 +2,6 @@ import { Map, FOV, Path } from "rot-js";
 import Entity from "./Entity";
 import Monster from "./Monster";
 import Player from "./Player";
-import terrain from "./assets/uf_terrain.png";
 
 class World {
   constructor(width, height, tilesize, atlases) {
@@ -227,40 +226,38 @@ class World {
         let entity = this.getEntityAtLocation(x, y);
 
         if (entity) {
-          entity.draw(context, entity);
+          entity.draw(context, entity, this.atlases);
         }
       }
     );
   }
 
   drawWall(context, x, y) {
-    //todo wire terrainAtlas
-    // context.drawImage(
-    //   null,
-    //   240,
-    //   768,
-    //   48,
-    //   48,
-    //   x * this.tilesize,
-    //   y * this.tilesize,
-    //   this.tilesize,
-    //   this.tilesize
-    // );
+    context.drawImage(
+      this.atlases.terrainAtlas,
+      240,
+      768,
+      48,
+      48,
+      x * this.tilesize,
+      y * this.tilesize,
+      this.tilesize,
+      this.tilesize
+    );
   }
 
   drawGround(context, x, y) {
-    //todo wire terrain atlas
-    // context.drawImage(
-    //   null,
-    //   288,
-    //   384,
-    //   48,
-    //   48,
-    //   x * this.tilesize,
-    //   y * this.tilesize,
-    //   this.tilesize,
-    //   this.tilesize
-    // );
+    context.drawImage(
+      this.atlases.terrainAtlas,
+      288,
+      384,
+      48,
+      48,
+      x * this.tilesize,
+      y * this.tilesize,
+      this.tilesize,
+      this.tilesize
+    );
   }
 
   drawShadow(context, x, y) {

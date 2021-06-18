@@ -37,7 +37,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
     spawner.spawnLoot(10);
-    spawner.spawnMonsters(15);
+    spawner.spawnMonsters(0);
     spawner.spawnStairs();
     setWorld(newWorld);
   }, []);
@@ -97,7 +97,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           <li key={index}>{item}</li>
         ))}
       </ul>
-      <img src={atlases.terrainAtlas.currentSrc}></img>
     </>
   );
 };
