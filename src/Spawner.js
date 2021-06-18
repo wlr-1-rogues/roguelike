@@ -193,7 +193,7 @@ const lootTable = [
   },
   {
     name: "Torch",
-    class: "torch",
+    class: "weapon",
     mod1: 2,
     mod2: 1,
     mod3: 3,

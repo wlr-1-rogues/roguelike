@@ -39,7 +39,6 @@ class Player extends Entity {
   }
 
   inspect(index) {
-
     if (this.inventory[index]) {
       if (this.inspecting[0]?.index === index) {
         this.inspecting.splice(0, 1);
@@ -56,43 +55,48 @@ class Player extends Entity {
 
   inspectE(item) {
     if (item === 'left') {
-      if (this.inspecting[0]?.index === 0) {
+      if (this.inspecting[0]?.index === 'left') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
-        this.inspecting.push({index: 0, item: this.left[0]});
+        this.inspecting.push({index: item, item: this.left[0][0]});
       } else {
-        this.inspecting.push({index: 0, item: this.left[0]});
+        this.inspecting.push({index: item, item: this.left[0][0]});
       }
     } else if (item === 'right') {
-      if (this.inspecting[0]?.index === 0) {
+      if (this.inspecting[0]?.index === 'right') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
-        this.inspecting.push({index: 0, item: this.right[0]});
+        this.inspecting.push({index: item, item: this.right[0][0]});
       } else {
-        this.inspecting.push({index: 0, item: this.right[0]});
+        this.inspecting.push({index: item, item: this.right[0][0]});
       }
     } else if (item === 'head') {
-      if (this.inspecting[0]?.index === 0) {
+      if (this.inspecting[0]?.index === 'head') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
-        this.inspecting.push({index: 0, item: this.head[0]});
+        this.inspecting.push({index: item, item: this.head[0][0]});
       } else {
-        this.inspecting.push({index: 0, item: this.head[0]});
+        this.inspecting.push({index: item, item: this.head[0][0]});
       }
     } else if (item === 'torso') {
-      if (this.inspecting[0]?.index === 0) {
+      if (this.inspecting[0]?.index === 'torso') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
-        this.inspecting.push({index: 0, item: this.torso[0]});
+        this.inspecting.push({index: item, item: this.torso[0][0]});
       } else {
-        this.inspecting.push({index: 0, item: this.torso[0]});
+        this.inspecting.push({index: item, item: this.torso[0][0]});
       }
     } else {
       return "equip an item to inspect this slot!"
+    }
+  }
+
+  unequip(item) {
+    if (this.inspecting[0]) {;
     }
   }
 
@@ -105,34 +109,28 @@ class Player extends Entity {
       if (attributes.class === "weapon" && this.left.length === 0) {
         this.attributes.attack += attributes.mod1;
         this.attributes.damage += attributes.mod2;
+        if(attributes.mod3) this.attributes.sightRadius += attributes.mod3;
         this.left.push(this.inventory.splice(this.inspecting[index].index, 1));
         this.inspecting.splice(0, 1);
         return equip
       } else if (attributes.class === "weapon" && this.left.length === 1) {
         this.attributes.attack += attributes.mod1;
         this.attributes.damage += attributes.mod2;
-        this.right.push(this.inventory.splice(this.inspecting[index].index, 1));
-        this.inspecting.splice(0, 1);
-        return equip
-      } else if (attributes.class === "torch" && this.left.length === 0) {
-        this.attributes.attack += attributes.mod1;
-        this.attributes.damage += attributes.mod2;
-        this.attributes.sightRadius += attributes.mod3;
-        this.left.push(this.inventory.splice(this.inspecting[index].index, 1));
-        this.inspecting.splice(0, 1);
-        return equip
-      } else if (attributes.class === "torch" && this.left.length === 1) {
-        this.attributes.attack += attributes.mod1;
-        this.attributes.damage += attributes.mod2;
-        this.attributes.sightRadius += attributes.mod3;
+        if(attributes.mod3) this.attributes.sightRadius += attributes.mod3;
         this.right.push(this.inventory.splice(this.inspecting[index].index, 1));
         this.inspecting.splice(0, 1);
         return equip
         // SHIELDS
-      } else if (attributes.class === "shield" && this.hands.length < 2) {
+      } else if (attributes.class === "shield" && this.left.length === 0) {
         this.attributes.defense += attributes.mod1;
         this.attributes.armor += attributes.mod2;
-        this.hands.push(this.inventory.splice(this.inspecting[index].index, 1));
+        this.left.push(this.inventory.splice(this.inspecting[index].index, 1));
+        this.inspecting.splice(0, 1);
+        return equip
+      } else if (attributes.class === "shield" && this.left.length === 1) {
+        this.attributes.defense += attributes.mod1;
+        this.attributes.armor += attributes.mod2;
+        this.right.push(this.inventory.splice(this.inspecting[index].index, 1));
         this.inspecting.splice(0, 1);
         return equip
         // HEAD
@@ -165,12 +163,6 @@ class Player extends Entity {
       }
     } else {
       return "inspect an item in your inventory to equip!";
-    }
-  }
-
-  unequip(item) {
-    if (this.hands[item]) {
-      this.inventory.push(this.hands.splice(item, 1));
     }
   }
 

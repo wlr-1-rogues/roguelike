@@ -58,6 +58,9 @@ class InputManager {
       case 69:
         this.broadcast("equip", 0)
         break;
+      case 81:
+        this.broadcast("unequip", 0)
+        break;
       case 82:
         this.broadcast("drop", 0)
         break;
