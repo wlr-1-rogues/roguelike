@@ -50,7 +50,7 @@ class Entity {
       );
     } else if (entity.attributes.type === "stairs") {
       context.drawImage(
-        atlases.terrain,
+        atlases.terrainAtlas,
         432,
         96,
         48,
