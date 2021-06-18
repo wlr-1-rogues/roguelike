@@ -34,7 +34,7 @@ class Player extends Entity {
 
   inspect(item) {
     if (this.inventory[item]) {
-      if (this.inventory[0] === item) {
+      if (this.inspecting[0] === item) {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
@@ -47,26 +47,24 @@ class Player extends Entity {
     }
   }
 
-  equip(item) {
+  equip(item, world) {
     console.log(this.inventory[this.inspecting[item]]);
     if (this.inspecting.length === 1) {
       const { attributes } = this.inventory[this.inspecting[item]];
-      // 1h weapons
+        // 1h weapons
       if (attributes.class === "1h" && this.hands.length < 2) {
         this.attributes.attack += attributes.mod1;
         this.attributes.damage += attributes.mod2;
         this.hands.push(this.inventory.splice(this.inspecting[item], 1));
         this.inspecting.splice(0, 1);
-        console.log(this.hands);
         // 2h weapons
       } else if (attributes.class === "2h" && this.hands.length === 0) {
         this.attributes.attack += attributes.mod1;
         this.attributes.damage += attributes.mod2;
         this.hands.push(this.inventory.splice(this.inspecting[item], 1));
         this.inspecting.splice(0, 1);
-        console.log(this.hands);
         // shields
-      } else if (attributes.class === "shield" && this.hands.length === 0) {
+      } else if (attributes.class === "shield" && this.hands.length < 2) {
         this.attributes.defense += attributes.mod1;
         this.attributes.armor += attributes.mod2;
         this.hands.push(this.inventory.splice(this.inspecting[item], 1));
@@ -85,6 +83,7 @@ class Player extends Entity {
     } else {
       console.log("inspect an item in your inventory to equip!");
     }
+    console.log(this.attributes)
   }
 
   unequip(item) {

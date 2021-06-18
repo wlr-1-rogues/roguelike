@@ -36,7 +36,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(10);
+    spawner.spawnLoot(25);
     spawner.spawnMonsters(0);
     spawner.spawnStairs();
     setWorld(newWorld);
@@ -72,9 +72,9 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           <li key={index}>{item[0].attributes.name}</li>
         ))}
       </ul>
+      <div>inspect</div>
       {world.player.inspecting.length === 1 && (
         <>
-          <div>readied</div>
           <ul>
             <li>
               {
