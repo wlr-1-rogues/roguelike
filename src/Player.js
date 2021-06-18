@@ -95,8 +95,69 @@ class Player extends Entity {
     }
   }
 
-  unequip(item) {
-    if (this.inspecting[0]) {;
+  unequip(index) {
+    if (typeof this.inspecting[0]?.index === 'string') {
+      const { attributes } = this.inspecting[index].item;
+      const health = `you use the ${attributes.name} and gain ${attributes.mod1} health points`
+      const equip = `you equip the ${attributes.name}`
+        // WEAPONS
+      if (attributes.class === "weapon" && this.left.length === 0) {
+        this.attributes.attack += attributes.mod1;
+        this.attributes.damage += attributes.mod2;
+        if(attributes.mod3) this.attributes.sightRadius += attributes.mod3;
+        this.left.push(this.inventory.splice(this.inspecting[index].index, 1));
+        this.inspecting.splice(0, 1);
+        return equip
+      } else if (attributes.class === "weapon" && this.left.length === 1) {
+        this.attributes.attack += attributes.mod1;
+        this.attributes.damage += attributes.mod2;
+        if(attributes.mod3) this.attributes.sightRadius += attributes.mod3;
+        this.right.push(this.inventory.splice(this.inspecting[index].index, 1));
+        this.inspecting.splice(0, 1);
+        return equip
+        // SHIELDS
+      } else if (attributes.class === "shield" && this.left.length === 0) {
+        this.attributes.defense += attributes.mod1;
+        this.attributes.armor += attributes.mod2;
+        this.left.push(this.inventory.splice(this.inspecting[index].index, 1));
+        this.inspecting.splice(0, 1);
+        return equip
+      } else if (attributes.class === "shield" && this.left.length === 1) {
+        this.attributes.defense += attributes.mod1;
+        this.attributes.armor += attributes.mod2;
+        this.right.push(this.inventory.splice(this.inspecting[index].index, 1));
+        this.inspecting.splice(0, 1);
+        return equip
+        // HEAD
+      } else if (attributes.class === "head" && this.head.length === 0) {
+        this.attributes.defense += attributes.mod1;
+        this.attributes.armor += attributes.mod2;
+        this.head.push(this.inventory.splice(this.inspecting[index].index, 1));
+        this.inspecting.splice(0, 1);
+        return equip
+        // TORSO
+      } else if (attributes.class === "torso" && this.torso.length === 0) {
+        this.attributes.defense += attributes.mod1;
+        this.attributes.armor += attributes.mod2;
+        this.torso.push(this.inventory.splice(this.inspecting[index].index, 1));
+        this.inspecting.splice(0, 1);
+        return equip
+        // CONSUMABLES
+      } else if (attributes.class === "healthCon") {
+        this.attributes.health += attributes.mod1;
+        this.inventory.splice(this.inspecting[index].index, 1);
+        this.inspecting.splice(0, 1);
+        return health
+      } else if (attributes.class === "shieldCon") {
+        this.attributes.armor += attributes.mod1;
+        this.inventory.splice(this.inspecting[index].index, 1);
+        this.inspecting.splice(0, 1);
+        return health
+      } else {
+        return "you cannot equip this item!";
+      }
+    } else {
+      return "inspect an item in your inventory to equip!";
     }
   }
 
