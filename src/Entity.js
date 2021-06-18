@@ -4,23 +4,63 @@ class Entity {
     this.y = y;
     this.size = size;
     this.attributes = { ...attributes };
+    this.tilesize = 24;
   }
 
   action(verb, world) {
     console.log(`Verb: ${verb}`);
   }
 
-  draw(context) {
-    context.fillStyle = this.attributes.color || "white";
-    context.textBaseline = "hanging";
-    context.font = "16px Helvetica";
-    context.fillText(
-      this.attributes.ascii,
-      this.x * this.size +
-        (this.attributes.offset ? this.attributes.offset.x : 0),
-      this.y * this.size +
-        (this.attributes.offset ? this.attributes.offset.y : 0)
-    );
+  draw(context, entity, atlases) {
+    if (entity.attributes.type === "player") {
+      context.drawImage(
+        atlases.heroAtlas,
+        48,
+        48,
+        48,
+        48,
+        this.x * this.tilesize,
+        this.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    } else if (entity.attributes.type === "monster") {
+      context.drawImage(
+        atlases.heroAtlas,
+        240,
+        144,
+        48,
+        48,
+        this.x * this.tilesize,
+        this.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    } else if (entity.attributes.type === "loot") {
+      context.drawImage(
+        atlases.itemAtlas,
+        336,
+        48,
+        48,
+        48,
+        this.x * this.tilesize,
+        this.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    } else if (entity.attributes.type === "stairs") {
+      context.drawImage(
+        atlases.terrain,
+        432,
+        96,
+        48,
+        48,
+        this.x * this.tilesize,
+        this.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    }
   }
 }
 

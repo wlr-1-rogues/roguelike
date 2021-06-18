@@ -1,7 +1,6 @@
 import Entity from "./Entity";
 
 class Player extends Entity {
-  
   gold = 0;
   inventory = [];
   inspecting = [];
@@ -15,6 +14,8 @@ class Player extends Entity {
     damage: 2,
     armor: 0,
     health: 10,
+    sightRadius: 10,
+    type: "player",
   };
 
   move(dx, dy) {
@@ -24,72 +25,76 @@ class Player extends Entity {
   }
 
   add(item) {
-    if(item.attributes.class === 'gold') return this.gold += item.attributes.mod1;
-    this.inventory.length + this.hands.length === 6? console.log('inventory full!')
-    : this.inventory.push(item)
+    if (item.attributes.class === "gold")
+      return (this.gold += item.attributes.mod1);
+    this.inventory.length + this.hands.length === 6
+      ? console.log("inventory full!")
+      : this.inventory.push(item);
   }
 
   inspect(item) {
-    if(this.inventory[item]){
-      if(this.inventory[0] === item) {
-        this.inspecting.splice(0, 1)
-      } else if(this.inspecting.length === 1) {
-        this.inspecting.splice(0, 1)
-        this.inspecting.push(item)
+    if (this.inventory[item]) {
+      if (this.inventory[0] === item) {
+        this.inspecting.splice(0, 1);
+      } else if (this.inspecting.length === 1) {
+        this.inspecting.splice(0, 1);
+        this.inspecting.push(item);
       } else {
-        this.inspecting.push(item)
+        this.inspecting.push(item);
       }
     } else {
-      console.log('add an item to your inventory first!')
+      console.log("add an item to your inventory first!");
     }
   }
 
   equip(item) {
-    console.log(this.inventory[this.inspecting[item]])
-    if(this.inspecting.length === 1) {
-      const {attributes} = this.inventory[this.inspecting[item]]
+    console.log(this.inventory[this.inspecting[item]]);
+    if (this.inspecting.length === 1) {
+      const { attributes } = this.inventory[this.inspecting[item]];
       // 1h weapons
-      if(attributes.class === "1h" && this.hands.length < 2) {
-        this.attributes.attack += attributes.mod1 
-        this.attributes.damage += attributes.mod2
-        this.hands.push(this.inventory.splice(this.inspecting[item], 1))
-        this.inspecting.splice(0, 1)
-        console.log(this.hands)
-      // 2h weapons
-      } else if(attributes.class === "2h" && this.hands.length === 0) {
-        this.attributes.attack += attributes.mod1 
-        this.attributes.damage += attributes.mod2
-        this.hands.push(this.inventory.splice(this.inspecting[item], 1))
-        this.inspecting.splice(0, 1)
-        console.log(this.hands)
-      // shields
-      } else if(attributes.class === "shield" && this.hands.length === 0) {
-        this.attributes.defense += attributes.mod1 
-        this.attributes.armor += attributes.mod2
-        this.hands.push(this.inventory.splice(this.inspecting[item], 1))
-        this.inspecting.splice(0, 1)
-      // consumables
-      } else if(attributes.class === "health") {
-        this.attributes.health += attributes.mod1
-        console.log(`you use the ${attributes.name} and gain ${attributes.mod1} health points`)
-        this.inventory.splice(this.inspecting[item], 1)
-        this.inspecting.splice(0, 1)
+      if (attributes.class === "1h" && this.hands.length < 2) {
+        this.attributes.attack += attributes.mod1;
+        this.attributes.damage += attributes.mod2;
+        this.hands.push(this.inventory.splice(this.inspecting[item], 1));
+        this.inspecting.splice(0, 1);
+        console.log(this.hands);
+        // 2h weapons
+      } else if (attributes.class === "2h" && this.hands.length === 0) {
+        this.attributes.attack += attributes.mod1;
+        this.attributes.damage += attributes.mod2;
+        this.hands.push(this.inventory.splice(this.inspecting[item], 1));
+        this.inspecting.splice(0, 1);
+        console.log(this.hands);
+        // shields
+      } else if (attributes.class === "shield" && this.hands.length === 0) {
+        this.attributes.defense += attributes.mod1;
+        this.attributes.armor += attributes.mod2;
+        this.hands.push(this.inventory.splice(this.inspecting[item], 1));
+        this.inspecting.splice(0, 1);
+        // consumables
+      } else if (attributes.class === "health") {
+        this.attributes.health += attributes.mod1;
+        console.log(
+          `you use the ${attributes.name} and gain ${attributes.mod1} health points`
+        );
+        this.inventory.splice(this.inspecting[item], 1);
+        this.inspecting.splice(0, 1);
       } else {
-        console.log('you cannot equip this item!', attributes.class)
+        console.log("you cannot equip this item!", attributes.class);
       }
     } else {
-      console.log('inspect an item in your inventory to equip!')
+      console.log("inspect an item in your inventory to equip!");
     }
   }
 
   unequip(item) {
-    if(this.hands[item]) {
-      this.inventory.push(this.hands.splice(item, 1))
+    if (this.hands[item]) {
+      this.inventory.push(this.hands.splice(item, 1));
     }
   }
 
   drop(item) {
-    this.inventory.splice(item, 1)
+    this.inventory.splice(item, 1);
   }
 
   copyPlayer() {

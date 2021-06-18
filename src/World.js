@@ -1,18 +1,53 @@
-import { Map } from "rot-js";
+import { Map, FOV, Path } from "rot-js";
+import Entity from "./Entity";
+import Monster from "./Monster";
 import Player from "./Player";
 
 class World {
-  constructor(width, height, tilesize) {
+  constructor(width, height, tilesize, atlases) {
     this.width = width;
     this.height = height;
     this.tilesize = tilesize;
-    this.entities = [new Player(0, 0, 16)];
+    this.entities = [new Player(0, 0, 24)];
     this.history = ["You enter the dungeon", "---"];
 
     this.worldmap = new Array(this.width);
     for (let x = 0; x < this.width; x++) {
       this.worldmap[x] = new Array(this.height);
     }
+
+    this.fov = new FOV.RecursiveShadowcasting(this.lightPasses.bind(this));
+
+    this.atlases = atlases;
+  }
+
+  lightPasses(x, y) {
+    if (this.worldmap[x][y] === 0) {
+      return true;
+    }
+    return false;
+  }
+
+  isPassable(x, y) {
+    if (this.worldmap[x][y] === 0) {
+      return true;
+    }
+    return false;
+  }
+
+  createCellularMap() {
+    let map = new Map.Cellular(this.width, this.height, { connected: true });
+    map.randomize(0.5);
+    let userCallback = (x, y, value) => {
+      if (x === 0 || y === 0 || x === this.width - 1 || y === this.height - 1) {
+        this.worldmap[x][y] = 1; //creates walls on edges
+        return;
+      }
+      this.worldmap[x][y] = value === 0 ? 1 : 0;
+    };
+
+    map.create(userCallback);
+    map.connect(userCallback, 1);
   }
 
   add(entity) {
@@ -51,77 +86,181 @@ class World {
     return this.entities.find((entity) => entity.x === x && entity.y === y);
   }
 
+  inspectItem(itemIndex) {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.inspect(itemIndex);
+  }
+
+  equipItem(itemIndex) {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.equip(itemIndex);
+  }
+
+  unequipItem(itemIndex) {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.unequip(itemIndex);
+  }
+
+  dropItem(itemIndex) {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.drop(itemIndex);
+  }
+
   movePlayer(dx, dy) {
     let tempPlayer = this.player.copyPlayer();
     tempPlayer.move(dx, dy);
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
     if (entity) {
-      console.log("an entity", entity);
       entity.action("bump", this);
       return;
     }
     if (this.isWall(tempPlayer.x, tempPlayer.y)) {
-      console.log("it's a wall :(");
     } else {
       this.player.move(dx, dy);
     }
   }
 
-  inspectItem(itemIndex) {
-    let tempPlayer = this.player.copyPlayer();
-    tempPlayer.inspect(itemIndex)
-  }
+  moveMonsters() {
+    const player = this.entities[0];
 
-  equipItem(itemIndex) {
-    let tempPlayer = this.player.copyPlayer();
-    tempPlayer.equip(itemIndex)
-  }
+    let movingMonsters = new Set();
 
-  unequipItem(itemIndex) {
-    let tempPlayer = this.player.copyPlayer();
-    tempPlayer.unequip(itemIndex)
-  }
+    this.fov.compute(
+      player.x,
+      player.y,
+      player.attributes.sightRadius,
+      (x, y) => {
+        let entity = this.getEntityAtLocation(x, y);
 
-  dropItem(itemIndex) {
-    let tempPlayer = this.player.copyPlayer();
-    tempPlayer.drop(itemIndex)
-  }
-
-  createCellularMap() {
-    let map = new Map.Cellular(this.width, this.height, { connected: true });
-    map.randomize(0.5);
-    let userCallback = (x, y, value) => {
-      if (x === 0 || y === 0 || x === this.width - 1 || y === this.height - 1) {
-        this.worldmap[x][y] = 1; //creates walls on edges
-        return;
+        if (entity instanceof Monster) {
+          movingMonsters.add(entity);
+        }
       }
-      this.worldmap[x][y] = value === 0 ? 1 : 0;
-    };
+    );
 
-    map.create(userCallback);
-    map.connect(userCallback, 1);
-  }
+    movingMonsters.forEach((monster) => {
+      let distance = Math.sqrt(
+        (monster.x - player.x) ** 2 + (monster.y - player.y) ** 2
+      );
+      if (distance < 6) {
+        let astar = new Path.AStar(
+          monster.x,
+          monster.y,
+          this.isPassable.bind(this)
+        );
+        let path = [];
+        astar.compute(player.x, player.y, (x, y) => {
+          path.push({ x: x, y: y });
+        });
+        if (
+          path.length === 2 &&
+          (player.x === monster.x || player.y === monster.y)
+        ) {
+          //in range to fight
+          monster.action("monsterBump", this);
+        } else {
+          // move closer
+          let closestNextSquare = path[path.length - 2];
 
-  createRandomMap() {
-    for (let x = 0; x < this.width; x++) {
-      for (let y = 0; y < this.height; y++) {
-        this.worldmap[x][y] = Math.round(Math.random());
+          if (
+            closestNextSquare.x === monster.x ||
+            closestNextSquare.y === monster.y
+          ) {
+            //it's not a diagonal square, so we can move there as long as it's not a wall
+            if (
+              !this.isWall(closestNextSquare.x, closestNextSquare.y) &&
+              !this.getEntityAtLocation(
+                closestNextSquare.x,
+                closestNextSquare.y
+              )
+            ) {
+              monster.x = closestNextSquare.x;
+              monster.y = closestNextSquare.y;
+            }
+          } else {
+            //it's a diagonal
+            let coinFlip = Math.random();
+            if (coinFlip > 0.5) {
+              //move x axis
+              if (
+                !this.isWall(closestNextSquare.x, monster.y) &&
+                !this.getEntityAtLocation(closestNextSquare.x, monster.y)
+              ) {
+                monster.x = closestNextSquare.x;
+              }
+            } else {
+              //move y axis
+              if (
+                !this.isWall(monster.x, closestNextSquare.y) &&
+                !this.getEntityAtLocation(monster.x, closestNextSquare.y)
+              ) {
+                monster.y = closestNextSquare.y;
+              }
+            }
+          }
+        }
       }
-    }
-  }
-
-  draw(context) {
-    for (let x = 0; x < this.width; x++) {
-      for (let y = 0; y < this.height; y++) {
-        if (this.worldmap[x][y] === 1) this.drawWall(context, x, y);
-      }
-    }
-    this.entities.forEach((entity) => {
-      entity.draw(context);
     });
   }
 
+  draw(context) {
+    const player = this.entities[0];
+
+    for (let x = 0; x < this.width; x++) {
+      for (let y = 0; y < this.height; y++) {
+        this.drawShadow(context, x, y);
+      }
+    }
+
+    this.fov.compute(
+      player.x,
+      player.y,
+      player.attributes.sightRadius,
+      (x, y) => {
+        if (this.worldmap[x][y] === 1) {
+          this.drawWall(context, x, y);
+        } else {
+          this.drawGround(context, x, y);
+        }
+
+        let entity = this.getEntityAtLocation(x, y);
+
+        if (entity) {
+          entity.draw(context, entity, this.atlases);
+        }
+      }
+    );
+  }
+
   drawWall(context, x, y) {
+    context.drawImage(
+      this.atlases.terrainAtlas,
+      240,
+      768,
+      48,
+      48,
+      x * this.tilesize,
+      y * this.tilesize,
+      this.tilesize,
+      this.tilesize
+    );
+  }
+
+  drawGround(context, x, y) {
+    context.drawImage(
+      this.atlases.terrainAtlas,
+      288,
+      384,
+      48,
+      48,
+      x * this.tilesize,
+      y * this.tilesize,
+      this.tilesize,
+      this.tilesize
+    );
+  }
+
+  drawShadow(context, x, y) {
     context.fillStyle = "#000";
     context.fillRect(
       x * this.tilesize,

@@ -7,6 +7,7 @@ class Stairs extends Entity {
     color: "black",
     ascii: "🪜",
     offset: { x: 0, y: 0 },
+    type: "stairs",
   };
 
   action(verb, world) {
