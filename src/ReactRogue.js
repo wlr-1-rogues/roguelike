@@ -97,6 +97,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           <li key={index}>{item}</li>
         ))}
       </ul>
+      <img src={atlases.terrainAtlas.currentSrc}></img>
     </>
   );
 };
