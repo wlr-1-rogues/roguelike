@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import MonsterDisplay from './MonsterDisplay'
 import InputManager from "./InputManager";
 import Player from "./Player";
 import Spawner from "./Spawner";
@@ -66,6 +67,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           border: "1px solid SaddleBrown",
         }}
       ></canvas>
+      <MonsterDisplay world={world} setWorld={setWorld} />
       <div>equipped</div>
       <ul>
         {world.player.hands.map((item, index) => (
