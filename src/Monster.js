@@ -1,4 +1,22 @@
 import Entity from "./Entity";
+import Blood from "./Blood";
+import Player from "./Player";
+
+const blood = {
+  spriteSheet: "terrainAtlas",
+  spriteSheetCoordinates: {
+    x: 288,
+    y: 1680,
+  },
+};
+
+const tombstone = {
+  spriteSheet: "terrainAtlas",
+  spriteSheetCoordinates: {
+    x: 288,
+    y: 1488,
+  },
+};
 
 function combatRoll(max) {
   return Math.floor(Math.random() * max);
@@ -23,6 +41,7 @@ class Monster extends Entity {
           this.attributes.health - world.player.attributes.damage;
         if (this.attributes.health <= 0) {
           world.addToHistory(`${this.attributes.name} dies!`);
+          world.add(new Blood(this.x, this.y, this.tilesize, blood));
           world.remove(this);
           return;
         } else {
@@ -51,6 +70,15 @@ class Monster extends Entity {
 
         if (world.player.attributes.health <= 0) {
           world.addToHistory("You have died");
+          // world.add(
+          //   new Blood(
+          //     world.entities[0].x,
+          //     world.entities[0].y,
+          //     this.tilesize,
+          //     tombstone
+          //   )
+          // );
+          // console.log(world.entities[0]);
         } else {
           world.addToHistory(
             `You have ${world.player.attributes.health} health remaining!`

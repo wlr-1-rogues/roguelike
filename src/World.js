@@ -1,4 +1,5 @@
 import { Map, FOV, Path } from "rot-js";
+import Blood from "./Blood";
 import Entity from "./Entity";
 import Monster from "./Monster";
 import Player from "./Player";
@@ -110,7 +111,7 @@ class World {
     let tempPlayer = this.player.copyPlayer();
     tempPlayer.move(dx, dy);
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
-    if (entity) {
+    if (entity && !(entity instanceof Blood)) {
       entity.action("bump", this);
       return;
     }
