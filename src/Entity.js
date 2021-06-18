@@ -12,11 +12,11 @@ class Entity {
   }
 
   draw(context, entity, atlases) {
-    if (entity.attributes.type === "player") {
+    if (entity.attributes.spriteSheet === "heroAtlas") {
       context.drawImage(
         atlases.heroAtlas,
-        48,
-        48,
+        entity.attributes.spriteSheetCoordinates.y,
+        entity.attributes.spriteSheetCoordinates.x,
         48,
         48,
         this.x * this.tilesize,
@@ -24,23 +24,11 @@ class Entity {
         this.tilesize,
         this.tilesize
       );
-    } else if (entity.attributes.type === "monster") {
-      context.drawImage(
-        atlases.heroAtlas,
-        240,
-        144,
-        48,
-        48,
-        this.x * this.tilesize,
-        this.y * this.tilesize,
-        this.tilesize,
-        this.tilesize
-      );
-    } else if (entity.attributes.type === "loot") {
+    } else if (entity.attributes.spriteSheet === "itemAtlas") {
       context.drawImage(
         atlases.itemAtlas,
-        336,
-        48,
+        entity.attributes.spriteSheetCoordinates.y,
+        entity.attributes.spriteSheetCoordinates.x,
         48,
         48,
         this.x * this.tilesize,

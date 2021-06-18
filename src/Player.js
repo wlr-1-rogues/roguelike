@@ -7,15 +7,18 @@ class Player extends Entity {
   hands = [];
 
   attributes = {
-    name: "Player",
-    ascii: "🤺",
+    // name: "Player",
     attack: 2,
     defense: 12,
     damage: 2,
     armor: 0,
     health: 10,
     sightRadius: 10,
-    type: "player",
+    spriteSheet: 'heroAtlas',
+    spriteSheetCoordinates: {
+      x: 48,
+      y: 240
+    }
   };
 
   move(dx, dy) {

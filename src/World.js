@@ -234,7 +234,13 @@ class World {
           entity.draw(context, entity, this.atlases);
         }
       }
-    );
+      );
+
+      // USE THIS TO DEBUG WHEN WORKING WITH FOG OF WAR
+      
+      // this.entities.forEach(entity => {
+      //   entity.draw(context, entity, this.atlases);
+      // })
   }
 
   drawWall(context, x, y) {
