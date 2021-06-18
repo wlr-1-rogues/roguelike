@@ -104,7 +104,7 @@ const monsterTable = [
 const lootTable = [
   {
     name: "Club",
-    class: "1h",
+    class: "weapon",
     mod1: 1,
     mod2: 1,
     spriteSheet: 'itemAtlas',
@@ -115,7 +115,7 @@ const lootTable = [
   },
   {
     name: "Long Sword",
-    class: "1h",
+    class: "weapon",
     mod1: 1,
     mod2: 2,
     spriteSheet: 'itemAtlas',
@@ -149,7 +149,7 @@ const lootTable = [
   },
   {
     name: "Leather Helmet",
-    class: "shield",
+    class: "head",
     mod1: 2,
     mod2: 1,
     spriteSheet: 'itemAtlas',
@@ -160,7 +160,7 @@ const lootTable = [
   },
   {
     name: "Steel Helmet",
-    class: "shield",
+    class: "head",
     mod1: 3,
     mod2: 2,
     spriteSheet: 'itemAtlas',
@@ -171,7 +171,7 @@ const lootTable = [
   },
   {
     name: "Leather Chest",
-    class: "shield",
+    class: "torso",
     mod1: 2,
     mod2: 1,
     spriteSheet: 'itemAtlas',
@@ -182,7 +182,7 @@ const lootTable = [
   },
   {
     name: "Steel Chest",
-    class: "shield",
+    class: "torso",
     mod1: 2,
     mod2: 1,
     spriteSheet: 'itemAtlas',
@@ -193,9 +193,10 @@ const lootTable = [
   },
   {
     name: "Torch",
-    class: "shield",
+    class: "torch",
     mod1: 2,
     mod2: 1,
+    mod3: 3,
     spriteSheet: 'itemAtlas',
     spriteSheetCoordinates: {
       x: 48,
@@ -204,7 +205,7 @@ const lootTable = [
   },
   {
     name: "Health Potion",
-    class: "health",
+    class: "healthCon",
     mod1: 5,
     spriteSheet: 'itemAtlas',
     spriteSheetCoordinates: {
@@ -214,7 +215,7 @@ const lootTable = [
   },
   {
     name: "Shield Potion",
-    class: "health",
+    class: "shieldCon",
     mod1: 5,
     spriteSheet: 'itemAtlas',
     spriteSheetCoordinates: {

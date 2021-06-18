@@ -20,6 +20,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       newWorld.inspectItem(data);
     } else if (action === "equip") {
       newWorld.equipItem(data);
+    } else if (action === "inspectE") {
+      newWorld.inspectEquip(data);
     } else if (action === "unequip") {
       newWorld.unequipItem(data);
     } else if (action === "drop") {
@@ -36,7 +38,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(25);
+    spawner.spawnLoot(30);
     spawner.spawnMonsters(0);
     spawner.spawnStairs();
     setWorld(newWorld);
@@ -68,7 +70,22 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       ></canvas>
       <div>equipped</div>
       <ul>
-        {world.player.hands.map((item, index) => (
+        {world.player.left.map((item, index) => (
+          <li key={index}>{item[0].attributes.name}</li>
+        ))}
+      </ul>
+      <ul>
+        {world.player.right.map((item, index) => (
+          <li key={index}>{item[0].attributes.name}</li>
+        ))}
+      </ul>
+      <ul>
+        {world.player.head.map((item, index) => (
+          <li key={index}>{item[0].attributes.name}</li>
+        ))}
+      </ul>
+      <ul>
+        {world.player.torso.map((item, index) => (
           <li key={index}>{item[0].attributes.name}</li>
         ))}
       </ul>
@@ -78,7 +95,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           <ul>
             <li>
               {
-                world.player.inspecting[0][1].attributes.name
+                world.player.inspecting[0].item.attributes.name
               }
             </li>
           </ul>
@@ -90,7 +107,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           <li key={index}>{item.attributes.name}</li>
         ))}
       </ul>
-      <div>gold: {world.player.gold}</div>
       <ul>
         {world.history.map((item, index) => (
           <li key={index}>{item}</li>
