@@ -1,4 +1,5 @@
 import ReactRogue from "./ReactRogue";
+
 import React, { useEffect, useState } from "react";
 import heros from "./assets/uf_heroes_simple.png";
 import terrain from "./assets/uf_terrain.png";
@@ -30,6 +31,7 @@ const App = () => {
       ) : (
         <>
           <ReactRogue width={40} height={40} tilesize={24} atlases={atlases} />
+
         </>
       )}
     </div>

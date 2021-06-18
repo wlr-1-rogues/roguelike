@@ -10,7 +10,7 @@ class World {
     this.tilesize = tilesize;
     this.entities = [new Player(0, 0, 24)];
     this.history = ["You enter the dungeon", "---"];
-
+    this.visibleMonsters = new Set([]);
     this.worldmap = new Array(this.width);
     for (let x = 0; x < this.width; x++) {
       this.worldmap[x] = new Array(this.height);
@@ -209,6 +209,8 @@ class World {
   }
 
   draw(context) {
+    delete this.visibleMonsters;
+    this.visibleMonsters = new Set([]);
     const player = this.entities[0];
 
     for (let x = 0; x < this.width; x++) {
@@ -231,6 +233,9 @@ class World {
         let entity = this.getEntityAtLocation(x, y);
 
         if (entity) {
+          if (entity instanceof Monster) {
+            this.visibleMonsters.add(entity);
+          }
           entity.draw(context, entity, this.atlases);
         }
       }
