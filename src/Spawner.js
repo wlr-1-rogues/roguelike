@@ -10,8 +10,9 @@ const monsterTable = [
     offset: { x: 0, y: 0 },
     attack: 1,
     defense: 9,
-    damage:2,
+    damage: 2,
     health: 6,
+    type: "monster",
   },
   {
     name: "Wolf",
@@ -20,8 +21,9 @@ const monsterTable = [
     offset: { x: 0, y: 0 },
     attack: 2,
     defense: 10,
-    damage:2,
+    damage: 2,
     health: 3,
+    type: "monster",
   },
   {
     name: "Dragon",
@@ -32,6 +34,7 @@ const monsterTable = [
     defense: 15,
     damage: 4,
     health: 10,
+    type: "monster",
   },
   {
     name: "Snake",
@@ -42,6 +45,7 @@ const monsterTable = [
     defense: 8,
     damage: 3,
     health: 1,
+    type: "monster",
   },
 ];
 
@@ -53,7 +57,8 @@ const lootTable = [
     offset: { x: 0, y: 0 },
     class: "1h",
     mod1: 1,
-    mod2: 2
+    mod2: 2,
+    type: "loot",
   },
   {
     name: "Great Sword",
@@ -62,7 +67,8 @@ const lootTable = [
     offset: { x: 0, y: 0 },
     class: "2h",
     mod1: 1,
-    mod2: 4
+    mod2: 4,
+    type: "loot",
   },
   {
     name: "Health Potion",
@@ -70,7 +76,8 @@ const lootTable = [
     ascii: "🧪",
     offset: { x: 0, y: 0 },
     class: "health",
-    mod1: 5
+    mod1: 5,
+    type: "loot",
   },
   {
     name: "Gold",
@@ -78,7 +85,8 @@ const lootTable = [
     ascii: "💰",
     offset: { x: 0, y: 0 },
     class: "gold",
-    mod1: 1
+    mod1: 1,
+    type: "loot",
   },
   {
     name: "Buckler",
@@ -87,7 +95,8 @@ const lootTable = [
     offset: { x: 0, y: 0 },
     class: "shield",
     mod1: 2,
-    mod2: 1
+    mod2: 1,
+    type: "loot",
   },
 ];
 

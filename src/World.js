@@ -2,13 +2,14 @@ import { Map, FOV, Path } from "rot-js";
 import Entity from "./Entity";
 import Monster from "./Monster";
 import Player from "./Player";
+import terrain from "./assets/uf_terrain.png";
 
 class World {
   constructor(width, height, tilesize) {
     this.width = width;
     this.height = height;
     this.tilesize = tilesize;
-    this.entities = [new Player(0, 0, 16)];
+    this.entities = [new Player(0, 0, 24)];
     this.history = ["You enter the dungeon", "---"];
 
     this.worldmap = new Array(this.width);
@@ -150,7 +151,6 @@ class World {
         astar.compute(player.x, player.y, (x, y) => {
           path.push({ x: x, y: y });
         });
-        console.log(path);
         if (
           path.length === 2 &&
           (player.x === monster.x || player.y === monster.y)
@@ -225,30 +225,62 @@ class World {
         let entity = this.getEntityAtLocation(x, y);
 
         if (entity) {
-          entity.draw(context);
+          entity.draw(context, entity);
         }
       }
     );
   }
 
   drawWall(context, x, y) {
-    context.fillStyle = "#937c5d";
-    context.fillRect(
-      x * this.tilesize,
-      y * this.tilesize,
-      this.tilesize,
-      this.tilesize
-    );
+    // context.fillStyle = "#937c5d";
+    // context.fillRect(
+    //   x * this.tilesize,
+    //   y * this.tilesize,
+    //   this.tilesize,
+    //   this.tilesize
+    // );
+
+    const terrainAtlas = new Image();
+    terrainAtlas.src = terrain;
+    terrainAtlas.onload = () => {
+      context.drawImage(
+        terrainAtlas,
+        240,
+        768,
+        48,
+        48,
+        x * this.tilesize,
+        y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    };
   }
 
   drawGround(context, x, y) {
-    context.fillStyle = "#e6d9b1";
-    context.fillRect(
-      x * this.tilesize,
-      y * this.tilesize,
-      this.tilesize,
-      this.tilesize
-    );
+    //   context.fillStyle = "#e6d9b1";
+    //   context.fillRect(
+    //     x * this.tilesize,
+    //     y * this.tilesize,
+    //     this.tilesize,
+    //     this.tilesize
+    //   );
+
+    const terrainAtlas = new Image();
+    terrainAtlas.src = terrain;
+    terrainAtlas.onload = () => {
+      context.drawImage(
+        terrainAtlas,
+        288,
+        384,
+        48,
+        48,
+        x * this.tilesize,
+        y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    };
   }
 
   drawShadow(context, x, y) {
