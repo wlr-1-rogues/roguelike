@@ -4,6 +4,7 @@ import InputManager from "./InputManager";
 import Player from "./Player";
 import Spawner from "./Spawner";
 import World from "./World";
+import Fireball from "./Fireball";
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
@@ -16,7 +17,38 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     let newWorld = new World();
     Object.assign(newWorld, world);
     if (action === "move") {
-      newWorld.movePlayer(data.x, data.y);
+      if (
+        world.player.inventory[world.player.inspecting[0]]?.attributes.name ===
+        "Tome of Fireball"
+      ) {
+        console.log("shoot", data.x, data.y);
+        let fireDirection = "up";
+
+        if (data.y < 0 && data.x === 0) {
+          fireDirection = "up";
+        } else if (data.y > 0 && data.x === 0) {
+          fireDirection = "down";
+        } else if (data.y === 0 && data.x > 0) {
+          fireDirection = "right";
+        } else if (data.y === 0 && data.x < 0) {
+          fireDirection = "left";
+        }
+
+        console.log(fireDirection);
+        newWorld.add(
+          new Fireball(
+            world.player.x + data.x,
+            world.player.y + data.y,
+            tilesize,
+            fireDirection
+          )
+        );
+        console.log(world.player.x);
+        console.log(newWorld.entities);
+        world.player.inspecting.splice(0, 1);
+      } else {
+        newWorld.movePlayer(data.x, data.y);
+      }
     } else if (action === "inspect") {
       newWorld.inspectItem(data);
     } else if (action === "equip") {
@@ -214,7 +246,12 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 }{" "}
                 Readied!
               </h3>
-              <p>Press "E" to equip, or "R" to remove from Inventory</p>
+              {world.player.inventory[world.player.inspecting[0]].attributes
+                .name === "Tome of Fireball" ? (
+                <p>Press fire direction</p>
+              ) : (
+                <p>Press "E" to equip, or "R" to remove from Inventory</p>
+              )}
             </div>
           )}
 

@@ -48,6 +48,18 @@ class Entity {
         this.tilesize,
         this.tilesize
       );
+    } else if (entity.attributes.spriteSheet === "fxAtlas") {
+      context.drawImage(
+        atlases.fxAtlas,
+        entity.attributes.spriteSheetCoordinates.x,
+        entity.attributes.spriteSheetCoordinates.y,
+        24,
+        24,
+        this.x * this.tilesize,
+        this.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
     }
   }
 }

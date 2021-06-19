@@ -9,11 +9,11 @@ const monsterTable = [
     defense: 9,
     damage: 2,
     health: 6,
-    spriteSheet: 'heroAtlas',
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 240,
-      y: 0
-    }  
+      y: 0,
+    },
   },
   {
     name: "Wolf",
@@ -21,35 +21,35 @@ const monsterTable = [
     defense: 10,
     damage: 2,
     health: 3,
-    spriteSheet: 'heroAtlas',
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 288,
-      y: 0
-    }  
+      y: 0,
     },
+  },
   {
     name: "Demon",
     attack: 2,
     defense: 15,
     damage: 2,
     health: 10,
-    spriteSheet: 'heroAtlas',
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 336,
-      y: 240
-    }  
+      y: 240,
     },
+  },
   {
     name: "Snake",
     attack: 2,
     defense: 8,
     damage: 3,
     health: 1,
-    spriteSheet: 'heroAtlas',
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 240,
-      y: 240
-    }  
+      y: 240,
+    },
   },
   {
     name: "Goblin",
@@ -57,11 +57,11 @@ const monsterTable = [
     defense: 8,
     damage: 3,
     health: 1,
-    spriteSheet: 'heroAtlas',
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 144,
-      y: 240
-    }  
+      y: 240,
+    },
   },
   {
     name: "Banshee",
@@ -69,11 +69,11 @@ const monsterTable = [
     defense: 8,
     damage: 3,
     health: 1,
-    spriteSheet: 'heroAtlas',
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 192,
-      y: 144
-    }  
+      y: 144,
+    },
   },
   {
     name: "Green Dragon",
@@ -81,11 +81,11 @@ const monsterTable = [
     defense: 8,
     damage: 3,
     health: 1,
-    spriteSheet: 'heroAtlas',
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 384,
-      y: 432
-    }  
+      y: 432,
+    },
   },
   {
     name: "Blue Dragon",
@@ -93,134 +93,142 @@ const monsterTable = [
     defense: 8,
     damage: 3,
     health: 1,
-    spriteSheet: 'heroAtlas',
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 384,
-      y: 384
-    }  
+      y: 384,
+    },
   },
 ];
 
 const lootTable = [
-  {
-    name: "Club",
-    class: "1h",
-    mod1: 1,
-    mod2: 1,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 96,
-      y: 672
-    }
-  },
-  {
-    name: "Long Sword",
-    class: "1h",
-    mod1: 1,
-    mod2: 2,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 144,
-      y: 0
-    }
-  },
+  // {
+  //   name: "Club",
+  //   class: "1h",
+  //   mod1: 1,
+  //   mod2: 1,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 96,
+  //     y: 672,
+  //   },
+  // },
+  // {
+  //   name: "Long Sword",
+  //   class: "1h",
+  //   mod1: 1,
+  //   mod2: 2,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 144,
+  //     y: 0,
+  //   },
+  // },
 
+  // {
+  //   name: "Wooden Shield",
+  //   class: "shield",
+  //   mod1: 2,
+  //   mod2: 1,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 240,
+  //     y: 0,
+  //   },
+  // },
+  // {
+  //   name: "Steel Shield",
+  //   class: "shield",
+  //   mod1: 3,
+  //   mod2: 2,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 248,
+  //     y: 288,
+  //   },
+  // },
+  // {
+  //   name: "Leather Helmet",
+  //   class: "shield",
+  //   mod1: 2,
+  //   mod2: 1,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 432,
+  //     y: 96,
+  //   },
+  // },
+  // {
+  //   name: "Steel Helmet",
+  //   class: "shield",
+  //   mod1: 3,
+  //   mod2: 2,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 432,
+  //     y: 384,
+  //   },
+  // },
+  // {
+  //   name: "Leather Chest",
+  //   class: "shield",
+  //   mod1: 2,
+  //   mod2: 1,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 480,
+  //     y: 96,
+  //   },
+  // },
+  // {
+  //   name: "Steel Chest",
+  //   class: "shield",
+  //   mod1: 2,
+  //   mod2: 1,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 480,
+  //     y: 384,
+  //   },
+  // },
+  // {
+  //   name: "Torch",
+  //   class: "shield",
+  //   mod1: 2,
+  //   mod2: 1,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 48,
+  //     y: 672,
+  //   },
+  // },
+  // {
+  //   name: "Health Potion",
+  //   class: "health",
+  //   mod1: 5,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 0,
+  //     y: 480,
+  //   },
+  // },
+  // {
+  //   name: "Shield Potion",
+  //   class: "health",
+  //   mod1: 5,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     x: 0,
+  //     y: 528,
+  //   },
+  // },
   {
-    name: "Wooden Shield",
-    class: "shield",
-    mod1: 2,
-    mod2: 1,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 240,
-      y: 0
-    }
-  },
-  {
-    name: "Steel Shield",
-    class: "shield",
-    mod1: 3,
-    mod2: 2,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 248,
-      y: 288
-    }
-  },
-  {
-    name: "Leather Helmet",
-    class: "shield",
-    mod1: 2,
-    mod2: 1,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 432,
-      y: 96
-    }
-  },
-  {
-    name: "Steel Helmet",
-    class: "shield",
-    mod1: 3,
-    mod2: 2,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 432,
-      y: 384
-    }
-  },
-  {
-    name: "Leather Chest",
-    class: "shield",
-    mod1: 2,
-    mod2: 1,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 480,
-      y: 96
-    }
-  },
-  {
-    name: "Steel Chest",
-    class: "shield",
-    mod1: 2,
-    mod2: 1,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 480,
-      y: 384
-    }
-  },
-  {
-    name: "Torch",
-    class: "shield",
-    mod1: 2,
-    mod2: 1,
-    spriteSheet: 'itemAtlas',
+    name: "Tome of Fireball",
+    spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       x: 48,
-      y: 672
-    }
-  },
-  {
-    name: "Health Potion",
-    class: "health",
-    mod1: 5,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 0,
-      y: 480
-    }
-  },
-  {
-    name: "Shield Potion",
-    class: "health",
-    mod1: 5,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 0,
-      y: 528
-    }
+      y: 288,
+    },
   },
 ];
 
