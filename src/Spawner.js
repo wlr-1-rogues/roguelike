@@ -159,6 +159,50 @@ const tier3LootTable = [
       y: 288,
     },
   },
+  {
+    name: "Magic Helmet",
+    class: "shield",
+    mod1: 3,
+    mod2: 2,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 432,
+      y: 432,
+    },
+  },
+  {
+    name: "Magic Armor",
+    class: "shield",
+    mod1: 2,
+    mod2: 1,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 480,
+      y: 432,
+    },
+  },
+  {
+    name: "Magic Shield",
+    class: "shield",
+    mod1: 3,
+    mod2: 2,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 288,
+      y: 240,
+    },
+  },
+  {
+    name: "Magic Axe",
+    class: "1h",
+    mod1: 1,
+    mod2: 2,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 192,
+      y: 144,
+    },
+  },
 ];
 const tier2LootTable = [
   {
@@ -208,7 +252,7 @@ const tier2LootTable = [
     mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 248,
+      x: 240,
       y: 288,
     },
   },
@@ -224,7 +268,7 @@ const tier2LootTable = [
     },
   },
   {
-    name: "Steel Chest",
+    name: "Steel Armor",
     class: "shield",
     mod1: 2,
     mod2: 1,
@@ -299,7 +343,7 @@ const tier1LootTable = [
     },
   },
   {
-    name: "Leather Chest",
+    name: "Leather Armor",
     class: "shield",
     mod1: 2,
     mod2: 1,
