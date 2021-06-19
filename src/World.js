@@ -6,12 +6,14 @@ import Monster from "./Monster";
 import Player from "./Player";
 
 class World {
-  constructor(width, height, tilesize, atlases) {
+  constructor(width, height, tilesize, atlases, tier) {
     this.width = width;
     this.height = height;
     this.tilesize = tilesize;
+    this.atlases = atlases;
+    this.tier = tier;
     this.entities = [new Player(0, 0, 24)];
-    this.history = ["You enter the dungeon", "---"];
+    this.history = ["You enter the dungeon", "---", `LEVEL ${tier}`];
     this.visibleMonsters = new Set([]);
     this.worldmap = new Array(this.width);
     for (let x = 0; x < this.width; x++) {
@@ -19,8 +21,6 @@ class World {
     }
 
     this.fov = new FOV.RecursiveShadowcasting(this.lightPasses.bind(this));
-
-    this.atlases = atlases;
   }
 
   lightPasses(x, y) {
@@ -344,9 +344,9 @@ class World {
 
     // USE THIS TO DEBUG WHEN WORKING WITH FOG OF WAR
 
-    // this.entities.forEach(entity => {
+    // this.entities.forEach((entity) => {
     //   entity.draw(context, entity, this.atlases);
-    // })
+    // });
   }
 
   drawWall(context, x, y) {

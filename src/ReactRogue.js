@@ -9,7 +9,7 @@ import Fireball from "./Fireball";
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
   const [world, setWorld] = useState(
-    new World(width, height, tilesize, atlases)
+    new World(width, height, tilesize, atlases, 1)
   );
 
   let inputManager = new InputManager();
