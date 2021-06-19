@@ -216,7 +216,7 @@ const lootTable = [
   {
     name: "Shield Potion",
     class: "shieldCon",
-    mod1: 5,
+    mod1: 3,
     spriteSheet: 'itemAtlas',
     spriteSheetCoordinates: {
       x: 0,

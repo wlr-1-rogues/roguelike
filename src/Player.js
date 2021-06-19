@@ -54,7 +54,7 @@ class Player extends Entity {
   }
 
   inspectE(item) {
-    if (item === 'left') {
+    if (item === 'left' && this.left.length === 1) {
       if (this.inspecting[0]?.index === 'left') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
@@ -63,7 +63,8 @@ class Player extends Entity {
       } else {
         this.inspecting.push({index: item, item: this.left[0]});
       }
-    } else if (item === 'right') {
+    } else if (item === 'right' && this.right.length === 1) {
+      if (!this.right) return;
       if (this.inspecting[0]?.index === 'right') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
@@ -72,7 +73,8 @@ class Player extends Entity {
       } else {
         this.inspecting.push({index: item, item: this.right[0]});
       }
-    } else if (item === 'head') {
+    } else if (item === 'head' && this.head.length === 1) {
+      if (!this.head) return;
       if (this.inspecting[0]?.index === 'head') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
@@ -81,7 +83,8 @@ class Player extends Entity {
       } else {
         this.inspecting.push({index: item, item: this.head[0]});
       }
-    } else if (item === 'torso') {
+    } else if (item === 'torso' && this.torso.length === 1) {
+      if (!this.torso) return;
       if (this.inspecting[0]?.index === 'torso') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
@@ -98,8 +101,10 @@ class Player extends Entity {
   equip(index) {
     if (this.inspecting.length === 1) {
       const { attributes } = this.inspecting[index].item;
+      const shield = `you use the ${attributes.name} and gain ${attributes.mod1} armor`
       const health = `you use the ${attributes.name} and gain ${attributes.mod1} health points`
       const equip = `you equip the ${attributes.name}`
+      if (typeof this.inspecting[0]?.index === 'string') return 'you already have this equipped!'
         // WEAPONS
       if (attributes.class === "weapon" && this.left.length === 0) {
         this.attributes.attack += attributes.mod1;
@@ -158,7 +163,7 @@ class Player extends Entity {
         this.attributes.armor += attributes.mod1;
         this.inventory.splice(this.inspecting[index].index, 1);
         this.inspecting.splice(0, 1);
-        return health
+        return shield
       } else {
         return "you cannot equip this item!";
       }
@@ -168,9 +173,6 @@ class Player extends Entity {
   }
 
   unequip(index) {
-    console.log(this.inspecting)
-    console.log(this.left)
-    console.log(this.inventory)
     if (typeof this.inspecting[0]?.index === 'string') {
       const { attributes } = this.inspecting[index].item;
       const unequip = `you unequip the ${attributes.name}`
@@ -231,6 +233,12 @@ class Player extends Entity {
   }
 
   drop(item) {
+    if (typeof this.inspecting[0]?.index === 'string') {
+      const drop = `the ${this.inspecting[0].item.attributes.name} crumbles into dust...`
+      this[this.inspecting[0]?.index].splice(this.inspecting[0].index, 1);
+      this.inspecting.splice(item, 1)
+      return drop
+    }
     const drop = `the ${this.inspecting[0].item.attributes.name} crumbles into dust...`
     this.inventory.splice(this.inspecting[0].index, 1);
     this.inspecting.splice(item, 1)
