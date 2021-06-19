@@ -70,14 +70,9 @@ class Monster extends Entity {
 
         if (world.player.attributes.health <= 0) {
           world.addToHistory("You have died");
-          // world.add(
-          //   new Blood(
-          //     world.entities[0].x,
-          //     world.entities[0].y,
-          //     this.tilesize,
-          //     tombstone
-          //   )
-          // );
+          world.entities[0].attributes.spriteSheetCoordinates =
+            tombstone.spriteSheetCoordinates;
+          world.entities[0].attributes.spriteSheet = tombstone.spriteSheet;
           // console.log(world.entities[0]);
         } else {
           world.addToHistory(
