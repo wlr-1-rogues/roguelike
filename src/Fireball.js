@@ -47,6 +47,12 @@ class Fireball extends Entity {
       this.attributes = fireballRight;
     }
   }
+
+  copyFireball() {
+    let newFireball = new Fireball();
+    Object.assign(newFireball, this);
+    return newFireball;
+  }
 }
 
 export default Fireball;

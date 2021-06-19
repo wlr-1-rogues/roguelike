@@ -36,12 +36,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
 
         console.log(fireDirection);
         newWorld.add(
-          new Fireball(
-            world.player.x + data.x,
-            world.player.y + data.y,
-            tilesize,
-            fireDirection
-          )
+          new Fireball(world.player.x, world.player.y, tilesize, fireDirection)
         );
         console.log(world.player.x);
         console.log(newWorld.entities);
@@ -59,6 +54,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       newWorld.dropItem(data);
     }
 
+    newWorld.moveProjectiles();
     newWorld.moveMonsters();
     setWorld(newWorld);
   };

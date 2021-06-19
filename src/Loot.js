@@ -10,6 +10,10 @@ class Loot extends Entity {
     if (verb === "drop") {
       console.log("drop", this);
     }
+
+    if (verb === "fireball") {
+      world.remove(this);
+    }
   }
 }
 

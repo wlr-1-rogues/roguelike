@@ -29,6 +29,14 @@ let mAttackMod = monsterAttackRoll;
 
 class Monster extends Entity {
   action(verb, world) {
+    if (verb === "fireball") {
+      world.addToHistory(
+        `${this.attributes.name.toUpperCase()} IS OBLITERATED!`
+      );
+      world.add(new Blood(this.x, this.y, this.tilesize, blood));
+      world.remove(this);
+    }
+
     if (verb === "bump") {
       playerAttackRoll = combatRoll(20);
       pAttackMod = playerAttackRoll += world.player.attributes.attack;

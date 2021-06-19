@@ -1,6 +1,7 @@
 import { Map, FOV, Path } from "rot-js";
 import Blood from "./Blood";
 import Entity from "./Entity";
+import Fireball from "./Fireball";
 import Monster from "./Monster";
 import Player from "./Player";
 
@@ -52,7 +53,11 @@ class World {
   }
 
   add(entity) {
-    this.entities.push(entity);
+    if (entity instanceof Fireball) {
+      this.entities.splice(1, 0, entity);
+    } else {
+      this.entities.push(entity);
+    }
   }
 
   remove(entity) {
@@ -105,6 +110,83 @@ class World {
   dropItem(itemIndex) {
     let tempPlayer = this.player.copyPlayer();
     tempPlayer.drop(itemIndex);
+  }
+
+  moveProjectiles() {
+    this.entities.forEach((entity) => {
+      if (entity instanceof Fireball) {
+        console.log("moving projectiles");
+        let tempFireball = entity.copyFireball();
+        let direction = tempFireball.fireDirection;
+
+        if (direction === "up") {
+          tempFireball.y -= 1;
+          let newLocationEntity = this.getEntityAtLocation(
+            tempFireball.x,
+            tempFireball.y
+          );
+          if (newLocationEntity && !(newLocationEntity instanceof Blood)) {
+            newLocationEntity.action("fireball", this);
+            this.remove(entity);
+            return;
+          }
+
+          if (this.isWall(tempFireball.x, tempFireball.y)) {
+            this.remove(entity);
+          } else {
+            entity.y -= 1;
+          }
+        } else if (direction === "down") {
+          tempFireball.y += 1;
+          let newLocationEntity = this.getEntityAtLocation(
+            tempFireball.x,
+            tempFireball.y
+          );
+          if (newLocationEntity && !(newLocationEntity instanceof Blood)) {
+            newLocationEntity.action("fireball", this);
+            this.remove(entity);
+            return;
+          }
+          if (this.isWall(tempFireball.x, tempFireball.y)) {
+            this.remove(entity);
+          } else {
+            entity.y += 1;
+          }
+        } else if (direction === "left") {
+          tempFireball.x -= 1;
+          let newLocationEntity = this.getEntityAtLocation(
+            tempFireball.x,
+            tempFireball.y
+          );
+          if (newLocationEntity && !(newLocationEntity instanceof Blood)) {
+            newLocationEntity.action("fireball", this);
+            this.remove(entity);
+            return;
+          }
+          if (this.isWall(tempFireball.x, tempFireball.y)) {
+            this.remove(entity);
+          } else {
+            entity.x -= 1;
+          }
+        } else if (direction === "right") {
+          tempFireball.x += 1;
+          let newLocationEntity = this.getEntityAtLocation(
+            tempFireball.x,
+            tempFireball.y
+          );
+          if (newLocationEntity && !(newLocationEntity instanceof Blood)) {
+            newLocationEntity.action("fireball", this);
+            this.remove(entity);
+            return;
+          }
+          if (this.isWall(tempFireball.x, tempFireball.y)) {
+            this.remove(entity);
+          } else {
+            entity.x += 1;
+          }
+        }
+      }
+    });
   }
 
   movePlayer(dx, dy) {
@@ -168,12 +250,17 @@ class World {
             closestNextSquare.y === monster.y
           ) {
             //it's not a diagonal square, so we can move there as long as it's not a wall
+            let entityAtLocation = this.getEntityAtLocation(
+              closestNextSquare.x,
+              closestNextSquare.y
+            );
+            if (entityAtLocation instanceof Blood) {
+              entityAtLocation = undefined;
+            }
+
             if (
               !this.isWall(closestNextSquare.x, closestNextSquare.y) &&
-              !this.getEntityAtLocation(
-                closestNextSquare.x,
-                closestNextSquare.y
-              )
+              !entityAtLocation
             ) {
               monster.x = closestNextSquare.x;
               monster.y = closestNextSquare.y;
@@ -183,17 +270,35 @@ class World {
             let coinFlip = Math.random();
             if (coinFlip > 0.5) {
               //move x axis
+
+              let entityAtLocation = this.getEntityAtLocation(
+                closestNextSquare.x,
+                monster.y
+              );
+              if (entityAtLocation instanceof Blood) {
+                entityAtLocation = undefined;
+              }
+
               if (
                 !this.isWall(closestNextSquare.x, monster.y) &&
-                !this.getEntityAtLocation(closestNextSquare.x, monster.y)
+                !entityAtLocation
               ) {
                 monster.x = closestNextSquare.x;
               }
             } else {
               //move y axis
+
+              let entityAtLocation = this.getEntityAtLocation(
+                monster.x,
+                closestNextSquare.y
+              );
+              if (entityAtLocation instanceof Blood) {
+                entityAtLocation = undefined;
+              }
+
               if (
                 !this.isWall(monster.x, closestNextSquare.y) &&
-                !this.getEntityAtLocation(monster.x, closestNextSquare.y)
+                !entityAtLocation
               ) {
                 monster.y = closestNextSquare.y;
               }
