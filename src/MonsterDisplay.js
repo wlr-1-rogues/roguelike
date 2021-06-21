@@ -8,6 +8,7 @@ function MonsterDisplay(props) {
     const [monsterIndex, setMonsterIndex] = useState(0);
     const [playerDefense, setPlayerDefense] = useState(world.player.attributes.defense);
     useEffect(() => {
+        
         setVisibleMonsters([...world.visibleMonsters])
         setMonsterIndex(0);
         if (visibleMonsters) {
