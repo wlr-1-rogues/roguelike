@@ -165,7 +165,6 @@ class Player extends Entity {
         return equip
         // CONSUMABLES
       } else if (item.class === "healthCon") {
-        this.attributes.health += item.mod1;
         this.attributes.health += item.mod1 > 10 ? this.attributes.health = 10
         : this.attributes.health += item.mod1
         this.inventory.splice(inspecting.pos, 1);
