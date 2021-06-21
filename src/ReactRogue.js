@@ -18,7 +18,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     Object.assign(newWorld, world);
     if (action === "move") {
       if (
-        world.player.inventory[world.player.inspecting[0].pos]?.name ===
+        world.player.inventory[world.player.inspecting[0]?.pos]?.name ===
         "Tome of Fireball"
       ) {
         console.log("shoot", data.x, data.y);
@@ -40,7 +40,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
         );
         console.log(world.player.x);
         console.log(newWorld.entities);
-        world.player.inspecting.splice(0, 1);
+        newWorld.equipItem();
       } else {
         newWorld.movePlayer(data.x, data.y);
       }
@@ -268,7 +268,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               {typeof world.player.inspecting[0].pos === 'string' ? <p>Press "Q" to unequip, or "R" to remove from Inventory</p>
               : <p>Press "E" to equip, or "R" to remove from Inventory</p>}
               <h3>{world.player.inspecting[0].item.name} Readied!</h3>
-              {world.player.inventory[world.player.inspecting[0]].attributes
+              {world.player.inventory[world.player.inspecting[0]?.pos]
                 .name === "Tome of Fireball" ? (
                 <p>Press fire direction</p>
               ) : (
@@ -299,10 +299,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 </ol>
                 <p>Press Number Key to Ready an Item!</p>
             </div>
-          
           </div>
-        </div>
-
         <div
           className="leftSide"
           style={{
@@ -392,6 +389,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             {" "}
             <MonsterDisplay world={world} setWorld={setWorld} />
           </div>
+        </div>
         </div>
       </div>
   );
