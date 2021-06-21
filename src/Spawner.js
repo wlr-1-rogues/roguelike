@@ -148,8 +148,8 @@ const tier3LootTable = [
     mod1: 8,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      y: 0,
-      x: 480,
+      y: 384,
+      x: 336,
     },
   },
   {
@@ -235,8 +235,8 @@ const tier2LootTable = [
     mod1: 8,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 0,
-      y: 480,
+      y: 384,
+      x: 336,
     },
   },
   {
@@ -322,8 +322,8 @@ const tier1LootTable = [
     mod1: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 0,
-      y: 480,
+      y: 48,
+      x: 816,
     },
   },
   {
