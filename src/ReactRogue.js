@@ -20,13 +20,13 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     } else if (action === "inspect") {
       newWorld.inspectItem(data);
     } else if (action === "equip") {
-      newWorld.equipItem(data);
+      newWorld.equipItem();
     } else if (action === "inspectE") {
       newWorld.inspectEquip(data);
     } else if (action === "unequip") {
-      newWorld.unequipItem(data);
+      newWorld.unequipItem();
     } else if (action === "drop") {
-      newWorld.dropItem(data);
+      newWorld.dropItem();
     }
 
     newWorld.moveMonsters();
@@ -191,7 +191,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               }}
             >
               {world.player.left.map((item, index) => (
-                <li key={index}>{item.attributes.name}</li>
+                <li key={index}>{item.name}</li>
               ))}
             </ul>
             <ul
@@ -200,7 +200,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               }}
             >
               {world.player.right.map((item, index) => (
-                <li key={index}>{item.attributes.name}</li>
+                <li key={index}>{item.name}</li>
               ))}
             </ul>
             <ul
@@ -209,7 +209,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               }}
             >
               {world.player.head.map((item, index) => (
-                <li key={index}>{item.attributes.name}</li>
+                <li key={index}>{item.name}</li>
               ))}
             </ul>
             <ul
@@ -218,7 +218,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               }}
             >
               {world.player.torso.map((item, index) => (
-                <li key={index}>{item.attributes.name}</li>
+                <li key={index}>{item.name}</li>
               ))}
             </ul>
           </div>
@@ -238,8 +238,9 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 marginBottom:'1vw',
                 }}
             >
-                <h3>{world.player.inspecting[0].item.attributes.name} Readied!</h3>
-                <p>Press "E" to equip, or "R" to remove from Inventory</p>
+                <h3>{world.player.inspecting[0].item.name} Readied!</h3>
+                {typeof world.player.inspecting[0].pos === 'string' ? <p>Press "Q" to unequip, or "R" to remove from Inventory</p>
+                : <p>Press "E" to equip, or "R" to remove from Inventory</p>}
             </div>
           )}
 
@@ -260,7 +261,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                   {world.player.inventory.map((item, index) => (
                     <li key={index}
                       style={{backgroundColor:'lightblue'}}
-                    >{item.attributes.name}</li>
+                    >{item.name}</li>
                     ))}
                 </ol>
                 <p>Press Number Key to Ready an Item!</p>
