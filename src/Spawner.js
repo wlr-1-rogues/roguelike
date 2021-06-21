@@ -2,239 +2,369 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Stairs from "./Stairs";
 
-const monsterTable = [
-  {
-    name: "Rat",
-    attack: 1,
-    defense: 9,
-    damage: 2,
-    health: 6,
-    flavortext: "It's a ROUS, one of the largest you've ever seen.",
-    spriteSheet: 'heroAtlas',
-    spriteSheetCoordinates: {
-      x: 240,
-      y: 0
-    }
-  },
-  {
-    name: "Wolf",
-    attack: 2,
-    defense: 10,
-    damage: 2,
-    health: 3,
-    flavortext: "A direwolf stalks from its lair, bared fangs reflecting your torchlight.",
-    spriteSheet: 'heroAtlas',
-    spriteSheetCoordinates: {
-      x: 288,
-      y: 0
-    }
-  },
+const tier3MonsterTable = [
   {
     name: "Demon",
-    attack: 10,
+    attack: 3,
     defense: 15,
-    damage: 6,
-    health: 10,
-    spriteSheet: 'heroAtlas',
-    flavortext: "A massive creature of muscle and flame, shaking the earth with every step.",
+    damage: 3,
+    health: 15,
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 336,
-      y: 240
-    }
+      y: 240,
+    },
   },
   {
-    name: "Snake",
-    attack: 2,
-    defense: 8,
+    name: "Dragon",
+    attack: 3,
+    defense: 15,
     damage: 3,
-    health: 1,
-    flavortext: "A snake thicker than your waist is coiled on the ground, bright purple poison dripping from its fangs.",
-    spriteSheet: 'heroAtlas',
-    spriteSheetCoordinates: {
-      x: 240,
-      y: 240
-    }
-  },
-  {
-    name: "Goblin",
-    attack: 2,
-    defense: 8,
-    damage: 3,
-    health: 1,
-    flavortext: "A fat slimy goblin holding a rusted knife.",
-    spriteSheet: 'heroAtlas',
-    spriteSheetCoordinates: {
-      x: 144,
-      y: 240
-    }
-  },
-  {
-    name: "Banshee",
-    attack: 2,
-    defense: 8,
-    damage: 3,
-    health: 1,
-    flavortext: "You'd pity the cursed woman if her shrieks weren't forcing you to cover your ears.",
-    spriteSheet: 'heroAtlas',
-    spriteSheetCoordinates: {
-      x: 192,
-      y: 144
-    }
-  },
-  {
-    name: "Green Dragon",
-    attack: 2,
-    defense: 8,
-    damage: 3,
-    health: 1,
-    flavortext: "A slender green dragon slithers over the walls, using long claws to maintain its grip.",
-    spriteSheet: 'heroAtlas',
+    health: 15,
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 384,
-      y: 432
-    }
+      y: 336,
+    },
   },
   {
-    name: "Blue Dragon",
-    attack: 2,
-    defense: 8,
+    name: "Magma Golem",
+    attack: 3,
+    defense: 15,
     damage: 3,
-    health: 1,
-    flavortext: "Two bright gouts of flames erupt from its nostrils with every breath.",
-    spriteSheet: 'heroAtlas',
+    health: 15,
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      x: 384,
-      y: 384
-    }
+      x: 432,
+      y: 288,
+    },
   },
 ];
 
-const lootTable = [
+const tier2MonsterTable = [
   {
-    name: "Club",
-    class: "1h",
-    mod1: 1,
-    mod2: 1,
-    spriteSheet: 'itemAtlas',
+    name: "Banshee",
+    attack: 2,
+    defense: 10,
+    damage: 2,
+    health: 10,
+    spriteSheet: "heroAtlas",
+    spriteSheetCoordinates: {
+      x: 192,
+      y: 144,
+    },
+  },
+  {
+    name: "Ogre",
+    attack: 2,
+    defense: 10,
+    damage: 2,
+    health: 10,
+    spriteSheet: "heroAtlas",
+    spriteSheetCoordinates: {
+      x: 144,
+      y: 432,
+    },
+  },
+  {
+    name: "Torturer",
+    attack: 2,
+    defense: 10,
+    damage: 2,
+    health: 10,
+    spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       x: 96,
-      y: 672
-    }
+      y: 0,
+    },
+  },
+];
+
+const tier1MonsterTable = [
+  {
+    name: "Zombie",
+    attack: 1,
+    defense: 5,
+    damage: 1,
+    health: 5,
+    spriteSheet: "heroAtlas",
+    spriteSheetCoordinates: {
+      x: 240,
+      y: 144,
+    },
+  },
+  {
+    name: "Snake",
+    attack: 1,
+    defense: 5,
+    damage: 1,
+    health: 5,
+    spriteSheet: "heroAtlas",
+    spriteSheetCoordinates: {
+      x: 240,
+      y: 240,
+    },
+  },
+  {
+    name: "Goblin",
+    attack: 1,
+    defense: 5,
+    damage: 1,
+    health: 5,
+    spriteSheet: "heroAtlas",
+    spriteSheetCoordinates: {
+      x: 144,
+      y: 240,
+    },
+  },
+];
+
+const tier3LootTable = [
+  {
+    name: "Shield Potion",
+    class: "shieldCon",
+    mod1: 5,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 0,
+      y: 528,
+    },
+  },
+  {
+    name: "Torch",
+    class: "weapon",
+    mod1: 2,
+    mod2: 1,
+    mod3: 3,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 48,
+      y: 672,
+    },
+  },
+  {
+    name: "Health Potion",
+    class: "healthCon",
+    mod1: 5,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 0,
+      y: 480,
+    },
+  },
+  {
+    name: "Tome of Fireball",
+    class: "tome",
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 48,
+      y: 288,
+    },
+  },
+  {
+    name: "Magic Helmet",
+    class: "head",
+    mod1: 3,
+    mod2: 2,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 432,
+      y: 432,
+    },
+  },
+  {
+    name: "Magic Armor",
+    class: "torso",
+    mod1: 2,
+    mod2: 1,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 480,
+      y: 432,
+    },
+  },
+  {
+    name: "Magic Shield",
+    class: "shield",
+    mod1: 3,
+    mod2: 2,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 288,
+      y: 240,
+    },
+  },
+  {
+    name: "Magic Axe",
+    class: "weapon",
+    mod1: 1,
+    mod2: 2,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 192,
+      y: 144,
+    },
+  },
+];
+const tier2LootTable = [
+  {
+    name: "Torch",
+    class: "weapon",
+    mod1: 2,
+    mod2: 1,
+    mod3:3,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 48,
+      y: 672,
+    },
+  },
+  {
+    name: "Health Potion",
+    class: "healthCon",
+    mod1: 5,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 0,
+      y: 480,
+    },
+  },
+  {
+    name: "Tome of Fireball",
+    class: "tome",
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 48,
+      y: 288,
+    },
   },
   {
     name: "Long Sword",
-    class: "1h",
+    class: "weapon",
     mod1: 1,
     mod2: 2,
-    spriteSheet: 'itemAtlas',
+    spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       x: 144,
-      y: 0
-    }
-  },
-
-  {
-    name: "Wooden Shield",
-    class: "shield",
-    mod1: 2,
-    mod2: 1,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 240,
-      y: 0
-    }
+      y: 0,
+    },
   },
   {
     name: "Steel Shield",
     class: "shield",
     mod1: 3,
     mod2: 2,
-    spriteSheet: 'itemAtlas',
+    spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 248,
-      y: 288
-    }
-  },
-  {
-    name: "Leather Helmet",
-    class: "shield",
-    mod1: 2,
-    mod2: 1,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 432,
-      y: 96
-    }
+      x: 240,
+      y: 288,
+    },
   },
   {
     name: "Steel Helmet",
-    class: "shield",
+    class: "head",
     mod1: 3,
     mod2: 2,
-    spriteSheet: 'itemAtlas',
+    spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       x: 432,
-      y: 384
-    }
+      y: 384,
+    },
   },
   {
-    name: "Leather Chest",
-    class: "shield",
+    name: "Steel Armor",
+    class: "torso",
     mod1: 2,
     mod2: 1,
-    spriteSheet: 'itemAtlas',
+    spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       x: 480,
-      y: 96
-    }
+      y: 384,
+    },
   },
-  {
-    name: "Steel Chest",
-    class: "shield",
-    mod1: 2,
-    mod2: 1,
-    spriteSheet: 'itemAtlas',
-    spriteSheetCoordinates: {
-      x: 480,
-      y: 384
-    }
-  },
+];
+const tier1LootTable = [
   {
     name: "Torch",
-    class: "shield",
+    class: "weapon",
     mod1: 2,
     mod2: 1,
-    spriteSheet: 'itemAtlas',
+    mod3: 3,
+    spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       x: 48,
-      y: 672
-    }
+      y: 672,
+    },
   },
   {
     name: "Health Potion",
-    class: "health",
+    class: "healthCon",
     mod1: 5,
-    spriteSheet: 'itemAtlas',
+    spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       x: 0,
-      y: 480
-    }
+      y: 480,
+    },
   },
   {
-    name: "Shield Potion",
-    class: "health",
-    mod1: 5,
-    spriteSheet: 'itemAtlas',
+    name: "Tome of Fireball",
+    class: "tome",
+    spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 0,
-      y: 528
-    }
+      x: 48,
+      y: 288,
+    },
+  },
+  {
+    name: "Club",
+    class: "weapon",
+    mod1: 1,
+    mod2: 1,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 96,
+      y: 672,
+    },
+  },
+  {
+    name: "Wooden Shield",
+    class: "shield",
+    mod1: 2,
+    mod2: 1,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 240,
+      y: 0,
+    },
+  },
+  {
+    name: "Leather Helmet",
+    class: "head",
+    mod1: 2,
+    mod2: 1,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 432,
+      y: 96,
+    },
+  },
+  {
+    name: "Leather Armor",
+    class: "torso",
+    mod1: 2,
+    mod2: 1,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 480,
+      y: 96,
+    },
   },
 ];
 
 class Spawner {
   constructor(world) {
     this.world = world;
+    this.tier = world.tier;
   }
   spawn(spawnCount, createEntity) {
     for (let count = 0; count < spawnCount; count++) {
@@ -245,23 +375,43 @@ class Spawner {
   }
 
   spawnLoot(spawnCount) {
+    let currentLootTable = [];
+    if (this.tier === 1) {
+      currentLootTable = tier1LootTable;
+    } else if (this.tier === 2) {
+      currentLootTable = tier2LootTable;
+    } else if (this.tier === 3) {
+      currentLootTable = tier3LootTable;
+    }
+
     this.spawn(spawnCount, () => {
       return new Loot(
         getRandomInt(this.world.width - 1),
         getRandomInt(this.world.height - 1),
         this.world.tilesize,
-        lootTable[getRandomInt(lootTable.length)]
+        currentLootTable[getRandomInt(currentLootTable.length)]
       );
     });
   }
 
   spawnMonsters(spawnCount) {
+    console.log("spawning", this.tier);
+
+    let currentMonsterTable = [];
+    if (this.tier === 1) {
+      currentMonsterTable = tier1MonsterTable;
+    } else if (this.tier === 2) {
+      currentMonsterTable = tier2MonsterTable;
+    } else if (this.tier === 3) {
+      currentMonsterTable = tier3MonsterTable;
+    }
+
     this.spawn(spawnCount, () => {
       return new Monster(
         getRandomInt(this.world.width - 1),
         getRandomInt(this.world.height - 1),
         this.world.tilesize,
-        monsterTable[getRandomInt(monsterTable.length)]
+        currentMonsterTable[getRandomInt(currentMonsterTable.length)]
       );
     });
   }
