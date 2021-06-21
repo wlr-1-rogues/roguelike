@@ -15,6 +15,7 @@ class Player extends Entity {
     defense: 12,
     damage: 2,
     armor: 0,
+    maxHealth: 10,
     health: 10,
     sightRadius: 7,
     spriteSheet: "heroAtlas",
@@ -23,6 +24,7 @@ class Player extends Entity {
       x: 240,
     },
   };
+
 
   move(dx, dy) {
     if (this.attributes.health <= 0) return;
@@ -110,8 +112,9 @@ class Player extends Entity {
   equip() {
     const [inspecting] = this.inspecting;
     const { item } = inspecting;
-    const shield = `you use the ${item.name} and gain ${item.mod1} armor`;
-    const health = `you use the ${item.name} and gain ${item.mod1} health points`;
+    const shield = `you drink the ${item.name} and gain ${item.mod1} armor`;
+    const health = `you drink the ${item.name} and gain ${item.mod1} health points`;
+    const healthMax = `you drink the ${item.name} and max out your health points!`;
     const equip = `you equip the ${item.name}`;
     if (this.inspecting.length === 1) {
       if (typeof inspecting?.pos === "string")
@@ -166,8 +169,13 @@ class Player extends Entity {
         return equip;
         // CONSUMABLES
       } else if (item.class === "healthCon") {
-        this.attributes.health += item.mod1 > 10 ? this.attributes.health = 10
-        : this.attributes.health += item.mod1
+        this.attributes.health += item.mod1
+        if(this.attributes.health > this.attributes.maxHealth) {
+          this.attributes.health = this.attributes.maxHealth
+          this.inventory.splice(inspecting.pos, 1);
+          this.inspecting.splice(0, 1);
+          return healthMax;
+        }
         this.inventory.splice(inspecting.pos, 1);
         this.inspecting.splice(0, 1);
         return health;
