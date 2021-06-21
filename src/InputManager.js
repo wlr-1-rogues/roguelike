@@ -64,7 +64,7 @@ class InputManager {
       case 81:
         this.broadcast("unequip")
         break;
-      case 82:
+      case 75:
         this.broadcast("drop")
         break;
       default:
