@@ -92,7 +92,18 @@ class World {
       entity.y = y + yOffset;
       return;
     } else {
-      return this.moveToSpace(entity);
+    xOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
+    yOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
+    if (
+      this.worldmap[x + xOffset][y + yOffset] === 0 &&
+      !this.getEntityAtLocation(x + xOffset, y + yOffset)
+    ) {
+      entity.x = x + xOffset;
+      entity.y = y + yOffset;
+      return;
+    } else {
+        return this.moveToSpace(entity);
+      }
     }
   }
 

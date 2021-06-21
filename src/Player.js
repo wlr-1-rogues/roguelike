@@ -15,6 +15,7 @@ class Player extends Entity {
     defense: 12,
     damage: 2,
     armor: 0,
+    maxHealth: 10,
     health: 10,
     sightRadius: 7,
     spriteSheet: "heroAtlas",
@@ -23,6 +24,7 @@ class Player extends Entity {
       x: 240,
     },
   };
+
 
   move(dx, dy) {
     if (this.attributes.health <= 0) return;
@@ -34,7 +36,7 @@ class Player extends Entity {
     if (this.inventory.length === 5) {
       return "inventory full!";
     } else {
-      this.inventory.unshift(item.attributes);
+      this.inventory.push(item.attributes);
       // working inspect before adding to inventory
       // 0 (48) in InputManager will handle adding new item to inventory
       // this.inspecting.push({item: item.attributes});
@@ -110,8 +112,9 @@ class Player extends Entity {
   equip() {
     const [inspecting] = this.inspecting;
     const { item } = inspecting;
-    const shield = `you use the ${item.name} and gain ${item.mod1} armor`;
-    const health = `you use the ${item.name} and gain ${item.mod1} health points`;
+    const armor = `you drink the ${item.name} and gain ${item.mod1} armor`;
+    const health = `you drink the ${item.name} and gain ${item.mod1} health points`;
+    const healthMax = `you drink the ${item.name} and max out your health points!`;
     const equip = `you equip the ${item.name}`;
     if (this.inspecting.length === 1) {
       if (typeof inspecting?.pos === "string")
@@ -124,8 +127,8 @@ class Player extends Entity {
         this.left.push(this.inventory[inspecting.pos]);
         this.inventory.splice(inspecting.pos, 1);
         this.inspecting.splice(0, 1);
-        return equip;
-      } else if (item.class === "weapon" && this.left.length === 1) {
+        return equip
+      } else if (item.class === "weapon" && this.right.length === 0) {
         this.attributes.attack += item.mod1;
         this.attributes.damage += item.mod2;
         if (item.mod3) this.attributes.sightRadius += item.mod3;
@@ -140,8 +143,8 @@ class Player extends Entity {
         this.left.push(this.inventory[inspecting.pos]);
         this.inventory.splice(inspecting.pos, 1);
         this.inspecting.splice(0, 1);
-        return equip;
-      } else if (item.class === "shield" && this.left.length === 1) {
+        return equip
+      } else if (item.class === "shield" && this.right.length === 0) {
         this.attributes.defense += item.mod1;
         this.attributes.armor += item.mod2;
         this.right.push(this.inventory[inspecting.pos]);
@@ -166,15 +169,21 @@ class Player extends Entity {
         return equip;
         // CONSUMABLES
       } else if (item.class === "healthCon") {
-        this.attributes.health += item.mod1;
+        this.attributes.health += item.mod1
+        if(this.attributes.health > this.attributes.maxHealth) {
+          this.attributes.health = this.attributes.maxHealth
+          this.inventory.splice(inspecting.pos, 1);
+          this.inspecting.splice(0, 1);
+          return healthMax;
+        }
         this.inventory.splice(inspecting.pos, 1);
         this.inspecting.splice(0, 1);
         return health;
-      } else if (item.class === "shieldCon") {
+      } else if (item.class === "armorCon") {
         this.attributes.armor += item.mod1;
         this.inventory.splice(inspecting.pos, 1);
         this.inspecting.splice(0, 1);
-        return shield;
+        return armor;
       } else {
         this.inspecting.splice(0, 1);
         return "you cannot equip this item!";
@@ -261,9 +270,10 @@ class Player extends Entity {
   }
 
   drop() {
-    const [inspecting] = this.inspecting;
-    if (typeof inspecting?.pos === "string") {
-      const drop = `the ${inspecting.item.name} crumbles into dust...`;
+    const [inspecting] = this.inspecting
+    if (!inspecting) return 'inspect and item first!';
+    if (typeof inspecting?.pos === 'string') {
+      const drop = `the ${inspecting.item.name} crumbles into dust...`
       this[inspecting?.pos].splice(inspecting.pos, 1);
       this.inspecting.splice(0, 1);
       return drop;
