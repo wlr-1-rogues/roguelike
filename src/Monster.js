@@ -1,6 +1,7 @@
 import Entity from "./Entity";
 import Blood from "./Blood";
 import Player from "./Player";
+import Spawner from "./Spawner";
 
 const blood = {
   spriteSheet: "terrainAtlas",
@@ -50,6 +51,8 @@ class Monster extends Entity {
         if (this.attributes.health <= 0) {
           world.addToHistory(`${this.attributes.name} dies!`);
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
+          let spawner = new Spawner(world);
+          spawner.spawnLootAt(this.x, this.y);
           world.remove(this);
           return;
         } else {
