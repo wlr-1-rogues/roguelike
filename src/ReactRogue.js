@@ -40,7 +40,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
         );
         console.log(world.player.x);
         console.log(newWorld.entities);
-        newWorld.equipItem();
+        newWorld.castSpell();
       } else {
         newWorld.movePlayer(data.x, data.y);
       }
@@ -266,14 +266,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             >
               <h3>{world.player.inspecting[0].item.name} Readied!</h3>
               {typeof world.player.inspecting[0].pos === 'string' ? <p>Press "Q" to unequip, or "R" to remove from Inventory</p>
+              : world.player.inventory[world.player.inspecting[0]?.pos]?.name === "Tome of Fireball" ? (<p>Press fire direction, or "R" to remove from Inventory</p>)
               : <p>Press "E" to equip, or "R" to remove from Inventory</p>}
-              <h3>{world.player.inspecting[0].item.name} Readied!</h3>
-              {world.player.inventory[world.player.inspecting[0]?.pos]
-                .name === "Tome of Fireball" ? (
-                <p>Press fire direction</p>
-              ) : (
-                <p>Press "E" to equip, or "R" to remove from Inventory</p>
-              )}
             </div>
           )}
 

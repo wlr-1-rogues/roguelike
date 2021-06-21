@@ -174,11 +174,8 @@ class Player extends Entity {
         this.inventory.splice(inspecting.pos, 1);
         this.inspecting.splice(0, 1);
         return shield
-      } else if (item.class === "tome") {
-        this.inventory.splice(inspecting.pos, 1);
-        this.inspecting.splice(0, 1);
-        return 'the tome vanishes in a poof of smoke'
       } else {
+        this.inspecting.splice(0, 1);
         return "you cannot equip this item!";
       }
     } else {
@@ -245,6 +242,13 @@ class Player extends Entity {
     } else {
       return "inspect an equipped item to unequip!";
     }
+  }
+
+  cast() {
+    const [inspecting] = this.inspecting
+    this.inventory.splice(inspecting.pos, 1);
+    this.inspecting.splice(0, 1);
+    return 'the tome vanishes in a poof of smoke'
   }
 
   drop() {

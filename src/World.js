@@ -112,6 +112,11 @@ class World {
     this.addToHistory(tempPlayer.unequip());
   }
 
+  castSpell() {
+    let tempPlayer = this.player.copyPlayer();
+    this.addToHistory(tempPlayer.cast());
+  }
+
   dropItem() {
     let tempPlayer = this.player.copyPlayer();
     this.addToHistory(tempPlayer.drop());
