@@ -9,11 +9,12 @@ const monsterTable = [
     defense: 9,
     damage: 2,
     health: 6,
+    flavortext: "It's a ROUS, one of the largest you've ever seen.",
     spriteSheet: 'heroAtlas',
     spriteSheetCoordinates: {
       x: 240,
       y: 0
-    }  
+    }
   },
   {
     name: "Wolf",
@@ -21,35 +22,38 @@ const monsterTable = [
     defense: 10,
     damage: 2,
     health: 3,
+    flavortext: "A direwolf stalks from its lair, bared fangs reflecting your torchlight.",
     spriteSheet: 'heroAtlas',
     spriteSheetCoordinates: {
       x: 288,
       y: 0
-    }  
-    },
+    }
+  },
   {
     name: "Demon",
-    attack: 2,
+    attack: 10,
     defense: 15,
-    damage: 2,
+    damage: 6,
     health: 10,
     spriteSheet: 'heroAtlas',
+    flavortext: "A massive creature of muscle and flame, shaking the earth with every step.",
     spriteSheetCoordinates: {
       x: 336,
       y: 240
-    }  
-    },
+    }
+  },
   {
     name: "Snake",
     attack: 2,
     defense: 8,
     damage: 3,
     health: 1,
+    flavortext: "A snake thicker than your waist is coiled on the ground, bright purple poison dripping from its fangs.",
     spriteSheet: 'heroAtlas',
     spriteSheetCoordinates: {
       x: 240,
       y: 240
-    }  
+    }
   },
   {
     name: "Goblin",
@@ -57,11 +61,12 @@ const monsterTable = [
     defense: 8,
     damage: 3,
     health: 1,
+    flavortext: "A fat slimy goblin holding a rusted knife.",
     spriteSheet: 'heroAtlas',
     spriteSheetCoordinates: {
       x: 144,
       y: 240
-    }  
+    }
   },
   {
     name: "Banshee",
@@ -69,11 +74,12 @@ const monsterTable = [
     defense: 8,
     damage: 3,
     health: 1,
+    flavortext: "You'd pity the cursed woman if her shrieks weren't forcing you to cover your ears.",
     spriteSheet: 'heroAtlas',
     spriteSheetCoordinates: {
       x: 192,
       y: 144
-    }  
+    }
   },
   {
     name: "Green Dragon",
@@ -81,11 +87,12 @@ const monsterTable = [
     defense: 8,
     damage: 3,
     health: 1,
+    flavortext: "A slender green dragon slithers over the walls, using long claws to maintain its grip.",
     spriteSheet: 'heroAtlas',
     spriteSheetCoordinates: {
       x: 384,
       y: 432
-    }  
+    }
   },
   {
     name: "Blue Dragon",
@@ -93,11 +100,12 @@ const monsterTable = [
     defense: 8,
     damage: 3,
     health: 1,
+    flavortext: "Two bright gouts of flames erupt from its nostrils with every breath.",
     spriteSheet: 'heroAtlas',
     spriteSheetCoordinates: {
       x: 384,
       y: 384
-    }  
+    }
   },
 ];
 
