@@ -88,7 +88,7 @@ class World {
 
   inspectItem(itemIndex) {
     let tempPlayer = this.player.copyPlayer();
-    this.addToHistory(tempPlayer.inspect(itemIndex))
+    tempPlayer.inspect(itemIndex) && this.addToHistory(tempPlayer.inspect(itemIndex))
   }
 
   equipItem(itemIndex) {
@@ -98,7 +98,7 @@ class World {
 
   inspectEquip(item) {
     let tempPlayer = this.player.copyPlayer();
-    this.addToHistory(tempPlayer.inspectE(item));
+    tempPlayer.inspectE(item) && this.addToHistory(tempPlayer.inspectE(item));
   }
 
   unequipItem(itemIndex) {

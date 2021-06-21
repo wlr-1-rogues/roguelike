@@ -193,6 +193,14 @@ class Player extends Entity {
         this.right.splice(0, 1)
         this.inspecting.splice(0, 1);
         return unequip
+        // HEAD
+      } else if (this.inspecting[index] === "head" && this.inventory.length < 5) {
+        this.attributes.defense -= attributes.mod1;
+        this.attributes.armor -= attributes.mod2;
+        this.inventory.push(this.head[0]);
+        this.head.splice(0, 1)
+        this.inspecting.splice(0, 1);
+        return unequip
         // SHIELDS
       } else if (this.inspecting[index] === "left" && this.inventory.length < 5) {
         this.attributes.defense -= attributes.mod1;
@@ -206,14 +214,6 @@ class Player extends Entity {
         this.attributes.armor -= attributes.mod2;
         this.inventory.push(this.right[0]);
         this.right.splice(0, 1)
-        this.inspecting.splice(0, 1);
-        return unequip
-        // HEAD
-      } else if (this.inspecting[index] === "head" && this.inventory.length < 5) {
-        this.attributes.defense -= attributes.mod1;
-        this.attributes.armor -= attributes.mod2;
-        this.inventory.push(this.head[0]);
-        this.head.splice(0, 1)
         this.inspecting.splice(0, 1);
         return unequip
         // TORSO
