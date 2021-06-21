@@ -36,7 +36,7 @@ class Player extends Entity {
     } else {
       this.inventory.unshift(item.attributes);
         // working inspect before adding to inventory
-        // 0 (48) in input manager would handle adding new item to inventory
+        // 0 (48) in InputManager will handle adding new item to inventory
       // this.inspecting.push({item: item.attributes});
       return `picked up ${item.attributes.name}`
     }
@@ -61,46 +61,46 @@ class Player extends Entity {
     }
   }
 
-  inspectE(item) {
+  inspectE(position) {
     const [inspecting] = this.inspecting
-    if (item === 'left' && this.left.length === 1) {
+    if (position === 'left' && this.left.length === 1) {
       if (inspecting?.pos === 'left') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
-        this.inspecting.push({pos: item, item: this.left[0]});
+        this.inspecting.push({pos: position, item: this.left[0]});
       } else {
-        this.inspecting.push({pos: item, item: this.left[0]});
+        this.inspecting.push({pos: position, item: this.left[0]});
       }
-    } else if (item === 'right' && this.right.length === 1) {
+    } else if (position === 'right' && this.right.length === 1) {
       if (!this.right) return;
       if (inspecting?.pos === 'right') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
-        this.inspecting.push({pos: item, item: this.right[0]});
+        this.inspecting.push({pos: position, item: this.right[0]});
       } else {
-        this.inspecting.push({pos: item, item: this.right[0]});
+        this.inspecting.push({pos: position, item: this.right[0]});
       }
-    } else if (item === 'head' && this.head.length === 1) {
+    } else if (position === 'head' && this.head.length === 1) {
       if (!this.head) return;
       if (inspecting?.pos === 'head') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
-        this.inspecting.push({pos: item, item: this.head[0]});
+        this.inspecting.push({pos: position, item: this.head[0]});
       } else {
-        this.inspecting.push({pos: item, item: this.head[0]});
+        this.inspecting.push({pos: position, item: this.head[0]});
       }
-    } else if (item === 'torso' && this.torso.length === 1) {
+    } else if (position === 'torso' && this.torso.length === 1) {
       if (!this.torso) return;
       if (inspecting?.pos === 'torso') {
         this.inspecting.splice(0, 1);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
-        this.inspecting.push({pos: item, item: this.torso[0]});
+        this.inspecting.push({pos: position, item: this.torso[0]});
       } else {
-        this.inspecting.push({pos: item, item: this.torso[0]});
+        this.inspecting.push({pos: position, item: this.torso[0]});
       }
     } else {
       return "equip an item to inspect this slot!"
