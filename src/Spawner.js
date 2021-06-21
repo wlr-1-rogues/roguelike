@@ -2,6 +2,71 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Stairs from "./Stairs";
 
+const globalLoot = [
+  {
+    name: "Torch",
+    class: "weapon",
+    mod1: 1,
+    mod2: 0,
+    mod3: 3,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 48,
+      x: 672,
+    },
+  },
+  {
+    name: "Health Tincture",
+    class: "healthCon",
+    mod1: 2,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 48,
+      x: 816,
+    },
+  },
+  {
+    name: "Health Potion",
+    class: "healthCon",
+    mod1: 5,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 0,
+      x: 480,
+    },
+  },
+  {
+    name: "Elixir of Health",
+    class: "healthCon",
+    mod1: 8,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 384,
+      x: 336,
+    },
+  },
+  {
+    name: "Holy Tonic",
+    class: "armorCon",
+    mod1: 3,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 0,
+      x: 528,
+    },
+  },
+  {
+    name: "Tome of Fireball",
+    class: "tome",
+    mod1: 10,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 48,
+      x: 288,
+    },
+  },
+]
+
 const tier3MonsterTable = [
   {
     name: "Demon",
@@ -121,51 +186,10 @@ const tier1MonsterTable = [
 
 const tier3LootTable = [
   {
-    name: "Shield Potion",
-    class: "shieldCon",
-    mod1: 5,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 0,
-      x: 528,
-    },
-  },
-  {
-    name: "Torch",
-    class: "weapon",
-    mod1: 2,
-    mod2: 1,
-    mod3: 3,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 48,
-      x: 672,
-    },
-  },
-  {
-    name: "Elixir of Health",
-    class: "healthCon",
-    mod1: 8,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 384,
-      x: 336,
-    },
-  },
-  {
-    name: "Tome of Fireball",
-    class: "tome",
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 48,
-      x: 288,
-    },
-  },
-  {
     name: "Magic Helmet",
     class: "head",
     mod1: 3,
-    mod2: 2,
+    mod2: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -175,8 +199,8 @@ const tier3LootTable = [
   {
     name: "Magic Armor",
     class: "torso",
-    mod1: 2,
-    mod2: 1,
+    mod1: 4,
+    mod2: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 480,
@@ -186,8 +210,8 @@ const tier3LootTable = [
   {
     name: "Magic Shield",
     class: "shield",
-    mod1: 3,
-    mod2: 2,
+    mod1: 4,
+    mod2: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -197,8 +221,8 @@ const tier3LootTable = [
   {
     name: "Magic Axe",
     class: "weapon",
-    mod1: 1,
-    mod2: 2,
+    mod1: 3,
+    mod2: 4,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 192,
@@ -208,50 +232,9 @@ const tier3LootTable = [
 ];
 const tier2LootTable = [
   {
-    name: "Torch",
-    class: "weapon",
-    mod1: 2,
-    mod2: 1,
-    mod3: 3,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 48,
-      x: 672,
-    },
-  },
-  {
-    name: "Health Potion",
-    class: "healthCon",
-    mod1: 5,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 0,
-      x: 480,
-    },
-  },
-  {
-    name: "Elixir of Health",
-    class: "healthCon",
-    mod1: 8,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 384,
-      x: 336,
-    },
-  },
-  {
-    name: "Tome of Fireball",
-    class: "tome",
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 48,
-      x: 288,
-    },
-  },
-  {
     name: "Long Sword",
     class: "weapon",
-    mod1: 1,
+    mod1: 2,
     mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -262,7 +245,7 @@ const tier2LootTable = [
   {
     name: "Steel Shield",
     class: "shield",
-    mod1: 3,
+    mod1: 2,
     mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -273,7 +256,7 @@ const tier2LootTable = [
   {
     name: "Steel Helmet",
     class: "head",
-    mod1: 3,
+    mod1: 2,
     mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -284,8 +267,8 @@ const tier2LootTable = [
   {
     name: "Steel Armor",
     class: "torso",
-    mod1: 2,
-    mod2: 1,
+    mod1: 3,
+    mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 480,
@@ -294,47 +277,6 @@ const tier2LootTable = [
   },
 ];
 const tier1LootTable = [
-  {
-    name: "Torch",
-    class: "weapon",
-    mod1: 2,
-    mod2: 1,
-    mod3: 3,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 48,
-      x: 672,
-    },
-  },
-  {
-    name: "Health Potion",
-    class: "healthCon",
-    mod1: 5,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 0,
-      x: 480,
-    },
-  },
-  {
-    name: "Health Tincture",
-    class: "healthCon",
-    mod1: 2,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 48,
-      x: 816,
-    },
-  },
-  {
-    name: "Tome of Fireball",
-    class: "tome",
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 48,
-      x: 288,
-    },
-  },
   {
     name: "Dagger",
     class: "weapon",
@@ -349,7 +291,7 @@ const tier1LootTable = [
   {
     name: "Wooden Shield",
     class: "shield",
-    mod1: 2,
+    mod1: 1,
     mod2: 1,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -360,7 +302,7 @@ const tier1LootTable = [
   {
     name: "Leather Helmet",
     class: "head",
-    mod1: 2,
+    mod1: 1,
     mod2: 1,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -371,8 +313,8 @@ const tier1LootTable = [
   {
     name: "Leather Armor",
     class: "torso",
-    mod1: 2,
-    mod2: 1,
+    mod1: 1,
+    mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 480,
@@ -417,11 +359,11 @@ class Spawner {
   spawnLootAt(x, y) {
     let currentLootTable = [];
     if (this.tier === 1) {
-      currentLootTable = tier1LootTable;
+      currentLootTable = [...tier1LootTable, ...globalLoot];
     } else if (this.tier === 2) {
-      currentLootTable = tier2LootTable;
+      currentLootTable = [...tier2LootTable, ...globalLoot];
     } else if (this.tier === 3) {
-      currentLootTable = tier3LootTable;
+      currentLootTable = [...tier3LootTable, ...globalLoot];
     }
 
     let loot = new Loot(

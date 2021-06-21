@@ -69,8 +69,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(80);
-    spawner.spawnMonsters(0);
+    spawner.spawnLoot(4);
+    spawner.spawnMonsters(10);
     spawner.spawnStairs();
     setWorld(newWorld);
   }, []);
@@ -161,7 +161,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               }}
             >
               <div>
-                Attack:
+                Hit Bonus:
                 <br></br>
                 Defense:
                 <br></br>

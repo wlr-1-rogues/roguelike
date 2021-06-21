@@ -36,7 +36,7 @@ class Player extends Entity {
     if (this.inventory.length === 5) {
       return "inventory full!";
     } else {
-      this.inventory.unshift(item.attributes);
+      this.inventory.push(item.attributes);
       // working inspect before adding to inventory
       // 0 (48) in InputManager will handle adding new item to inventory
       // this.inspecting.push({item: item.attributes});
@@ -112,7 +112,7 @@ class Player extends Entity {
   equip() {
     const [inspecting] = this.inspecting;
     const { item } = inspecting;
-    const shield = `you drink the ${item.name} and gain ${item.mod1} armor`;
+    const armor = `you drink the ${item.name} and gain ${item.mod1} armor`;
     const health = `you drink the ${item.name} and gain ${item.mod1} health points`;
     const healthMax = `you drink the ${item.name} and max out your health points!`;
     const equip = `you equip the ${item.name}`;
@@ -179,11 +179,11 @@ class Player extends Entity {
         this.inventory.splice(inspecting.pos, 1);
         this.inspecting.splice(0, 1);
         return health;
-      } else if (item.class === "shieldCon") {
+      } else if (item.class === "armorCon") {
         this.attributes.armor += item.mod1;
         this.inventory.splice(inspecting.pos, 1);
         this.inspecting.splice(0, 1);
-        return shield;
+        return armor;
       } else {
         this.inspecting.splice(0, 1);
         return "you cannot equip this item!";
