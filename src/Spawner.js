@@ -143,9 +143,9 @@ const tier3LootTable = [
     },
   },
   {
-    name: "Health Potion",
+    name: "Elixir of Health",
     class: "healthCon",
-    mod1: 5,
+    mod1: 8,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       x: 0,
@@ -212,7 +212,7 @@ const tier2LootTable = [
     class: "weapon",
     mod1: 2,
     mod2: 1,
-    mod3:3,
+    mod3: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       x: 48,
@@ -223,6 +223,16 @@ const tier2LootTable = [
     name: "Health Potion",
     class: "healthCon",
     mod1: 5,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 0,
+      y: 480,
+    },
+  },
+  {
+    name: "Elixir of Health",
+    class: "healthCon",
+    mod1: 8,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       x: 0,
@@ -300,6 +310,16 @@ const tier1LootTable = [
     name: "Health Potion",
     class: "healthCon",
     mod1: 5,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      x: 0,
+      y: 480,
+    },
+  },
+  {
+    name: "Health Tincture",
+    class: "healthCon",
+    mod1: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       x: 0,
