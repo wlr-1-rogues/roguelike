@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import './styles.css'
 
 function MonsterDisplay(props) {
 
@@ -8,13 +7,8 @@ function MonsterDisplay(props) {
     const [monsterIndex, setMonsterIndex] = useState(0);
     const [playerDefense, setPlayerDefense] = useState(world.player.attributes.defense);
     useEffect(() => {
-        
         setVisibleMonsters([...world.visibleMonsters])
         setMonsterIndex(0);
-        if (visibleMonsters) {
-            calculateChanceToHit(visibleMonsters[0]);
-        }
-        setPlayerDefense(world.player.attributes.defense)
     }, [world]);
 
     function changeMonsterFocus(num) {
@@ -24,8 +18,6 @@ function MonsterDisplay(props) {
         } else if (monsterIndex < visibleMonsters.length - 1 && num === 1) {
             let newIndex = monsterIndex + 1
             setMonsterIndex(newIndex);
-        } else {
-            setMonsterIndex(0);
         }
     }
 
@@ -43,23 +35,12 @@ function MonsterDisplay(props) {
         <div>
             {visibleMonsters[0] ?
                 <div>
-                    {visibleMonsters.length > 1 ?
-                        <div>
-                            <button onClick={() => { changeMonsterFocus(-1) }}>Focus on Last Monster</button>
-                            <button onClick={() => { changeMonsterFocus(1) }}>Focus on Next Monster</button>
-                        </div>
-
-                        : <div></div>}
-
-                    <br />
-                    <img src="https://i.redd.it/rucbstwxumb21.jpg" />
-
-
+                    <button onClick={() => { changeMonsterFocus(-1) }}>Focus on Last Monster</button>
+                    <button onClick={() => { changeMonsterFocus(1) }}>Focus on Next Monster</button>
                     <h1>Monster: {visibleMonsters[monsterIndex].attributes.name}</h1>
-                    <p>{visibleMonsters[monsterIndex].attributes.flavortext}</p>
                     <h2>Monster Health: {visibleMonsters[monsterIndex].attributes.health}</h2>
                     <h2>Monster Damage: {visibleMonsters[monsterIndex].attributes.damage}</h2>
-                    <h2>Monster Chance to Hit: {calculateChanceToHit(visibleMonsters[monsterIndex].attributes.attack)}</h2>
+                    <h2>Monster Chance to Hit: { calculateChanceToHit(visibleMonsters[monsterIndex].attributes.attack) }</h2>
 
 
                 </div>
