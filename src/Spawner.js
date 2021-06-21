@@ -339,11 +339,11 @@ class Spawner {
   spawnLoot(spawnCount) {
     let currentLootTable = [];
     if (this.tier === 1) {
-      currentLootTable = tier1LootTable;
+      currentLootTable = [...tier1LootTable, ...globalLoot];
     } else if (this.tier === 2) {
-      currentLootTable = tier2LootTable;
+      currentLootTable = [...tier2LootTable, ...globalLoot];
     } else if (this.tier === 3) {
-      currentLootTable = tier3LootTable;
+      currentLootTable = [...tier3LootTable, ...globalLoot];
     }
 
     this.spawn(spawnCount, () => {
