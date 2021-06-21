@@ -74,10 +74,12 @@ class Monster extends Entity {
         world.addToHistory(
           `${this.attributes.name} attacks for ${this.attributes.damage} damage!`
         );
-        world.player.attributes.health =
-          world.player.attributes.health -
-          this.attributes.damage -
-          world.player.attributes.armor;
+        let armorReduced = (this.attributes.damage - world.player.attributes.armor < 0 ? 1
+            : this.attributes.damage - world.player.attributes.armor);
+
+        world.player.attributes.health -= armorReduced;
+
+        world.player.attributes.armor > 0 && world.addToHistory(`thanks to your armor they only dealt ${armorReduced}`)
 
         if (world.player.attributes.health <= 0) {
           world.addToHistory("You have died");

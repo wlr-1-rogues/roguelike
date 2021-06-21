@@ -448,7 +448,7 @@ class World {
 
   addToHistory(history) {
     this.history.push(history);
-    if (this.history.length > 6) this.history.shift();
+    if (this.history.length > 9) this.history.shift();
   }
 }
 

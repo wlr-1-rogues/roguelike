@@ -12,7 +12,7 @@ class Player extends Entity {
   attributes = {
     // name: "Player",
     attack: 2,
-    defense: 12,
+    defense: 10,
     damage: 2,
     armor: 0,
     maxHealth: 10,
@@ -170,6 +170,10 @@ class Player extends Entity {
         // CONSUMABLES
       } else if (item.class === "healthCon") {
         this.attributes.health += item.mod1
+        if (item.mod2) {
+          this.attributes.healthMax += item.mod2
+          console.log(item.mod2)
+        }
         if(this.attributes.health > this.attributes.maxHealth) {
           this.attributes.health = this.attributes.maxHealth
           this.inventory.splice(inspecting.pos, 1);

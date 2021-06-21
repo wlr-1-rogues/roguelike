@@ -188,7 +188,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 <br></br>
                 {world.player.attributes.armor}
                 <br></br>
-                {world.player.attributes.health}
+                {world.player.attributes.health} / {world.player.attributes.maxHealth}
                 <br></br>
                 {world.player.attributes.sightRadius}
                 <br></br>
