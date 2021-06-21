@@ -59,15 +59,15 @@ const globalLoot = [
       x: 288,
     },
   },
-]
+];
 
 const tier3MonsterTable = [
   {
     name: "Demon",
-    attack: 3,
-    defense: 15,
-    damage: 3,
-    health: 15,
+    attack: 10,
+    defense: 18,
+    damage: 15,
+    health: 178,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 336,
@@ -76,10 +76,10 @@ const tier3MonsterTable = [
   },
   {
     name: "Dragon",
-    attack: 3,
-    defense: 15,
-    damage: 3,
-    health: 15,
+    attack: 10,
+    defense: 18,
+    damage: 20,
+    health: 178,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 384,
@@ -88,10 +88,10 @@ const tier3MonsterTable = [
   },
   {
     name: "Magma Golem",
-    attack: 3,
-    defense: 15,
-    damage: 3,
-    health: 15,
+    attack: 10,
+    defense: 17,
+    damage: 19,
+    health: 178,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -103,10 +103,10 @@ const tier3MonsterTable = [
 const tier2MonsterTable = [
   {
     name: "Banshee",
-    attack: 2,
-    defense: 10,
-    damage: 2,
-    health: 10,
+    attack: 4,
+    defense: 12,
+    damage: 12,
+    health: 58,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 192,
@@ -115,10 +115,10 @@ const tier2MonsterTable = [
   },
   {
     name: "Ogre",
-    attack: 2,
-    defense: 10,
-    damage: 2,
-    health: 10,
+    attack: 6,
+    defense: 11,
+    damage: 13,
+    health: 59,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 144,
@@ -127,10 +127,10 @@ const tier2MonsterTable = [
   },
   {
     name: "Torturer",
-    attack: 2,
-    defense: 10,
-    damage: 2,
-    health: 10,
+    attack: 5,
+    defense: 15,
+    damage: 6,
+    health: 66,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 96,
@@ -142,10 +142,10 @@ const tier2MonsterTable = [
 const tier1MonsterTable = [
   {
     name: "Zombie",
-    attack: 0,
-    defense: 0,
-    damage: 1,
-    health: 8,
+    attack: 3,
+    defense: 8,
+    damage: 4,
+    health: 22,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -154,10 +154,10 @@ const tier1MonsterTable = [
   },
   {
     name: "Snake",
-    attack: 3,
-    defense: 1,
-    damage: 4,
-    health: 4,
+    attack: 5,
+    defense: 13,
+    damage: 5,
+    health: 2,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -166,10 +166,10 @@ const tier1MonsterTable = [
   },
   {
     name: "Goblin",
-    attack: 2,
-    defense: 5,
-    damage: 2,
-    health: 5,
+    attack: 4,
+    defense: 15,
+    damage: 5,
+    health: 7,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 144,
