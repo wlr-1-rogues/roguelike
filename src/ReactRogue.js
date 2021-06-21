@@ -356,7 +356,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             className="monsterPicture"
             style={{
               display: "flex",
-              height: "20%",
+              height: "50%",
               width: "95%",
               borderStyle: "solid",
               borderColor: "black",
@@ -365,9 +365,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               marginTop: "1vw",
             }}
           >
-            Monster Picture
+            <MonsterDisplay world={world} setWorld={setWorld} />
           </div>
-          <div
+          {/* I am altering the deal. Pray I do not alter it further */}
+          {/* <div
             className="monsterStats"
             style={{
               display: "flex",
@@ -382,7 +383,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           >
             {" "}
             <MonsterDisplay world={world} setWorld={setWorld} />
-          </div>
+          </div> */}
         </div>
         </div>
       </div>
