@@ -94,22 +94,32 @@ class World {
 
   inspectItem(itemIndex) {
     let tempPlayer = this.player.copyPlayer();
-    tempPlayer.inspect(itemIndex);
+    tempPlayer.inspect(itemIndex) && this.addToHistory(tempPlayer.inspect(itemIndex))
   }
 
-  equipItem(itemIndex) {
+  equipItem() {
     let tempPlayer = this.player.copyPlayer();
-    tempPlayer.equip(itemIndex);
+    this.addToHistory(tempPlayer.equip());
   }
 
-  unequipItem(itemIndex) {
+  inspectEquip(item) {
     let tempPlayer = this.player.copyPlayer();
-    tempPlayer.unequip(itemIndex);
+    tempPlayer.inspectE(item) && this.addToHistory(tempPlayer.inspectE(item));
   }
 
-  dropItem(itemIndex) {
+  unequipItem() {
     let tempPlayer = this.player.copyPlayer();
-    tempPlayer.drop(itemIndex);
+    this.addToHistory(tempPlayer.unequip());
+  }
+
+  castSpell() {
+    let tempPlayer = this.player.copyPlayer();
+    this.addToHistory(tempPlayer.cast());
+  }
+
+  dropItem() {
+    let tempPlayer = this.player.copyPlayer();
+    this.addToHistory(tempPlayer.drop());
   }
 
   moveProjectiles() {

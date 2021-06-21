@@ -43,14 +43,29 @@ class InputManager {
       case 53:
         this.broadcast("inspect", 4)
         break;
+      case 48:
+        this.broadcast("inspect", 'new')
+        break;
       case 54:
-        this.broadcast("inspect", 5)
+        this.broadcast("inspectE", 'left')
         break;
       case 55:
-        this.broadcast("inspect", 6)
+        this.broadcast("inspectE", 'right')
+        break;
+      case 56:
+        this.broadcast("inspectE", 'head')
+        break;
+      case 57:
+        this.broadcast("inspectE", 'torso')
         break;
       case 69:
-        this.broadcast("equip", 0)
+        this.broadcast("equip")
+        break;
+      case 81:
+        this.broadcast("unequip")
+        break;
+      case 82:
+        this.broadcast("drop")
         break;
       default:
         break;

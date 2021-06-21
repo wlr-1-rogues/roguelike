@@ -18,7 +18,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     Object.assign(newWorld, world);
     if (action === "move") {
       if (
-        world.player.inventory[world.player.inspecting[0]]?.attributes.name ===
+        world.player.inventory[world.player.inspecting[0]?.pos]?.name ===
         "Tome of Fireball"
       ) {
         console.log("shoot", data.x, data.y);
@@ -40,18 +40,20 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
         );
         console.log(world.player.x);
         console.log(newWorld.entities);
-        world.player.inspecting.splice(0, 1);
+        newWorld.castSpell();
       } else {
         newWorld.movePlayer(data.x, data.y);
       }
     } else if (action === "inspect") {
       newWorld.inspectItem(data);
     } else if (action === "equip") {
-      newWorld.equipItem(data);
+      newWorld.equipItem();
+    } else if (action === "inspectE") {
+      newWorld.inspectEquip(data);
     } else if (action === "unequip") {
-      newWorld.unequipItem(data);
+      newWorld.unequipItem();
     } else if (action === "drop") {
-      newWorld.dropItem(data);
+      newWorld.dropItem();
     }
 
     newWorld.moveProjectiles();
@@ -214,8 +216,35 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 backgroundColor: "green",
               }}
             >
-              {world.player.hands.map((item, index) => (
-                <li key={index}>{item[0].attributes.name}</li>
+              {world.player.left.map((item, index) => (
+                <li key={index}>{item.name}</li>
+              ))}
+            </ul>
+            <ul
+              style={{
+                backgroundColor:'green'
+              }}
+            >
+              {world.player.right.map((item, index) => (
+                <li key={index}>{item.name}</li>
+              ))}
+            </ul>
+            <ul
+              style={{
+                backgroundColor:'green'
+              }}
+            >
+              {world.player.head.map((item, index) => (
+                <li key={index}>{item.name}</li>
+              ))}
+            </ul>
+            <ul
+              style={{
+                backgroundColor:'green'
+              }}
+            >
+              {world.player.torso.map((item, index) => (
+                <li key={index}>{item.name}</li>
               ))}
             </ul>
           </div>
@@ -235,47 +264,36 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 marginBottom: "1vw",
               }}
             >
-              <h3>
-                {
-                  world.player.inventory[world.player.inspecting[0]].attributes
-                    .name
-                }{" "}
-                Readied!
-              </h3>
-              {world.player.inventory[world.player.inspecting[0]].attributes
-                .name === "Tome of Fireball" ? (
-                <p>Press fire direction</p>
-              ) : (
-                <p>Press "E" to equip, or "R" to remove from Inventory</p>
-              )}
+              <h3>{world.player.inspecting[0].item.name} Readied!</h3>
+              {typeof world.player.inspecting[0].pos === 'string' ? <p>Press "Q" to unequip, or "R" to remove from Inventory</p>
+              : world.player.inventory[world.player.inspecting[0]?.pos]?.name === "Tome of Fireball" ? (<p>Press fire direction, or "R" to remove from Inventory</p>)
+              : <p>Press "E" to equip, or "R" to remove from Inventory</p>}
             </div>
           )}
 
           <div
             className="fullInventory"
             style={{
-              display: "flex",
-              flexDirection: "column",
-              minHeight: "15%",
-              width: "95%",
-              justifyContent: "center",
-              alignItems: "center",
-              borderStyle: "solid",
-              borderColor: "black",
-            }}
-          >
-            <h3>Inventory</h3>
-            <ol type="1">
-              {world.player.inventory.map((item, index) => (
-                <li key={index} style={{ backgroundColor: "lightblue" }}>
-                  {item.attributes.name}
-                </li>
-              ))}
-            </ol>
-            <p>Press Number Key to Ready an Item!</p>
+              display:'flex',
+              flexDirection:'column',
+              minHeight:'15%',
+              width:'95%',
+              justifyContent:'center',
+              alignItems:'center',
+              borderStyle:'solid',
+              borderColor:'black'
+            }}>
+                <h3>Inventory</h3>
+                <ol type='1'>
+                  {world.player.inventory.map((item, index) => (
+                    <li key={index}
+                      style={{backgroundColor:'lightblue'}}
+                    >{item.name}</li>
+                    ))}
+                </ol>
+                <p>Press Number Key to Ready an Item!</p>
+            </div>
           </div>
-        </div>
-
         <div
           className="leftSide"
           style={{
@@ -366,8 +384,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             <MonsterDisplay world={world} setWorld={setWorld} />
           </div>
         </div>
+        </div>
       </div>
-    </div>
   );
 };
 
