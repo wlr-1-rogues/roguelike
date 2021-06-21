@@ -6,6 +6,14 @@ class Loot extends Entity {
       world.addToHistory(world.player.add(this))
       world.remove(this);
     }
+
+    if (verb === "drop") {
+      console.log("drop", this);
+    }
+
+    if (verb === "fireball") {
+      world.remove(this);
+    }
   }
 }
 

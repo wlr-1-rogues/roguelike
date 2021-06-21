@@ -36,13 +36,25 @@ class Entity {
         this.tilesize,
         this.tilesize
       );
-    } else if (entity.attributes.type === "stairs") {
+    } else if (entity.attributes.spriteSheet === "terrainAtlas") {
       context.drawImage(
         atlases.terrainAtlas,
-        432,
-        96,
+        entity.attributes.spriteSheetCoordinates.x,
+        entity.attributes.spriteSheetCoordinates.y,
         48,
         48,
+        this.x * this.tilesize,
+        this.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    } else if (entity.attributes.spriteSheet === "fxAtlas") {
+      context.drawImage(
+        atlases.fxAtlas,
+        entity.attributes.spriteSheetCoordinates.x,
+        entity.attributes.spriteSheetCoordinates.y,
+        24,
+        24,
         this.x * this.tilesize,
         this.y * this.tilesize,
         this.tilesize,

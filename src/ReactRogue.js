@@ -1,14 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
-import MonsterDisplay from './MonsterDisplay'
+import MonsterDisplay from "./MonsterDisplay";
 import InputManager from "./InputManager";
 import Player from "./Player";
 import Spawner from "./Spawner";
 import World from "./World";
+import Fireball from "./Fireball";
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
   const [world, setWorld] = useState(
-    new World(width, height, tilesize, atlases)
+    new World(width, height, tilesize, atlases, 1)
   );
 
   let inputManager = new InputManager();
@@ -16,7 +17,33 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     let newWorld = new World();
     Object.assign(newWorld, world);
     if (action === "move") {
-      newWorld.movePlayer(data.x, data.y);
+      if (
+        world.player.inventory[world.player.inspecting[0].pos]?.name ===
+        "Tome of Fireball"
+      ) {
+        console.log("shoot", data.x, data.y);
+        let fireDirection = "up";
+
+        if (data.y < 0 && data.x === 0) {
+          fireDirection = "up";
+        } else if (data.y > 0 && data.x === 0) {
+          fireDirection = "down";
+        } else if (data.y === 0 && data.x > 0) {
+          fireDirection = "right";
+        } else if (data.y === 0 && data.x < 0) {
+          fireDirection = "left";
+        }
+
+        console.log(fireDirection);
+        newWorld.add(
+          new Fireball(world.player.x, world.player.y, tilesize, fireDirection)
+        );
+        console.log(world.player.x);
+        console.log(newWorld.entities);
+        world.player.inspecting.splice(0, 1);
+      } else {
+        newWorld.movePlayer(data.x, data.y);
+      }
     } else if (action === "inspect") {
       newWorld.inspectItem(data);
     } else if (action === "equip") {
@@ -29,6 +56,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       newWorld.dropItem();
     }
 
+    newWorld.moveProjectiles();
     newWorld.moveMonsters();
     setWorld(newWorld);
   };
@@ -61,131 +89,131 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
   });
   return (
     <div>
-      <header 
+      <header
         style={{
-          display:'flex',
-          justifyContent:'space-evenly',
-          height:'1.5vh',
-          width:'98vw',
-          borderStyle:'solid', 
-          borderColor:'white',
-          alignItems:'center',
-          }}>
-      </header>
-      
-      <div style={{
-        display:'flex',
-        justifyContent:'space-evenly'
-        }}>
+          display: "flex",
+          justifyContent: "space-evenly",
+          height: "1.5vh",
+          width: "98vw",
+          borderStyle: "solid",
+          borderColor: "white",
+          alignItems: "center",
+        }}
+      ></header>
 
-        <div className='leftOfCanvas'
-          style={{
-            display:'flex',
-            flexDirection:'column',
-            alignItems:'center',
-            width: '20vw',
-            minHeight:'100vh',
-            borderStyle:'solid',
-            borderColor:'black',
-          }}>
-          
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+        }}
+      >
         <div
-          className='newPlayer'
+          className="leftOfCanvas"
           style={{
-            display:'flex',
-            flexDirection:'column',
-            minHeight:'15%',
-            width:'95%',
-            justifyContent:'center',
-            alignItems:'center',
-            borderStyle:'solid',
-            borderColor:'black',
-            marginTop:'1vw',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "20vw",
+            minHeight: "100vh",
+            borderStyle: "solid",
+            borderColor: "black",
           }}
+        >
+          <div
+            className="newPlayer"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "15%",
+              width: "95%",
+              justifyContent: "center",
+              alignItems: "center",
+              borderStyle: "solid",
+              borderColor: "black",
+              marginTop: "1vw",
+            }}
           >
             <h3>Player Stats</h3>
             <section
-                style={{
-                  display:'flex',
-                  justifyContent:'center',
-                  alignItems:'center',
-                  height: '2vh',
-                  width:'27.5%',
-                  paddingLeft:'1vw',
-                  paddingRight:'1vw',
-                  borderStyle:'solid',
-                  borderColor:'black', 
-                  marginTop:'-1vh',
-                  marginBottom:'1vh'
-                }}
-              >Health Bar
-            </section>
-            <div
-            style={{
-              display:'flex', 
-              width:'35%', 
-              justifyContent:'space-between'
-            }}
-            >
-            <div>
-              Attack: 
-              <br></br>
-              Defense: 
-              <br></br>
-              Damage: 
-              <br></br>
-              Armor: 
-              <br></br>
-              Health: 
-              <br></br>
-              Visibility: 
-            </div>
-            <div
               style={{
-                display:'flex',
-                flexDirection:'column',
-                textAlign:'right',
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "2vh",
+                width: "27.5%",
+                paddingLeft: "1vw",
+                paddingRight: "1vw",
+                borderStyle: "solid",
+                borderColor: "black",
+                marginTop: "-1vh",
+                marginBottom: "1vh",
               }}
             >
-              {world.player.attributes.attack}
-              <br></br>
-              {world.player.attributes.defense}
-              <br></br>
-              {world.player.attributes.damage}
-              <br></br>
-              {world.player.attributes.armor}
-              <br></br>
-              {world.player.attributes.health}
-              <br></br>
-              {world.player.attributes.sightRadius}
-              <br></br><br></br>
-
+              Health Bar
+            </section>
+            <div
+              style={{
+                display: "flex",
+                width: "35%",
+                justifyContent: "space-between",
+              }}
+            >
+              <div>
+                Attack:
+                <br></br>
+                Defense:
+                <br></br>
+                Damage:
+                <br></br>
+                Armor:
+                <br></br>
+                Health:
+                <br></br>
+                Visibility:
               </div>
-             
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  textAlign: "right",
+                }}
+              >
+                {world.player.attributes.attack}
+                <br></br>
+                {world.player.attributes.defense}
+                <br></br>
+                {world.player.attributes.damage}
+                <br></br>
+                {world.player.attributes.armor}
+                <br></br>
+                {world.player.attributes.health}
+                <br></br>
+                {world.player.attributes.sightRadius}
+                <br></br>
+                <br></br>
+              </div>
             </div>
-
           </div>
 
           <div
-            className='equippedItems'
+            className="equippedItems"
             style={{
-              display:'flex',
-              flexDirection:'column',
-              minHeight:'15%',
-              width:'95%',
-              justifyContent:'center',
-              alignItems:'center',
-              borderStyle:'solid',
-              borderColor:'black',
-              marginTop:'1vw',
-              marginBottom:'1vw',
-
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "15%",
+              width: "95%",
+              justifyContent: "center",
+              alignItems: "center",
+              borderStyle: "solid",
+              borderColor: "black",
+              marginTop: "1vw",
+              marginBottom: "1vw",
             }}
           >
             <h3>Equipped Items</h3>
             <ul
               style={{
-                backgroundColor:'green'
+                backgroundColor: "green",
               }}
             >
               {world.player.left.map((item, index) => (
@@ -220,30 +248,37 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               ))}
             </ul>
           </div>
-          
+
           {world.player.inspecting.length === 1 && (
             <div
-              className='readiedItem'
+              className="readiedItem"
               style={{
-                display:'flex',
-                flexDirection:'column',
-                minHeight:'15%',
-                width:'95%',
-                justifyContent:'center',
-                alignItems:'center',
-                borderStyle:'solid',
-                borderColor:'black',
-                marginBottom:'1vw',
-                }}
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "15%",
+                width: "95%",
+                justifyContent: "center",
+                alignItems: "center",
+                borderStyle: "solid",
+                borderColor: "black",
+                marginBottom: "1vw",
+              }}
             >
-                <h3>{world.player.inspecting[0].item.name} Readied!</h3>
-                {typeof world.player.inspecting[0].pos === 'string' ? <p>Press "Q" to unequip, or "R" to remove from Inventory</p>
-                : <p>Press "E" to equip, or "R" to remove from Inventory</p>}
+              <h3>{world.player.inspecting[0].item.name} Readied!</h3>
+              {typeof world.player.inspecting[0].pos === 'string' ? <p>Press "Q" to unequip, or "R" to remove from Inventory</p>
+              : <p>Press "E" to equip, or "R" to remove from Inventory</p>}
+              <h3>{world.player.inspecting[0].item.name} Readied!</h3>
+              {world.player.inventory[world.player.inspecting[0]].attributes
+                .name === "Tome of Fireball" ? (
+                <p>Press fire direction</p>
+              ) : (
+                <p>Press "E" to equip, or "R" to remove from Inventory</p>
+              )}
             </div>
           )}
 
           <div
-            className='fullInventory'
+            className="fullInventory"
             style={{
               display:'flex',
               flexDirection:'column',
@@ -266,93 +301,99 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             </div>
           
           </div>
+        </div>
 
-        <div className='leftSide' 
+        <div
+          className="leftSide"
           style={{
-            display:'flex', 
-            flexDirection:'column',
-
-
-            }}>
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <canvas
             ref={canvasRef}
             width={width * tilesize * 1}
             height={height * tilesize * 1}
-            maxWidth={'75vw'}
+            maxWidth={"75vw"}
             style={{
               border: "1px solid SaddleBrown",
             }}
           ></canvas>
-        
         </div>
 
-        <div className='rightSide'
+        <div
+          className="rightSide"
           style={{
-            display:'flex',
-            flexDirection:'column',
+            display: "flex",
+            flexDirection: "column",
             // justifyContent:'space-evenly',
-            alignItems:'center',
-            width:'20vw',
-            height:'100vh',
+            alignItems: "center",
+            width: "20vw",
+            height: "100vh",
             // padding:'1vw',
-            borderStyle:'solid', 
-            borderColor:'black',
+            borderStyle: "solid",
+            borderColor: "black",
           }}
-          >
-          <div className="eventHistory"
+        >
+          <div
+            className="eventHistory"
             style={{
-              height:'40%',
-              width:'95%', 
-              borderStyle:'solid', 
-              borderColor:'black',
-              marginTop:'1vw'
+              height: "40%",
+              width: "95%",
+              borderStyle: "solid",
+              borderColor: "black",
+              marginTop: "1vw",
             }}
-            >
-            <h2 className='eventHeader'
+          >
+            <h2
+              className="eventHeader"
               style={{
-                display:'flex',
-                justifyContent:'center'
+                display: "flex",
+                justifyContent: "center",
               }}
-            >Event History</h2>
+            >
+              Event History
+            </h2>
             <ul>
               {world.history.map((item, index) => (
                 <li key={index}>{item}</li>
-                ))}
+              ))}
             </ul>
           </div>
 
-          <div className='monsterPicture'
+          <div
+            className="monsterPicture"
             style={{
-              display:'flex',
-              height:'20%',
-              width:'95%',
-              borderStyle:'solid',
-              borderColor:'black',
-              alignItems:'center', 
-              justifyContent:'center',
-              marginTop:'1vw'
-
+              display: "flex",
+              height: "20%",
+              width: "95%",
+              borderStyle: "solid",
+              borderColor: "black",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "1vw",
             }}
-          >Monster Picture</div>
-          <div className='monsterStats'
+          >
+            Monster Picture
+          </div>
+          <div
+            className="monsterStats"
             style={{
-              display:'flex',
-              height:'20%',
-              width:'95%',
-              borderStyle:'solid',
-              borderColor:'black',
-              alignItems:'center', 
-              justifyContent:'center',
-              marginTop:'1vw'
+              display: "flex",
+              height: "20%",
+              width: "95%",
+              borderStyle: "solid",
+              borderColor: "black",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "1vw",
             }}
-          >Monster Stats</div>
-
+          >
+            {" "}
+            <MonsterDisplay world={world} setWorld={setWorld} />
+          </div>
         </div>
-      
       </div>
-
-
-    </div>
   );
 };
 

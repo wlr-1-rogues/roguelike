@@ -174,6 +174,10 @@ class Player extends Entity {
         this.inventory.splice(inspecting.pos, 1);
         this.inspecting.splice(0, 1);
         return shield
+      } else if (item.class === "tome") {
+        this.inventory.splice(inspecting.pos, 1);
+        this.inspecting.splice(0, 1);
+        return 'the tome vanishes in a poof of smoke'
       } else {
         return "you cannot equip this item!";
       }
