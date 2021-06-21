@@ -11,8 +11,8 @@ const tier3MonsterTable = [
     health: 15,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      x: 336,
-      y: 240,
+      y: 336,
+      x: 240,
     },
   },
   {
@@ -23,8 +23,8 @@ const tier3MonsterTable = [
     health: 15,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      x: 384,
-      y: 336,
+      y: 384,
+      x: 336,
     },
   },
   {
@@ -35,8 +35,8 @@ const tier3MonsterTable = [
     health: 15,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      x: 432,
-      y: 288,
+      y: 432,
+      x: 288,
     },
   },
 ];
@@ -50,8 +50,8 @@ const tier2MonsterTable = [
     health: 10,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      x: 192,
-      y: 144,
+      y: 192,
+      x: 144,
     },
   },
   {
@@ -62,8 +62,8 @@ const tier2MonsterTable = [
     health: 10,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      x: 144,
-      y: 432,
+      y: 144,
+      x: 432,
     },
   },
   {
@@ -74,8 +74,8 @@ const tier2MonsterTable = [
     health: 10,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      x: 96,
-      y: 0,
+      y: 96,
+      x: 0,
     },
   },
 ];
@@ -89,8 +89,8 @@ const tier1MonsterTable = [
     health: 5,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      x: 240,
-      y: 144,
+      y: 240,
+      x: 144,
     },
   },
   {
@@ -101,8 +101,8 @@ const tier1MonsterTable = [
     health: 5,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      x: 240,
       y: 240,
+      x: 240,
     },
   },
   {
@@ -113,8 +113,8 @@ const tier1MonsterTable = [
     health: 5,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      x: 144,
-      y: 240,
+      y: 144,
+      x: 240,
     },
   },
 ];
@@ -126,8 +126,8 @@ const tier3LootTable = [
     mod1: 5,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 0,
-      y: 528,
+      y: 0,
+      x: 528,
     },
   },
   {
@@ -138,8 +138,8 @@ const tier3LootTable = [
     mod3: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 48,
-      y: 672,
+      y: 48,
+      x: 672,
     },
   },
   {
@@ -148,8 +148,8 @@ const tier3LootTable = [
     mod1: 5,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 0,
-      y: 480,
+      y: 0,
+      x: 480,
     },
   },
   {
@@ -157,8 +157,8 @@ const tier3LootTable = [
     class: "tome",
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 48,
-      y: 288,
+      y: 48,
+      x: 288,
     },
   },
   {
@@ -168,8 +168,8 @@ const tier3LootTable = [
     mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 432,
       y: 432,
+      x: 432,
     },
   },
   {
@@ -179,8 +179,8 @@ const tier3LootTable = [
     mod2: 1,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 480,
-      y: 432,
+      y: 480,
+      x: 432,
     },
   },
   {
@@ -190,8 +190,8 @@ const tier3LootTable = [
     mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 288,
       y: 240,
+      x: 816,
     },
   },
   {
@@ -201,8 +201,8 @@ const tier3LootTable = [
     mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 192,
-      y: 144,
+      y: 192,
+      x: 144,
     },
   },
 ];
@@ -212,11 +212,11 @@ const tier2LootTable = [
     class: "weapon",
     mod1: 2,
     mod2: 1,
-    mod3:3,
+    mod3: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 48,
-      y: 672,
+      y: 48,
+      x: 672,
     },
   },
   {
@@ -225,8 +225,8 @@ const tier2LootTable = [
     mod1: 5,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 0,
-      y: 480,
+      y: 0,
+      x: 480,
     },
   },
   {
@@ -234,8 +234,8 @@ const tier2LootTable = [
     class: "tome",
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 48,
-      y: 288,
+      y: 48,
+      x: 288,
     },
   },
   {
@@ -245,8 +245,8 @@ const tier2LootTable = [
     mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 144,
-      y: 0,
+      y: 144,
+      x: 0,
     },
   },
   {
@@ -256,8 +256,8 @@ const tier2LootTable = [
     mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 240,
-      y: 288,
+      y: 240,
+      x: 288,
     },
   },
   {
@@ -267,8 +267,8 @@ const tier2LootTable = [
     mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 432,
-      y: 384,
+      y: 432,
+      x: 384,
     },
   },
   {
@@ -278,8 +278,8 @@ const tier2LootTable = [
     mod2: 1,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 480,
-      y: 384,
+      y: 480,
+      x: 384,
     },
   },
 ];
@@ -292,8 +292,8 @@ const tier1LootTable = [
     mod3: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 48,
-      y: 672,
+      y: 48,
+      x: 672,
     },
   },
   {
@@ -302,8 +302,8 @@ const tier1LootTable = [
     mod1: 5,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 0,
-      y: 480,
+      y: 0,
+      x: 480,
     },
   },
   {
@@ -311,19 +311,19 @@ const tier1LootTable = [
     class: "tome",
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 48,
-      y: 288,
+      y: 48,
+      x: 288,
     },
   },
   {
-    name: "Club",
+    name: "Dagger",
     class: "weapon",
     mod1: 1,
     mod2: 1,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
+      y: 96,
       x: 96,
-      y: 672,
     },
   },
   {
@@ -333,8 +333,8 @@ const tier1LootTable = [
     mod2: 1,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 240,
-      y: 0,
+      y: 240,
+      x: 0,
     },
   },
   {
@@ -344,8 +344,8 @@ const tier1LootTable = [
     mod2: 1,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 432,
-      y: 96,
+      y: 432,
+      x: 96,
     },
   },
   {
@@ -355,8 +355,8 @@ const tier1LootTable = [
     mod2: 1,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      x: 480,
-      y: 96,
+      y: 480,
+      x: 96,
     },
   },
 ];
@@ -392,6 +392,26 @@ class Spawner {
         currentLootTable[getRandomInt(currentLootTable.length)]
       );
     });
+  }
+
+  spawnLootAt(x, y) {
+    let currentLootTable = [];
+    if (this.tier === 1) {
+      currentLootTable = tier1LootTable;
+    } else if (this.tier === 2) {
+      currentLootTable = tier2LootTable;
+    } else if (this.tier === 3) {
+      currentLootTable = tier3LootTable;
+    }
+
+    let loot = new Loot(
+      x,
+      y,
+      this.world.tilesize,
+      currentLootTable[getRandomInt(currentLootTable.length)]
+    );
+    this.world.add(loot);
+    this.world.moveDropToSpace(loot);
   }
 
   spawnMonsters(spawnCount) {

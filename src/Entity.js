@@ -15,8 +15,8 @@ class Entity {
     if (entity.attributes.spriteSheet === "heroAtlas") {
       context.drawImage(
         atlases.heroAtlas,
-        entity.attributes.spriteSheetCoordinates.y,
         entity.attributes.spriteSheetCoordinates.x,
+        entity.attributes.spriteSheetCoordinates.y,
         48,
         48,
         this.x * this.tilesize,
@@ -27,8 +27,8 @@ class Entity {
     } else if (entity.attributes.spriteSheet === "itemAtlas") {
       context.drawImage(
         atlases.itemAtlas,
-        entity.attributes.spriteSheetCoordinates.y,
         entity.attributes.spriteSheetCoordinates.x,
+        entity.attributes.spriteSheetCoordinates.y,
         48,
         48,
         this.x * this.tilesize,

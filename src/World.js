@@ -13,7 +13,7 @@ class World {
     this.atlases = atlases;
     this.tier = tier;
     this.entities = [new Player(0, 0, 24)];
-    this.history = ["You enter the dungeon", "---", `LEVEL ${tier}`];
+    this.history = ["You enter the dungeon", "---", `LEVEL ${tier}`, "---"];
     this.visibleMonsters = new Set([]);
     this.worldmap = new Array(this.width);
     for (let x = 0; x < this.width; x++) {
@@ -76,6 +76,26 @@ class World {
     }
   }
 
+  moveDropToSpace(entity) {
+    let offsets = [-1, 1];
+    let x = entity.x;
+    let y = entity.y;
+
+    let xOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
+    let yOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
+
+    if (
+      this.worldmap[x + xOffset][y + yOffset] === 0 &&
+      !this.getEntityAtLocation(x + xOffset, y + yOffset)
+    ) {
+      entity.x = x + xOffset;
+      entity.y = y + yOffset;
+      return;
+    } else {
+      return this.moveToSpace(entity);
+    }
+  }
+
   isWall(x, y) {
     return (
       this.worldmap[x] === undefined ||
@@ -94,7 +114,8 @@ class World {
 
   inspectItem(itemIndex) {
     let tempPlayer = this.player.copyPlayer();
-    tempPlayer.inspect(itemIndex) && this.addToHistory(tempPlayer.inspect(itemIndex))
+    tempPlayer.inspect(itemIndex) &&
+      this.addToHistory(tempPlayer.inspect(itemIndex));
   }
 
   equipItem() {
