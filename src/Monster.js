@@ -65,6 +65,7 @@ class Monster extends Entity {
 
           let dropRoll = Math.random();
           if (dropRoll < 0.1) {
+            world.addToHistory(`${this.attributes.name} drops an item!`);
             let spawner = new Spawner(world);
             spawner.spawnLootAt(this.x, this.y);
           }
