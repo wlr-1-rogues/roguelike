@@ -1,7 +1,6 @@
 //IMPORTS
 require('dotenv').config()
 const express = require('express')
-const massive = require('massive')
 const session = require('express-session')
 
 
@@ -29,13 +28,14 @@ app.get('*', (req, res) => {
 
 
 //DATABASE CONNECTION
-massive({
-    connectionString: CONNECTION_STRING,
-    ssl: {rejectUnauthorized: false}
-})
-.then(db => {
-    app.set('db', db)
-    console.log('Database Connected')
-    app.listen(SERVER_PORT, () => {console.log(`Server connected on port ${SERVER_PORT}.`)})
-})
-.catch((err) => {console.log(err)}) 
+// massive({
+//     connectionString: CONNECTION_STRING,
+//     ssl: {rejectUnauthorized: false}
+// })
+// .then(db => {
+//     app.set('db', db)
+//     console.log('Database Connected')
+// })
+// .catch((err) => {console.log(err)}) 
+
+app.listen(SERVER_PORT, () => {console.log(`Server connected on port ${SERVER_PORT}.`)})
