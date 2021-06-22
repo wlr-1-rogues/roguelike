@@ -158,13 +158,13 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               }}
             >
               <div>
-                Hit Bonus:
+                Hit:
                 <br></br>
                 Defense:
                 <br></br>
                 Damage:
                 <br></br>
-                Armor:
+                Block:
                 <br></br>
                 Health:
                 <br></br>
@@ -183,9 +183,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 <br></br>
                 {world.player.attributes.damage}
                 <br></br>
-                {world.player.attributes.armor}
+                {world.player.attributes.block}
                 <br></br>
-                {world.player.attributes.health}
+                {world.player.attributes.health} /{" "}
+                {world.player.attributes.maxHealth}
                 <br></br>
                 {world.player.attributes.sightRadius}
                 <br></br>
@@ -254,20 +255,24 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                   <p>Attack +{inspecting.item.mod1}</p>
                   <p>Damage +{inspecting.item.mod2}</p>
                 </div>
-              ) : inspecting.item.class === "shield" ||
-                inspecting.item.class === "head" ||
+
+              ) : inspecting.item.class === "shield" ? (
+                  <p>Block + {inspecting.item.mod1}</p>
+
+              ) : inspecting.item.class === "head" ||
                 inspecting.item.class === "torso" ? (
-                <div>
                   <p>Defense +{inspecting.item.mod1}</p>
-                  <p>Armor +{inspecting.item.mod2}</p>
-                </div>
+
               ) : inspecting.item.class === "healthCon" ? (
                 <p>Health +{inspecting.item.mod1}</p>
+
               ) : inspecting.item.class === "shieldCon" ? (
-                <p>Armor +{inspecting.item.mod1}</p>
+                <p>Block +{inspecting.item.mod1}</p>
+
               ) : (
                 <p>A dusty old tome with strange symbols</p>
               )}
+              
               {typeof inspecting.pos === "string" ? (
                 <p>Press "Q" to unequip, or "K" to destroy</p>
               ) : inspecting.item.name === "Tome of Fireball" ? (

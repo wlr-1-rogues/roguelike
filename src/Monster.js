@@ -94,18 +94,35 @@ class Monster extends Entity {
               this.attributes.damage * 2
             } DAMAGE!`
           );
-          world.player.attributes.health =
-            world.player.attributes.health -
-            this.attributes.damage * 2 -
-            world.player.attributes.armor;
+
+          let unblocked =
+          this.attributes.damage - world.player.attributes.block < 0
+            ? 0
+            : this.attributes.damage * 2 - world.player.attributes.block;
+
+          world.player.attributes.health -= unblocked;
+
         } else {
           world.addToHistory(
             `${this.attributes.name} attacks for ${this.attributes.damage} damage!`
           );
-          world.player.attributes.health =
-            world.player.attributes.health -
-            this.attributes.damage -
-            world.player.attributes.armor;
+
+          let unblocked =
+            this.attributes.damage - world.player.attributes.block < 0
+              ? 0
+              : this.attributes.damage - world.player.attributes.block;
+
+          world.player.attributes.health -= unblocked;
+
+          unblocked > 0
+            ? world.addToHistory(
+                `You were able to block ${
+                  this.attributes.damage - unblocked
+                } damage.`
+              )
+            : world.addToHistory(
+                `You blocked you blocked their attack completely!`
+              );
         }
 
         if (world.player.attributes.health <= 0) {

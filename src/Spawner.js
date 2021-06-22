@@ -2,12 +2,15 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Stairs from "./Stairs";
 
+// total item tier head/torso armor should not reduce more dmg than the lowest dmg dealing enemy
+// total item tier head/torso + shield armor shouldn't reduce the highest dmg dealing enemy
+
 const globalLoot = [
   {
     name: "Torch",
     class: "weapon",
     mod1: 1,
-    mod2: 0,
+    mod2: 1,
     mod3: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -18,7 +21,7 @@ const globalLoot = [
   {
     name: "Health Tincture",
     class: "healthCon",
-    mod1: 2,
+    mod1: 10,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 48,
@@ -28,7 +31,7 @@ const globalLoot = [
   {
     name: "Health Potion",
     class: "healthCon",
-    mod1: 5,
+    mod1: 25,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 0,
@@ -38,21 +41,12 @@ const globalLoot = [
   {
     name: "Elixir of Health",
     class: "healthCon",
-    mod1: 8,
+    mod1: 50,
+    mod2: 50,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 384,
       x: 336,
-    },
-  },
-  {
-    name: "Holy Tonic",
-    class: "armorCon",
-    mod1: 3,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 0,
-      x: 528,
     },
   },
   {
@@ -189,7 +183,6 @@ const tier3LootTable = [
     name: "Magic Helmet",
     class: "head",
     mod1: 3,
-    mod2: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -199,8 +192,7 @@ const tier3LootTable = [
   {
     name: "Magic Armor",
     class: "torso",
-    mod1: 4,
-    mod2: 3,
+    mod1: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 480,
@@ -210,8 +202,7 @@ const tier3LootTable = [
   {
     name: "Magic Shield",
     class: "shield",
-    mod1: 4,
-    mod2: 3,
+    mod1: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -221,8 +212,8 @@ const tier3LootTable = [
   {
     name: "Magic Axe",
     class: "weapon",
-    mod1: 3,
-    mod2: 4,
+    mod1: 12,
+    mod2: 14,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 192,
@@ -234,8 +225,8 @@ const tier2LootTable = [
   {
     name: "Long Sword",
     class: "weapon",
-    mod1: 2,
-    mod2: 2,
+    mod1: 6,
+    mod2: 6,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 144,
@@ -246,7 +237,6 @@ const tier2LootTable = [
     name: "Steel Shield",
     class: "shield",
     mod1: 2,
-    mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -257,7 +247,6 @@ const tier2LootTable = [
     name: "Steel Helmet",
     class: "head",
     mod1: 2,
-    mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -267,8 +256,7 @@ const tier2LootTable = [
   {
     name: "Steel Armor",
     class: "torso",
-    mod1: 3,
-    mod2: 2,
+    mod1: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 480,
@@ -280,8 +268,8 @@ const tier1LootTable = [
   {
     name: "Dagger",
     class: "weapon",
-    mod1: 1,
-    mod2: 1,
+    mod1: 3,
+    mod2: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 96,
@@ -292,7 +280,6 @@ const tier1LootTable = [
     name: "Wooden Shield",
     class: "shield",
     mod1: 1,
-    mod2: 1,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -303,7 +290,6 @@ const tier1LootTable = [
     name: "Leather Helmet",
     class: "head",
     mod1: 1,
-    mod2: 1,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -314,7 +300,6 @@ const tier1LootTable = [
     name: "Leather Armor",
     class: "torso",
     mod1: 1,
-    mod2: 2,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 480,
