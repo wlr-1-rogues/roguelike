@@ -16,10 +16,15 @@ class Stairs extends Entity {
       world.tier += 1;
       if (world.tier > 3) {
         //spawn boss room here
+        world.tier = "boss";
         world.addToHistory("You suddenly feel a sense of impending doom...");
         world.createBossMap();
+        world.player.x = 0;
+        world.player.y = 0;
         world.moveToSpace(world.player);
         world.entities = world.entities.filter((e) => e === world.player);
+        let spawner = new Spawner(world);
+        spawner.spawnBoss();
         return;
       }
       world.addToHistory(`LEVEL ${world.tier}`);

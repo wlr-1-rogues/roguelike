@@ -64,7 +64,7 @@ class Monster extends Entity {
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
 
           let dropRoll = Math.random();
-          if (dropRoll < 0.1) {
+          if (dropRoll < 0.1 || world.tier === "boss") {
             world.addToHistory(`${this.attributes.name} drops an item!`);
             let spawner = new Spawner(world);
             spawner.spawnLootAt(this.x, this.y);
@@ -96,12 +96,11 @@ class Monster extends Entity {
           );
 
           let unblocked =
-          this.attributes.damage - world.player.attributes.block < 0
-            ? 0
-            : this.attributes.damage * 2 - world.player.attributes.block;
+            this.attributes.damage - world.player.attributes.block < 0
+              ? 0
+              : this.attributes.damage * 2 - world.player.attributes.block;
 
           world.player.attributes.health -= unblocked;
-
         } else {
           world.addToHistory(
             `${this.attributes.name} attacks for ${this.attributes.damage} damage!`
