@@ -66,8 +66,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(4);
-    spawner.spawnMonsters(10);
+    spawner.spawnLoot();
+    spawner.spawnMonsters(50);
     spawner.spawnStairs();
     setWorld(newWorld);
   }, []);
@@ -255,25 +255,30 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                   <p>Attack +{inspecting.item.mod1}</p>
                   <p>Damage +{inspecting.item.mod2}</p>
                 </div>
+
+              ) : inspecting.item.class === "shield" ? (
+                  <p>Block + {inspecting.item.mod1}</p>
+
               ) : inspecting.item.class === "head" ||
                 inspecting.item.class === "torso" ? (
-                <div>
                   <p>Defense +{inspecting.item.mod1}</p>
-                </div>
-              ) : inspecting.item.class === "shield" ? (
-                <div>
-                  <p>Block +{inspecting.item.mod1}</p>
-                </div>
+
               ) : inspecting.item.class === "healthCon" ? (
                 <p>Health +{inspecting.item.mod1}</p>
+
+              ) : inspecting.item.class === "shieldCon" ? (
+                <p>Block +{inspecting.item.mod1}</p>
+
               ) : (
                 <p>A dusty old tome with strange symbols</p>
               )}
+              
               {typeof inspecting.pos === "string" ? (
                 <p>Press "Q" to unequip, or "K" to destroy</p>
               ) : inspecting.item.name === "Tome of Fireball" ? (
                 <p>Press fire direction, or "K" to destroy</p>
-              ) : inspecting.item.class === "healthCon" ? (
+              ) : inspecting.item.class === "healthCon" ||
+                inspecting.item.class === "shieldCon" ? (
                 <p>Press "E" to drink, or "K" to destroy</p>
               ) : (
                 <p>Press "E" to equip, or "K" to destroy</p>

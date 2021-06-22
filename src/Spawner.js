@@ -64,10 +64,10 @@ const globalLoot = [
 const tier3MonsterTable = [
   {
     name: "Demon",
-    attack: 10,
-    defense: 18,
-    damage: 15,
-    health: 178,
+    attack: 3,
+    defense: 15,
+    damage: 3,
+    health: 10,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 336,
@@ -76,10 +76,10 @@ const tier3MonsterTable = [
   },
   {
     name: "Dragon",
-    attack: 10,
-    defense: 18,
-    damage: 20,
-    health: 178,
+    attack: 3,
+    defense: 15,
+    damage: 3,
+    health: 10,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 384,
@@ -88,10 +88,10 @@ const tier3MonsterTable = [
   },
   {
     name: "Magma Golem",
-    attack: 10,
-    defense: 17,
-    damage: 19,
-    health: 178,
+    attack: 3,
+    defense: 15,
+    damage: 3,
+    health: 10,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -103,10 +103,10 @@ const tier3MonsterTable = [
 const tier2MonsterTable = [
   {
     name: "Banshee",
-    attack: 4,
-    defense: 12,
-    damage: 12,
-    health: 58,
+    attack: 2,
+    defense: 10,
+    damage: 2,
+    health: 5,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 192,
@@ -115,10 +115,10 @@ const tier2MonsterTable = [
   },
   {
     name: "Ogre",
-    attack: 6,
-    defense: 11,
-    damage: 13,
-    health: 59,
+    attack: 2,
+    defense: 10,
+    damage: 2,
+    health: 5,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 144,
@@ -127,10 +127,10 @@ const tier2MonsterTable = [
   },
   {
     name: "Torturer",
-    attack: 5,
-    defense: 15,
-    damage: 6,
-    health: 66,
+    attack: 2,
+    defense: 10,
+    damage: 2,
+    health: 5,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 96,
@@ -142,10 +142,10 @@ const tier2MonsterTable = [
 const tier1MonsterTable = [
   {
     name: "Zombie",
-    attack: 3,
-    defense: 8,
-    damage: 4,
-    health: 22,
+    attack: 1,
+    defense: 5,
+    damage: 1,
+    health: 1,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -154,10 +154,10 @@ const tier1MonsterTable = [
   },
   {
     name: "Snake",
-    attack: 5,
-    defense: 13,
-    damage: 5,
-    health: 2,
+    attack: 1,
+    defense: 5,
+    damage: 1,
+    health: 1,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -166,10 +166,10 @@ const tier1MonsterTable = [
   },
   {
     name: "Goblin",
-    attack: 4,
-    defense: 15,
-    damage: 5,
-    health: 7,
+    attack: 1,
+    defense: 5,
+    damage: 1,
+    health: 1,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 144,
@@ -321,24 +321,31 @@ class Spawner {
     }
   }
 
-  spawnLoot(spawnCount) {
+  spawnOne(entity) {
+    this.world.add(entity);
+    this.world.moveToSpace(entity);
+  }
+
+  spawnLoot() {
     let currentLootTable = [];
     if (this.tier === 1) {
-      currentLootTable = [...tier1LootTable, ...globalLoot];
+      currentLootTable = [...tier1LootTable];
     } else if (this.tier === 2) {
-      currentLootTable = [...tier2LootTable, ...globalLoot];
+      currentLootTable = [...tier2LootTable];
     } else if (this.tier === 3) {
-      currentLootTable = [...tier3LootTable, ...globalLoot];
+      currentLootTable = [...tier3LootTable];
     }
 
-    this.spawn(spawnCount, () => {
-      return new Loot(
-        getRandomInt(this.world.width - 1),
-        getRandomInt(this.world.height - 1),
-        this.world.tilesize,
-        currentLootTable[getRandomInt(currentLootTable.length)]
+    for (let i = 0; i < currentLootTable.length; i++) {
+      this.spawnOne(
+        new Loot(
+          getRandomInt(this.world.width - 1),
+          getRandomInt(this.world.height - 1),
+          this.world.tilesize,
+          currentLootTable[i]
+        )
       );
-    });
+    }
   }
 
   spawnLootAt(x, y) {
