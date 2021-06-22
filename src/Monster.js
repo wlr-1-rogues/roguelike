@@ -1,4 +1,23 @@
 import Entity from "./Entity";
+import Blood from "./Blood";
+import Player from "./Player";
+import Spawner from "./Spawner";
+
+const blood = {
+  spriteSheet: "terrainAtlas",
+  spriteSheetCoordinates: {
+    x: 288,
+    y: 1680,
+  },
+};
+
+const tombstone = {
+  spriteSheet: "terrainAtlas",
+  spriteSheetCoordinates: {
+    x: 288,
+    y: 1488,
+  },
+};
 
 function combatRoll(max) {
   return Math.floor(Math.random() * max);
@@ -11,6 +30,14 @@ let mAttackMod = monsterAttackRoll;
 
 class Monster extends Entity {
   action(verb, world) {
+    if (verb === "fireball") {
+      world.addToHistory(
+        `${this.attributes.name.toUpperCase()} IS OBLITERATED!`
+      );
+      world.add(new Blood(this.x, this.y, this.tilesize, blood));
+      world.remove(this);
+    }
+
     if (verb === "bump") {
       playerAttackRoll = combatRoll(20);
       pAttackMod = playerAttackRoll += world.player.attributes.attack;
@@ -23,6 +50,9 @@ class Monster extends Entity {
           this.attributes.health - world.player.attributes.damage;
         if (this.attributes.health <= 0) {
           world.addToHistory(`${this.attributes.name} dies!`);
+          world.add(new Blood(this.x, this.y, this.tilesize, blood));
+          let spawner = new Spawner(world);
+          spawner.spawnLootAt(this.x, this.y);
           world.remove(this);
           return;
         } else {
@@ -51,6 +81,10 @@ class Monster extends Entity {
 
         if (world.player.attributes.health <= 0) {
           world.addToHistory("You have died");
+          world.entities[0].attributes.spriteSheetCoordinates =
+            tombstone.spriteSheetCoordinates;
+          world.entities[0].attributes.spriteSheet = tombstone.spriteSheet;
+          // console.log(world.entities[0]);
         } else {
           world.addToHistory(
             `You have ${world.player.attributes.health} health remaining!`
