@@ -65,7 +65,7 @@ const globalLoot = [
       x: 288,
     },
   },
-]
+];
 
 const tier3MonsterTable = [
   {
@@ -73,7 +73,7 @@ const tier3MonsterTable = [
     attack: 3,
     defense: 15,
     damage: 3,
-    health: 15,
+    health: 10,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 336,
@@ -85,7 +85,7 @@ const tier3MonsterTable = [
     attack: 3,
     defense: 15,
     damage: 3,
-    health: 15,
+    health: 10,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 384,
@@ -97,7 +97,7 @@ const tier3MonsterTable = [
     attack: 3,
     defense: 15,
     damage: 3,
-    health: 15,
+    health: 10,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -112,7 +112,7 @@ const tier2MonsterTable = [
     attack: 2,
     defense: 10,
     damage: 2,
-    health: 10,
+    health: 5,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 192,
@@ -124,7 +124,7 @@ const tier2MonsterTable = [
     attack: 2,
     defense: 10,
     damage: 2,
-    health: 10,
+    health: 5,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 144,
@@ -136,7 +136,7 @@ const tier2MonsterTable = [
     attack: 2,
     defense: 10,
     damage: 2,
-    health: 10,
+    health: 5,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 96,
@@ -151,7 +151,7 @@ const tier1MonsterTable = [
     attack: 1,
     defense: 5,
     damage: 1,
-    health: 5,
+    health: 1,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -163,7 +163,7 @@ const tier1MonsterTable = [
     attack: 1,
     defense: 5,
     damage: 1,
-    health: 5,
+    health: 1,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -175,7 +175,7 @@ const tier1MonsterTable = [
     attack: 1,
     defense: 5,
     damage: 1,
-    health: 5,
+    health: 1,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 144,
@@ -336,24 +336,31 @@ class Spawner {
     }
   }
 
-  spawnLoot(spawnCount) {
+  spawnOne(entity) {
+    this.world.add(entity);
+    this.world.moveToSpace(entity);
+  }
+
+  spawnLoot() {
     let currentLootTable = [];
     if (this.tier === 1) {
-      currentLootTable = [...tier1LootTable, ...globalLoot];
+      currentLootTable = [...tier1LootTable];
     } else if (this.tier === 2) {
-      currentLootTable = [...tier2LootTable, ...globalLoot];
+      currentLootTable = [...tier2LootTable];
     } else if (this.tier === 3) {
-      currentLootTable = [...tier3LootTable, ...globalLoot];
+      currentLootTable = [...tier3LootTable];
     }
 
-    this.spawn(spawnCount, () => {
-      return new Loot(
-        getRandomInt(this.world.width - 1),
-        getRandomInt(this.world.height - 1),
-        this.world.tilesize,
-        currentLootTable[getRandomInt(currentLootTable.length)]
+    for (let i = 0; i < currentLootTable.length; i++) {
+      this.spawnOne(
+        new Loot(
+          getRandomInt(this.world.width - 1),
+          getRandomInt(this.world.height - 1),
+          this.world.tilesize,
+          currentLootTable[i]
+        )
       );
-    });
+    }
   }
 
   spawnLootAt(x, y) {

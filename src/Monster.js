@@ -43,16 +43,33 @@ class Monster extends Entity {
       pAttackMod = playerAttackRoll += world.player.attributes.attack;
 
       if (+pAttackMod >= this.attributes.defense) {
-        world.addToHistory(
-          `Player attacks for ${world.player.attributes.damage}`
-        );
-        this.attributes.health =
-          this.attributes.health - world.player.attributes.damage;
+        if (playerAttackRoll === 20) {
+          world.addToHistory(
+            `PLAYER CRITICAL HITS FOR ${
+              world.player.attributes.damage * 2
+            } DAMAGE!`
+          );
+          this.attributes.health =
+            this.attributes.health - world.player.attributes.damage * 2;
+        } else {
+          world.addToHistory(
+            `Player attacks for ${world.player.attributes.damage} damage`
+          );
+          this.attributes.health =
+            this.attributes.health - world.player.attributes.damage;
+        }
+
         if (this.attributes.health <= 0) {
           world.addToHistory(`${this.attributes.name} dies!`);
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
-          let spawner = new Spawner(world);
-          spawner.spawnLootAt(this.x, this.y);
+
+          let dropRoll = Math.random();
+          if (dropRoll < 0.1) {
+            world.addToHistory(`${this.attributes.name} drops an item!`);
+            let spawner = new Spawner(world);
+            spawner.spawnLootAt(this.x, this.y);
+          }
+
           world.remove(this);
           return;
         } else {
@@ -71,13 +88,25 @@ class Monster extends Entity {
       world.addToHistory(`${this.attributes.name} attacks Player!`);
 
       if (+mAttackMod >= world.player.attributes.defense) {
-        world.addToHistory(
-          `${this.attributes.name} attacks for ${this.attributes.damage} damage!`
-        );
-        world.player.attributes.health =
-          world.player.attributes.health -
-          this.attributes.damage -
-          world.player.attributes.armor;
+        if (monsterAttackRoll === 20) {
+          world.addToHistory(
+            `${this.attributes.name}  CRITICAL HITS FOR ${
+              this.attributes.damage * 2
+            } DAMAGE!`
+          );
+          world.player.attributes.health =
+            world.player.attributes.health -
+            this.attributes.damage * 2 -
+            world.player.attributes.armor;
+        } else {
+          world.addToHistory(
+            `${this.attributes.name} attacks for ${this.attributes.damage} damage!`
+          );
+          world.player.attributes.health =
+            world.player.attributes.health -
+            this.attributes.damage -
+            world.player.attributes.armor;
+        }
 
         if (world.player.attributes.health <= 0) {
           world.addToHistory("You have died");
