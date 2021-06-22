@@ -74,12 +74,20 @@ class Monster extends Entity {
         world.addToHistory(
           `${this.attributes.name} attacks for ${this.attributes.damage} damage!`
         );
-        let armorReduced = (this.attributes.damage - world.player.attributes.armor < 0 ? 1
-            : this.attributes.damage - world.player.attributes.armor);
+        let unblocked =
+          this.attributes.damage - world.player.attributes.block < 0
+            ? 0
+            : this.attributes.damage - world.player.attributes.block;
 
-        world.player.attributes.health -= armorReduced;
+        world.player.attributes.health -= unblocked;
 
-        world.player.attributes.armor > 0 && world.addToHistory(`thanks to your armor they only dealt ${armorReduced}`)
+        unblocked > 0
+          ? world.addToHistory(
+              `You were able to block all but ${unblocked} damage.`
+            )
+          : world.addToHistory(
+              `You blocked you blocked their attack completely!`
+            );
 
         if (world.player.attributes.health <= 0) {
           world.addToHistory("You have died");
