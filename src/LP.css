@@ -1,11 +1,150 @@
 
 
 .landingPage{
+    height: 100vh;
+    width:100vw;
+    display: flex;
+    flex-direction: column;
+    background-color: darkgray;
+    align-items: center;
     background: url(https://i.pinimg.com/originals/06/c3/95/06c3954b72ae8cfe586ec151efeb29cc.png);
-    color:white
+    background-size: cover;
+    background-repeat: no-repeat;
+    color:white;
+    -webkit-animation: flickerAnimation 1s infinite;
+    -moz-animation: flickerAnimation 1s infinite;
+    -o-animation: flickerAnimation 1s infinite;
+     animation: flickerAnimation 1s infinite;
 
 }
 
 .landingHeader1{
-    color:white
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 10%;
+    font-family: Luminari;
 }
+
+.landingHeader2{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: Luminari;
+    margin-top: 7.5vh;
+    font-size: 15vh;}
+
+.startButton{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    min-width:20%;
+    height:10vh;
+    font-family: Luminari;
+    font-size: 8vh;
+}
+
+.startButton:hover{
+    color:black
+}
+
+
+/* 
+.landingHeader1{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 10%;
+    font-family: Trattatello;
+    font-size: 6vh;
+}
+
+.landingHeader2{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: Trattatello;
+    margin-top: 1vh;
+    font-size: 15vh;}
+
+.startButton{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    width:20%;
+    height:10vh;
+    font-family: Trattatello;
+    font-size: 8vh;
+}
+
+.startButton:hover{
+    color:black
+} */
+
+.startingPage{
+    height:100%;
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.spHeader{
+    height:10vh;
+    width:100vw;
+}
+
+.startingScript{
+    display:flex;
+    flex-direction: column;
+    /* justify-self: center; */
+    /* align-content: center; */
+    /* margin-top: 12.5vh; */
+    padding-top: 2.5vh;
+    padding-bottom: 2.5vh;
+    padding-left: 2.5vh;
+    padding-right: 2.5vh;
+    width:50vw;
+    min-height:fit-content;
+    background-color: rgba(0, 0, 0, 0.666);
+    font-family: Luminari;
+    font-size: 2.75vh;
+
+    /* font-family: Trattatello;
+    font-size: 3vh; */
+}
+
+.beginButton{
+    align-self: center;
+}
+
+.beginButton:hover{
+    cursor: pointer;
+    color:black;
+
+}
+
+
+@keyframes flickerAnimation {
+    0%   { opacity:1; }
+    50%  { opacity:.95; }
+    100% { opacity:1; }
+  }
+  @-o-keyframes flickerAnimation{
+    0%   { opacity:1; }
+    50%  { opacity:.95; }
+    100% { opacity:1; }
+  }
+  @-moz-keyframes flickerAnimation{
+    0%   { opacity:1; }
+    50%  { opacity:.95; }
+    100% { opacity:1; }
+  }
+  @-webkit-keyframes flickerAnimation{
+    0%   { opacity:1; }
+    50%  { opacity:.95; }
+    100% { opacity:1; }
+  }

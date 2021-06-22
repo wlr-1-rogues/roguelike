@@ -4,60 +4,44 @@ import LP from './LP.css'
 
 const LandingPage = (props) => {
 
+    const [startTitle, setStartTitle] = useState(false)
 
     useEffect(() => {
         console.log(props)
     }, [])
 
     return(
-        <div className='landingPage'
-            style={{
-                // background:'url(https://i.pinimg.com/originals/06/c3/95/06c3954b72ae8cfe586ec151efeb29cc.png)',
-                display:'flex',
-                flexDirection:'column',
-                backgroundColor: 'darkgray',
-                justifyContent:'space-around',
-                alignItems:'center',
-                marginTop:'15%',
-                marginBottom:'10%'
-            }}
-            >
-            <h1 className='landingHeader1'
-                style={{
-                    display:'flex',
-                    flexDirection:'column',
-                    textAlign:'center'
-                }}
-                >WELCOME TO
-                <br></br>
-                <h1 className='landingHeader2'
-                    style={{
-                        display:'flex',
-                        flexDirection:'column',
-                        textAlign:'center'
-                    }}
-                >
-                    TITLE OF GAME
-                </h1>
-            </h1>
-            
-            <div 
-                onClick={() => {props.startGame()}}
-                style={{
-                    display:'flex', 
-                    justifyContent:'center',
-                    alignItems:'center',
-                    cursor:'pointer',
-                    backgroundColor:'orange', 
-                    width:'20%',
-                    height:'10vh',
-                    marginTop:'-1.5vh',
-                    marginBottom:'5vh', 
-                    fontSize:'5vh'
-
-                    }}
-            >Begin Quest</div>
-        </div>
+                <div className='landingPage'>
+                    {!startTitle && <h1 className='landingHeader1'>
+                        WELCOME TO
+                    </h1>}
+                    {!startTitle && <h1 className='landingHeader2'>
+                        TITLE OF GAME
+                    </h1>}
+                    {!startTitle && <div 
+                        className='startButton'
+                        onClick={() => {setStartTitle(true)}}
+                        >Begin Quest
+                    </div>}
+                    {startTitle && <div className='startingPage'>
+                        {startTitle && <div className='spHeader'></div>}
+                        {startTitle && <div className='startingScript'>
+                            <p>Nostrud et ullamco nisi eiusmod eiusmod do aliquip irure amet do veniam occaecat consectetur deserunt. Fugiat anim tempor voluptate nulla culpa excepteur dolore. Ea reprehenderit ex aute voluptate esse. Tempor quis voluptate velit et aliquip deserunt nulla nisi in. Pariatur cupidatat est voluptate duis nulla non consequat laboris ut in sunt fugiat commodo ipsum. 
+                                <br></br>
+                                <br></br>
+                                Reprehenderit incididunt irure adipisicing occaecat incididunt officia. Cupidatat sit aliquip culpa officia est qui aute aute consequat irure non aliquip ullamco. Id eu anim sint ut magna laboris duis. In excepteur elit nulla dolor. In minim reprehenderit adipisicing non aliqua sit aliquip labore cupidatat ut commodo labore. 
+                                <br></br>
+                                <br></br>
+                                Occaecat veniam dolor aute aliquip cupidatat aliqua ut voluptate occaecat amet non. Dolore enim dolore esse laborum commodo nulla sint voluptate do id consectetur ut. Irure excepteur minim qui proident officia exercitation nostrud exercitation occaecat veniam eiusmod elit officia. Dolore magna incididunt eu enim. Eu culpa eu id amet fugiat sint voluptate anim. Enim sit proident velit nisi. Quis sint culpa commodo culpa fugiat eiusmod excepteur sunt consequat ea quis minim dolore. Laboris cupidatat duis ut consequat.</p>
+                            <section
+                                className='beginButton'
+                                onClick={() => {props.startGame()}}
+                                >Click to Begin...
+                            </section>
+                        </div>}
+                        {startTitle && <div className='spHeader'></div>}
+                    </div>}
+                </div>
     )
 }
 
