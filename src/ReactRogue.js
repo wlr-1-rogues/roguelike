@@ -12,7 +12,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     new World(width, height, tilesize, atlases, 1)
   );
 
-  const [inspecting] = world.player.inspecting;
+  const [inspecting] = world.player.inspecting
+  const currentHealth = world.player.attributes.health
+  const maxHealth = world.player.attributes.maxHealth
+  const healthBar = (currentHealth / maxHealth) * 100
 
   let inputManager = new InputManager();
   const handleInput = (action, data) => {
@@ -70,6 +73,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     spawner.spawnMonsters(50);
     spawner.spawnStairs();
     setWorld(newWorld);
+    console.log(`${currentHealth}`/`${maxHealth}` * 100)
   }, []);
 
   useEffect(() => {
@@ -86,6 +90,9 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     ctx.clearRect(0, 0, width * tilesize, height * tilesize);
     world.draw(ctx);
   });
+
+
+
   return (
     <div>
       <header
@@ -136,20 +143,38 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             <section
               style={{
                 display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
                 height: "2vh",
-                width: "27.5%",
-                paddingLeft: "1vw",
-                paddingRight: "1vw",
+                width: "32.5%",
                 borderStyle: "solid",
                 borderColor: "black",
                 marginTop: "-1vh",
                 marginBottom: "1vh",
+                backgroundColor:'red',
+                zIndex:1
               }}
             >
-              Health Bar
+              <section
+                style={{
+                  height:'100%',
+                  width:`${healthBar}%`,
+                  backgroundColor:'green',
+                  zIndex:2,
+                  textAlign:'center',
+                  color:'white',
+                }}
+              >
+                <section
+                  style={{
+                    minWidth:'6.25vw',
+                  }}
+                >
+                   HP: {world.player.attributes.health} / {world.player.attributes.maxHealth}
+                </section>
+
+              </section>
+
             </section>
+            
             <div
               style={{
                 display: "flex",
@@ -166,8 +191,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 <br></br>
                 Block:
                 <br></br>
-                Health:
-                <br></br>
+                {/* Health:
+                <br></br> */}
                 Visibility:
               </div>
               <div
@@ -185,9 +210,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 <br></br>
                 {world.player.attributes.block}
                 <br></br>
-                {world.player.attributes.health} /{" "}
-                {world.player.attributes.maxHealth}
-                <br></br>
+                {/* {world.player.attributes.health}
+                <br></br> */}
                 {world.player.attributes.sightRadius}
                 <br></br>
                 <br></br>

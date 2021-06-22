@@ -1,60 +1,51 @@
 import React, { useEffect, useState } from "react";
+import LP from './LP.css'
+
 
 const LandingPage = (props) => {
 
+    const [startTitle, setStartTitle] = useState(false)
 
     useEffect(() => {
         console.log(props)
     }, [])
 
     return(
-        <div className='landingPage'
-            style={{
-                display:'flex',
-                flexDirection:'column',
-                backgroundColor: 'darkgray',
-                justifyContent:'space-around',
-                alignItems:'center',
-                marginTop:'15%',
-                marginBottom:'10%'
-            }}
-            >
-            <h1 className='landingHeader1'
-                style={{
-                    display:'flex',
-                    flexDirection:'column',
-                    textAlign:'center'
-                }}
-                >WELCOME TO
-                <br></br>
-                <h1 className='landingHeader2'
-                    style={{
-                        display:'flex',
-                        flexDirection:'column',
-                        textAlign:'center'
-                    }}
-                >
-                    TITLE OF GAME
-                </h1>
-            </h1>
-            
-            <div 
-                onClick={() => {props.startGame()}}
-                style={{
-                    display:'flex', 
-                    justifyContent:'center',
-                    alignItems:'center',
-                    cursor:'pointer',
-                    backgroundColor:'orange', 
-                    width:'20%',
-                    height:'10vh',
-                    marginTop:'-1.5vh',
-                    marginBottom:'5vh', 
-                    fontSize:'5vh'
-
-                    }}
-            >Begin Quest</div>
-        </div>
+                <div className='landingPage'>
+                    {!startTitle && <h1 className='landingHeader1'>
+                        WELCOME TO
+                    </h1>}
+                    {!startTitle && <h1 className='landingHeader2'>
+                        TITLE OF GAME
+                    </h1>}
+                    {!startTitle && <div 
+                        className='startButton'
+                        onClick={() => {setStartTitle(true)}}
+                        >~Begin Quest~
+                    </div>}
+                    {startTitle && <div className='startingPage'>
+                        {startTitle && <div className='spHeader'></div>}
+                        {startTitle && <div className='startingScript'>
+                            <p>Somehow, Palpatine is still alive. 
+                                <br></br>
+                                <br></br>
+                                Somehow, this game has something to do with it. 
+                                <br></br>
+                                <br></br>
+                                Fight through 3 levels of baddies, gathering treasure along the way, to eventually fight the terror which dwells at the end of <br></br>The Cave of Dev Mountain.
+                                <br></br>
+                                <br></br>
+                                We're all counting on you. Good luck.
+                            </p>
+                            <section
+                                className='beginButton'
+                                onClick={() => {props.startGame()}}
+                                >Click to Begin...
+                            </section>
+                        </div>}
+                        {startTitle && <div className='spHeader'></div>}
+                    </div>}
+                </div>
     )
 }
 

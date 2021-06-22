@@ -7,6 +7,7 @@ import terrain from "./assets/uf_terrain.png";
 import items from "./assets/uf_items.png";
 import fx from "./assets/uf_FX.png";
 
+
 const App = () => {
   const [atlases, setAtlases] = useState(null);
   const [newGame, setNewGame] = useState(false)
