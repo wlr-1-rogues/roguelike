@@ -61,6 +61,8 @@ const globalLoot = [
   },
 ];
 
+const bossTable = []
+
 const tier3MonsterTable = [
   {
     name: "Demon",
@@ -398,6 +400,18 @@ class Spawner {
     );
     this.world.add(stairs);
     this.world.moveToSpace(stairs);
+  }
+
+  spawnBoss() {
+    let boss = new Monster(
+      this.world.width - 10,
+      this.world.height - 10,
+      this.world.tilesize,
+      bossTable[getRandomInt(bossTable.length)]
+    );
+    this.world.add(boss);
+    this.world.moveToSpace(boss);
+  }
   }
 }
 
