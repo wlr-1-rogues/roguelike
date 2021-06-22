@@ -15,8 +15,8 @@ class Player extends Entity {
     defense: 14,
     damage: 3,
     block: 0,
-    maxHealth: 130,
-    health: 130,
+    maxHealth: 100,
+    health: 100,
     sightRadius: 7,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
@@ -166,7 +166,7 @@ class Player extends Entity {
         } else if (item.class === "healthCon") {
           this.attributes.health += item.mod1;
           if (item.mod2) {
-            this.attributes.healthMax += item.mod2;
+            this.attributes.maxHealth += item.mod2;
             console.log(item.mod2);
           }
           if (this.attributes.health > this.attributes.maxHealth) {

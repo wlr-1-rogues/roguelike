@@ -83,7 +83,9 @@ class Monster extends Entity {
 
         unblocked > 0
           ? world.addToHistory(
-              `You were able to block all but ${unblocked} damage.`
+              `You were able to block ${
+                this.attributes.damage - unblocked
+              } damage.`
             )
           : world.addToHistory(
               `You blocked you blocked their attack completely!`
