@@ -12,7 +12,7 @@ const LandingPage = (props) => {
             style={{
                 display:'flex',
                 flexDirection:'column',
-                backgroundColor: 'green',
+                backgroundColor: 'darkgray',
                 justifyContent:'space-around',
                 alignItems:'center',
                 marginTop:'15%',
