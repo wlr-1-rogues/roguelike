@@ -62,8 +62,13 @@ class Monster extends Entity {
         if (this.attributes.health <= 0) {
           world.addToHistory(`${this.attributes.name} dies!`);
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
-          let spawner = new Spawner(world);
-          spawner.spawnLootAt(this.x, this.y);
+
+          let dropRoll = Math.random();
+          if (dropRoll < 0.1) {
+            let spawner = new Spawner(world);
+            spawner.spawnLootAt(this.x, this.y);
+          }
+
           world.remove(this);
           return;
         } else {

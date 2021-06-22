@@ -12,17 +12,14 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     new World(width, height, tilesize, atlases, 1)
   );
 
-  const [inspecting] = world.player.inspecting
+  const [inspecting] = world.player.inspecting;
 
   let inputManager = new InputManager();
   const handleInput = (action, data) => {
     let newWorld = new World();
     Object.assign(newWorld, world);
     if (action === "move") {
-      if (
-        inspecting?.item.name ===
-        "Tome of Fireball"
-      ) {
+      if (inspecting?.item.name === "Tome of Fireball") {
         console.log("shoot", data.x, data.y);
         let fireDirection = "up";
 
@@ -69,8 +66,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(4);
-    spawner.spawnMonsters(10);
+    spawner.spawnLoot();
+    spawner.spawnMonsters(50);
     spawner.spawnStairs();
     setWorld(newWorld);
   }, []);
@@ -214,16 +211,24 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           >
             <h3>Equipped Items</h3>
             {world.player.left.map((item, index) => (
-              <p key={index} style={{ height: 19, backgroundColor: "green", }}>6. {item.name}</p>
+              <p key={index} style={{ height: 19, backgroundColor: "green" }}>
+                6. {item.name}
+              </p>
             ))}
             {world.player.right.map((item, index) => (
-              <p key={index} style={{ height: 19, backgroundColor: "green", }}>7. {item.name}</p>
+              <p key={index} style={{ height: 19, backgroundColor: "green" }}>
+                7. {item.name}
+              </p>
             ))}
             {world.player.head.map((item, index) => (
-              <p key={index} style={{ height: 19, backgroundColor: "green", }}>8. {item.name}</p>
+              <p key={index} style={{ height: 19, backgroundColor: "green" }}>
+                8. {item.name}
+              </p>
             ))}
             {world.player.torso.map((item, index) => (
-              <p key={index} style={{ height: 19, backgroundColor: "green", }}>9. {item.name}</p>
+              <p key={index} style={{ height: 19, backgroundColor: "green" }}>
+                9. {item.name}
+              </p>
             ))}
           </div>
 
@@ -244,42 +249,57 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             >
               <h3>{inspecting.item.name} Readied!</h3>
               <h4>upon inspecting the {inspecting.item.name} you find...</h4>
-              {
-                inspecting.item.class === 'weapon' ? (
-                  <div><p>Attack +{inspecting.item.mod1}</p><p>Damage +{inspecting.item.mod2}</p></div>
-                ) : inspecting.item.class === 'shield' || inspecting.item.class === 'head' || inspecting.item.class === 'torso' ? (
-                  <div><p>Defense +{inspecting.item.mod1}</p><p>Armor +{inspecting.item.mod2}</p></div>
-                ) : inspecting.item.class === 'healthCon' ? (
-                  <p>Health +{inspecting.item.mod1}</p>
-                ) : inspecting.item.class === 'shieldCon' ? (
-                  <p>Armor +{inspecting.item.mod1}</p>
-                ) : <p>A dusty old tome with strange symbols</p>
-              }
-              {typeof inspecting.pos === 'string' ? <p>Press "Q" to unequip, or "K" to destroy</p>
-                : inspecting.item.name === "Tome of Fireball" ? (<p>Press fire direction, or "K" to destroy</p>)
-                  : inspecting.item.class === 'healthCon' || inspecting.item.class === 'shieldCon' ? <p>Press "E" to drink, or "K" to destroy</p>
-                    : <p>Press "E" to equip, or "K" to destroy</p>}
+              {inspecting.item.class === "weapon" ? (
+                <div>
+                  <p>Attack +{inspecting.item.mod1}</p>
+                  <p>Damage +{inspecting.item.mod2}</p>
+                </div>
+              ) : inspecting.item.class === "shield" ||
+                inspecting.item.class === "head" ||
+                inspecting.item.class === "torso" ? (
+                <div>
+                  <p>Defense +{inspecting.item.mod1}</p>
+                  <p>Armor +{inspecting.item.mod2}</p>
+                </div>
+              ) : inspecting.item.class === "healthCon" ? (
+                <p>Health +{inspecting.item.mod1}</p>
+              ) : inspecting.item.class === "shieldCon" ? (
+                <p>Armor +{inspecting.item.mod1}</p>
+              ) : (
+                <p>A dusty old tome with strange symbols</p>
+              )}
+              {typeof inspecting.pos === "string" ? (
+                <p>Press "Q" to unequip, or "K" to destroy</p>
+              ) : inspecting.item.name === "Tome of Fireball" ? (
+                <p>Press fire direction, or "K" to destroy</p>
+              ) : inspecting.item.class === "healthCon" ||
+                inspecting.item.class === "shieldCon" ? (
+                <p>Press "E" to drink, or "K" to destroy</p>
+              ) : (
+                <p>Press "E" to equip, or "K" to destroy</p>
+              )}
             </div>
           )}
 
           <div
             className="fullInventory"
             style={{
-              display: 'flex',
-              flexDirection: 'column',
-              minHeight: '15%',
-              width: '95%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderStyle: 'solid',
-              borderColor: 'black'
-            }}>
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "15%",
+              width: "95%",
+              justifyContent: "center",
+              alignItems: "center",
+              borderStyle: "solid",
+              borderColor: "black",
+            }}
+          >
             <h3>Inventory</h3>
-            <ol type='1'>
+            <ol type="1">
               {world.player.inventory.map((item, index) => (
-                <li key={index}
-                  style={{ backgroundColor: 'lightblue' }}
-                >{item.name}</li>
+                <li key={index} style={{ backgroundColor: "lightblue" }}>
+                  {item.name}
+                </li>
               ))}
             </ol>
             <p>Press Number Key to Ready an Item!</p>
