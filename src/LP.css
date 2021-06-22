@@ -100,8 +100,7 @@
 .startingScript{
     display:flex;
     flex-direction: column;
-    /* justify-self: center; */
-    /* align-content: center; */
+    text-align: center;
     /* margin-top: 12.5vh; */
     padding-top: 2.5vh;
     padding-bottom: 2.5vh;
@@ -111,7 +110,7 @@
     min-height:fit-content;
     background-color: rgba(0, 0, 0, 0.666);
     font-family: Luminari;
-    font-size: 2.75vh;
+    font-size: 3.5vh;
 
     /* font-family: Trattatello;
     font-size: 3vh; */
@@ -123,7 +122,7 @@
 
 .beginButton:hover{
     cursor: pointer;
-    color:black;
+    color:red;
 
 }
 

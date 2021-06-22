@@ -21,18 +21,22 @@ const LandingPage = (props) => {
                     {!startTitle && <div 
                         className='startButton'
                         onClick={() => {setStartTitle(true)}}
-                        >Begin Quest
+                        >~Begin Quest~
                     </div>}
                     {startTitle && <div className='startingPage'>
                         {startTitle && <div className='spHeader'></div>}
                         {startTitle && <div className='startingScript'>
-                            <p>Nostrud et ullamco nisi eiusmod eiusmod do aliquip irure amet do veniam occaecat consectetur deserunt. Fugiat anim tempor voluptate nulla culpa excepteur dolore. Ea reprehenderit ex aute voluptate esse. Tempor quis voluptate velit et aliquip deserunt nulla nisi in. Pariatur cupidatat est voluptate duis nulla non consequat laboris ut in sunt fugiat commodo ipsum. 
+                            <p>Somehow, Palpatine is still alive. 
                                 <br></br>
                                 <br></br>
-                                Reprehenderit incididunt irure adipisicing occaecat incididunt officia. Cupidatat sit aliquip culpa officia est qui aute aute consequat irure non aliquip ullamco. Id eu anim sint ut magna laboris duis. In excepteur elit nulla dolor. In minim reprehenderit adipisicing non aliqua sit aliquip labore cupidatat ut commodo labore. 
+                                Somehow, this game has something to do with it. 
                                 <br></br>
                                 <br></br>
-                                Occaecat veniam dolor aute aliquip cupidatat aliqua ut voluptate occaecat amet non. Dolore enim dolore esse laborum commodo nulla sint voluptate do id consectetur ut. Irure excepteur minim qui proident officia exercitation nostrud exercitation occaecat veniam eiusmod elit officia. Dolore magna incididunt eu enim. Eu culpa eu id amet fugiat sint voluptate anim. Enim sit proident velit nisi. Quis sint culpa commodo culpa fugiat eiusmod excepteur sunt consequat ea quis minim dolore. Laboris cupidatat duis ut consequat.</p>
+                                Fight through 3 levels of baddies, gathering treasure along the way, to eventually fight the terror which dwells at the end of <br></br>The Cave of Dev Mountain.
+                                <br></br>
+                                <br></br>
+                                We're all counting on you. Good luck.
+                            </p>
                             <section
                                 className='beginButton'
                                 onClick={() => {props.startGame()}}
