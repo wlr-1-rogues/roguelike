@@ -10,7 +10,7 @@
     background: url(https://i.pinimg.com/originals/06/c3/95/06c3954b72ae8cfe586ec151efeb29cc.png);
     background-size: cover;
     background-repeat: no-repeat;
-    color:white;
+    color:green;
     /* -webkit-animation: flickerAnimation 1s infinite;
     -moz-animation: flickerAnimation 1s infinite;
     -o-animation: flickerAnimation 1s infinite; */
@@ -46,7 +46,7 @@
 }
 
 .startButton:hover{
-    color:black
+    color:red
 }
 
 
