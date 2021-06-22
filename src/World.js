@@ -49,6 +49,23 @@ class World {
       this.worldmap[x][y] = value === 0 ? 1 : 0;
     };
 
+    console.log(map._map);
+    map.create(userCallback);
+    map.connect(userCallback, 1);
+  }
+
+  createBossMap() {
+    let map = new Map.Cellular(this.width, this.height, { connected: true });
+    map.randomize(1);
+    let userCallback = (x, y, value) => {
+      if (x === 0 || y === 0 || x === this.width - 1 || y === this.height - 1) {
+        this.worldmap[x][y] = 1; //creates walls on edges
+        return;
+      }
+      this.worldmap[x][y] = value === 0 ? 1 : 0;
+    };
+
+    console.log(map._map);
     map.create(userCallback);
     map.connect(userCallback, 1);
   }

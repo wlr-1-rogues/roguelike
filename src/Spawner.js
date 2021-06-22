@@ -62,6 +62,32 @@ const globalLoot = [
   },
 ];
 
+const bossTable = [
+  {
+    name: "Boss",
+    attack: 3,
+    defense: 15,
+    damage: 3,
+    health: 10,
+    spriteSheet: "heroAtlas",
+    spriteSheetCoordinates: {
+      y: 384,
+      x: 336,
+    },
+  },
+];
+
+const bossDrop = [
+  {
+    name: "Ring of Domination",
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 336,
+      x: 336,
+    },
+  },
+];
+
 const tier3MonsterTable = [
   {
     name: "Demon",
@@ -357,6 +383,8 @@ class Spawner {
       currentLootTable = [...tier2LootTable, ...globalLoot];
     } else if (this.tier === 3) {
       currentLootTable = [...tier3LootTable, ...globalLoot];
+    } else if (this.tier === "boss") {
+      currentLootTable = bossDrop;
     }
 
     let loot = new Loot(
@@ -399,6 +427,17 @@ class Spawner {
     );
     this.world.add(stairs);
     this.world.moveToSpace(stairs);
+  }
+
+  spawnBoss() {
+    let boss = new Monster(
+      this.world.width - 10,
+      this.world.height - 10,
+      this.world.tilesize,
+      bossTable[getRandomInt(bossTable.length)]
+    );
+    this.world.add(boss);
+    this.world.moveToSpace(boss);
   }
 }
 
