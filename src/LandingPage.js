@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import LP from './LP.css'
+
 
 const LandingPage = (props) => {
 
@@ -10,6 +12,7 @@ const LandingPage = (props) => {
     return(
         <div className='landingPage'
             style={{
+                // background:'url(https://i.pinimg.com/originals/06/c3/95/06c3954b72ae8cfe586ec151efeb29cc.png)',
                 display:'flex',
                 flexDirection:'column',
                 backgroundColor: 'darkgray',
