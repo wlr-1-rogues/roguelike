@@ -2,6 +2,7 @@ import { Map, FOV, Path } from "rot-js";
 import Blood from "./Blood";
 import Entity from "./Entity";
 import Fireball from "./Fireball";
+import Loot from "./Loot";
 import Monster from "./Monster";
 import Player from "./Player";
 
@@ -92,16 +93,16 @@ class World {
       entity.y = y + yOffset;
       return;
     } else {
-    xOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
-    yOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
-    if (
-      this.worldmap[x + xOffset][y + yOffset] === 0 &&
-      !this.getEntityAtLocation(x + xOffset, y + yOffset)
-    ) {
-      entity.x = x + xOffset;
-      entity.y = y + yOffset;
-      return;
-    } else {
+      xOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
+      yOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
+      if (
+        this.worldmap[x + xOffset][y + yOffset] === 0 &&
+        !this.getEntityAtLocation(x + xOffset, y + yOffset)
+      ) {
+        entity.x = x + xOffset;
+        entity.y = y + yOffset;
+        return;
+      } else {
         return this.moveToSpace(entity);
       }
     }
@@ -300,6 +301,10 @@ class World {
               entityAtLocation = undefined;
             }
 
+            if (entityAtLocation instanceof Loot) {
+              this.remove(entityAtLocation);
+            }
+
             if (
               !this.isWall(closestNextSquare.x, closestNextSquare.y) &&
               !entityAtLocation
@@ -448,7 +453,7 @@ class World {
 
   addToHistory(history) {
     this.history.push(history);
-    if (this.history.length > 6) this.history.shift();
+    if (this.history.length > 9) this.history.shift();
   }
 }
 
