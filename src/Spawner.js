@@ -1,3 +1,4 @@
+import { findRenderedComponentWithType } from "react-dom/test-utils";
 import Loot from "./Loot";
 import Monster from "./Monster";
 import Stairs from "./Stairs";
@@ -87,7 +88,7 @@ const tier3MonsterTable = [
     },
   },
   {
-    name: "Magma Golem",
+    name: "Golem",
     attack: 3,
     defense: 15,
     damage: 3,

@@ -368,19 +368,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             </ul>
           </div>
 
-          <div
-            className="monsterPicture"
-            style={{
-              display: "flex",
-              height: "50%",
-              width: "95%",
-              borderStyle: "solid",
-              borderColor: "black",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "1vw",
-            }}
-          >
+          <div className="monster-box">
             <MonsterDisplay world={world} setWorld={setWorld} />
           </div>
         </div>
