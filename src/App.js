@@ -1,5 +1,7 @@
 import ReactRogue from "./ReactRogue";
-import LandingPage from './LandingPage'
+import LandingPage from './LandingPage';
+import Sound from 'react-sound'
+import Cave from './assets/sounds/Cave Ambience.mp3'
 
 import React, { useEffect, useState } from "react";
 import heros from "./assets/uf_heroes_simple.png";
@@ -38,6 +40,13 @@ const App = () => {
 
   return (
     <div className="App">
+        <Sound 
+          url={Cave}
+          playStatus={Sound.status.PLAYING}
+          playFromPosition={300}
+          volume='50'
+          loop='true'
+        />
       {!atlases ? (
         <div>Loading</div>
       ) : (
