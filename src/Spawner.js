@@ -65,10 +65,10 @@ const globalLoot = [
 const bossTable = [
   {
     name: "Boss",
-    attack: 7,
-    defense: 9,
-    damage: 8,
-    health: 62,
+    attack: 8,
+    defense: 10,
+    damage: 9,
+    health: 100,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 384,
@@ -239,7 +239,7 @@ const tier3LootTable = [
   {
     name: "Magic Axe",
     class: "weapon",
-    mod1: 12,
+    mod1: 3,
     mod2: 14,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -252,7 +252,7 @@ const tier2LootTable = [
   {
     name: "Long Sword",
     class: "weapon",
-    mod1: 6,
+    mod1: 2,
     mod2: 6,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -295,7 +295,7 @@ const tier1LootTable = [
   {
     name: "Dagger",
     class: "weapon",
-    mod1: 3,
+    mod1: 1,
     mod2: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -431,8 +431,8 @@ class Spawner {
 
   spawnBoss() {
     let boss = new Monster(
-      this.world.width - 10,
-      this.world.height - 10,
+      this.world.width - this.world.width / 2,
+      this.world.height - this.world.height / 2,
       this.world.tilesize,
       bossTable[getRandomInt(bossTable.length)]
     );
