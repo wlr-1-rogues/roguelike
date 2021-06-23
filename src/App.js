@@ -1,7 +1,7 @@
 import ReactRogue from "./ReactRogue";
 import LandingPage from './LandingPage';
-import Sound from 'react-sound'
-import Cave from './assets/sounds/Cave Ambience.mp3'
+import Cave from './assets/sounds/Eerie_Cave.mp3'
+import ReactHowler from 'react-howler'
 
 import React, { useEffect, useState } from "react";
 import heros from "./assets/uf_heroes_simple.png";
@@ -12,7 +12,8 @@ import fx from "./assets/uf_FX.png";
 
 const App = () => {
   const [atlases, setAtlases] = useState(null);
-  const [newGame, setNewGame] = useState(false)
+  const [newGame, setNewGame] = useState(false);
+
 
   useEffect(() => {
     const heroAtlas = new Image();
@@ -40,13 +41,16 @@ const App = () => {
 
   return (
     <div className="App">
-        <Sound 
-          url={Cave}
-          playStatus={Sound.status.PLAYING}
-          playFromPosition={300}
-          volume='50'
-          loop='true'
-        />
+
+      {<ReactHowler 
+        src={Cave}
+        volume={0.50}
+        loop={true}
+        playing={true}
+        seek={3}
+      />}
+
+
       {!atlases ? (
         <div>Loading</div>
       ) : (
