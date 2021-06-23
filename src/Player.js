@@ -3,7 +3,6 @@ import Entity from "./Entity";
 class Player extends Entity {
   inventory = [];
   inspecting = [];
-  equipped = [];
   left = [];
   right = [];
   head = [];
