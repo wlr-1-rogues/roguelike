@@ -37,7 +37,7 @@ class Monster extends Entity {
       world.add(new Blood(this.x, this.y, this.tilesize, blood));
 
       let dropRoll = Math.random();
-      if (dropRoll < 0.1 || world.tier === "boss") {
+      if (dropRoll < 0.15 || world.tier === "boss") {
         world.addToHistory(`${this.attributes.name} drops an item!`);
         let spawner = new Spawner(world);
         spawner.spawnLootAt(this.x, this.y);
@@ -72,7 +72,7 @@ class Monster extends Entity {
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
 
           let dropRoll = Math.random();
-          if (dropRoll < 0.1 || world.tier === "boss") {
+          if (dropRoll < 0.15 || world.tier === "boss") {
             world.addToHistory(`${this.attributes.name} drops an item!`);
             let spawner = new Spawner(world);
             spawner.spawnLootAt(this.x, this.y);
