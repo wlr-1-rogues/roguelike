@@ -22,6 +22,7 @@ class Stairs extends Entity {
         world.player.x = 0;
         world.player.y = 0;
         world.moveToSpace(world.player);
+        world.player.attributes.sightRadius = 80;
         world.entities = world.entities.filter((e) => e === world.player);
         let spawner = new Spawner(world);
         spawner.spawnBoss();
@@ -35,7 +36,7 @@ class Stairs extends Entity {
       world.entities = world.entities.filter((e) => e === world.player);
       let spawner = new Spawner(world);
       spawner.spawnLoot();
-      spawner.spawnMonsters(50);
+      spawner.spawnMonsters(100);
       spawner.spawnStairs();
     }
   }
