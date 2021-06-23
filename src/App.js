@@ -44,7 +44,7 @@ const App = () => {
 
       {<ReactHowler 
         src={Cave}
-        volume={0.25}
+        volume={0.50}
         loop={true}
         playing={true}
         seek={3}
