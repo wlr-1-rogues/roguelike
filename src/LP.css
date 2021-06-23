@@ -24,6 +24,7 @@
     text-align: center;
     margin-top: 10%;
     font-family: Luminari;
+    font-size: 5vh;
 }
 
 .landingHeader2{
@@ -116,8 +117,13 @@
     font-size: 3vh; */
 }
 
+.introScript{
+    font-size: 3.5vh;
+}
+
 .beginButton{
     align-self: center;
+    font-size: 3.5vh;
 }
 
 .beginButton:hover{

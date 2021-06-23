@@ -246,7 +246,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               </p>
             ))}
             {world.player.right.map((item, index) => (
-              <p key={index} style={{ height: 19, backgroundColor: "green" }}>
+              <p key={index} style={{ height: 19}}>
                 7. {item.name}
               </p>
             ))}
@@ -256,7 +256,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               </p>
             ))}
             {world.player.torso.map((item, index) => (
-              <p key={index} style={{ height: 19, backgroundColor: "green" }}>
+              <p key={index} style={{ height: 19}}>
                 9. {item.name}
               </p>
             ))}

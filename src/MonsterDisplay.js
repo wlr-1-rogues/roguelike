@@ -116,8 +116,8 @@ function MonsterDisplay(props) {
                 <div>
                     {visibleMonsters.length > 1 ?
                         <div>
-                            <button onClick={() => { changeMonsterFocus(-1) }}>Focus on Last Monster</button>
-                            <button onClick={() => { changeMonsterFocus(1) }}>Focus on Next Monster</button>
+                            <button style={{color:'black'}} onClick={() => { changeMonsterFocus(-1) }}>Focus on Last Monster</button>
+                            <button style={{color:'black'}} onClick={() => { changeMonsterFocus(1) }}>Focus on Next Monster</button>
                         </div>
 
                         : <div></div>}

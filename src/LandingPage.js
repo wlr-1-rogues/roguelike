@@ -26,7 +26,7 @@ const LandingPage = (props) => {
                     {startTitle && <div className='startingPage'>
                         {startTitle && <div className='spHeader'></div>}
                         {startTitle && <div className='startingScript'>
-                            <p>Somehow, Palpatine is still alive. 
+                            <p className='introScript'>Somehow, Palpatine is still alive. 
                                 <br></br>
                                 <br></br>
                                 Somehow, this game has something to do with it. 
