@@ -1,5 +1,7 @@
 import ReactRogue from "./ReactRogue";
 import LandingPage from "./LandingPage";
+import Cave from "./assets/sounds/Eerie_Cave.mp3";
+import ReactHowler from "react-howler";
 
 import React, { useEffect, useState } from "react";
 import heros from "./assets/uf_heroes_simple.png";
@@ -37,6 +39,16 @@ const App = () => {
 
   return (
     <div className="App">
+      {
+        <ReactHowler
+          src={Cave}
+          volume={0.5}
+          loop={true}
+          playing={true}
+          seek={3}
+        />
+      }
+
       {!atlases ? (
         <div>Loading</div>
       ) : (
