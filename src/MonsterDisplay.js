@@ -90,6 +90,10 @@ function MonsterDisplay(props) {
         } else if (monsterIndex < visibleMonsters.length - 1 && num === 1) {
             let newIndex = monsterIndex + 1
             setMonsterIndex(newIndex);
+        } else if (monsterIndex === 0 && num < 0) {
+            let newIndex = visibleMonsters.length - 1;
+            setMonsterIndex(newIndex);
+
         } else {
             setMonsterIndex(0);
         }
@@ -124,61 +128,70 @@ function MonsterDisplay(props) {
 
                     <br />
 
+                    <div className="portrait-flavor">
+                        <div className="portrait-image">
+                            {/* LEVEL ONE MONSTER PORTRAITS */}
+                            {visibleMonsters[monsterIndex].attributes.name === "Zombie" && (animationCount === 1) ? <img src={Zombie1} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Zombie" && (animationCount === 2) ? <img src={Zombie2} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Zombie" && (animationCount === 3) ? <img src={Zombie3} /> : <div></div>}
 
-                    {/* LEVEL ONE MONSTER PORTRAITS */}
-                    {visibleMonsters[monsterIndex].attributes.name === "Zombie" && (animationCount === 1) ? <img src={Zombie1} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Zombie" && (animationCount === 2) ? <img src={Zombie2} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Zombie" && (animationCount === 3) ? <img src={Zombie3} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Snake" && (animationCount === 1) ? <img src={Snake1} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Snake" && (animationCount === 2) ? <img src={Snake2} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Snake" && (animationCount === 3) ? <img src={Snake3} /> : <div></div>}
 
-                    {visibleMonsters[monsterIndex].attributes.name === "Snake" && (animationCount === 1) ? <img src={Snake1} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Snake" && (animationCount === 2) ? <img src={Snake2} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Snake" && (animationCount === 3) ? <img src={Snake3} /> : <div></div>}
+                            {(visibleMonsters[monsterIndex].attributes.name === "Goblin") && (animationCount === 1) ? <img src={Goblin1} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Goblin" && (animationCount === 2) ? <img src={Goblin2} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Goblin" && (animationCount === 3) ? <img src={Goblin3} /> : <div></div>}
 
-                    {(visibleMonsters[monsterIndex].attributes.name === "Goblin") && (animationCount === 1) ? <img src={Goblin1} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Goblin" && (animationCount === 2) ? <img src={Goblin2} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Goblin" && (animationCount === 3) ? <img src={Goblin3} /> : <div></div>}
+                            {/* LEVEL TWO MONSTER PORTRAITS */}
+                            {visibleMonsters[monsterIndex].attributes.name === "Banshee" && (animationCount === 1) ? <img src={Banshee1} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Banshee" && (animationCount === 2) ? <img src={Banshee2} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Banshee" && (animationCount === 3) ? <img src={Banshee3} /> : <div></div>}
 
-                    {/* LEVEL TWO MONSTER PORTRAITS */}
-                    {visibleMonsters[monsterIndex].attributes.name === "Banshee" && (animationCount === 1) ? <img src={Banshee1} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Banshee" && (animationCount === 2) ? <img src={Banshee2} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Banshee" && (animationCount === 3) ? <img src={Banshee3} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Ogre" && (animationCount === 1) ? <img src={Ogre1} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Ogre" && (animationCount === 2) ? <img src={Ogre2} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Ogre" && (animationCount === 3) ? <img src={Ogre3} /> : <div></div>}
 
-                    {visibleMonsters[monsterIndex].attributes.name === "Ogre" && (animationCount === 1) ? <img src={Ogre1} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Ogre" && (animationCount === 2) ? <img src={Ogre2} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Ogre" && (animationCount === 3) ? <img src={Ogre3} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Torturer" && (animationCount === 1) ? <img src={Torturer1} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Torturer" && (animationCount === 2) ? <img src={Torturer2} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Torturer" && (animationCount === 3) ? <img src={Torturer3} /> : <div></div>}
 
-                    {visibleMonsters[monsterIndex].attributes.name === "Torturer" && (animationCount === 1) ? <img src={Torturer1} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Torturer" && (animationCount === 2) ? <img src={Torturer2} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Torturer" && (animationCount === 3) ? <img src={Torturer3} /> : <div></div>}
-
-                    {/* LEVEL THREE MONSTER PORTRAITS */}
-                    {visibleMonsters[monsterIndex].attributes.name === "Demon" && (animationCount === 1) ? <img src={Demon1} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Demon" && (animationCount === 2) ? <img src={Demon2} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Demon" && (animationCount === 3) ? <img src={Demon3} /> : <div></div>}
-
-
-                    {visibleMonsters[monsterIndex].attributes.name === "Dragon" && (animationCount === 1) ? <img src={Dragon1} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Dragon" && (animationCount === 2) ? <img src={Dragon2} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Dragon" && (animationCount === 3) ? <img src={Dragon3} /> : <div></div>}
-
-                    {visibleMonsters[monsterIndex].attributes.name === "Golem" && (animationCount === 1) ? <img src={Golem1} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Golem" && (animationCount === 2) ? <img src={Golem2} /> : <div></div>}
-                    {visibleMonsters[monsterIndex].attributes.name === "Golem" && (animationCount === 3) ? <img src={Golem3} /> : <div></div>}
+                            {/* LEVEL THREE MONSTER PORTRAITS */}
+                            {visibleMonsters[monsterIndex].attributes.name === "Demon" && (animationCount === 1) ? <img src={Demon1} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Demon" && (animationCount === 2) ? <img src={Demon2} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Demon" && (animationCount === 3) ? <img src={Demon3} /> : <div></div>}
 
 
+                            {visibleMonsters[monsterIndex].attributes.name === "Dragon" && (animationCount === 1) ? <img src={Dragon1} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Dragon" && (animationCount === 2) ? <img src={Dragon2} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Dragon" && (animationCount === 3) ? <img src={Dragon3} /> : <div></div>}
+
+                            {visibleMonsters[monsterIndex].attributes.name === "Golem" && (animationCount === 1) ? <img src={Golem1} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Golem" && (animationCount === 2) ? <img src={Golem2} /> : <div></div>}
+                            {visibleMonsters[monsterIndex].attributes.name === "Golem" && (animationCount === 3) ? <img src={Golem3} /> : <div></div>}
+                        </div>
+
+
+                        <div className="flavortext-box">
+                            <p><em>{visibleMonsters[monsterIndex].attributes.flavortext}</em></p>
+                        </div>
+                    </div>
 
 
 
-                    <h1>Monster: {visibleMonsters[monsterIndex].attributes.name}</h1>
+
+
+
+                    <h1>{visibleMonsters[monsterIndex].attributes.name}</h1>
                     {/* <p>{visibleMonsters[monsterIndex].attributes.flavortext}</p> */}
 
 
 
 
 
-                    <h2>Monster Health: {visibleMonsters[monsterIndex].attributes.health}</h2>
-                    <h2>Monster Damage: {visibleMonsters[monsterIndex].attributes.damage}</h2>
-                    <h2>Monster Chance to Hit: {calculateChanceToHit(visibleMonsters[monsterIndex].attributes.attack)}</h2>
+                    <h2>Health: {visibleMonsters[monsterIndex].attributes.health} HP</h2>
+                    <h2>Damage: {visibleMonsters[monsterIndex].attributes.damage} Attack</h2>
+                    <h2>Chance to Hit: {calculateChanceToHit(visibleMonsters[monsterIndex].attributes.attack)}%</h2>
 
 
                 </div>
