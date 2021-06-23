@@ -22,7 +22,7 @@ const globalLoot = [
   {
     name: "Health Tincture",
     class: "healthCon",
-    mod1: 10,
+    mod1: 25,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 48,
