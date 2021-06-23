@@ -29,43 +29,43 @@ class InputManager {
         this.broadcast("move", { x: 0, y: 1 });
         break;
       case 49:
-        this.broadcast("inspect", 0)
+        this.broadcast("inspect", 0);
         break;
       case 50:
-        this.broadcast("inspect", 1)
+        this.broadcast("inspect", 1);
         break;
       case 51:
-        this.broadcast("inspect", 2)
+        this.broadcast("inspect", 2);
         break;
       case 52:
-        this.broadcast("inspect", 3)
+        this.broadcast("inspect", 3);
         break;
       case 53:
-        this.broadcast("inspect", 4)
+        this.broadcast("inspect", 4);
         break;
       case 48:
-        this.broadcast("inspect", 'new')
+        this.broadcast("inspect", "new");
         break;
       case 54:
-        this.broadcast("inspectE", 'left')
+        this.broadcast("inspectE", "left");
         break;
       case 55:
-        this.broadcast("inspectE", 'right')
+        this.broadcast("inspectE", "right");
         break;
       case 56:
-        this.broadcast("inspectE", 'head')
+        this.broadcast("inspectE", "head");
         break;
       case 57:
-        this.broadcast("inspectE", 'torso')
+        this.broadcast("inspectE", "torso");
         break;
       case 69:
-        this.broadcast("equip")
+        this.broadcast("equip");
         break;
       case 81:
-        this.broadcast("unequip")
+        this.broadcast("unequip");
         break;
       case 75:
-        this.broadcast("drop")
+        this.broadcast("drop");
         break;
       default:
         break;

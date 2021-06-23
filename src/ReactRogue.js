@@ -12,10 +12,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     new World(width, height, tilesize, atlases, 1)
   );
 
-  const [inspecting] = world.player.inspecting
-  const currentHealth = world.player.attributes.health
-  const maxHealth = world.player.attributes.maxHealth
-  const healthBar = (currentHealth / maxHealth) * 100
+  const [inspecting] = world.player.inspecting;
+  const currentHealth = world.player.attributes.health;
+  const maxHealth = world.player.attributes.maxHealth;
+  const healthBar = (currentHealth / maxHealth) * 100;
 
   let inputManager = new InputManager();
   const handleInput = (action, data) => {
@@ -70,10 +70,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
     spawner.spawnLoot();
-    spawner.spawnMonsters(50);
+    spawner.spawnMonsters(100);
     spawner.spawnStairs();
     setWorld(newWorld);
-    console.log(`${currentHealth}`/`${maxHealth}` * 100)
+    console.log((`${currentHealth}` / `${maxHealth}`) * 100);
   }, []);
 
   useEffect(() => {
@@ -91,18 +91,22 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     world.draw(ctx);
   });
 
-
-
   return (
-    <div>
+    <div
+      style={{
+        background:
+          "url(https://i.pinimg.com/originals/06/c3/95/06c3954b72ae8cfe586ec151efeb29cc.png)",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        width: "100%",
+      }}
+    >
       <header
         style={{
           display: "flex",
           justifyContent: "space-evenly",
           height: "1.5vh",
           width: "98vw",
-          borderStyle: "solid",
-          borderColor: "white",
           alignItems: "center",
         }}
       ></header>
@@ -121,8 +125,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             alignItems: "center",
             width: "20vw",
             minHeight: "100vh",
-            borderStyle: "solid",
-            borderColor: "black",
           }}
         >
           <div
@@ -137,44 +139,44 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               borderStyle: "solid",
               borderColor: "black",
               marginTop: "1vw",
+              backgroundColor: "rgba(211, 211, 211, 0.598)",
             }}
           >
             <h3>Player Stats</h3>
             <section
               style={{
                 display: "flex",
-                height: "2vh",
+                height: "2.5vh",
                 width: "32.5%",
                 borderStyle: "solid",
                 borderColor: "black",
                 marginTop: "-1vh",
                 marginBottom: "1vh",
-                backgroundColor:'red',
-                zIndex:1
+                backgroundColor: "red",
+                zIndex: 1,
               }}
             >
               <section
                 style={{
-                  height:'100%',
-                  width:`${healthBar}%`,
-                  backgroundColor:'green',
-                  zIndex:2,
-                  textAlign:'center',
-                  color:'white',
+                  height: "100%",
+                  width: `${healthBar}%`,
+                  backgroundColor: "green",
+                  zIndex: 2,
+                  textAlign: "center",
+                  color: "white",
                 }}
               >
                 <section
                   style={{
-                    minWidth:'6.25vw',
+                    minWidth: "6.25vw",
                   }}
                 >
-                   HP: {world.player.attributes.health} / {world.player.attributes.maxHealth}
+                  HP: {world.player.attributes.health} /{" "}
+                  {world.player.attributes.maxHealth}
                 </section>
-
               </section>
-
             </section>
-            
+
             <div
               style={{
                 display: "flex",
@@ -232,26 +234,27 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               borderColor: "black",
               marginTop: "1vw",
               marginBottom: "1vw",
+              backgroundColor: "rgba(211, 211, 211, 0.598)",
             }}
           >
             <h3>Equipped Items</h3>
             {world.player.left.map((item, index) => (
-              <p key={index} style={{ height: 19, backgroundColor: "green" }}>
+              <p key={index} style={{ height: 19 }}>
                 6. {item.name}
               </p>
             ))}
             {world.player.right.map((item, index) => (
-              <p key={index} style={{ height: 19, backgroundColor: "green" }}>
+              <p key={index} style={{ height: 19 }}>
                 7. {item.name}
               </p>
             ))}
             {world.player.head.map((item, index) => (
-              <p key={index} style={{ height: 19, backgroundColor: "green" }}>
+              <p key={index} style={{ height: 19 }}>
                 8. {item.name}
               </p>
             ))}
             {world.player.torso.map((item, index) => (
-              <p key={index} style={{ height: 19, backgroundColor: "green" }}>
+              <p key={index} style={{ height: 19 }}>
                 9. {item.name}
               </p>
             ))}
@@ -270,33 +273,29 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 borderStyle: "solid",
                 borderColor: "black",
                 marginBottom: "1vw",
+                backgroundColor: "rgba(211, 211, 211, 0.598)",
               }}
             >
               <h3>{inspecting.item.name} Readied!</h3>
-              <h4>upon inspecting the {inspecting.item.name} you find...</h4>
+              <h4>Upon inspecting the {inspecting.item.name} you find...</h4>
               {inspecting.item.class === "weapon" ? (
                 <div>
                   <p>Attack +{inspecting.item.mod1}</p>
                   <p>Damage +{inspecting.item.mod2}</p>
                 </div>
-
               ) : inspecting.item.class === "shield" ? (
-                  <p>Block + {inspecting.item.mod1}</p>
-
+                <p>Block + {inspecting.item.mod1}</p>
               ) : inspecting.item.class === "head" ||
                 inspecting.item.class === "torso" ? (
-                  <p>Defense +{inspecting.item.mod1}</p>
-
+                <p>Defense +{inspecting.item.mod1}</p>
               ) : inspecting.item.class === "healthCon" ? (
                 <p>Health +{inspecting.item.mod1}</p>
-
               ) : inspecting.item.class === "shieldCon" ? (
                 <p>Block +{inspecting.item.mod1}</p>
-
               ) : (
                 <p>A dusty old tome with strange symbols</p>
               )}
-              
+
               {typeof inspecting.pos === "string" ? (
                 <p>Press "Q" to unequip, or "K" to destroy</p>
               ) : inspecting.item.name === "Tome of Fireball" ? (
@@ -321,14 +320,13 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               alignItems: "center",
               borderStyle: "solid",
               borderColor: "black",
+              backgroundColor: "rgba(211, 211, 211, 0.598)",
             }}
           >
             <h3>Inventory</h3>
             <ol type="1">
               {world.player.inventory.map((item, index) => (
-                <li key={index} style={{ backgroundColor: "lightblue" }}>
-                  {item.name}
-                </li>
+                <li key={index}>{item.name}</li>
               ))}
             </ol>
             <p>Press Number Key to Ready an Item!</p>
@@ -347,7 +345,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             height={height * tilesize * 1}
             maxWidth={"75vw"}
             style={{
-              border: "1px solid SaddleBrown",
+              marginTop: "2vh",
+              borderStyle: "solid",
+              borderWidth: "1px",
+              borderColor: "white",
             }}
           ></canvas>
         </div>
@@ -357,13 +358,11 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           style={{
             display: "flex",
             flexDirection: "column",
-            // justifyContent:'space-evenly',
             alignItems: "center",
             width: "20vw",
             height: "100vh",
-            // padding:'1vw',
-            borderStyle: "solid",
-            borderColor: "black",
+            // borderStyle: "solid",
+            // borderColor: "black",
           }}
         >
           <div
@@ -374,6 +373,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               borderStyle: "solid",
               borderColor: "black",
               marginTop: "1vw",
+              backgroundColor: "rgba(211, 211, 211, 0.598)",
             }}
           >
             <h2

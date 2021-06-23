@@ -1,3 +1,9 @@
+*{
+    color:white;
+    font-family: Luminari;
+    font-size: 2vh;
+}
+
 img{
     max-width: 101px;
     min-width: 100px;
@@ -26,4 +32,6 @@ img{
     /* border: 3px solid black; */
     display: flex;
 
+    padding-top: 2vh;
+    background-color: rgba(211, 211, 211, 0.598);
 }

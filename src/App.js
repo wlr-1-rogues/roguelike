@@ -1,5 +1,7 @@
 import ReactRogue from "./ReactRogue";
-import LandingPage from './LandingPage'
+import LandingPage from "./LandingPage";
+import Cave from "./assets/sounds/Eerie_Cave.mp3";
+import ReactHowler from "react-howler";
 
 import React, { useEffect, useState } from "react";
 import heros from "./assets/uf_heroes_simple.png";
@@ -7,10 +9,9 @@ import terrain from "./assets/uf_terrain.png";
 import items from "./assets/uf_items.png";
 import fx from "./assets/uf_FX.png";
 
-
 const App = () => {
   const [atlases, setAtlases] = useState(null);
-  const [newGame, setNewGame] = useState(false)
+  const [newGame, setNewGame] = useState(false);
 
   useEffect(() => {
     const heroAtlas = new Image();
@@ -33,23 +34,40 @@ const App = () => {
   }, []);
 
   const startGame = () => {
-    setNewGame(!newGame)
-  }
+    setNewGame(!newGame);
+  };
 
   return (
     <div className="App">
+      {
+        <ReactHowler
+          src={Cave}
+          volume={0.5}
+          loop={true}
+          playing={true}
+          seek={3}
+        />
+      }
+
       {!atlases ? (
         <div>Loading</div>
       ) : (
         <div>
-        {!newGame && <div className='welcome'>
-          <LandingPage 
-            startGame = {startGame}
-          />
-        </div>}
-        {newGame && <div className='gameMap'>
-          <ReactRogue width={40} height={40} tilesize={24} atlases={atlases} />
-        </div>}
+          {!newGame && (
+            <div className="welcome">
+              <LandingPage startGame={startGame} />
+            </div>
+          )}
+          {newGame && (
+            <div className="gameMap">
+              <ReactRogue
+                width={40}
+                height={40}
+                tilesize={24}
+                atlases={atlases}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>
