@@ -69,6 +69,7 @@ const tier3MonsterTable = [
     defense: 15,
     damage: 3,
     health: 10,
+    flavortext: "A massive creature of muscle and flame.",
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 336,
@@ -81,6 +82,7 @@ const tier3MonsterTable = [
     defense: 15,
     damage: 3,
     health: 10,
+    flavortext: "Bright blue gouts of flame burst from its nostrils.",
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 384,
@@ -93,6 +95,7 @@ const tier3MonsterTable = [
     defense: 15,
     damage: 3,
     health: 10,
+    flavortext: "Every motion is accompanied by the grinding of stone on stone.",
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -108,6 +111,7 @@ const tier2MonsterTable = [
     defense: 10,
     damage: 2,
     health: 5,
+    flavortext: "You'd pity her if her screams weren't forcing you to cover your ears.",
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 192,
@@ -120,6 +124,7 @@ const tier2MonsterTable = [
     defense: 10,
     damage: 2,
     health: 5,
+    flavortext: "The stench is almost overpowering.",
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 144,
@@ -132,6 +137,7 @@ const tier2MonsterTable = [
     defense: 10,
     damage: 2,
     health: 5,
+    flavortext: "A tall thin man holding a scalpel that's still dripping with blood.",
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 96,
@@ -147,6 +153,7 @@ const tier1MonsterTable = [
     defense: 5,
     damage: 1,
     health: 1,
+    flavortext: "The remains of another adventurer like yourself, brought to life by some dark magic.",
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -159,6 +166,7 @@ const tier1MonsterTable = [
     defense: 5,
     damage: 1,
     health: 1,
+    flavortext: "Bright purple poison drips from its fangs.",
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -171,6 +179,7 @@ const tier1MonsterTable = [
     defense: 5,
     damage: 1,
     health: 1,
+    flavortext: "A goblin holding a rusty knife.",
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 144,

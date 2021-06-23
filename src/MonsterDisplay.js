@@ -173,7 +173,7 @@ function MonsterDisplay(props) {
 
 
                         <div className="flavortext-box">
-                            <p><em>Lorem ipsum dolor flavor text will go here to make the monsters seem cool and or ominous {visibleMonsters[monsterIndex].attributes.flavortext}</em></p>
+                            <p><em>{visibleMonsters[monsterIndex].attributes.flavortext}</em></p>
                         </div>
                     </div>
 
