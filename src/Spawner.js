@@ -65,9 +65,9 @@ const globalLoot = [
 const bossTable = [
   {
     name: "Boss",
-    attack: 8,
+    attack: 10,
     defense: 10,
-    damage: 9,
+    damage: 10,
     health: 100,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
