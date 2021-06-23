@@ -35,7 +35,7 @@ class Stairs extends Entity {
       world.entities = world.entities.filter((e) => e === world.player);
       let spawner = new Spawner(world);
       spawner.spawnLoot();
-      spawner.spawnMonsters(50);
+      spawner.spawnMonsters(100);
       spawner.spawnStairs();
     }
   }
