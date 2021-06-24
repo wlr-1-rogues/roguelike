@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import MonsterDisplay from "./MonsterDisplay";
-import InventorySprite from "./InventorySprite"
+import InventorySprite from "./InventorySprite";
 import InputManager from "./InputManager";
 import Player from "./Player";
 import Spawner from "./Spawner";
@@ -267,10 +267,11 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 </p>
               ))}
               {world.player.torso.map((item, index) => (
-                <p key={index} style={{ margin: 0, marginBottom: 20 }}>
+                <p key={index} style={{ margin: 0 }}>
                   9. {item.name}
                 </p>
               ))}
+              <p></p>
             </div>
           </div>
 
@@ -341,19 +342,19 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             <ol type="1">
               {world.player.inventory.map((item, index) => (
                 <li key={index}>
-                  <div style={{
-                    marginTop: "10px",
-                    counterIncrement: "section",
-                    content: "counter(section)",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center"
-                  }}>
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      counterIncrement: "section",
+                      content: "counter(section)",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>{item.name}</div>
                     <div>
-                      {item.name}
-                    </div>
-                    <div>
-                      <InventorySprite atlas={atlases.itemAtlas} item={item}/>
+                      <InventorySprite atlas={atlases.itemAtlas} item={item} />
                     </div>
                   </div>
                 </li>
