@@ -43,12 +43,25 @@ let mAttackMod = monsterAttackRoll;
 class Monster extends Entity {
   action(verb, world) {
     if (verb === "fireball") {
-      world.addToHistory(
-        `${this.attributes.name.toUpperCase()} IS OBLITERATED!`
-      );
-      world.add(new Blood(this.x, this.y, this.tilesize, blood));
-      world.remove(this);
+      if (world.tier === "boss") {
+        world.addToHistory(
+          `${this.attributes.name.toUpperCase()} BOSS IMMUNE TO YOUR PATHETIC FIREBALL!`
+        );
+      } else {
+        world.addToHistory(
+          `${this.attributes.name.toUpperCase()} IS OBLITERATED!`
+        );
+        world.add(new Blood(this.x, this.y, this.tilesize, blood));
 
+        let dropRoll = Math.random();
+        if (dropRoll < 0.2 || world.tier === "boss") {
+          world.addToHistory(`${this.attributes.name} drops an item!`);
+          let spawner = new Spawner(world);
+          spawner.spawnLootAt(this.x, this.y);
+        }
+
+        world.remove(this);
+      }
     }
 
     if (verb === "bump") {
@@ -79,7 +92,7 @@ class Monster extends Entity {
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
           gore.play()
           let dropRoll = Math.random();
-          if (dropRoll < .1 || world.tier === "boss") {
+          if (dropRoll < 0.2 || world.tier === "boss") {
             world.addToHistory(`${this.attributes.name} drops an item!`);
             let spawner = new Spawner(world);
             spawner.spawnLootAt(this.x, this.y);

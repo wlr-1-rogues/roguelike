@@ -10,7 +10,7 @@ const globalLoot = [
   {
     name: "Torch",
     class: "weapon",
-    mod1: 1,
+    mod1: 6,
     mod2: 1,
     mod3: 3,
     spriteSheet: "itemAtlas",
@@ -22,7 +22,7 @@ const globalLoot = [
   {
     name: "Health Tincture",
     class: "healthCon",
-    mod1: 10,
+    mod1: 25,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 48,
@@ -32,7 +32,7 @@ const globalLoot = [
   {
     name: "Health Potion",
     class: "healthCon",
-    mod1: 25,
+    mod1: 50,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 0,
@@ -42,8 +42,8 @@ const globalLoot = [
   {
     name: "Elixir of Health",
     class: "healthCon",
-    mod1: 50,
-    mod2: 50,
+    mod1: 25,
+    mod2: 25,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 384,
@@ -65,10 +65,10 @@ const globalLoot = [
 const bossTable = [
   {
     name: "Boss",
-    attack: 3,
-    defense: 15,
-    damage: 3,
-    health: 10,
+    attack: 10,
+    defense: 19,
+    damage: 20,
+    health: 200,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 384,
@@ -91,10 +91,11 @@ const bossDrop = [
 const tier3MonsterTable = [
   {
     name: "Demon",
-    attack: 3,
-    defense: 15,
-    damage: 3,
-    health: 10,
+    flavortext: "A massive creature of muscle and flame.",
+    attack: 7,
+    defense: 8,
+    damage: 8,
+    health: 17,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 336,
@@ -103,10 +104,11 @@ const tier3MonsterTable = [
   },
   {
     name: "Dragon",
-    attack: 3,
-    defense: 15,
-    damage: 3,
-    health: 10,
+    flavortext: "Bright blue gouts of flame burst from its nostrils.",
+    attack: 6,
+    defense: 9,
+    damage: 4,
+    health: 31,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 384,
@@ -115,10 +117,12 @@ const tier3MonsterTable = [
   },
   {
     name: "Golem",
-    attack: 3,
-    defense: 15,
+    attack: 5,
+    defense: 6,
     damage: 3,
-    health: 10,
+    flavortext:
+      "Every motion is accompanied by the grinding of stone on stone.",
+    health: 62,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -130,10 +134,12 @@ const tier3MonsterTable = [
 const tier2MonsterTable = [
   {
     name: "Banshee",
-    attack: 2,
-    defense: 10,
-    damage: 2,
-    health: 5,
+    flavortext:
+      "You'd pity her if her screams weren't forcing you to cover your ears.",
+    attack: 5,
+    defense: 8,
+    damage: 3,
+    health: 15,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 192,
@@ -142,10 +148,11 @@ const tier2MonsterTable = [
   },
   {
     name: "Ogre",
-    attack: 2,
-    defense: 10,
+    attack: 4,
+    defense: 5,
     damage: 2,
-    health: 5,
+    flavortext: "The stench is almost overpowering.",
+    health: 30,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 144,
@@ -154,10 +161,12 @@ const tier2MonsterTable = [
   },
   {
     name: "Torturer",
-    attack: 2,
-    defense: 10,
-    damage: 2,
-    health: 5,
+    flavortext:
+      "A tall thin man holding a scalpel that's still dripping with blood.",
+    attack: 6,
+    defense: 7,
+    damage: 7,
+    health: 9,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 96,
@@ -169,10 +178,12 @@ const tier2MonsterTable = [
 const tier1MonsterTable = [
   {
     name: "Zombie",
-    attack: 1,
-    defense: 5,
+    attack: 3,
+    defense: 4,
     damage: 1,
-    health: 1,
+    flavortext:
+      "The remains of another adventurer like yourself, brought to life by some dark magic.",
+    health: 18,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -181,10 +192,11 @@ const tier1MonsterTable = [
   },
   {
     name: "Snake",
-    attack: 1,
-    defense: 5,
-    damage: 1,
-    health: 1,
+    flavortext: "Bright purple poison drips from its fangs.",
+    attack: 5,
+    defense: 6,
+    damage: 6,
+    health: 2,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -193,10 +205,11 @@ const tier1MonsterTable = [
   },
   {
     name: "Goblin",
-    attack: 1,
-    defense: 5,
-    damage: 1,
-    health: 1,
+    flavortext: "A goblin holding a rusty knife.",
+    attack: 4,
+    defense: 7,
+    damage: 2,
+    health: 9,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 144,
@@ -239,7 +252,7 @@ const tier3LootTable = [
   {
     name: "Magic Axe",
     class: "weapon",
-    mod1: 12,
+    mod1: 2,
     mod2: 14,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -252,7 +265,7 @@ const tier2LootTable = [
   {
     name: "Long Sword",
     class: "weapon",
-    mod1: 6,
+    mod1: 1,
     mod2: 6,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -295,7 +308,7 @@ const tier1LootTable = [
   {
     name: "Dagger",
     class: "weapon",
-    mod1: 3,
+    mod1: 0,
     mod2: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -431,8 +444,8 @@ class Spawner {
 
   spawnBoss() {
     let boss = new Monster(
-      this.world.width - 10,
-      this.world.height - 10,
+      this.world.width - this.world.width / 2,
+      this.world.height - this.world.height / 2,
       this.world.tilesize,
       bossTable[getRandomInt(bossTable.length)]
     );

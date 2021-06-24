@@ -6,7 +6,6 @@ const itemPickup = new Audio(ItemPickup)
 class Player extends Entity {
   inventory = [];
   inspecting = [];
-  equipped = [];
   left = [];
   right = [];
   head = [];
@@ -18,8 +17,8 @@ class Player extends Entity {
     defense: 14,
     damage: 3,
     block: 0,
-    maxHealth: 100,
-    health: 100,
+    maxHealth: 50,
+    health: 50,
     sightRadius: 7,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
@@ -122,7 +121,7 @@ class Player extends Entity {
       if (this.inspecting.length === 1) {
         if (typeof inspecting?.pos === "string")
           return "you already have this equipped!";
-          
+
         // WEAPONS
         if (item.class === "weapon" && this.left.length === 0) {
           this.attributes.attack += item.mod1;
@@ -203,7 +202,6 @@ class Player extends Entity {
       const { item } = inspecting;
       const unequip = `you unequip the ${item.name}`;
       if (typeof inspecting?.pos === "string") {
-
         // WEAPONS
         if (item.class === "weapon" && this.inventory.length < 5) {
           this.attributes.attack -= item.mod1;
@@ -223,7 +221,7 @@ class Player extends Entity {
 
           // SHIELDS
         } else if (item.class === "shield" && this.inventory.length < 5) {
-            this.attributes.block -= item.mod1;
+          this.attributes.block -= item.mod1;
 
           if (inspecting.pos === "left") {
             this.inventory.push(this.left[0]);
@@ -250,7 +248,6 @@ class Player extends Entity {
 
           this.inspecting.splice(0, 1);
           return unequip;
-
         } else {
           return "drop an item before unequipping";
         }
@@ -273,8 +270,8 @@ class Player extends Entity {
     if (!inspecting) return "inspect and item first!";
     if (typeof inspecting?.pos === "string") {
       if (item.class === "weapon") {
-        this.attributes.attack -= item.mod1
-        this.attributes.damage -= item.mod2
+        this.attributes.attack -= item.mod1;
+        this.attributes.damage -= item.mod2;
         if (item.mod3) this.attributes.sightRadius -= item.mod3;
       } else if (item.class === "shield") {
         this.attributes.block -= item.mod1;
