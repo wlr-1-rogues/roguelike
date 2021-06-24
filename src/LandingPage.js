@@ -12,9 +12,14 @@ const LandingPage = (props) => {
 
     return(
                 <div className='landingPage'>
-                    {!startTitle && <h1 className='landingHeader1'>
-                        WELCOME TO
-                    </h1>}
+                    <div className='landingHeader1'>
+                        {!startTitle && <h1 className='landingHeader11'>
+                            WELCOME
+                        </h1>}
+                        {!startTitle && <h1 className='landingHeader11'>
+                            TO
+                        </h1>}
+                    </div>
                     <div style={{display:'flex', justifyContent:'space-around', gap:'5vw'}}>
                         {!startTitle && <h1 className='landingHeader2'>
                             HYPOGEAN
