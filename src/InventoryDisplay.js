@@ -1,21 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import InventorySprites from "./InventorySprites";
 
 function InventoryDisplay(props) {
     const [sprite, setSprite] = useState('')
     const {world, atlas} = props
     const [inspecting] = world.player.inspecting
     const canvasRef = useRef(null);
-
-    const drawItem = (ctx, x, y) => {
-        ctx.drawImage(atlas, x, y, 48, 48)
-    }
-
-    // useEffect(() => {
-    //     const canvas = canvasRef.current
-    //     const context = canvas.getContext("2d");
-    //     setSprite(context)
-    // }, [])
-    
 
     return (
         <div
@@ -134,9 +124,9 @@ function InventoryDisplay(props) {
             <ol type="1">
                 {world.player.inventory.map((item, index) => (
                     <li key={index}>
-                        <canvas ref={canvasRef} width="200" height="100" style={{border: "1px solid #000000"}} onLoad={() => drawItem(sprite, item.spriteSheetCoordinates.x, item.spriteSheetCoordinates.y)} ></canvas>
-                    {item.name}
-                </li>
+                        <InventorySprites item={item} atlas={atlas} />
+                        {item.name}
+                    </li>
                 ))}
             </ol>
             <p>Press Number Key to Ready an Item!</p>
