@@ -203,8 +203,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 <br></br>
                 Block:
                 <br></br>
-                {/* Health:
-                <br></br> */}
                 Visibility:
               </div>
               <div
@@ -222,8 +220,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 <br></br>
                 {world.player.attributes.block}
                 <br></br>
-                {/* {world.player.attributes.health}
-                <br></br> */}
                 {world.player.attributes.sightRadius}
                 <br></br>
                 <br></br>
