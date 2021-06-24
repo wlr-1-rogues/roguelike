@@ -2,6 +2,21 @@ import Entity from "./Entity";
 import Blood from "./Blood";
 import Player from "./Player";
 import Spawner from "./Spawner";
+import Dagger from './assets/sounds/dagger.mp3'
+import HumanDeath from './assets/sounds/humanPain.wav'
+// import MetalHit from './assets/sounds/metalHit.wav'
+import Gore from './assets/sounds/gore.wav'
+import Wiff from './assets/sounds/wiff.mp3'
+import Shield from './assets/sounds/shield.mp3'
+
+const daggerAudio = new Audio(Dagger)
+daggerAudio.volume = .5
+const humanDeathAudio = new Audio(HumanDeath)
+const gore = new Audio(Gore)
+gore.volume=.5
+const wiff = new Audio(Wiff)
+wiff.volume=.5
+const shield = new Audio(Shield)
 
 const blood = {
   spriteSheet: "terrainAtlas",
@@ -31,19 +46,25 @@ let mAttackMod = monsterAttackRoll;
 class Monster extends Entity {
   action(verb, world) {
     if (verb === "fireball") {
-      world.addToHistory(
-        `${this.attributes.name.toUpperCase()} IS OBLITERATED!`
-      );
-      world.add(new Blood(this.x, this.y, this.tilesize, blood));
+      if (world.tier === "boss") {
+        world.addToHistory(
+          `${this.attributes.name.toUpperCase()} BOSS IMMUNE TO YOUR PATHETIC FIREBALL!`
+        );
+      } else {
+        world.addToHistory(
+          `${this.attributes.name.toUpperCase()} IS OBLITERATED!`
+        );
+        world.add(new Blood(this.x, this.y, this.tilesize, blood));
 
-      let dropRoll = Math.random();
-      if (dropRoll < 0.2 || world.tier === "boss") {
-        world.addToHistory(`${this.attributes.name} drops an item!`);
-        let spawner = new Spawner(world);
-        spawner.spawnLootAt(this.x, this.y);
+        let dropRoll = Math.random();
+        if (dropRoll < 0.2 || world.tier === "boss") {
+          world.addToHistory(`${this.attributes.name} drops an item!`);
+          let spawner = new Spawner(world);
+          spawner.spawnLootAt(this.x, this.y);
+        }
+
+        world.remove(this);
       }
-
-      world.remove(this);
     }
 
     if (verb === "bump") {
@@ -57,12 +78,14 @@ class Monster extends Entity {
               world.player.attributes.damage * 2
             } DAMAGE!`
           );
+          daggerAudio.play()
           this.attributes.health =
             this.attributes.health - world.player.attributes.damage * 2;
         } else {
           world.addToHistory(
             `Player attacks for ${world.player.attributes.damage} damage`
           );
+          daggerAudio.play()
           this.attributes.health =
             this.attributes.health - world.player.attributes.damage;
         }
@@ -70,7 +93,7 @@ class Monster extends Entity {
         if (this.attributes.health <= 0) {
           world.addToHistory(`${this.attributes.name} dies!`);
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
-
+          gore.play()
           let dropRoll = Math.random();
           if (dropRoll < 0.2 || world.tier === "boss") {
             world.addToHistory(`${this.attributes.name} drops an item!`);
@@ -86,6 +109,7 @@ class Monster extends Entity {
           );
         }
       } else {
+        wiff.play()
         world.addToHistory("Your attack missed!");
       }
     }
@@ -102,7 +126,6 @@ class Monster extends Entity {
               this.attributes.damage * 2
             } DAMAGE!`
           );
-
           let unblocked =
             this.attributes.damage - world.player.attributes.block < 0
               ? 0
@@ -113,7 +136,6 @@ class Monster extends Entity {
           world.addToHistory(
             `${this.attributes.name} attacks for ${this.attributes.damage} damage!`
           );
-
           let unblocked =
             this.attributes.damage - world.player.attributes.block < 0
               ? 0
@@ -137,7 +159,7 @@ class Monster extends Entity {
           world.entities[0].attributes.spriteSheetCoordinates =
             tombstone.spriteSheetCoordinates;
           world.entities[0].attributes.spriteSheet = tombstone.spriteSheet;
-          // console.log(world.entities[0]);
+          humanDeathAudio.play()
         } else {
           world.addToHistory(
             `You have ${world.player.attributes.health} health remaining!`

@@ -7,7 +7,7 @@ const globalLoot = [
   {
     name: "Torch",
     class: "weapon",
-    mod1: 1,
+    mod1: 6,
     mod2: 1,
     mod3: 3,
     spriteSheet: "itemAtlas",
@@ -63,9 +63,9 @@ const bossTable = [
   {
     name: "Boss",
     attack: 10,
-    defense: 10,
-    damage: 10,
-    health: 100,
+    defense: 19,
+    damage: 20,
+    health: 200,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
       y: 384,
@@ -117,7 +117,8 @@ const tier3MonsterTable = [
     attack: 5,
     defense: 6,
     damage: 3,
-    flavortext: "Every motion is accompanied by the grinding of stone on stone.",
+    flavortext:
+      "Every motion is accompanied by the grinding of stone on stone.",
     health: 62,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
@@ -130,7 +131,8 @@ const tier3MonsterTable = [
 const tier2MonsterTable = [
   {
     name: "Banshee",
-    flavortext: "You'd pity her if her screams weren't forcing you to cover your ears.",
+    flavortext:
+      "You'd pity her if her screams weren't forcing you to cover your ears.",
     attack: 5,
     defense: 8,
     damage: 3,
@@ -156,7 +158,8 @@ const tier2MonsterTable = [
   },
   {
     name: "Torturer",
-    flavortext: "A tall thin man holding a scalpel that's still dripping with blood.",
+    flavortext:
+      "A tall thin man holding a scalpel that's still dripping with blood.",
     attack: 6,
     defense: 7,
     damage: 7,
@@ -175,7 +178,8 @@ const tier1MonsterTable = [
     attack: 3,
     defense: 4,
     damage: 1,
-    flavortext: "The remains of another adventurer like yourself, brought to life by some dark magic.",
+    flavortext:
+      "The remains of another adventurer like yourself, brought to life by some dark magic.",
     health: 18,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
@@ -245,7 +249,7 @@ const tier3LootTable = [
   {
     name: "Magic Axe",
     class: "weapon",
-    mod1: 3,
+    mod1: 2,
     mod2: 14,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -258,7 +262,7 @@ const tier2LootTable = [
   {
     name: "Long Sword",
     class: "weapon",
-    mod1: 2,
+    mod1: 1,
     mod2: 6,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
@@ -301,7 +305,7 @@ const tier1LootTable = [
   {
     name: "Dagger",
     class: "weapon",
-    mod1: 1,
+    mod1: 0,
     mod2: 3,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {

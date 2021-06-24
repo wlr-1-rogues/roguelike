@@ -6,6 +6,8 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Player from "./Player";
 
+
+
 class World {
   constructor(width, height, tilesize, atlases, tier) {
     this.width = width;
