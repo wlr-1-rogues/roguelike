@@ -126,7 +126,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
         style={{
           display: "flex",
           justifyContent: "space-evenly",
-          background: "red"
         }}
       >
         <div
@@ -137,7 +136,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             alignItems: "center",
             width: "20vw",
             minHeight: "100vh",
-            background: "blue"
           }}
         >
           <div
@@ -234,6 +232,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             </div>
           </div>
           <InventoryDisplay atlas={atlases.itemAtlas} world={world} />
+          </div>
         <div
           className="leftSide"
           style={{
@@ -254,48 +253,46 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             }}
           ></canvas>
         </div>
-
+        <div
+          className="rightSide"
+          style={{
+            height: "40%",
+            width: "95%",
+            borderStyle: "solid",
+            borderColor: "black",
+            marginTop: "1vw",
+            backgroundColor: "rgba(211, 211, 211, 0.598)",
+          }}
+        >
           <div
-            className="rightSide"
+            className="eventHistory"
             style={{
               height: "40%",
               width: "95%",
               borderStyle: "solid",
               borderColor: "black",
               marginTop: "1vw",
-              backgroundColor: "rgba(211, 211, 211, 0.598)",
+              backgroundColor:'rgba(211, 211, 211, 0.598)'
             }}
           >
-            <div
-              className="eventHistory"
+            <h2
+              className="eventHeader"
               style={{
-                height: "40%",
-                width: "95%",
-                borderStyle: "solid",
-                borderColor: "black",
-                marginTop: "1vw",
-                backgroundColor:'rgba(211, 211, 211, 0.598)'
+                display: "flex",
+                justifyContent: "center",
               }}
             >
-              <h2
-                className="eventHeader"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                Event History
-              </h2>
-              <ul>
-                {world.history.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
+              Event History
+            </h2>
+            <ul>
+              {world.history.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
 
-            <div className="monster-box">
-              <MonsterDisplay world={world} setWorld={setWorld} />
-            </div>
+          <div className="monster-box">
+            <MonsterDisplay world={world} setWorld={setWorld} />
           </div>
         </div>
       </div>
