@@ -3,9 +3,6 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Stairs from "./Stairs";
 
-// total item tier head/torso armor should not reduce more dmg than the lowest dmg dealing enemy
-// total item tier head/torso + shield armor shouldn't reduce the highest dmg dealing enemy
-
 const globalLoot = [
   {
     name: "Torch",

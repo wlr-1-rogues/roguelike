@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import MonsterDisplay from "./MonsterDisplay";
+import InventorySprite from "./InventorySprite";
 import InputManager from "./InputManager";
 import Player from "./Player";
 import Spawner from "./Spawner";
@@ -9,10 +10,13 @@ import Hadouken from './assets/sounds/hadouken.mp3'
 import ItemPickup from './assets/sounds/itemPickup.mp3'
 import LP from './LP.css'
 
+import Hadouken from "./assets/sounds/hadouken.mp3";
+import ItemPickup from "./assets/sounds/itemPickup.mp3";
+import EquippedItems from "./EquippedItems";
 
-const hadoukenAudio = new Audio(Hadouken)
-hadoukenAudio.volume = .5
-const itemPickup = new Audio(ItemPickup)
+const hadoukenAudio = new Audio(Hadouken);
+hadoukenAudio.volume = 0.5;
+const itemPickup = new Audio(ItemPickup);
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
@@ -31,7 +35,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     Object.assign(newWorld, world);
     if (action === "move") {
       if (inspecting?.item.name === "Tome of Fireball") {
-        hadoukenAudio.play()
+        hadoukenAudio.play();
         console.log("shoot", data.x, data.y);
         let fireDirection = "up";
 
@@ -59,15 +63,15 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       newWorld.inspectItem(data);
     } else if (action === "equip") {
       newWorld.equipItem();
-      itemPickup.play()
+      itemPickup.play();
     } else if (action === "inspectE") {
       newWorld.inspectEquip(data);
     } else if (action === "unequip") {
       newWorld.unequipItem();
-      itemPickup.play()
+      itemPickup.play();
     } else if (action === "drop") {
       newWorld.dropItem();
-      itemPickup.play()
+      itemPickup.play();
     }
 
     newWorld.moveProjectiles();
@@ -246,26 +250,33 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             }}
           >
             <h3>Equipped Items</h3>
-            {world.player.left.map((item, index) => (
-              <p key={index} style={{ height: 19 }}>
-                6. {item.name}
-              </p>
-            ))}
-            {world.player.right.map((item, index) => (
-              <p key={index} style={{ height: 19 }}>
-                7. {item.name}
-              </p>
-            ))}
-            {world.player.head.map((item, index) => (
-              <p key={index} style={{ height: 19 }}>
-                8. {item.name}
-              </p>
-            ))}
-            {world.player.torso.map((item, index) => (
-              <p key={index} style={{ height: 19 }}>
-                9. {item.name}
-              </p>
-            ))}
+            <div>
+              <EquippedItems world={world} atlases={atlases} />
+            </div>
+
+            <div>
+              {world.player.left.map((item, index) => (
+                <p key={index} style={{ margin: 0 }}>
+                  6. {item.name}
+                </p>
+              ))}
+              {world.player.right.map((item, index) => (
+                <p key={index} style={{ margin: 0 }}>
+                  7. {item.name}
+                </p>
+              ))}
+              {world.player.head.map((item, index) => (
+                <p key={index} style={{ margin: 0 }}>
+                  8. {item.name}
+                </p>
+              ))}
+              {world.player.torso.map((item, index) => (
+                <p key={index} style={{ margin: 0 }}>
+                  9. {item.name}
+                </p>
+              ))}
+              <p></p>
+            </div>
           </div>
 
           {world.player.inspecting.length === 1 && (
@@ -334,7 +345,23 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             <h3>Inventory</h3>
             <ol type="1">
               {world.player.inventory.map((item, index) => (
-                <li key={index}>{item.name}</li>
+                <li key={index}>
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      counterIncrement: "section",
+                      content: "counter(section)",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div>{item.name}</div>
+                    <div>
+                      <InventorySprite atlas={atlases.itemAtlas} item={item} />
+                    </div>
+                  </div>
+                </li>
               ))}
             </ol>
             <p>Press Number Key to Ready an Item!</p>
