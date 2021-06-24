@@ -143,7 +143,6 @@ class Monster extends Entity {
           world.entities[0].attributes.spriteSheetCoordinates =
             tombstone.spriteSheetCoordinates;
           world.entities[0].attributes.spriteSheet = tombstone.spriteSheet;
-          // console.log(world.entities[0]);
           humanDeathAudio.play()
         } else {
           world.addToHistory(
