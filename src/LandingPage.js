@@ -40,13 +40,19 @@ const LandingPage = (props) => {
                             <p className='introScript'>Somehow, Palpatine is still alive. 
                                 <br></br>
                                 <br></br>
-                                Somehow, this game has something to do with it. 
+                                But this game has nothing to do with it. 
                                 <br></br>
                                 <br></br>
-                                Fight through 3 levels of baddies, gathering treasure along the way, to eventually fight the terror which dwells at the end of <br></br>The Cave of Dev Mountain.
+                                Stureth, the dark king, has grown powerful in his dark underground kingdom. 
                                 <br></br>
                                 <br></br>
-                                We're all counting on you. Good luck.
+                                Many adventurers have attempted to end his reign of terror, and many have failed. 
+                                <br></br>
+                                <br></br>
+                                Fight through three exciting levels, gather equipment, and prepare to face the king under the mountain in his...                                
+                                <br></br>
+                                <br></br>
+                                <h1 style={{fontSize:'3vw', marginTop:'-1vw', marginBottom:'-1vw'}}>HYPOGEAN DOMINION</h1>
                             </p>
                             <section
                                 className='beginButton'
