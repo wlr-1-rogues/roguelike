@@ -1,25 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
+import itemSheet from './assets/uf_items.png'
 
 function InventoryDisplay(props) {
     const {world, atlas} = props
     const [inspecting] = world.player.inspecting
-    const canvasRef = useRef(atlas)
 
-    const draw = ctx => {
-        ctx.fillStyle = '#000000'
-        ctx.beginPath()
-        ctx.arc(50, 100, 20, 0, 2*Math.PI)
-        ctx.fill()
+    const canvasRef = React.useRef(null);
+    const ctx = canvasRef.current.getContext("2d");
+    const items = new Image()
+    items.src = itemSheet
+
+    const drawItem = (ctx, x, y) => {
+        ctx.drawImage(items, x, y, 48, 48)
     }
 
-    useEffect(() => {
-        if (atlas) {
-            const context = canvasRef.current.getContext("2d")
-            draw(context)
-        }
-    }, [])
-
-    console.log(atlas)
     return (
         <div
         style={{
