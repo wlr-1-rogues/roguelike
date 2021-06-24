@@ -5,7 +5,6 @@ import Dagger from './assets/sounds/dagger.mp3'
 import ReactHowler from 'react-howler'
 import useSound from 'use-sound'
 
-
 import React, { useEffect, useState } from "react";
 import heros from "./assets/uf_heroes_simple.png";
 import terrain from "./assets/uf_terrain.png";
@@ -58,7 +57,7 @@ const App = () => {
         />
       }
 
-      {!atlases ? (
+          {!atlases ? (
         <div>Loading</div>
       ) : (
         <div>

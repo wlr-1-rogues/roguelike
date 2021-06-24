@@ -10,9 +10,12 @@ import Wiff from './assets/sounds/wiff.mp3'
 import Shield from './assets/sounds/shield.mp3'
 
 const daggerAudio = new Audio(Dagger)
+daggerAudio.volume = .5
 const humanDeathAudio = new Audio(HumanDeath)
 const gore = new Audio(Gore)
+gore.volume=.5
 const wiff = new Audio(Wiff)
+wiff.volume=.5
 const shield = new Audio(Shield)
 
 const blood = {
@@ -156,7 +159,6 @@ class Monster extends Entity {
           world.entities[0].attributes.spriteSheetCoordinates =
             tombstone.spriteSheetCoordinates;
           world.entities[0].attributes.spriteSheet = tombstone.spriteSheet;
-          // console.log(world.entities[0]);
           humanDeathAudio.play()
         } else {
           world.addToHistory(
