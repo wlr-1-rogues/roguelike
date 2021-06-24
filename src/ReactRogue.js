@@ -5,12 +5,13 @@ import Player from "./Player";
 import Spawner from "./Spawner";
 import World from "./World";
 import Fireball from "./Fireball";
-import Hadouken from './assets/sounds/hadouken.mp3'
-import ItemPickup from './assets/sounds/itemPickup.mp3'
+import Hadouken from "./assets/sounds/hadouken.mp3";
+import ItemPickup from "./assets/sounds/itemPickup.mp3";
+import EquippedItems from "./EquippedItems";
 
-const hadoukenAudio = new Audio(Hadouken)
-hadoukenAudio.volume = .5
-const itemPickup = new Audio(ItemPickup)
+const hadoukenAudio = new Audio(Hadouken);
+hadoukenAudio.volume = 0.5;
+const itemPickup = new Audio(ItemPickup);
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
@@ -29,7 +30,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     Object.assign(newWorld, world);
     if (action === "move") {
       if (inspecting?.item.name === "Tome of Fireball") {
-        hadoukenAudio.play()
+        hadoukenAudio.play();
         console.log("shoot", data.x, data.y);
         let fireDirection = "up";
 
@@ -57,15 +58,15 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       newWorld.inspectItem(data);
     } else if (action === "equip") {
       newWorld.equipItem();
-      itemPickup.play()
+      itemPickup.play();
     } else if (action === "inspectE") {
       newWorld.inspectEquip(data);
     } else if (action === "unequip") {
       newWorld.unequipItem();
-      itemPickup.play()
+      itemPickup.play();
     } else if (action === "drop") {
       newWorld.dropItem();
-      itemPickup.play()
+      itemPickup.play();
     }
 
     newWorld.moveProjectiles();
@@ -244,6 +245,9 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             }}
           >
             <h3>Equipped Items</h3>
+            <div>
+              <EquippedItems world={world} atlases={atlases} />
+            </div>
             {world.player.left.map((item, index) => (
               <p key={index} style={{ height: 19 }}>
                 6. {item.name}
