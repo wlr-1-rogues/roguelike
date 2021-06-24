@@ -10,8 +10,6 @@ import Hadouken from './assets/sounds/hadouken.mp3'
 import ItemPickup from './assets/sounds/itemPickup.mp3'
 import LP from './LP.css'
 
-import Hadouken from "./assets/sounds/hadouken.mp3";
-import ItemPickup from "./assets/sounds/itemPickup.mp3";
 import EquippedItems from "./EquippedItems";
 
 const hadoukenAudio = new Audio(Hadouken);
