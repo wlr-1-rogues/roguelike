@@ -20,11 +20,19 @@
 
 .landingHeader1{
     display:flex;
-    flex-direction: column;
+    min-width: 25vw;
+    justify-content: center;
+    gap: 1.5vw;
+    flex-direction: row;
     text-align: center;
     margin-top: 10%;
     font-family: Luminari;
     font-size: 5vh;
+}
+
+.landingHeader11{
+    font-size: 5vh;
+
 }
 
 .landingHeader2{
