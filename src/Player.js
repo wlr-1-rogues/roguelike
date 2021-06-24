@@ -266,8 +266,8 @@ class Player extends Entity {
 
   drop() {
     const [inspecting] = this.inspecting;
-    const { item } = inspecting;
     if (!inspecting) return "inspect and item first!";
+    const { item } = inspecting;
     if (typeof inspecting?.pos === "string") {
       if (item.class === "weapon") {
         this.attributes.attack -= item.mod1;
