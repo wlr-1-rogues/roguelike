@@ -1,8 +1,23 @@
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function InventoryDisplay(props) {
     const {world, atlas} = props
     const [inspecting] = world.player.inspecting
+    const canvasRef = useRef(atlas)
+
+    const draw = ctx => {
+        ctx.fillStyle = '#000000'
+        ctx.beginPath()
+        ctx.arc(50, 100, 20, 0, 2*Math.PI)
+        ctx.fill()
+    }
+
+    useEffect(() => {
+        if (atlas) {
+            const context = canvasRef.current.getContext("2d")
+            draw(context)
+        }
+    }, [])
 
     console.log(atlas)
     return (
@@ -128,6 +143,7 @@ function InventoryDisplay(props) {
                 <ol type="1">
                     {world.player.inventory.map((item, index) => (
                     <li key={index}>
+                        <canvas ref={canvasRef} width="200" height="100" style={{border: "1px solid #000000"}}></canvas>
                         {item.name}
                     </li>
                     ))}
