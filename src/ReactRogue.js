@@ -9,6 +9,7 @@ import Hadouken from './assets/sounds/hadouken.mp3'
 import ItemPickup from './assets/sounds/itemPickup.mp3'
 
 const hadoukenAudio = new Audio(Hadouken)
+hadoukenAudio.volume = .5
 const itemPickup = new Audio(ItemPickup)
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
