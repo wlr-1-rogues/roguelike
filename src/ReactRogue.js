@@ -248,26 +248,29 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             <div>
               <EquippedItems world={world} atlases={atlases} />
             </div>
-            {world.player.left.map((item, index) => (
-              <p key={index} style={{ height: 19 }}>
-                6. {item.name}
-              </p>
-            ))}
-            {world.player.right.map((item, index) => (
-              <p key={index} style={{ height: 19 }}>
-                7. {item.name}
-              </p>
-            ))}
-            {world.player.head.map((item, index) => (
-              <p key={index} style={{ height: 19 }}>
-                8. {item.name}
-              </p>
-            ))}
-            {world.player.torso.map((item, index) => (
-              <p key={index} style={{ height: 19 }}>
-                9. {item.name}
-              </p>
-            ))}
+
+            <div>
+              {world.player.left.map((item, index) => (
+                <p key={index} style={{ margin: 0 }}>
+                  6. {item.name}
+                </p>
+              ))}
+              {world.player.right.map((item, index) => (
+                <p key={index} style={{ margin: 0 }}>
+                  7. {item.name}
+                </p>
+              ))}
+              {world.player.head.map((item, index) => (
+                <p key={index} style={{ margin: 0 }}>
+                  8. {item.name}
+                </p>
+              ))}
+              {world.player.torso.map((item, index) => (
+                <p key={index} style={{ margin: 0, marginBottom: 20 }}>
+                  9. {item.name}
+                </p>
+              ))}
+            </div>
           </div>
 
           {world.player.inspecting.length === 1 && (
