@@ -1,7 +1,10 @@
 import ReactRogue from "./ReactRogue";
 import LandingPage from './LandingPage';
 import Cave from './assets/sounds/Eerie_Cave.mp3'
+import Dagger from './assets/sounds/dagger.mp3'
 import ReactHowler from 'react-howler'
+import useSound from 'use-sound'
+
 
 import React, { useEffect, useState } from "react";
 import heros from "./assets/uf_heroes_simple.png";
@@ -13,7 +16,12 @@ import fx from "./assets/uf_FX.png";
 const App = () => {
   const [atlases, setAtlases] = useState(null);
   const [newGame, setNewGame] = useState(false);
+  // const [daggerPlay, setDaggerPlay] = useState(false) 
 
+  const DaggerSound = () => {
+    const [play] = useSound(Dagger)
+    return <button onClick={play}></button>
+  }
 
   useEffect(() => {
     const heroAtlas = new Image();
@@ -49,7 +57,6 @@ const App = () => {
         playing={true}
         seek={3}
       />}
-
 
       {!atlases ? (
         <div>Loading</div>
