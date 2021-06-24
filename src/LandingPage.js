@@ -15,9 +15,15 @@ const LandingPage = (props) => {
                     {!startTitle && <h1 className='landingHeader1'>
                         WELCOME TO
                     </h1>}
-                    {!startTitle && <h1 className='landingHeader2'>
-                        TITLE OF GAME
-                    </h1>}
+                    <div style={{display:'flex', justifyContent:'space-around', gap:'5vw'}}>
+                        {!startTitle && <h1 className='landingHeader2'>
+                            HYPOGEAN
+                        </h1>}
+                        {!startTitle && <h1 className='landingHeader2'>
+                            DOMINION
+                        </h1>}
+
+                    </div>
                     {!startTitle && <div 
                         className='startButton'
                         onClick={() => {setStartTitle(true)}}
