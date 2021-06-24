@@ -397,12 +397,30 @@ class Spawner {
       currentLootTable = bossDrop;
     }
 
-    let loot = new Loot(
-      x,
-      y,
-      this.world.tilesize,
-      currentLootTable[getRandomInt(currentLootTable.length)]
-    );
+    let itemIndex = getRandomInt(currentLootTable.length);
+    let qualityRoll = Math.random();
+
+    let spawnedItem = { ...currentLootTable[itemIndex] };
+
+    let isEquipment =
+      spawnedItem.class === "head" ||
+      spawnedItem.class === "torso" ||
+      spawnedItem.class === "weapon" ||
+      spawnedItem.class === "shield";
+
+    if (qualityRoll < 0.1 && isEquipment) {
+      //it is prestine
+      spawnedItem.name = `Prestine ${spawnedItem.name}`;
+      spawnedItem.mod1 += 1;
+    } else if (qualityRoll > 0.7 && isEquipment) {
+      //it's damaged
+      spawnedItem.name = `Dingy ${spawnedItem.name}`;
+      spawnedItem.mod1 = spawnedItem.mod1 === 1 ? 1 : spawnedItem.mod1 - 1;
+    } else {
+      //it's regular
+    }
+
+    let loot = new Loot(x, y, this.world.tilesize, spawnedItem);
     this.world.add(loot);
     this.world.moveDropToSpace(loot);
   }
