@@ -20,6 +20,7 @@ img{
     align-items: flex-start;
     justify-content: center;
     margin-top: 2vh;
+    background-color: rgba(211, 211, 211, 0.598);
 }
 
 .portrait-image{
@@ -34,4 +35,8 @@ img{
 
     padding-top: 2vh;
     background-color: rgba(211, 211, 211, 0.598);
+}
+
+html,body{
+    margin:0px
 }
