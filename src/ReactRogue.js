@@ -125,7 +125,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       <div
         style={{
           display: "flex",
-          justifyContent: "space-evenly",
+          justifyContent: "space-around",
+          background: "red"
         }}
       >
         <div
@@ -136,6 +137,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             alignItems: "center",
             width: "20vw",
             minHeight: "100vh",
+            background: "blue"
           }}
         >
           <div
