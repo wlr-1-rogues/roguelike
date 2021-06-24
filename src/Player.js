@@ -4,7 +4,47 @@ import ItemPickup from './assets/sounds/itemPickup.mp3'
 const itemPickup = new Audio(ItemPickup)
 
 class Player extends Entity {
-  inventory = [];
+  inventory = [  {
+    name: "Magic Helmet",
+    class: "head",
+    mod1: 3,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 432,
+      x: 432,
+    },
+  },
+  {
+    name: "Magic Armor",
+    class: "torso",
+    mod1: 3,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 480,
+      x: 432,
+    },
+  },
+  {
+    name: "Magic Shield",
+    class: "shield",
+    mod1: 3,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 240,
+      x: 816,
+    },
+  },
+  {
+    name: "Magic Axe",
+    class: "weapon",
+    mod1: 2,
+    mod2: 14,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 192,
+      x: 144,
+    },
+  },];
   inspecting = [];
   left = [];
   right = [];
@@ -266,8 +306,8 @@ class Player extends Entity {
 
   drop() {
     const [inspecting] = this.inspecting;
-    const { item } = inspecting;
     if (!inspecting) return "inspect and item first!";
+    const { item } = inspecting;
     if (typeof inspecting?.pos === "string") {
       if (item.class === "weapon") {
         this.attributes.attack -= item.mod1;

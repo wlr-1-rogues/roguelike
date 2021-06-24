@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import MonsterDisplay from "./MonsterDisplay";
-import InventoryDisplay from "./InventoryDisplay"
+import InventorySprite from "./InventorySprite"
 import InputManager from "./InputManager";
 import Player from "./Player";
 import Spawner from "./Spawner";
@@ -337,7 +337,23 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             <h3>Inventory</h3>
             <ol type="1">
               {world.player.inventory.map((item, index) => (
-                <li key={index}>{item.name}</li>
+                <li key={index}>
+                  <div style={{
+                    marginTop: "10px",
+                    counterIncrement: "section",
+                    content: "counter(section)",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                  }}>
+                    <div>
+                      {item.name}
+                    </div>
+                    <div>
+                      <InventorySprite atlas={atlases.itemAtlas} item={item}/>
+                    </div>
+                  </div>
+                </li>
               ))}
             </ol>
             <p>Press Number Key to Ready an Item!</p>
