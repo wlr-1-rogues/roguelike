@@ -272,16 +272,6 @@ class Player extends Entity {
     const [inspecting] = this.inspecting;
     this.inventory.splice(inspecting.pos, 1);
     this.inspecting.splice(0, 1);
-    this.inventory.push({
-      name: "Tome of Fireball",
-      class: "tome",
-      mod1: 10,
-      spriteSheet: "itemAtlas",
-      spriteSheetCoordinates: {
-        y: 48,
-        x: 288,
-      },
-    });
     return "the tome vanishes in a poof of smoke";
   }
 
