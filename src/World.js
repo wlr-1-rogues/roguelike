@@ -35,9 +35,12 @@ class World {
   }
 
   lightPasses(x, y) {
-    if (this.worldmap[x][y] === 0) {
-      return true;
+    if (x >= 0 && y >= 0 && y < this.height && x < this.width) {
+      if (this.worldmap[x][y] === 0) {
+        return true;
+      }
     }
+
     return false;
   }
 
@@ -214,13 +217,12 @@ class World {
 
               if (this.isWall(xCoord, yCoord)) {
                 if (
-                  xCoord !== 0 ||
-                  yCoord !== 0 ||
-                  xCoord !== this.width - 1 ||
-                  yCoord !== this.height - 1
-                ) {
+                  xCoord >= 0 &&
+                  yCoord >= 0 &&
+                  yCoord < this.height &&
+                  xCoord < this.width
+                )
                   this.worldmap[xCoord][yCoord] = 0;
-                }
               }
             }
           }
@@ -440,19 +442,20 @@ class World {
       player.y,
       player.attributes.sightRadius,
       (x, y) => {
-        if (this.worldmap[x][y] === 1) {
-          this.drawWall(context, x, y);
-        } else {
-          this.drawGround(context, x, y);
-        }
-
-        let entity = this.getEntityAtLocation(x, y);
-
-        if (entity) {
-          if (entity instanceof Monster) {
-            this.visibleMonsters.add(entity);
+        if (x >= 0 && y >= 0 && y < this.height && x < this.width) {
+          if (this.worldmap[x][y] === 1) {
+            this.drawWall(context, x, y);
+          } else {
+            this.drawGround(context, x, y);
           }
-          entity.draw(context, entity, this.atlases);
+          let entity = this.getEntityAtLocation(x, y);
+
+          if (entity) {
+            if (entity instanceof Monster) {
+              this.visibleMonsters.add(entity);
+            }
+            entity.draw(context, entity, this.atlases);
+          }
         }
       }
     );
@@ -462,6 +465,20 @@ class World {
     // this.entities.forEach((entity) => {
     //   entity.draw(context, entity, this.atlases);
     // });
+  }
+
+  drawBlastwave(context) {
+    for (let x = 0; x < this.width; x++) {
+      for (let y = 0; y < this.height; y++) {
+        let entity = this.getEntityAtLocation(x, y);
+
+        if (entity) {
+          if (entity instanceof Blastwave) {
+            entity.draw(context, entity, this.atlases);
+          }
+        }
+      }
+    }
   }
 
   drawWall(context, x, y) {

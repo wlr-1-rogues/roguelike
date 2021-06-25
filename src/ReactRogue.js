@@ -103,6 +103,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     const ctx = canvasRef.current.getContext("2d");
     ctx.clearRect(0, 0, width * tilesize, height * tilesize);
     world.draw(ctx);
+    world.drawBlastwave(ctx);
   });
 
   return (
