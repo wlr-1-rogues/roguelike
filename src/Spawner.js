@@ -2,6 +2,7 @@ import { findRenderedComponentWithType } from "react-dom/test-utils";
 import Loot from "./Loot";
 import Monster from "./Monster";
 import Stairs from "./Stairs";
+import Chest from "./Chest";
 
 const globalLoot = [
   {
@@ -219,7 +220,7 @@ const tier3LootTable = [
   {
     name: "Magic Helmet",
     class: "head",
-    mod1: 3,
+    mod1: 4,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -229,7 +230,7 @@ const tier3LootTable = [
   {
     name: "Magic Armor",
     class: "torso",
-    mod1: 3,
+    mod1: 4,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 480,
@@ -239,7 +240,7 @@ const tier3LootTable = [
   {
     name: "Magic Shield",
     class: "shield",
-    mod1: 3,
+    mod1: 4,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -345,6 +346,14 @@ const tier1LootTable = [
   },
 ];
 
+const chest = {
+  spriteSheet: "itemAtlas",
+  spriteSheetCoordinates: {
+    y: 48,
+    x: 336,
+  },
+};
+
 class Spawner {
   constructor(world) {
     this.world = world;
@@ -363,23 +372,14 @@ class Spawner {
     this.world.moveToSpace(entity);
   }
 
-  spawnLoot() {
-    let currentLootTable = [];
-    if (this.tier === 1) {
-      currentLootTable = [...tier1LootTable];
-    } else if (this.tier === 2) {
-      currentLootTable = [...tier2LootTable];
-    } else if (this.tier === 3) {
-      currentLootTable = [...tier3LootTable];
-    }
-
-    for (let i = 0; i < currentLootTable.length; i++) {
+  spawnLoot(number) {
+    for (let i = 0; i < number; i++) {
       this.spawnOne(
-        new Loot(
+        new Chest(
           getRandomInt(this.world.width - 1),
           getRandomInt(this.world.height - 1),
           this.world.tilesize,
-          currentLootTable[i]
+          chest
         )
       );
     }

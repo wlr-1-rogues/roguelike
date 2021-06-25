@@ -6,9 +6,9 @@ import Player from "./Player";
 import Spawner from "./Spawner";
 import World from "./World";
 import Fireball from "./Fireball";
-import Hadouken from './assets/sounds/hadouken.mp3'
-import ItemPickup from './assets/sounds/itemPickup.mp3'
-import LP from './LP.css'
+import Hadouken from "./assets/sounds/hadouken.mp3";
+import ItemPickup from "./assets/sounds/itemPickup.mp3";
+import LP from "./LP.css";
 
 import EquippedItems from "./EquippedItems";
 
@@ -83,7 +83,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot();
+    spawner.spawnLoot(6);
     spawner.spawnMonsters(100);
     spawner.spawnStairs();
     setWorld(newWorld);
@@ -364,39 +364,34 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             </ol>
             <p>Press Number Key to Ready an Item!</p>
           </div>
-          
-          <div className='instructions'>
-            <div className='controlText'>To move, press</div>
-            
-            <div className='testtest'>
 
-              <div className='arrows'>
-                <div className='upArrow'>⇧</div>
-                <div className='bottomArrows'>
-                  <div className='leftArrow'>⇦</div>
-                  <div className='downArrow'>⇩</div>
-                  <div className='rightArrow'>⇨</div>
+          <div className="instructions">
+            <div className="controlText">To move, press</div>
+
+            <div className="testtest">
+              <div className="arrows">
+                <div className="upArrow">⇧</div>
+                <div className="bottomArrows">
+                  <div className="leftArrow">⇦</div>
+                  <div className="downArrow">⇩</div>
+                  <div className="rightArrow">⇨</div>
                 </div>
               </div>
-            
-              <div className='controlsOr'>OR</div>
-            
-              <div className='wasd'>
-                <div className='wasdW'>W</div>
-                <div className='bottomArrows'>
-                  <div className='wasdA'>A</div>
-                  <div className='wasdS'>S</div>
-                  <div className='wasdD'>D</div>
+
+              <div className="controlsOr">OR</div>
+
+              <div className="wasd">
+                <div className="wasdW">W</div>
+                <div className="bottomArrows">
+                  <div className="wasdA">A</div>
+                  <div className="wasdS">S</div>
+                  <div className="wasdD">D</div>
                 </div>
               </div>
-             
-             </div>
-           </div>
-
-          
-          <div className='muteOptions'>
-                
+            </div>
           </div>
+
+          <div className="muteOptions"></div>
         </div>
         <div
           className="leftSide"
