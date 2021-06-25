@@ -73,9 +73,13 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       itemPickup.play();
     }
 
-    newWorld.moveProjectiles();
-    newWorld.moveMonsters();
-    setWorld(newWorld);
+    if (action === "inspect" || action === "inspectE") {
+      setWorld(newWorld);
+    } else {
+      newWorld.moveProjectiles();
+      newWorld.moveMonsters();
+      setWorld(newWorld);
+    }
   };
 
   useEffect(() => {
