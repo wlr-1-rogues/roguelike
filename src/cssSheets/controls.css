@@ -1,139 +1,66 @@
-
-
-.landingPage{
-    min-height: 100vh;
-    min-width:100%;
+.controlsPage{
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
+    justify-self: center;
     align-items: center;
-    background: url(https://i.pinimg.com/originals/06/c3/95/06c3954b72ae8cfe586ec151efeb29cc.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-color: darkgray;
-    color:green;
-    border-style: none;
-    /* -webkit-animation: flickerAnimation 1s infinite;
-    -moz-animation: flickerAnimation 1s infinite;
-    -o-animation: flickerAnimation 1s infinite; */
-     animation: flickerAnimation 1s infinite;
-
-}
-
-.landingHeader1{
-    display:flex;
-    width: 25vw;
-    justify-content: center;
-    gap: 1.5vw;
-    flex-direction: row;
-    text-align: center;
-    padding-top: 10%;
-    font-family: Luminari;
-    font-size: 5vh;
-}
-
-.landingHeader11{
-    font-size: 5vh;
-
-}
-
-.landingHeader2{
-    display: flex;
-    flex-direction: column;
-    max-width: 42.5vw;
-    text-align: center;
-    font-family: Luminari;
-    margin-top: 7.5vh;
-    font-size: 7.5vw;}
-
-.startButton{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    cursor:pointer;
-    min-width:20%;
-    height:10vh;
-    font-family: Luminari;
-    font-size: 8vh;
-}
-
-.startButton:hover{
-    color:red
-}
-
-
-.startingPage{
-    height:100%;
-    width:100%;
-    margin-top: -10vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-}
-
-/* .spHeader{
-    height:10vh;
-    width:100vw;
-} */
-
-.startingScript{
-    display:flex;
-    flex-direction: column;
-    text-align: center;
-    margin-top: 0vh;
-    padding-top: 2.5vh;
-    padding-bottom: 2.5vh;
-    padding-left: 2.5vh;
-    padding-right: 2.5vh;
-    width:50vw;
-    min-height:fit-content;
     background-color: rgba(0, 0, 0, 0.666);
-    font-family: Luminari;
-    font-size: 3.5vh;
-
-    /* font-family: Trattatello;
-    font-size: 3vh; */
+    width: 40vw;
+    height: 75vh;
+    margin-top: -10vh;
+    
 }
 
-.introScript{
-    font-size: 3.5vh;
-}
-
-.beginButton{
+.controls{
+    min-width: 20%;
+    /* background-color: pink; */
+    min-height:7.5%;
     align-self: center;
-    font-size: 3.5vh;
+    text-align: center;
+    cursor:pointer;
+    font-size: 175%;
 }
 
-.beginButton:hover{
-    cursor: pointer;
-    color:red;
+.divider{
+    width: 95%;
+    height:5px;
+    /* background-color: rgba(0, 0, 0, 0.666); */
+    background-color: white;
+}
+
+.playerPic{
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width:95%;
+    height: 25%;
 }
 
 .instructions{
     display:flex;
     flex-direction: column;
-    min-height: 12.5%;
+    height: 20%;
     width: 95%;
     align-items: center;
     justify-content: center;
-    border-style: solid;
-    border-color: black;
-    background-color: rgba(211, 211, 211, 0.598);
-    margin-top: 1vw;
+
 }
 
 .controlText{
-    font-size: 100%;
-    margin-top: -.75vw;
+    font-size: 2.5vh;
+    /* margin-top: -.25vh; */
+    margin-bottom: 2vh;
+    /* background-color: green; */
 }
 
-.testtest{
+.allArrows{
     display:flex;
     flex-direction: row;
     justify-content: space-evenly;
     height:40%;
     width:75%;
-    margin-top: 3%;
+    margin-bottom: 1.5vh;
+    /* margin-top: 3%; */
     /* background-color: pink; */
 }
 
@@ -141,7 +68,7 @@
     height:50%;
     align-self: flex-start;
     /* background-color: yellow; */
-    margin-top: 10%;
+    margin-top: 5%;
     font-size: 90%;
     margin-left: -.45vw;
 }
@@ -178,7 +105,7 @@
     width:33%;
     min-height:100%;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-width: 2px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.338);
@@ -194,7 +121,7 @@
     width:33%;
     height:100%;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-width: 2px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.338);
@@ -209,7 +136,7 @@
     min-width:33%;
     height:100%;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-width: 2px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.338);
@@ -224,7 +151,7 @@
     width:33%;
     height:100%;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-width: 2px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.338);
@@ -252,7 +179,7 @@
     width:33%;
     height:100%;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-width: 2px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.338);
@@ -268,7 +195,7 @@
     min-width:33%;
     height:100%;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-width: 2px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.338);
@@ -283,7 +210,7 @@
     min-width:33%;
     height:100%;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-width: 2px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.338);
@@ -298,7 +225,7 @@
     min-width:33%;
     height:100%;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-width: 2px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.338);
@@ -306,24 +233,32 @@
     font-weight: bolder;
 }
 
-@keyframes flickerAnimation {
-    0%   { opacity:1; }
-    50%  { opacity:.92; }
-    100% { opacity:1; }
-  }
-  @-o-keyframes flickerAnimation{
-    0%   { opacity:1; }
-    50%  { opacity:.92; }
-    100% { opacity:1; }
-  }
-  @-moz-keyframes flickerAnimation{
-    0%   { opacity:1; }
-    50%  { opacity:.92; }
-    100% { opacity:1; }
-  }
-  @-webkit-keyframes flickerAnimation{
-    0%   { opacity:1; }
-    50%  { opacity:.92; }
-    100% { opacity:1; }
-  }
+.controlsMisc{
+    width: 95%;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    /* border-style: solid;
+    border-color: black;
+    background-color: rgba(211, 211, 211, 0.214); */
+    line-height: 1.75vw;
+    font-size: 2.5vh;
+}
 
+.controlsButton{
+    
+    min-width: 20%;
+    /* background-color: pink; */
+    min-height:7.5%;
+    align-self: center;
+    text-align: center;
+    cursor:pointer;
+    font-size: 175%;
+}
+
+.controlsButton:hover{
+    color:red
+}
