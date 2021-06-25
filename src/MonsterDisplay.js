@@ -46,6 +46,7 @@ function MonsterDisplay(props) {
     const [playerDefense, setPlayerDefense] = useState(world.player.attributes.defense);
     const [monsterPortrait, setMonsterPortrait] = useState(null);
     const [animationCount, setAnimationCount] = useState(1);
+    const [maxMonsterHealth, setMaxMonsterHealth] = useState(20)
 
 
 
@@ -74,12 +75,17 @@ function MonsterDisplay(props) {
 
     useEffect(() => {
         setVisibleMonsters([...world.visibleMonsters])
+
         setMonsterIndex(0);
         if (visibleMonsters) {
             calculateChanceToHit(visibleMonsters[0]);
+            // console.log(visibleMonsters[monsterIndex], monsterIndex)
+            // setMaxMonsterHealth(visibleMonsters[monsterIndex].attributes.health);
             // animationIterator();
         }
         setPlayerDefense(world.player.attributes.defense)
+
+
         // requireCorrectPortrait('assets/uf_heroes/archer_1.png')
     }, [world]);
 
@@ -87,15 +93,19 @@ function MonsterDisplay(props) {
         if (monsterIndex !== 0 && num < 0) {
             let newIndex = monsterIndex - 1
             setMonsterIndex(newIndex);
+
         } else if (monsterIndex < visibleMonsters.length - 1 && num === 1) {
             let newIndex = monsterIndex + 1
             setMonsterIndex(newIndex);
+
         } else if (monsterIndex === 0 && num < 0) {
             let newIndex = visibleMonsters.length - 1;
             setMonsterIndex(newIndex);
 
+
         } else {
             setMonsterIndex(0);
+
         }
     }
 
@@ -120,8 +130,8 @@ function MonsterDisplay(props) {
                 <div>
                     {visibleMonsters.length > 1 ?
                         <div>
-                            <button style={{color:'black'}} onClick={() => { changeMonsterFocus(-1) }}>Focus on Last Monster</button>
-                            <button style={{color:'black'}} onClick={() => { changeMonsterFocus(1) }}>Focus on Next Monster</button>
+                            <button style={{ color: 'black' }} onClick={() => { changeMonsterFocus(-1) }}>Focus on Last Monster</button>
+                            <button style={{ color: 'black' }} onClick={() => { changeMonsterFocus(1) }}>Focus on Next Monster</button>
                         </div>
 
                         : <div></div>}
@@ -190,6 +200,39 @@ function MonsterDisplay(props) {
 
 
                     <h2>Health: {visibleMonsters[monsterIndex].attributes.health} HP</h2>
+
+                    <section
+                        style={{
+                            display: "flex",
+                            height: "2.5vh",
+                            width: `200px`,
+                            borderStyle: "solid",
+                            borderColor: "black",
+                            marginTop: "-1vh",
+                            marginBottom: "1vh",
+                            backgroundColor: "red",
+                            zIndex: 1,
+                        }}
+                    >
+                        <section
+                            style={{
+                                height: "100%",
+                                width: `${visibleMonsters[monsterIndex].attributes.health}0px`,
+                                backgroundColor: "green",
+                                zIndex: 2,
+                                textAlign: "center",
+                                color: "white",
+                            }}
+                        >
+                            <section
+                                style={{
+                                    minWidth: "6.25vw",
+                                }}
+                            >
+                                HP: {visibleMonsters[monsterIndex].attributes.health}
+                            </section>
+                        </section>
+                    </section>
                     <h2>Damage: {visibleMonsters[monsterIndex].attributes.damage} Attack</h2>
                     <h2>Chance to Hit: {calculateChanceToHit(visibleMonsters[monsterIndex].attributes.attack)}%</h2>
 
