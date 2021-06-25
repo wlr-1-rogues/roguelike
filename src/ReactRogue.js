@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import MonsterDisplay from "./MonsterDisplay";
 import InventorySprite from "./InventorySprite";
+import InspectSprite from "./InspectSprite";
 import InputManager from "./InputManager";
 import Player from "./Player";
 import Spawner from "./Spawner";
@@ -295,6 +296,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             >
               <h3>{inspecting.item.name} Readied!</h3>
               <h4>Upon inspecting the {inspecting.item.name} you find...</h4>
+              <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
               {inspecting.item.class === "weapon" ? (
                 <div>
                   <p>Attack +{inspecting.item.mod1}</p>
