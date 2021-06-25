@@ -8,9 +8,10 @@ import World from "./World";
 import Fireball from "./Fireball";
 import Hadouken from './assets/sounds/hadouken.mp3'
 import ItemPickup from './assets/sounds/itemPickup.mp3'
-import LP from './LP.css'
+import LP from './cssSheets/LP.css'
 
 import EquippedItems from "./EquippedItems";
+
 
 const hadoukenAudio = new Audio(Hadouken);
 hadoukenAudio.volume = 0.5;
@@ -18,6 +19,8 @@ const itemPickup = new Audio(ItemPickup);
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
+  
+  const [alive, setAlive] = useState(true)
   const [world, setWorld] = useState(
     new World(width, height, tilesize, atlases, 1)
   );
@@ -31,6 +34,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const handleInput = (action, data) => {
     let newWorld = new World();
     Object.assign(newWorld, world);
+    if(alive === false){return}
     if (action === "move") {
       if (inspecting?.item.name === "Tome of Fireball") {
         hadoukenAudio.play();
@@ -105,6 +109,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     world.draw(ctx);
   });
 
+
   return (
     <div
       style={{
@@ -112,9 +117,11 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           "url(https://i.pinimg.com/originals/06/c3/95/06c3954b72ae8cfe586ec151efeb29cc.png)",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-        width: "100%",
+        width: "99vw",
       }}
     >
+
+      
       <header
         style={{
           display: "flex",
@@ -123,7 +130,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           width: "98vw",
           alignItems: "center",
         }}
-      ></header>
+      >
+      </header>
 
       <div
         style={{
@@ -131,6 +139,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           justifyContent: "space-evenly",
         }}
       >
+
         <div
           className="leftOfCanvas"
           style={{
@@ -365,46 +374,18 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             <p>Press Number Key to Ready an Item!</p>
           </div>
           
-          <div className='instructions'>
-            <div className='controlText'>To move, press</div>
-            
-            <div className='testtest'>
-
-              <div className='arrows'>
-                <div className='upArrow'>⇧</div>
-                <div className='bottomArrows'>
-                  <div className='leftArrow'>⇦</div>
-                  <div className='downArrow'>⇩</div>
-                  <div className='rightArrow'>⇨</div>
-                </div>
-              </div>
-            
-              <div className='controlsOr'>OR</div>
-            
-              <div className='wasd'>
-                <div className='wasdW'>W</div>
-                <div className='bottomArrows'>
-                  <div className='wasdA'>A</div>
-                  <div className='wasdS'>S</div>
-                  <div className='wasdD'>D</div>
-                </div>
-              </div>
-             
-             </div>
-           </div>
-
-          
           <div className='muteOptions'>
                 
           </div>
         </div>
         <div
-          className="leftSide"
+          className="canvasSection"
           style={{
             display: "flex",
             flexDirection: "column",
           }}
         >
+          
           <canvas
             ref={canvasRef}
             width={width * tilesize * 1}
@@ -415,8 +396,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               borderStyle: "solid",
               borderWidth: "1px",
               borderColor: "white",
-            }}
-          ></canvas>
+            }}>
+
+          </canvas>
+
         </div>
 
         <div
