@@ -267,7 +267,7 @@ const tier2LootTable = [
     mod2: 6,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
-      y: 144,
+      y: 96,
       x: 0,
     },
   },

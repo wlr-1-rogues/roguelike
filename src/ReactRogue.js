@@ -71,6 +71,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     } else if (action === "drop") {
       newWorld.dropItem();
       itemPickup.play();
+    } else if (action === "rest") {
+      newWorld.rest();
     }
 
     if (action === "inspect" || action === "inspectE") {
@@ -303,7 +305,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               <h4 style={{width: "80%", margin: "10px 0 0 0"}}>Upon inspecting the {inspecting.item.name} you find...</h4>
               {inspecting.item.class === "weapon" ? (
                 <div>
-                  <p>Attack +{inspecting.item.mod1}</p>
+                  <p>Hit +{inspecting.item.mod1}</p>
                   <p>Damage +{inspecting.item.mod2}</p>
                 </div>
               ) : inspecting.item.class === "shield" ? (
