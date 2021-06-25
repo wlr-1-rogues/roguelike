@@ -292,6 +292,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 width: "95%",
                 justifyContent: "center",
                 alignItems: "center",
+                padding: "10px 0 10px 0",
                 borderStyle: "solid",
                 borderColor: "black",
                 marginBottom: "1vw",
@@ -299,8 +300,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               }}
             >
               <h3>{inspecting.item.name} Readied!</h3>
-              <h4>Upon inspecting the {inspecting.item.name} you find...</h4>
-              <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
+              <h4 style={{width: "80%", margin: "10px 0 0 0"}}>Upon inspecting the {inspecting.item.name} you find...</h4>
               {inspecting.item.class === "weapon" ? (
                 <div>
                   <p>Attack +{inspecting.item.mod1}</p>
@@ -318,6 +318,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               ) : (
                 <p>A dusty old tome with strange symbols</p>
               )}
+              <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
 
               {typeof inspecting.pos === "string" ? (
                 <p>Press "Q" to unequip, or "K" to destroy</p>
@@ -352,9 +353,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 <li key={index}>
                   <div
                     style={{
-                      marginTop: "10px",
-                      counterIncrement: "section",
-                      content: "counter(section)",
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",

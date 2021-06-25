@@ -5,8 +5,8 @@ function InventorySprite(props) {
     const canvasRef = useRef(null);
 
     const drawItem = (ctx, x, y) => {
-        ctx.clearRect(0, 0, 48, 48)
-        ctx.drawImage(atlas, x, y, 48, 48, 0, 0, 48, 48)
+        ctx.clearRect(0, 0, 40, 40)
+        ctx.drawImage(atlas, x, y, 48, 48, 0, 0, 40, 40)
     }
 
     useEffect(() => {
@@ -19,7 +19,7 @@ function InventorySprite(props) {
     }, [item])
 
     return (
-        <canvas ref={canvasRef} width="48" height="48"></canvas>
+        <canvas ref={canvasRef} width="40" height="40"></canvas>
     )
 
 }
