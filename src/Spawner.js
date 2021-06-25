@@ -2,6 +2,7 @@ import { findRenderedComponentWithType } from "react-dom/test-utils";
 import Loot from "./Loot";
 import Monster from "./Monster";
 import Stairs from "./Stairs";
+import Chest from "./Chest";
 
 const globalLoot = [
   {
@@ -219,7 +220,7 @@ const tier3LootTable = [
   {
     name: "Magic Helmet",
     class: "head",
-    mod1: 3,
+    mod1: 4,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 432,
@@ -229,7 +230,7 @@ const tier3LootTable = [
   {
     name: "Magic Armor",
     class: "torso",
-    mod1: 3,
+    mod1: 4,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 480,
@@ -239,7 +240,7 @@ const tier3LootTable = [
   {
     name: "Magic Shield",
     class: "shield",
-    mod1: 3,
+    mod1: 4,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 240,
@@ -345,6 +346,14 @@ const tier1LootTable = [
   },
 ];
 
+const chest = {
+  spriteSheet: "itemAtlas",
+  spriteSheetCoordinates: {
+    y: 48,
+    x: 336,
+  },
+};
+
 class Spawner {
   constructor(world) {
     this.world = world;
@@ -363,26 +372,54 @@ class Spawner {
     this.world.moveToSpace(entity);
   }
 
-  spawnLoot() {
-    let currentLootTable = [];
-    if (this.tier === 1) {
-      currentLootTable = [...tier1LootTable];
-    } else if (this.tier === 2) {
-      currentLootTable = [...tier2LootTable];
-    } else if (this.tier === 3) {
-      currentLootTable = [...tier3LootTable];
-    }
-
-    for (let i = 0; i < currentLootTable.length; i++) {
+  spawnLoot(number) {
+    for (let i = 0; i < number; i++) {
       this.spawnOne(
-        new Loot(
+        new Chest(
           getRandomInt(this.world.width - 1),
           getRandomInt(this.world.height - 1),
           this.world.tilesize,
-          currentLootTable[i]
+          chest
         )
       );
     }
+  }
+
+  spawnChestLootAt(x, y) {
+    let currentLootTable = [];
+    if (this.tier === 1) {
+      currentLootTable = [...tier1LootTable, ...globalLoot];
+    } else if (this.tier === 2) {
+      currentLootTable = [...tier2LootTable, ...globalLoot];
+    } else if (this.tier === 3) {
+      currentLootTable = [...tier3LootTable, ...globalLoot];
+    }
+
+    let itemIndex = getRandomInt(currentLootTable.length);
+    let qualityRoll = Math.random();
+
+    let spawnedItem = { ...currentLootTable[itemIndex] };
+
+    let isEquipment =
+      spawnedItem.class === "head" ||
+      spawnedItem.class === "torso" ||
+      spawnedItem.class === "weapon" ||
+      spawnedItem.class === "shield";
+
+    if (qualityRoll < 0.1 && isEquipment) {
+      //it is prestine
+      spawnedItem.name = `Prestine ${spawnedItem.name}`;
+      spawnedItem.mod1 += 1;
+    } else if (qualityRoll > 0.7 && isEquipment) {
+      //it's damaged
+      spawnedItem.name = `Dingy ${spawnedItem.name}`;
+      spawnedItem.mod1 = spawnedItem.mod1 === 1 ? 1 : spawnedItem.mod1 - 1;
+    } else {
+      //it's regular
+    }
+
+    let loot = new Loot(x, y, this.world.tilesize, spawnedItem);
+    this.world.add(loot);
   }
 
   spawnLootAt(x, y) {
