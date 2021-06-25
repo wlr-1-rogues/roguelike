@@ -80,6 +80,9 @@ class InputManager {
       case 75:
         this.broadcast("drop");
         break;
+      case 32:
+        this.broadcast("rest");
+        break;
       default:
         break;
     }

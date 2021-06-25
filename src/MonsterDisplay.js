@@ -20,9 +20,9 @@ import Ogre1 from './assets/uf_heroes/ogre_1.png';
 import Ogre2 from './assets/uf_heroes/ogre_2.png';
 import Ogre3 from './assets/uf_heroes/ogre_3.png';
 
-import Torturer1 from './assets/uf_heroes/thief_1.png';
-import Torturer2 from './assets/uf_heroes/thief_2.png';
-import Torturer3 from './assets/uf_heroes/thief_3.png';
+import Torturer1 from './assets/uf_heroes/warden_1.png';
+import Torturer2 from './assets/uf_heroes/warden_2.png';
+import Torturer3 from './assets/uf_heroes/warden_3.png';
 
 import Zombie1 from './assets/uf_heroes/zombie_a_1.png';
 import Zombie2 from './assets/uf_heroes/zombie_a_2.png';

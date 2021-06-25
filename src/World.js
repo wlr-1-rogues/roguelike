@@ -187,6 +187,10 @@ class World {
     this.addToHistory(tempPlayer.drop());
   }
 
+  rest() {
+    this.addToHistory('you give yourself a moment to rest');
+  }
+
   moveProjectiles() {
     this.entities.forEach((entity) => {
       if (entity instanceof Blastwave) {
