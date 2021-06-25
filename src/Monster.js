@@ -94,8 +94,8 @@ class Monster extends Entity {
             world.player.attributes.damage -= left.mod2
           }
           world.player.left.splice(0, 1)
+          return;
         }
-        return;
       }
       if (right?.status === "cursed") {
         let curseRoll = Math.random()
@@ -112,8 +112,8 @@ class Monster extends Entity {
             world.player.attributes.damage -= right.mod2
           }
           world.player.right.splice(0, 1)
+          return;
         }
-        return;
       }
       if (head?.status === "cursed") {
         let curseRoll = Math.random()
@@ -125,8 +125,8 @@ class Monster extends Entity {
           }
           world.player.attributes.defense -= head.mod1
           world.player.head.splice(0, 1)
+          return;
         }
-        return;
       }
       if (torso?.status === "cursed") {
         let curseRoll = Math.random()
@@ -138,8 +138,8 @@ class Monster extends Entity {
           }
           world.player.attributes.defense -= torso.mod1
           world.player.torso.splice(0, 1)
+          return;
         }
-        return;
       }
         // end of curse
 
