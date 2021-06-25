@@ -304,6 +304,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 width: "95%",
                 justifyContent: "center",
                 alignItems: "center",
+                textAlign:'center',
                 padding: "10px 0 10px 0",
                 borderStyle: "solid",
                 borderColor: "black",
