@@ -1,8 +1,8 @@
 import Entity from "./Entity.js";
 import Spawner from "./Spawner.js";
-import StairSound from './assets/sounds/stairs.mp3'
+import StairSound from "./assets/sounds/stairs.mp3";
 
-const stairSound = new Audio(StairSound)
+const stairSound = new Audio(StairSound);
 
 class Stairs extends Entity {
   attributes = {
@@ -15,7 +15,7 @@ class Stairs extends Entity {
 
   action(verb, world) {
     if (verb === "bump") {
-      stairSound.play()
+      stairSound.play();
       world.addToHistory("You move down the stairs...");
       world.tier += 1;
       if (world.tier > 3) {
@@ -39,7 +39,7 @@ class Stairs extends Entity {
       world.moveToSpace(world.player);
       world.entities = world.entities.filter((e) => e === world.player);
       let spawner = new Spawner(world);
-      spawner.spawnLoot();
+      spawner.spawnLoot(6);
       spawner.spawnMonsters(100);
       spawner.spawnStairs();
     }
