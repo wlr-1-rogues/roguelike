@@ -62,7 +62,7 @@ const globalLoot = [
 
 const bossTable = [
   {
-    name: "Boss",
+    name: "Stuarth",
     attack: 10,
     defense: 19,
     damage: 20,
