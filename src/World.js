@@ -5,8 +5,16 @@ import Fireball from "./Fireball";
 import Loot from "./Loot";
 import Monster from "./Monster";
 import Player from "./Player";
+import Blastwave from "./Blastwave";
 
-
+const blastwave = {
+  name: "blastwave",
+  spriteSheet: "fxAtlas",
+  spriteSheetCoordinates: {
+    x: 72,
+    y: 24,
+  },
+};
 
 class World {
   constructor(width, height, tilesize, atlases, tier) {
@@ -74,6 +82,8 @@ class World {
 
   add(entity) {
     if (entity instanceof Fireball) {
+      this.entities.splice(1, 0, entity);
+    } else if (entity instanceof Blastwave) {
       this.entities.splice(1, 0, entity);
     } else {
       this.entities.push(entity);
@@ -176,10 +186,45 @@ class World {
 
   moveProjectiles() {
     this.entities.forEach((entity) => {
+      if (entity instanceof Blastwave) {
+        this.remove(entity);
+      }
+
       if (entity instanceof Fireball) {
         console.log("moving projectiles");
         let tempFireball = entity.copyFireball();
         let direction = tempFireball.fireDirection;
+
+        const handleExplosion = (x, y) => {
+          // newLocationEntity.action("fireball", this);
+          let startX = x - 1;
+          let startY = y + 1;
+          let endX = x + 2;
+          let endY = y - 2;
+
+          this.add(new Blastwave(x - 1, y - 1, this.tilesize, blastwave));
+
+          for (let xCoord = startX; xCoord < endX; xCoord++) {
+            for (let yCoord = startY; yCoord > endY; yCoord--) {
+              console.log(xCoord, yCoord);
+              let explodingEntity = this.getEntityAtLocation(xCoord, yCoord);
+              if (explodingEntity && !(explodingEntity instanceof Blood)) {
+                explodingEntity.action("fireball", this);
+              }
+
+              if (this.isWall(xCoord, yCoord)) {
+                if (
+                  xCoord !== 0 ||
+                  yCoord !== 0 ||
+                  xCoord !== this.width - 1 ||
+                  yCoord !== this.height - 1
+                ) {
+                  this.worldmap[xCoord][yCoord] = 0;
+                }
+              }
+            }
+          }
+        };
 
         if (direction === "up") {
           tempFireball.y -= 1;
@@ -188,13 +233,14 @@ class World {
             tempFireball.y
           );
           if (newLocationEntity && !(newLocationEntity instanceof Blood)) {
-            newLocationEntity.action("fireball", this);
             this.remove(entity);
+            handleExplosion(newLocationEntity.x, newLocationEntity.y);
             return;
           }
 
           if (this.isWall(tempFireball.x, tempFireball.y)) {
             this.remove(entity);
+            handleExplosion(tempFireball.x, tempFireball.y);
           } else {
             entity.y -= 1;
           }
@@ -205,12 +251,13 @@ class World {
             tempFireball.y
           );
           if (newLocationEntity && !(newLocationEntity instanceof Blood)) {
-            newLocationEntity.action("fireball", this);
             this.remove(entity);
+            handleExplosion(newLocationEntity.x, newLocationEntity.y);
             return;
           }
           if (this.isWall(tempFireball.x, tempFireball.y)) {
             this.remove(entity);
+            handleExplosion(tempFireball.x, tempFireball.y);
           } else {
             entity.y += 1;
           }
@@ -221,12 +268,13 @@ class World {
             tempFireball.y
           );
           if (newLocationEntity && !(newLocationEntity instanceof Blood)) {
-            newLocationEntity.action("fireball", this);
             this.remove(entity);
+            handleExplosion(newLocationEntity.x, newLocationEntity.y);
             return;
           }
           if (this.isWall(tempFireball.x, tempFireball.y)) {
             this.remove(entity);
+            handleExplosion(tempFireball.x, tempFireball.y);
           } else {
             entity.x -= 1;
           }
@@ -237,12 +285,13 @@ class World {
             tempFireball.y
           );
           if (newLocationEntity && !(newLocationEntity instanceof Blood)) {
-            newLocationEntity.action("fireball", this);
             this.remove(entity);
+            handleExplosion(newLocationEntity.x, newLocationEntity.y);
             return;
           }
           if (this.isWall(tempFireball.x, tempFireball.y)) {
             this.remove(entity);
+            handleExplosion(tempFireball.x, tempFireball.y);
           } else {
             entity.x += 1;
           }

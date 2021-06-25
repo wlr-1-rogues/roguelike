@@ -5,49 +5,49 @@ import Stairs from "./Stairs";
 import Chest from "./Chest";
 
 const globalLoot = [
-  {
-    name: "Torch",
-    class: "weapon",
-    mod1: 6,
-    mod2: 1,
-    mod3: 3,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 48,
-      x: 672,
-    },
-  },
-  {
-    name: "Health Tincture",
-    class: "healthCon",
-    mod1: 25,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 48,
-      x: 816,
-    },
-  },
-  {
-    name: "Health Potion",
-    class: "healthCon",
-    mod1: 50,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 0,
-      x: 480,
-    },
-  },
-  {
-    name: "Elixir of Health",
-    class: "healthCon",
-    mod1: 25,
-    mod2: 25,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 384,
-      x: 336,
-    },
-  },
+  // {
+  //   name: "Torch",
+  //   class: "weapon",
+  //   mod1: 6,
+  //   mod2: 1,
+  //   mod3: 3,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     y: 48,
+  //     x: 672,
+  //   },
+  // },
+  // {
+  //   name: "Health Tincture",
+  //   class: "healthCon",
+  //   mod1: 25,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     y: 48,
+  //     x: 816,
+  //   },
+  // },
+  // {
+  //   name: "Health Potion",
+  //   class: "healthCon",
+  //   mod1: 50,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     y: 0,
+  //     x: 480,
+  //   },
+  // },
+  // {
+  //   name: "Elixir of Health",
+  //   class: "healthCon",
+  //   mod1: 25,
+  //   mod2: 25,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     y: 384,
+  //     x: 336,
+  //   },
+  // },
   {
     name: "Tome of Fireball",
     class: "tome",
@@ -303,47 +303,47 @@ const tier2LootTable = [
   },
 ];
 const tier1LootTable = [
-  {
-    name: "Dagger",
-    class: "weapon",
-    mod1: 0,
-    mod2: 3,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 96,
-      x: 96,
-    },
-  },
-  {
-    name: "Wooden Shield",
-    class: "shield",
-    mod1: 1,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 240,
-      x: 0,
-    },
-  },
-  {
-    name: "Leather Helmet",
-    class: "head",
-    mod1: 1,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 432,
-      x: 96,
-    },
-  },
-  {
-    name: "Leather Armor",
-    class: "torso",
-    mod1: 1,
-    spriteSheet: "itemAtlas",
-    spriteSheetCoordinates: {
-      y: 480,
-      x: 96,
-    },
-  },
+  // {
+  //   name: "Dagger",
+  //   class: "weapon",
+  //   mod1: 0,
+  //   mod2: 3,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     y: 96,
+  //     x: 96,
+  //   },
+  // },
+  // {
+  //   name: "Wooden Shield",
+  //   class: "shield",
+  //   mod1: 1,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     y: 240,
+  //     x: 0,
+  //   },
+  // },
+  // {
+  //   name: "Leather Helmet",
+  //   class: "head",
+  //   mod1: 1,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     y: 432,
+  //     x: 96,
+  //   },
+  // },
+  // {
+  //   name: "Leather Armor",
+  //   class: "torso",
+  //   mod1: 1,
+  //   spriteSheet: "itemAtlas",
+  //   spriteSheetCoordinates: {
+  //     y: 480,
+  //     x: 96,
+  //   },
+  // },
 ];
 
 const chest = {
