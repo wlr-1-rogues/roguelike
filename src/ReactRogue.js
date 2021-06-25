@@ -90,7 +90,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(6);
+    spawner.spawnLoot(60);
     spawner.spawnMonsters(100);
     spawner.spawnStairs();
     setWorld(newWorld);
@@ -315,7 +315,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                     <p>Damage +{inspecting.item.mod2}</p>
                   </div>
                 ) : inspecting.item.class === "shield" ? (
-                  <p>Block + {inspecting.item.mod1}</p>
+                  <p>Block +{inspecting.item.mod1}</p>
                 ) : inspecting.item.class === "head" ||
                   inspecting.item.class === "torso" ? (
                   <p>Defense +{inspecting.item.mod1}</p>

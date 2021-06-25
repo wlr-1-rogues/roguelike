@@ -5,7 +5,7 @@ function InspectSprite(props) {
     const canvasRef = useRef(null);
 
     const drawItem = (ctx, x, y) => {
-        ctx.clearRect(0, 0, 48, 48)
+        ctx.clearRect(0, 0, 96, 96)
         ctx.drawImage(atlas, x, y, 48, 48, 0, 0, 96, 96)
     }
 

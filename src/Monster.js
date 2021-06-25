@@ -9,6 +9,7 @@ import Gore from "./assets/sounds/gore.wav";
 import Wiff from "./assets/sounds/wiff.mp3";
 import Shield from "./assets/sounds/shield.mp3";
 
+
 const daggerAudio = new Audio(Dagger);
 daggerAudio.volume = 0.5;
 const humanDeathAudio = new Audio(HumanDeath);
@@ -45,6 +46,12 @@ let mAttackMod = monsterAttackRoll;
 
 class Monster extends Entity {
   action(verb, world) {
+
+    const [left] = world.player.left
+    const [right] = world.player.right
+    const [head] = world.player.head
+    const [torso] = world.player.torso
+
     if (verb === "fireball") {
       if (world.tier === "boss") {
         world.addToHistory(
@@ -70,6 +77,71 @@ class Monster extends Entity {
     if (verb === "bump") {
       playerAttackRoll = combatRoll(20);
       pAttackMod = playerAttackRoll += world.player.attributes.attack;
+
+        // curse
+      if (left?.status === "cursed") {
+        let curseRoll = Math.random()
+        if (curseRoll < 0.1) {
+          world.player.attributes.health -= left.mod1 * 2
+          world.addToHistory(`your ${left.name} bursts into flame and you take ${left.mod1}`)
+          if (world.player.inspecting?.pos === "left") {
+            world.player.inspecting.splice(0, 1)
+          }
+          if (left.class === "shield") {
+            world.player.attributes.block -= left.mod1
+          } else {
+            world.player.attributes.attack -= left.mod1
+            world.player.attributes.damage -= left.mod2
+          }
+          world.player.left.splice(0, 1)
+        }
+        return;
+      }
+      if (right?.status === "cursed") {
+        let curseRoll = Math.random()
+        if (curseRoll < 0.1) {
+          world.player.attributes.health -= right.mod1 * 2
+          world.addToHistory(`your ${right.name} bursts into flame and you take ${right.mod1}`)
+          if (world.player.inspecting?.pos === "left") {
+            world.player.inspecting.splice(0, 1)
+          }
+          if (left.class === "shield") {
+            world.player.attributes.block -= right.mod1
+          } else {
+            world.player.attributes.attack -= right.mod1
+            world.player.attributes.damage -= right.mod2
+          }
+          world.player.right.splice(0, 1)
+        }
+        return;
+      }
+      if (head?.status === "cursed") {
+        let curseRoll = Math.random()
+        if (curseRoll < 0.1) {
+          world.player.attributes.health -= head.mod1 * 2
+          world.addToHistory(`your ${head.name} bursts into flame and you take ${head.mod1}`)
+          if (world.player.inspecting?.pos === "left") {
+            world.player.inspecting.splice(0, 1)
+          }
+          world.player.attributes.defense -= head.mod1
+          world.player.head.splice(0, 1)
+        }
+        return;
+      }
+      if (torso?.status === "cursed") {
+        let curseRoll = Math.random()
+        if (curseRoll < 0.1) {
+          world.player.attributes.health -= torso.mod1 * 2
+          world.addToHistory(`your ${torso.name} bursts into flame and you take ${torso.mod1}`)
+          if (world.player.inspecting?.pos === "left") {
+            world.player.inspecting.splice(0, 1)
+          }
+          world.player.attributes.defense -= torso.mod1
+          world.player.torso.splice(0, 1)
+        }
+        return;
+      }
+        // end of curse
 
       if (+pAttackMod >= this.attributes.defense) {
         if (playerAttackRoll === 20) {

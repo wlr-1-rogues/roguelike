@@ -55,7 +55,7 @@ const globalLoot = [
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 48,
-      x: 288,
+      x: 0,
     },
   },
 ];
@@ -410,10 +410,15 @@ class Spawner {
       //it is prestine
       spawnedItem.name = `Prestine ${spawnedItem.name}`;
       spawnedItem.mod1 += 1;
-    } else if (qualityRoll > 0.7 && isEquipment) {
+    } else if (qualityRoll > 0.7 && qualityRoll < 0.9 && isEquipment) {
       //it's damaged
       spawnedItem.name = `Dingy ${spawnedItem.name}`;
       spawnedItem.mod1 = spawnedItem.mod1 === 1 ? 1 : spawnedItem.mod1 - 1;
+    } else if (qualityRoll > 0.9 && isEquipment) {
+      //it's cursed
+      spawnedItem.name = `Cursed ${spawnedItem.name}`;
+      spawnedItem.mod1 *= 2
+      spawnedItem.status = 'cursed'
     } else {
       //it's regular
     }
@@ -449,10 +454,15 @@ class Spawner {
       //it is prestine
       spawnedItem.name = `Prestine ${spawnedItem.name}`;
       spawnedItem.mod1 += 1;
-    } else if (qualityRoll > 0.7 && isEquipment) {
+    } else if (qualityRoll > 0.7 && qualityRoll < 0.9 && isEquipment) {
       //it's damaged
       spawnedItem.name = `Dingy ${spawnedItem.name}`;
       spawnedItem.mod1 = spawnedItem.mod1 === 1 ? 1 : spawnedItem.mod1 - 1;
+    } else if (qualityRoll > 0.9 && isEquipment) {
+      //it's cursed
+      spawnedItem.name = `Cursed ${spawnedItem.name}`;
+      spawnedItem.mod1 *= 2
+      spawnedItem.status = 'cursed'
     } else {
       //it's regular
     }
