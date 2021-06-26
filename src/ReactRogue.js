@@ -328,6 +328,11 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 ) : inspecting.item.class === "head" ||
                   inspecting.item.class === "torso" ? (
                   <p>Defense +{inspecting.item.mod1}</p>
+                ) : inspecting.item.class === "healthCon" && inspecting.item.mod2 ? (
+                  <div>
+                    <p>Health +{inspecting.item.mod1}</p>
+                    <p>Max Health +{inspecting.item.mod2}</p>
+                  </div>
                 ) : inspecting.item.class === "healthCon" ? (
                   <p>Health +{inspecting.item.mod1}</p>
                 ) : inspecting.item.class === "shieldCon" ? (
