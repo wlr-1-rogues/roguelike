@@ -83,7 +83,7 @@ class Monster extends Entity {
         let curseRoll = Math.random()
         if (curseRoll < 0.05) {
           world.player.attributes.health -= left.mod1 * 2
-          world.addToHistory(`your ${left.name} BURSTS INTO FLAME and you take ${left.mod1} damage`)
+          world.addToHistory(`your ${left.name} BURSTS INTO FLAME and you take ${left.mod1 * 2} damage`)
           if (world.player.inspecting?.pos === "left") {
             world.player.inspecting.splice(0, 1)
           }
@@ -101,7 +101,7 @@ class Monster extends Entity {
         let curseRoll = Math.random()
         if (curseRoll < 0.05) {
           world.player.attributes.health -= right.mod1 * 2
-          world.addToHistory(`your ${right.name} BURSTS INTO FLAME and you take ${right.mod1} damage`)
+          world.addToHistory(`your ${right.name} BURSTS INTO FLAME and you take ${right.mod1 * 2} damage`)
           if (world.player.inspecting?.pos === "left") {
             world.player.inspecting.splice(0, 1)
           }
@@ -119,7 +119,7 @@ class Monster extends Entity {
         let curseRoll = Math.random()
         if (curseRoll < 0.05) {
           world.player.attributes.health -= head.mod1 * 4
-          world.addToHistory(`your ${head.name} BURSTS INTO FLAME and you take ${head.mod1} damage`)
+          world.addToHistory(`your ${head.name} BURSTS INTO FLAME and you take ${head.mod1 * 4} damage`)
           if (world.player.inspecting?.pos === "left") {
             world.player.inspecting.splice(0, 1)
           }
@@ -132,7 +132,7 @@ class Monster extends Entity {
         let curseRoll = Math.random()
         if (curseRoll < 0.05) {
           world.player.attributes.health -= torso.mod1 * 4
-          world.addToHistory(`your ${torso.name} BURSTS INTO FLAME and you take ${torso.mod1} damage`)
+          world.addToHistory(`your ${torso.name} BURSTS INTO FLAME and you take ${torso.mod1 * 4} damage`)
           if (world.player.inspecting?.pos === "left") {
             world.player.inspecting.splice(0, 1)
           }
