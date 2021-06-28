@@ -205,6 +205,7 @@ class World {
 
   dropItem() {
     let tempPlayer = this.player.copyPlayer();
+    if (this.player.inspecting[0].pos === null) this.remove(this.player.inspecting[0].entity)
     this.addToHistory(tempPlayer.drop());
   }
 
