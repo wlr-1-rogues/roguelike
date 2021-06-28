@@ -44,6 +44,7 @@ function MonsterDisplay(props) {
     const [visibleMonsters, setVisibleMonsters] = useState([]);
     const [monsterIndex, setMonsterIndex] = useState(0);
     const [playerDefense, setPlayerDefense] = useState(world.player.attributes.defense);
+    const [playerAttack, setPlayerAttack] = useState(world.player.attributes.attack);
     const [monsterPortrait, setMonsterPortrait] = useState(null);
     const [animationCount, setAnimationCount] = useState(1);
     const [maxMonsterHealth, setMaxMonsterHealth] = useState(20)
@@ -84,7 +85,7 @@ function MonsterDisplay(props) {
             // animationIterator();
         }
         setPlayerDefense(world.player.attributes.defense)
-
+        setPlayerAttack(world.player.attributes.attack)
 
         // requireCorrectPortrait('assets/uf_heroes/archer_1.png')
     }, [world]);
@@ -113,7 +114,19 @@ function MonsterDisplay(props) {
         let hit = 20 - (playerDefense - attack);
         let chance = (hit / 20) * 100;
         return chance;
+    }
 
+    function calculateChanceToDodge(defense) {
+        let totalAttack = (20 + playerAttack);
+
+
+        let dodge = totalAttack - defense;
+        let chance = (dodge / 20) * 100;
+        if (chance > 100) {
+            return 100;
+        } else {
+            return chance;
+        }
     }
 
     function iterateAnimationCount(num) {
@@ -126,16 +139,16 @@ function MonsterDisplay(props) {
 
         <div className='fullMonsterBox'
             style={{
-                margin:'0px',
-                padding:'0px'
+                margin: '0px',
+                padding: '0px'
             }}
         >
 
             {visibleMonsters[0] ?
                 <div
                     style={{
-                        display:'flex',
-                        flexDirection:'column',
+                        display: 'flex',
+                        flexDirection: 'column',
                     }}
                 >
                     {visibleMonsters.length > 1 ?
@@ -196,7 +209,7 @@ function MonsterDisplay(props) {
 
                         <div className="flavortext-box"
                             style={{
-                                minHeight:'125px',
+                                minHeight: '125px',
                             }}
                         >
                             <p><em>{visibleMonsters[monsterIndex].attributes.flavortext}</em></p>
@@ -219,8 +232,8 @@ function MonsterDisplay(props) {
                     <section
                         style={{
                             display: "flex",
-                            textAlign:'center',
-                            alignSelf:'center',
+                            textAlign: 'center',
+                            alignSelf: 'center',
                             height: "3vh",
                             width: `80%`,
                             borderStyle: "solid",
@@ -239,47 +252,19 @@ function MonsterDisplay(props) {
                                 backgroundColor: "green",
                                 zIndex: 2,
                                 textAlign: "center",
-                                alignSelf:'center',
+                                alignSelf: 'center',
                                 color: "white",
                             }}
                         >
-                        <p className="chance-text">HP: {visibleMonsters[monsterIndex].attributes.health}</p>
+                            <p className="chance-text">HP: {visibleMonsters[monsterIndex].attributes.health}</p>
 
                         </section>
                     </section>
+
                     <section
                         style={{
                             display: "flex",
-                            flexDirection:'center',
-                            justifySelf:'center',
-                            alignSelf:'center',
-                            height: "3vh",
-                            width: `80%`,
-                            borderStyle: "solid",
-                            borderColor: "black",
-                            marginTop: "1vh",
-                            marginBottom: "1vh",
-                            backgroundColor: "grey",
-                            zIndex: 1,
-                        }}
-                    >
-                        <section
-                            style={{
-                                height: "100%",
-                                width: `${visibleMonsters[monsterIndex].attributes.defense * 5}%`,
-                                backgroundColor: "darkblue",
-                                zIndex: 2,
-                                textAlign: "center",
-                                color: "white",
-                            }}
-                        >
-                            <p className="chance-text">Defense</p>
-                        </section>
-                    </section>
-                    <section
-                        style={{
-                            display: "flex",
-                            alignSelf:'center',
+                            alignSelf: 'center',
                             height: "3vh",
                             width: `80%`,
                             borderStyle: "solid",
@@ -308,7 +293,7 @@ function MonsterDisplay(props) {
                             display: "flex",
                             height: "3vh",
                             width: `80%`,
-                            alignSelf:'center',
+                            alignSelf: 'center',
                             borderStyle: "solid",
                             borderColor: "black",
                             marginTop: "1vh",
@@ -328,6 +313,35 @@ function MonsterDisplay(props) {
                                 color: "white",
                             }}
                         >
+                        </section>
+                    </section>
+                    <section
+                        style={{
+                            display: "flex",
+                            flexDirection: 'center',
+                            justifySelf: 'center',
+                            alignSelf: 'center',
+                            height: "3vh",
+                            width: `80%`,
+                            borderStyle: "solid",
+                            borderColor: "black",
+                            marginTop: "1vh",
+                            marginBottom: "1vh",
+                            backgroundColor: "grey",
+                            zIndex: 1,
+                        }}
+                    >
+                        <section
+                            style={{
+                                height: "100%",
+                                width: `${100 - calculateChanceToDodge(visibleMonsters[monsterIndex].attributes.defense)}%`,
+                                backgroundColor: "darkblue",
+                                zIndex: 2,
+                                textAlign: "center",
+                                color: "white",
+                            }}
+                        >
+                            <p className="chance-text">Chance to Dodge Player: {100 - calculateChanceToDodge(visibleMonsters[monsterIndex].attributes.defense)}%</p>
                         </section>
                     </section>
 
