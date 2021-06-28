@@ -6,23 +6,22 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Player from "./Player";
 import Blastwave from "./Blastwave";
-import Hit from "./Hit";
 
 const blastwave = {
   name: "blastwave",
   spriteSheet: "fxAtlas",
   spriteSheetCoordinates: {
-    x: 120,
-    y: 144,
+    x: 72,
+    y: 24,
   },
 };
 
-const hitTable = [
+const hit = [
   {
     name: "hit",
     spriteSheet: "fxAtlas",
     spriteSheetCoordinates: {
-      x: 120,
+      x: 168,
       y: 144,
     },
   },
@@ -30,15 +29,7 @@ const hitTable = [
     name: "hit",
     spriteSheet: "fxAtlas",
     spriteSheetCoordinates: {
-      x: 120,
-      y: 144,
-    },
-  },
-  {
-    name: "hit",
-    spriteSheet: "fxAtlas",
-    spriteSheetCoordinates: {
-      x: 120,
+      x: 192,
       y: 144,
     },
   },
@@ -58,6 +49,9 @@ class World {
     for (let x = 0; x < this.width; x++) {
       this.worldmap[x] = new Array(this.height);
     }
+
+    this.lastHit = { x: 0, y: 0 };
+    this.didHit = false;
 
     this.fov = new FOV.RecursiveShadowcasting(this.lightPasses.bind(this));
   }
@@ -214,16 +208,13 @@ class World {
   }
 
   rest() {
+    this.removeHit();
     this.addToHistory("you give yourself a moment to rest");
   }
 
   moveProjectiles() {
     this.entities.forEach((entity) => {
       if (entity instanceof Blastwave) {
-        this.remove(entity);
-      }
-
-      if (entity instanceof Hit) {
         this.remove(entity);
       }
 
@@ -334,16 +325,21 @@ class World {
     });
   }
 
+  removeHit() {
+    this.didHit = false;
+  }
+
   movePlayer(dx, dy) {
+    this.removeHit();
     let tempPlayer = this.player.copyPlayer();
     tempPlayer.move(dx, dy);
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
     if (entity && !(entity instanceof Blood)) {
       entity.action("bump", this);
       if (entity instanceof Monster) {
-        this.add(
-          new Hit(tempPlayer.x, tempPlayer.y, this.tilesize, hitTable[0])
-        );
+        this.didHit = true;
+        this.lastHit.x = tempPlayer.x;
+        this.lastHit.y = tempPlayer.y;
       }
       return;
     }
@@ -508,12 +504,26 @@ class World {
   }
 
   drawTopLayer(context) {
+    if (this.didHit) {
+      context.drawImage(
+        this.atlases.fxAtlas,
+        hit[getRandomInt(hit.length)].spriteSheetCoordinates.x,
+        hit[getRandomInt(hit.length)].spriteSheetCoordinates.y,
+        24,
+        24,
+        this.lastHit.x * this.tilesize,
+        this.lastHit.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    }
+
     for (let x = 0; x < this.width; x++) {
       for (let y = 0; y < this.height; y++) {
         let entity = this.getEntityAtLocation(x, y);
 
         if (entity) {
-          if (entity instanceof Blastwave || entity instanceof Hit) {
+          if (entity instanceof Blastwave) {
             entity.draw(context, entity, this.atlases);
           }
         }
