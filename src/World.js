@@ -182,6 +182,11 @@ class World {
       this.addToHistory(tempPlayer.inspect(itemIndex));
   }
 
+  addNew() {
+    let tempPlayer = this.player.copyPlayer();
+    this.addToHistory(tempPlayer.addN());
+  }
+
   equipItem() {
     let tempPlayer = this.player.copyPlayer();
     this.addToHistory(tempPlayer.equip());
@@ -332,6 +337,9 @@ class World {
   movePlayer(dx, dy) {
     this.removeHit();
     let tempPlayer = this.player.copyPlayer();
+    if (tempPlayer.inspecting[0]?.pos === null) {
+      return this.addToHistory('make a decision on your new item before moving!')
+    }
     tempPlayer.move(dx, dy);
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
     if (entity && !(entity instanceof Blood)) {
