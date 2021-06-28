@@ -16,6 +16,25 @@ const blastwave = {
   },
 };
 
+const hit = [
+  {
+    name: "hit",
+    spriteSheet: "fxAtlas",
+    spriteSheetCoordinates: {
+      x: 168,
+      y: 144,
+    },
+  },
+  {
+    name: "hit",
+    spriteSheet: "fxAtlas",
+    spriteSheetCoordinates: {
+      x: 192,
+      y: 144,
+    },
+  },
+];
+
 class World {
   constructor(width, height, tilesize, atlases, tier) {
     this.width = width;
@@ -30,6 +49,9 @@ class World {
     for (let x = 0; x < this.width; x++) {
       this.worldmap[x] = new Array(this.height);
     }
+
+    this.lastHit = { x: 0, y: 0 };
+    this.didHit = false;
 
     this.fov = new FOV.RecursiveShadowcasting(this.lightPasses.bind(this));
   }
@@ -62,7 +84,6 @@ class World {
       this.worldmap[x][y] = value === 0 ? 1 : 0;
     };
 
-    console.log(map._map);
     map.create(userCallback);
     map.connect(userCallback, 1);
   }
@@ -78,7 +99,6 @@ class World {
       this.worldmap[x][y] = value === 0 ? 1 : 0;
     };
 
-    console.log(map._map);
     map.create(userCallback);
     map.connect(userCallback, 1);
   }
@@ -193,7 +213,8 @@ class World {
   }
 
   rest() {
-    this.addToHistory('you give yourself a moment to rest');
+    this.removeHit();
+    this.addToHistory("you give yourself a moment to rest");
   }
 
   moveProjectiles() {
@@ -203,7 +224,6 @@ class World {
       }
 
       if (entity instanceof Fireball) {
-        console.log("moving projectiles");
         let tempFireball = entity.copyFireball();
         let direction = tempFireball.fireDirection;
 
@@ -218,7 +238,6 @@ class World {
 
           for (let xCoord = startX; xCoord < endX; xCoord++) {
             for (let yCoord = startY; yCoord > endY; yCoord--) {
-              console.log(xCoord, yCoord);
               let explodingEntity = this.getEntityAtLocation(xCoord, yCoord);
               if (explodingEntity && !(explodingEntity instanceof Blood)) {
                 explodingEntity.action("fireball", this);
@@ -311,7 +330,12 @@ class World {
     });
   }
 
+  removeHit() {
+    this.didHit = false;
+  }
+
   movePlayer(dx, dy) {
+    this.removeHit();
     let tempPlayer = this.player.copyPlayer();
     if (tempPlayer.inspecting[0]?.pos === null) {
       return this.addToHistory('make a decision on your new item before moving!')
@@ -320,6 +344,11 @@ class World {
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
     if (entity && !(entity instanceof Blood)) {
       entity.action("bump", this);
+      if (entity instanceof Monster) {
+        this.didHit = true;
+        this.lastHit.x = tempPlayer.x;
+        this.lastHit.y = tempPlayer.y;
+      }
       return;
     }
     if (this.isWall(tempPlayer.x, tempPlayer.y)) {
@@ -384,7 +413,9 @@ class World {
             }
 
             if (entityAtLocation instanceof Loot) {
-              this.addToHistory(`${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`)
+              this.addToHistory(
+                `${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`
+              );
               this.remove(entityAtLocation);
             }
 
@@ -480,7 +511,21 @@ class World {
     // });
   }
 
-  drawBlastwave(context) {
+  drawTopLayer(context) {
+    if (this.didHit) {
+      context.drawImage(
+        this.atlases.fxAtlas,
+        hit[getRandomInt(hit.length)].spriteSheetCoordinates.x,
+        hit[getRandomInt(hit.length)].spriteSheetCoordinates.y,
+        24,
+        24,
+        this.lastHit.x * this.tilesize,
+        this.lastHit.y * this.tilesize,
+        this.tilesize,
+        this.tilesize
+      );
+    }
+
     for (let x = 0; x < this.width; x++) {
       for (let y = 0; y < this.height; y++) {
         let entity = this.getEntityAtLocation(x, y);
@@ -553,6 +598,10 @@ class World {
     this.history.push(history);
     if (this.history.length > 9) this.history.shift();
   }
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
 }
 
 export default World;

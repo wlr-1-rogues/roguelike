@@ -7,12 +7,11 @@ import Player from "./Player";
 import Spawner from "./Spawner";
 import World from "./World";
 import Fireball from "./Fireball";
-import Hadouken from './assets/sounds/hadouken.mp3'
-import ItemPickup from './assets/sounds/itemPickup.mp3'
-import LP from './cssSheets/LP.css'
+import Hadouken from "./assets/sounds/hadouken.mp3";
+import ItemPickup from "./assets/sounds/itemPickup.mp3";
+import LP from "./cssSheets/LP.css";
 
 import EquippedItems from "./EquippedItems";
-
 
 const hadoukenAudio = new Audio(Hadouken);
 hadoukenAudio.volume = 0.5;
@@ -20,8 +19,8 @@ const itemPickup = new Audio(ItemPickup);
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
-  
-  const [alive, setAlive] = useState(true)
+
+  const [alive, setAlive] = useState(true);
   const [world, setWorld] = useState(
     new World(width, height, tilesize, atlases, 1)
   );
@@ -35,11 +34,12 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const handleInput = (action, data) => {
     let newWorld = new World();
     Object.assign(newWorld, world);
-    if(alive === false){return}
+    if (alive === false) {
+      return;
+    }
     if (action === "move") {
       if (inspecting?.item.name === "Tome of Fireball") {
         hadoukenAudio.play();
-        console.log("shoot", data.x, data.y);
         let fireDirection = "up";
 
         if (data.y < 0 && data.x === 0) {
@@ -52,12 +52,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           fireDirection = "left";
         }
 
-        console.log(fireDirection);
         newWorld.add(
           new Fireball(world.player.x, world.player.y, tilesize, fireDirection)
         );
-        console.log(world.player.x);
-        console.log(newWorld.entities);
+
         newWorld.castSpell();
       } else {
         newWorld.movePlayer(data.x, data.y);
@@ -102,7 +100,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     spawner.spawnMonsters(100);
     spawner.spawnStairs();
     setWorld(newWorld);
-    console.log((`${currentHealth}` / `${maxHealth}`) * 100);
   }, []);
 
   useEffect(() => {
@@ -118,9 +115,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     const ctx = canvasRef.current.getContext("2d");
     ctx.clearRect(0, 0, width * tilesize, height * tilesize);
     world.draw(ctx);
-    world.drawBlastwave(ctx);
+    world.drawTopLayer(ctx);
   });
-
 
   return (
     <div
@@ -132,8 +128,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
         width: "99vw",
       }}
     >
-
-      
       <header
         style={{
           display: "flex",
@@ -142,8 +136,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           width: "98vw",
           alignItems: "center",
         }}
-      >
-      </header>
+      ></header>
 
       <div
         style={{
@@ -151,7 +144,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           justifyContent: "space-evenly",
         }}
       >
-
         <div
           className="leftOfCanvas"
           style={{
@@ -308,7 +300,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 width: "95%",
                 justifyContent: "center",
                 alignItems: "center",
-                textAlign:'center',
+                textAlign: "center",
                 padding: "10px 0 10px 0",
                 borderStyle: "solid",
                 borderColor: "black",
@@ -432,7 +424,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             <p>Press Number Key to Ready an Item!</p>
           </div>
 
-          
           <div className="muteOptions"></div>
         </div>
         <div
@@ -442,7 +433,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             flexDirection: "column",
           }}
         >
-          
           <canvas
             ref={canvasRef}
             width={width * tilesize * 1}
@@ -453,10 +443,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               borderStyle: "solid",
               borderWidth: "1px",
               borderColor: "white",
-            }}>
-
-          </canvas>
-
+            }}
+          ></canvas>
         </div>
 
         <div
