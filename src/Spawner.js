@@ -451,8 +451,8 @@ class Spawner {
       spawnedItem.class === "shield";
 
     if (qualityRoll < 0.1 && isEquipment) {
-      //it is prestine
-      spawnedItem.name = `Prestine ${spawnedItem.name}`;
+      //it is pristine
+      spawnedItem.name = `Pristine ${spawnedItem.name}`;
       spawnedItem.mod1 += 1;
     } else if (qualityRoll > 0.65 && qualityRoll < 0.95 && isEquipment) {
       //it's damaged
