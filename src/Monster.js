@@ -102,7 +102,7 @@ class Monster extends Entity {
         if (curseRoll < 0.05) {
           world.player.attributes.health -= right.mod1 * 2
           world.addToHistory(`your ${right.name} BURSTS INTO FLAME and you take ${right.mod1 * 2} damage`)
-          if (world.player.inspecting?.pos === "left") {
+          if (world.player.inspecting?.pos === "right") {
             world.player.inspecting.splice(0, 1)
           }
           if (left.class === "shield") {
@@ -120,7 +120,7 @@ class Monster extends Entity {
         if (curseRoll < 0.05) {
           world.player.attributes.health -= head.mod1 * 4
           world.addToHistory(`your ${head.name} BURSTS INTO FLAME and you take ${head.mod1 * 4} damage`)
-          if (world.player.inspecting?.pos === "left") {
+          if (world.player.inspecting?.pos === "head") {
             world.player.inspecting.splice(0, 1)
           }
           world.player.attributes.defense -= head.mod1
@@ -133,7 +133,7 @@ class Monster extends Entity {
         if (curseRoll < 0.05) {
           world.player.attributes.health -= torso.mod1 * 4
           world.addToHistory(`your ${torso.name} BURSTS INTO FLAME and you take ${torso.mod1 * 4} damage`)
-          if (world.player.inspecting?.pos === "left") {
+          if (world.player.inspecting?.pos === "torso") {
             world.player.inspecting.splice(0, 1)
           }
           world.player.attributes.defense -= torso.mod1
