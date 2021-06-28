@@ -215,6 +215,8 @@ class World {
   rest() {
     this.removeHit();
     this.addToHistory("you give yourself a moment to rest");
+    this.player.attributes.attack += 3;
+    this.player.attributes.preparation = true;
   }
 
   moveProjectiles() {
@@ -338,7 +340,9 @@ class World {
     this.removeHit();
     let tempPlayer = this.player.copyPlayer();
     if (tempPlayer.inspecting[0]?.pos === null) {
-      return this.addToHistory('make a decision on your new item before moving!')
+      return this.addToHistory(
+        "make a decision on your new item before moving!"
+      );
     }
     tempPlayer.move(dx, dy);
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
@@ -354,6 +358,8 @@ class World {
     if (this.isWall(tempPlayer.x, tempPlayer.y)) {
     } else {
       this.player.move(dx, dy);
+      this.player.attributes.defense += 3;
+      this.player.attributes.moveEvasion = true;
     }
   }
 

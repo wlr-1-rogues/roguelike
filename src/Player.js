@@ -24,9 +24,11 @@ class Player extends Entity {
 
   attributes = {
     // name: "Player",
+    preparation: false,
     attack: 0,
     defense: 14,
     damage: 3,
+    moveEvasion: false,
     block: 0,
     maxHealth: 50,
     health: 50,
@@ -50,13 +52,13 @@ class Player extends Entity {
     if (this.inventory.length === 5) {
       return "inventory full!";
     } else if (this.inspecting.length === 1) {
-      const lastItem = inspecting.item.name
+      const lastItem = inspecting.item.name;
       this.inspecting.splice(0, 1);
-      this.inspecting.push({item: item.attributes, pos: null});
+      this.inspecting.push({ item: item.attributes, pos: null });
       itemPickup.play();
       return `picked up ${item.attributes.name} and destroyed ${lastItem}`;
     } else {
-      this.inspecting.push({item: item.attributes, pos: null});
+      this.inspecting.push({ item: item.attributes, pos: null });
       itemPickup.play();
       return `picked up ${item.attributes.name}`;
     }
@@ -65,16 +67,16 @@ class Player extends Entity {
   addN() {
     const [inspecting] = this.inspecting;
     if (inspecting?.pos === null && this.inventory.length < 5) {
-      const added = `added ${inspecting.item.name} to inventory`
+      const added = `added ${inspecting.item.name} to inventory`;
       this.inventory.push(inspecting.item);
       this.inspecting.splice(0, 1);
       return added;
     } else if (this.inventory.length >= 5) {
-      return "oh no! your inventory is full :("
+      return "oh no! your inventory is full :(";
     } else if (!inspecting) {
-      return "pick up an item to inspect and add to your inventory"
+      return "pick up an item to inspect and add to your inventory";
     } else {
-      return "this item is already in your possession!"
+      return "this item is already in your possession!";
     }
   }
 
@@ -142,7 +144,8 @@ class Player extends Entity {
 
   equip() {
     const [inspecting] = this.inspecting;
-    if (inspecting?.pos === null) return "you must add to inventory before using this!"
+    if (inspecting?.pos === null)
+      return "you must add to inventory before using this!";
     if (this.inspecting.length === 1) {
       const { item } = inspecting;
       const health = `you drink the ${item.name} and gain ${item.mod1} health points`;

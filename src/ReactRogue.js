@@ -34,6 +34,17 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const handleInput = (action, data) => {
     let newWorld = new World();
     Object.assign(newWorld, world);
+
+    if (newWorld.player.attributes.moveEvasion) {
+      newWorld.player.attributes.defense -= 3;
+      newWorld.player.attributes.moveEvasion = false;
+    }
+
+    if (newWorld.player.attributes.preparation) {
+      newWorld.player.attributes.attack -= 3;
+      newWorld.player.attributes.preparation = false;
+    }
+
     if (alive === false) {
       return;
     }
@@ -229,9 +240,13 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                   textAlign: "right",
                 }}
               >
-                {world.player.attributes.attack}
+                {world.player.attributes.preparation === true
+                  ? `${world.player.attributes.attack - 3}(+3)`
+                  : world.player.attributes.attack}
                 <br></br>
-                {world.player.attributes.defense}
+                {world.player.attributes.moveEvasion === true
+                  ? `${world.player.attributes.defense - 3}(+3)`
+                  : world.player.attributes.defense}
                 <br></br>
                 {world.player.attributes.damage}
                 <br></br>
@@ -308,17 +323,21 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 backgroundColor: "rgba(211, 211, 211, 0.598)",
               }}
             >
-              <div style={{
-                width: "80%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-              }}>
+              <div
+                style={{
+                  width: "80%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 {inspecting.pos === null ? (
                   <>
                     <h3>{inspecting.item.name} Readied!</h3>
-                    <h4 style={{marginTop: "10px"}}>Upon inspecting the {inspecting.item.name} you find...</h4>
+                    <h4 style={{ marginTop: "10px" }}>
+                      Upon inspecting the {inspecting.item.name} you find...
+                    </h4>
                     {inspecting.item.class === "weapon" ? (
                       <div>
                         <p>Hit +{inspecting.item.mod1}</p>
@@ -329,7 +348,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                     ) : inspecting.item.class === "head" ||
                       inspecting.item.class === "torso" ? (
                       <p>Defense +{inspecting.item.mod1}</p>
-                    ) : inspecting.item.class === "healthCon" && inspecting.item.mod2 ? (
+                    ) : inspecting.item.class === "healthCon" &&
+                      inspecting.item.mod2 ? (
                       <div>
                         <p>Health +{inspecting.item.mod1}</p>
                         <p>Max Health +{inspecting.item.mod2}</p>
@@ -341,13 +361,18 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                     ) : (
                       <p>A dusty old tome with strange symbols</p>
                     )}
-                    <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
+                    <InspectSprite
+                      atlas={atlases.itemAtlas}
+                      item={inspecting.item}
+                    />
                     <p>Press "+" to add to inventory, or "K" to destroy</p>
                   </>
                 ) : (
                   <>
                     <h3>{inspecting.item.name} Readied!</h3>
-                    <h4 style={{marginTop: "10px"}}>Upon inspecting the {inspecting.item.name} you find...</h4>
+                    <h4 style={{ marginTop: "10px" }}>
+                      Upon inspecting the {inspecting.item.name} you find...
+                    </h4>
                     {inspecting.item.class === "weapon" ? (
                       <div>
                         <p>Hit +{inspecting.item.mod1}</p>
@@ -358,7 +383,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                     ) : inspecting.item.class === "head" ||
                       inspecting.item.class === "torso" ? (
                       <p>Defense +{inspecting.item.mod1}</p>
-                    ) : inspecting.item.class === "healthCon" && inspecting.item.mod2 ? (
+                    ) : inspecting.item.class === "healthCon" &&
+                      inspecting.item.mod2 ? (
                       <div>
                         <p>Health +{inspecting.item.mod1}</p>
                         <p>Max Health +{inspecting.item.mod2}</p>
@@ -370,8 +396,11 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                     ) : (
                       <p>A dusty old tome with strange symbols</p>
                     )}
-                    <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
-    
+                    <InspectSprite
+                      atlas={atlases.itemAtlas}
+                      item={inspecting.item}
+                    />
+
                     {typeof inspecting.pos === "string" ? (
                       <p>Press "Q" to unequip, or "K" to destroy</p>
                     ) : inspecting.item.name === "Tome of Fireball" ? (
