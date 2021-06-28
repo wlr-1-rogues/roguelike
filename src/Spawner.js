@@ -6,6 +6,17 @@ import Chest from "./Chest";
 
 const globalLoot = [
   {
+    name: "Rock Pick",
+    class: "weapon",
+    mod1: 0,
+    mod2: 3,
+    spriteSheet: "itemAtlas",
+    spriteSheetCoordinates: {
+      y: 96,
+      x: 528,
+    },
+  },
+  {
     name: "Torch",
     class: "weapon",
     mod1: 6,
@@ -417,8 +428,8 @@ class Spawner {
     } else if (qualityRoll > 0.9 && isEquipment) {
       //it's cursed
       spawnedItem.name = `Cursed ${spawnedItem.name}`;
-      spawnedItem.mod1 *= 2
-      spawnedItem.status = 'cursed'
+      spawnedItem.mod1 *= 2;
+      spawnedItem.status = "cursed";
     } else {
       //it's regular
     }
@@ -461,9 +472,8 @@ class Spawner {
     } else if (qualityRoll > 0.95 && isEquipment) {
       //it's cursed
       spawnedItem.name = `Cursed ${spawnedItem.name}`;
-      spawnedItem.mod2 ? spawnedItem.mod2 *= 2
-      : spawnedItem.mod1 *= 2
-      spawnedItem.status = 'cursed'
+      spawnedItem.mod2 ? (spawnedItem.mod2 *= 2) : (spawnedItem.mod1 *= 2);
+      spawnedItem.status = "cursed";
     } else {
       //it's regular
     }

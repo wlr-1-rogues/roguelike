@@ -71,9 +71,12 @@ class World {
   }
 
   isPassable(x, y) {
-    if (this.worldmap[x][y] === 0) {
-      return true;
+    if (x >= 0 && y >= 0 && y < this.height && x < this.width) {
+      if (this.worldmap[x][y] === 0) {
+        return true;
+      }
     }
+
     return false;
   }
 
@@ -141,16 +144,7 @@ class World {
     let xOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
     let yOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
 
-    if (
-      this.worldmap[x + xOffset][y + yOffset] === 0 &&
-      !this.getEntityAtLocation(x + xOffset, y + yOffset)
-    ) {
-      entity.x = x + xOffset;
-      entity.y = y + yOffset;
-      return;
-    } else {
-      xOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
-      yOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
+    if (x >= 0 && y >= 0 && y < this.height && x < this.width) {
       if (
         this.worldmap[x + xOffset][y + yOffset] === 0 &&
         !this.getEntityAtLocation(x + xOffset, y + yOffset)
@@ -159,7 +153,18 @@ class World {
         entity.y = y + yOffset;
         return;
       } else {
-        return this.moveToSpace(entity);
+        xOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
+        yOffset = offsets[Math.floor(Math.random() * Math.floor(2))];
+        if (
+          this.worldmap[x + xOffset][y + yOffset] === 0 &&
+          !this.getEntityAtLocation(x + xOffset, y + yOffset)
+        ) {
+          entity.x = x + xOffset;
+          entity.y = y + yOffset;
+          return;
+        } else {
+          return this.moveToSpace(entity);
+        }
       }
     }
   }
@@ -358,6 +363,15 @@ class World {
       return;
     }
     if (this.isWall(tempPlayer.x, tempPlayer.y)) {
+      if (this.isWall(tempPlayer.x, tempPlayer.y)) {
+        if (
+          tempPlayer.x >= 0 &&
+          tempPlayer.y >= 0 &&
+          tempPlayer.y < this.height &&
+          tempPlayer.x < this.width
+        )
+          this.worldmap[tempPlayer.x][tempPlayer.y] = 0;
+      }
     } else {
       this.player.move(dx, dy);
       this.player.attributes.defense += 3;

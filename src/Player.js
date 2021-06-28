@@ -15,6 +15,17 @@ class Player extends Entity {
         x: 0,
       },
     },
+    {
+      name: "Rock Pick",
+      class: "weapon",
+      mod1: 0,
+      mod2: 3,
+      spriteSheet: "itemAtlas",
+      spriteSheetCoordinates: {
+        y: 96,
+        x: 528,
+      },
+    },
   ];
   inspecting = [];
   left = [];
