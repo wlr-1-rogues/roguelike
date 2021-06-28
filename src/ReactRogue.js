@@ -222,12 +222,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               }}
             >
               
-              <img src='https://media1.tenor.com/images/4dd2ef38974816b322689b443f0bf435/tenor.gif?itemid=4535637' 
+              <img src='https://i.pinimg.com/originals/b2/79/66/b27966140db68d0621628f2309f8a443.gif' 
               alt='Sad Spidey Gif' 
-              style={{
-                width:'300',
-                height:'300',
-              }}
               />
 
               <div 
