@@ -6,10 +6,10 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Player from "./Player";
 import Blastwave from "./Blastwave";
-import Explosion from './assets/sounds/fireExplosion.mp3'
+import Explosion from "./assets/sounds/fireExplosion.mp3";
 
-const explosionSound = new Audio(Explosion)
-explosionSound.volume = 1
+const explosionSound = new Audio(Explosion);
+explosionSound.volume = 1;
 
 const blastwave = {
   name: "blastwave",
@@ -188,7 +188,8 @@ class World {
 
   equipItem() {
     let tempPlayer = this.player.copyPlayer();
-    if (this.player.inspecting[0].pos === null) this.remove(this.player.inspecting[0].entity);
+    if (this.player.inspecting[0].pos === null)
+      this.remove(this.player.inspecting[0].entity);
     this.addToHistory(tempPlayer.equip());
   }
 
@@ -209,13 +210,16 @@ class World {
 
   dropItem() {
     let tempPlayer = this.player.copyPlayer();
-    if (this.player.inspecting[0].pos === null) this.remove(this.player.inspecting[0].entity)
+    if (this.player.inspecting[0].pos === null)
+      this.remove(this.player.inspecting[0].entity);
     this.addToHistory(tempPlayer.drop());
   }
 
   rest() {
     this.removeHit();
     this.addToHistory("you give yourself a moment to rest");
+    this.player.attributes.attack += 3;
+    this.player.attributes.preparation = true;
   }
 
   moveProjectiles() {
@@ -236,8 +240,7 @@ class World {
           let endY = y - 2;
 
           this.add(new Blastwave(x - 1, y - 1, this.tilesize, blastwave));
-          explosionSound.play()
-
+          explosionSound.play();
 
           for (let xCoord = startX; xCoord < endX; xCoord++) {
             for (let yCoord = startY; yCoord > endY; yCoord--) {
@@ -341,7 +344,7 @@ class World {
     this.removeHit();
     let tempPlayer = this.player.copyPlayer();
     if (tempPlayer.inspecting[0]?.pos === null) {
-      tempPlayer.inspecting.splice(0, 1)
+      tempPlayer.inspecting.splice(0, 1);
     }
     tempPlayer.move(dx, dy);
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
@@ -357,12 +360,14 @@ class World {
     if (this.isWall(tempPlayer.x, tempPlayer.y)) {
     } else {
       this.player.move(dx, dy);
+      this.player.attributes.defense += 3;
+      this.player.attributes.moveEvasion = true;
     }
   }
 
   addNew() {
     let tempPlayer = this.player.copyPlayer();
-    this.remove(this.player.inspecting[0].entity)
+    this.remove(this.player.inspecting[0].entity);
     this.addToHistory(tempPlayer.addN());
   }
 
