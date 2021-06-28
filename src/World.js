@@ -6,6 +6,10 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Player from "./Player";
 import Blastwave from "./Blastwave";
+import Explosion from "./assets/sounds/fireExplosion.mp3";
+
+const explosionSound = new Audio(Explosion);
+explosionSound.volume = 1;
 
 const blastwave = {
   name: "blastwave",
@@ -182,13 +186,10 @@ class World {
       this.addToHistory(tempPlayer.inspect(itemIndex));
   }
 
-  addNew() {
-    let tempPlayer = this.player.copyPlayer();
-    this.addToHistory(tempPlayer.addN());
-  }
-
   equipItem() {
     let tempPlayer = this.player.copyPlayer();
+    if (this.player.inspecting[0].pos === null)
+      this.remove(this.player.inspecting[0].entity);
     this.addToHistory(tempPlayer.equip());
   }
 
@@ -209,6 +210,8 @@ class World {
 
   dropItem() {
     let tempPlayer = this.player.copyPlayer();
+    if (this.player.inspecting[0].pos === null)
+      this.remove(this.player.inspecting[0].entity);
     this.addToHistory(tempPlayer.drop());
   }
 
@@ -237,6 +240,7 @@ class World {
           let endY = y - 2;
 
           this.add(new Blastwave(x - 1, y - 1, this.tilesize, blastwave));
+          explosionSound.play();
 
           for (let xCoord = startX; xCoord < endX; xCoord++) {
             for (let yCoord = startY; yCoord > endY; yCoord--) {
@@ -340,9 +344,7 @@ class World {
     this.removeHit();
     let tempPlayer = this.player.copyPlayer();
     if (tempPlayer.inspecting[0]?.pos === null) {
-      return this.addToHistory(
-        "make a decision on your new item before moving!"
-      );
+      tempPlayer.inspecting.splice(0, 1);
     }
     tempPlayer.move(dx, dy);
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
@@ -361,6 +363,12 @@ class World {
       this.player.attributes.defense += 3;
       this.player.attributes.moveEvasion = true;
     }
+  }
+
+  addNew() {
+    let tempPlayer = this.player.copyPlayer();
+    this.remove(this.player.inspecting[0].entity);
+    this.addToHistory(tempPlayer.addN());
   }
 
   moveMonsters() {

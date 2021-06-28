@@ -41,26 +41,23 @@ class Player extends Entity {
   };
 
   move(dx, dy) {
-    const [inspecting] = this.inspecting;
     if (this.attributes.health <= 0) return;
     this.x += dx;
     this.y += dy;
   }
 
   add(item) {
-    const [inspecting] = this.inspecting;
     if (this.inventory.length === 5) {
       return "inventory full!";
     } else if (this.inspecting.length === 1) {
-      const lastItem = inspecting.item.name;
       this.inspecting.splice(0, 1);
-      this.inspecting.push({ item: item.attributes, pos: null });
+      this.inspecting.push({ item: item.attributes, pos: null, entity: item });
       itemPickup.play();
-      return `picked up ${item.attributes.name} and destroyed ${lastItem}`;
+      return `looks like a ${item.attributes.name}`;
     } else {
-      this.inspecting.push({ item: item.attributes, pos: null });
+      this.inspecting.push({ item: item.attributes, pos: null, entity: item });
       itemPickup.play();
-      return `picked up ${item.attributes.name}`;
+      return `looks like a ${item.attributes.name}`;
     }
   }
 
@@ -144,8 +141,8 @@ class Player extends Entity {
 
   equip() {
     const [inspecting] = this.inspecting;
-    if (inspecting?.pos === null)
-      return "you must add to inventory before using this!";
+    console.log(inspecting);
+    // if (inspecting?.pos === null) return "you must add to inventory before using this!"
     if (this.inspecting.length === 1) {
       const { item } = inspecting;
       const health = `you drink the ${item.name} and gain ${item.mod1} health points`;
@@ -159,46 +156,70 @@ class Player extends Entity {
         this.attributes.attack += item.mod1;
         this.attributes.damage += item.mod2;
         if (item.mod3) this.attributes.sightRadius += item.mod3;
-        this.left.push(this.inventory[inspecting.pos]);
-        this.inventory.splice(inspecting.pos, 1);
+        if (inspecting.pos === null) {
+          this.left.push(inspecting.item);
+        } else {
+          this.left.push(this.inventory[inspecting.pos]);
+          this.inventory.splice(inspecting.pos, 1);
+        }
         this.inspecting.splice(0, 1);
         return equip;
       } else if (item.class === "weapon" && this.right.length === 0) {
         this.attributes.attack += item.mod1;
         this.attributes.damage += item.mod2;
         if (item.mod3) this.attributes.sightRadius += item.mod3;
-        this.right.push(this.inventory[inspecting.pos]);
-        this.inventory.splice(inspecting.pos, 1);
+        if (inspecting.pos === null) {
+          this.right.push(inspecting.item);
+        } else {
+          this.right.push(this.inventory[inspecting.pos]);
+          this.inventory.splice(inspecting.pos, 1);
+        }
         this.inspecting.splice(0, 1);
         return equip;
 
         // SHIELDS
       } else if (item.class === "shield" && this.left.length === 0) {
         this.attributes.block += item.mod1;
-        this.left.push(this.inventory[inspecting.pos]);
-        this.inventory.splice(inspecting.pos, 1);
+        if (inspecting.pos === null) {
+          this.left.push(inspecting.item);
+        } else {
+          this.left.push(this.inventory[inspecting.pos]);
+          this.inventory.splice(inspecting.pos, 1);
+        }
         this.inspecting.splice(0, 1);
         return equip;
       } else if (item.class === "shield" && this.right.length === 0) {
         this.attributes.block += item.mod1;
-        this.right.push(this.inventory[inspecting.pos]);
-        this.inventory.splice(inspecting.pos, 1);
+        if (inspecting.pos === null) {
+          this.right.push(inspecting.item);
+        } else {
+          this.right.push(this.inventory[inspecting.pos]);
+          this.inventory.splice(inspecting.pos, 1);
+        }
         this.inspecting.splice(0, 1);
         return equip;
 
         // HEAD
       } else if (item.class === "head" && this.head.length === 0) {
         this.attributes.defense += item.mod1;
-        this.head.push(this.inventory[inspecting.pos]);
-        this.inventory.splice(inspecting.pos, 1);
+        if (inspecting.pos === null) {
+          this.head.push(inspecting.item);
+        } else {
+          this.head.push(this.inventory[inspecting.pos]);
+          this.inventory.splice(inspecting.pos, 1);
+        }
         this.inspecting.splice(0, 1);
         return equip;
 
         // TORSO
       } else if (item.class === "torso" && this.torso.length === 0) {
         this.attributes.defense += item.mod1;
-        this.torso.push(this.inventory[inspecting.pos]);
-        this.inventory.splice(inspecting.pos, 1);
+        if (inspecting.pos === null) {
+          this.torso.push(inspecting.item);
+        } else {
+          this.torso.push(this.inventory[inspecting.pos]);
+          this.inventory.splice(inspecting.pos, 1);
+        }
         this.inspecting.splice(0, 1);
         return equip;
 
@@ -211,12 +232,20 @@ class Player extends Entity {
         }
         if (this.attributes.health > this.attributes.maxHealth) {
           this.attributes.health = this.attributes.maxHealth;
-          this.inventory.splice(inspecting.pos, 1);
-          this.inspecting.splice(0, 1);
+          if (inspecting.pos === null) {
+            this.inspecting.splice(0, 1);
+          } else {
+            this.inventory.splice(inspecting.pos, 1);
+            this.inspecting.splice(0, 1);
+          }
           return healthMax;
         }
-        this.inventory.splice(inspecting.pos, 1);
-        this.inspecting.splice(0, 1);
+        if (inspecting.pos === null) {
+          this.inspecting.splice(0, 1);
+        } else {
+          this.inventory.splice(inspecting.pos, 1);
+          this.inspecting.splice(0, 1);
+        }
         return health;
       } else {
         this.inspecting.splice(0, 1);

@@ -14,7 +14,7 @@ import LP from "./cssSheets/LP.css";
 import EquippedItems from "./EquippedItems";
 
 const hadoukenAudio = new Audio(Hadouken);
-hadoukenAudio.volume = 0.5;
+hadoukenAudio.volume = 0.25;
 const itemPickup = new Audio(ItemPickup);
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
@@ -49,7 +49,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       return;
     }
     if (action === "move") {
-      if (inspecting?.item.name === "Tome of Fireball") {
+      if (
+        inspecting?.item.name === "Tome of Fireball" &&
+        inspecting?.pos !== null
+      ) {
         hadoukenAudio.play();
         let fireDirection = "up";
 
@@ -92,8 +95,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
 
     if (action === "inspect" || action === "inspectE") {
       setWorld(newWorld);
-    } else if (action === "move" && world.player.inspecting[0]?.pos === null) {
-      setWorld(newWorld);
     } else {
       newWorld.moveProjectiles();
       newWorld.moveMonsters();
@@ -107,7 +108,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(60);
+    spawner.spawnLoot(6);
     spawner.spawnMonsters(100);
     spawner.spawnStairs();
     setWorld(newWorld);
@@ -365,7 +366,19 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                       atlas={atlases.itemAtlas}
                       item={inspecting.item}
                     />
-                    <p>Press "+" to add to inventory, or "K" to destroy</p>
+                    {inspecting.item.name === "Tome of Fireball" ? (
+                      <p>Press "T" to add to inventory, or "G" to destroy</p>
+                    ) : inspecting.item.class === "healthCon" ? (
+                      <p>
+                        Press "T" to add to inventory, "E" to drink, or "G" to
+                        destroy
+                      </p>
+                    ) : (
+                      <p>
+                        Press "T" to add to inventory, "E" to equip, or "G" to
+                        destroy
+                      </p>
+                    )}
                   </>
                 ) : (
                   <>
@@ -402,14 +415,13 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                     />
 
                     {typeof inspecting.pos === "string" ? (
-                      <p>Press "Q" to unequip, or "K" to destroy</p>
+                      <p>Press "Q" to unequip, or "G" to destroy</p>
                     ) : inspecting.item.name === "Tome of Fireball" ? (
-                      <p>Press a direction to cast, or "K" to destroy</p>
-                    ) : inspecting.item.class === "healthCon" ||
-                      inspecting.item.class === "shieldCon" ? (
-                      <p>Press "E" to drink, or "K" to destroy</p>
+                      <p>Press a direction to cast, or "G" to destroy</p>
+                    ) : inspecting.item.class === "healthCon" ? (
+                      <p>Press "E" to drink, or "G" to destroy</p>
                     ) : (
-                      <p>Press "E" to equip, or "K" to destroy</p>
+                      <p>Press "E" to equip, or "G" to destroy</p>
                     )}
                   </>
                 )}
