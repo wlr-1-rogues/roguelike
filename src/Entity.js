@@ -64,6 +64,7 @@ class Entity {
         this.tilesize * 3
       );
     } else if (entity.attributes.spriteSheet === "fxAtlas") {
+      console.log("drawing fx");
       context.drawImage(
         atlases.fxAtlas,
         entity.attributes.spriteSheetCoordinates.x,

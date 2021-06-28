@@ -6,15 +6,43 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Player from "./Player";
 import Blastwave from "./Blastwave";
+import Hit from "./Hit";
 
 const blastwave = {
   name: "blastwave",
   spriteSheet: "fxAtlas",
   spriteSheetCoordinates: {
-    x: 72,
-    y: 24,
+    x: 120,
+    y: 144,
   },
 };
+
+const hitTable = [
+  {
+    name: "hit",
+    spriteSheet: "fxAtlas",
+    spriteSheetCoordinates: {
+      x: 120,
+      y: 144,
+    },
+  },
+  {
+    name: "hit",
+    spriteSheet: "fxAtlas",
+    spriteSheetCoordinates: {
+      x: 120,
+      y: 144,
+    },
+  },
+  {
+    name: "hit",
+    spriteSheet: "fxAtlas",
+    spriteSheetCoordinates: {
+      x: 120,
+      y: 144,
+    },
+  },
+];
 
 class World {
   constructor(width, height, tilesize, atlases, tier) {
@@ -62,7 +90,6 @@ class World {
       this.worldmap[x][y] = value === 0 ? 1 : 0;
     };
 
-    console.log(map._map);
     map.create(userCallback);
     map.connect(userCallback, 1);
   }
@@ -78,7 +105,6 @@ class World {
       this.worldmap[x][y] = value === 0 ? 1 : 0;
     };
 
-    console.log(map._map);
     map.create(userCallback);
     map.connect(userCallback, 1);
   }
@@ -188,7 +214,7 @@ class World {
   }
 
   rest() {
-    this.addToHistory('you give yourself a moment to rest');
+    this.addToHistory("you give yourself a moment to rest");
   }
 
   moveProjectiles() {
@@ -197,8 +223,11 @@ class World {
         this.remove(entity);
       }
 
+      if (entity instanceof Hit) {
+        this.remove(entity);
+      }
+
       if (entity instanceof Fireball) {
-        console.log("moving projectiles");
         let tempFireball = entity.copyFireball();
         let direction = tempFireball.fireDirection;
 
@@ -213,7 +242,6 @@ class World {
 
           for (let xCoord = startX; xCoord < endX; xCoord++) {
             for (let yCoord = startY; yCoord > endY; yCoord--) {
-              console.log(xCoord, yCoord);
               let explodingEntity = this.getEntityAtLocation(xCoord, yCoord);
               if (explodingEntity && !(explodingEntity instanceof Blood)) {
                 explodingEntity.action("fireball", this);
@@ -312,6 +340,11 @@ class World {
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
     if (entity && !(entity instanceof Blood)) {
       entity.action("bump", this);
+      if (entity instanceof Monster) {
+        this.add(
+          new Hit(tempPlayer.x, tempPlayer.y, this.tilesize, hitTable[0])
+        );
+      }
       return;
     }
     if (this.isWall(tempPlayer.x, tempPlayer.y)) {
@@ -376,7 +409,9 @@ class World {
             }
 
             if (entityAtLocation instanceof Loot) {
-              this.addToHistory(`${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`)
+              this.addToHistory(
+                `${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`
+              );
               this.remove(entityAtLocation);
             }
 
@@ -472,13 +507,13 @@ class World {
     // });
   }
 
-  drawBlastwave(context) {
+  drawTopLayer(context) {
     for (let x = 0; x < this.width; x++) {
       for (let y = 0; y < this.height; y++) {
         let entity = this.getEntityAtLocation(x, y);
 
         if (entity) {
-          if (entity instanceof Blastwave) {
+          if (entity instanceof Blastwave || entity instanceof Hit) {
             entity.draw(context, entity, this.atlases);
           }
         }
@@ -545,6 +580,10 @@ class World {
     this.history.push(history);
     if (this.history.length > 9) this.history.shift();
   }
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
 }
 
 export default World;
