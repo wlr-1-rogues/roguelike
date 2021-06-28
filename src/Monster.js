@@ -111,7 +111,7 @@ class Monster extends Entity {
           if (world.player.inspecting?.pos === "right") {
             world.player.inspecting.splice(0, 1);
           }
-          if (left.class === "shield") {
+          if (right.class === "shield") {
             world.player.attributes.block -= right.mod1;
           } else {
             world.player.attributes.attack -= right.mod1;
