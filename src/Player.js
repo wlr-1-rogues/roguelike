@@ -39,26 +39,23 @@ class Player extends Entity {
   };
 
   move(dx, dy) {
-    const [inspecting] = this.inspecting;
     if (this.attributes.health <= 0) return;
     this.x += dx;
     this.y += dy;
   }
 
   add(item) {
-    const [inspecting] = this.inspecting;
     if (this.inventory.length === 5) {
       return "inventory full!";
     } else if (this.inspecting.length === 1) {
-      const lastItem = inspecting.item.name
       this.inspecting.splice(0, 1);
-      this.inspecting.push({item: item.attributes, pos: null});
+      this.inspecting.push({item: item.attributes, pos: null, entity: item});
       itemPickup.play();
-      return `picked up ${item.attributes.name} and destroyed ${lastItem}`;
+      return `looks like a ${item.attributes.name}`;
     } else {
-      this.inspecting.push({item: item.attributes, pos: null});
+      this.inspecting.push({item: item.attributes, pos: null, entity: item});
       itemPickup.play();
-      return `picked up ${item.attributes.name}`;
+      return `looks like a ${item.attributes.name}`;
     }
   }
 

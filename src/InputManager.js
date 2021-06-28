@@ -52,8 +52,7 @@ class InputManager {
       case 101:
         this.broadcast("inspect", 4);
         break;
-      case 187:
-      case 107:
+      case 84:
         this.broadcast("addN");
         break;
       case 54:
@@ -78,7 +77,7 @@ class InputManager {
       case 81:
         this.broadcast("unequip");
         break;
-      case 75:
+      case 71:
         this.broadcast("drop");
         break;
       case 32:

@@ -182,11 +182,6 @@ class World {
       this.addToHistory(tempPlayer.inspect(itemIndex));
   }
 
-  addNew() {
-    let tempPlayer = this.player.copyPlayer();
-    this.addToHistory(tempPlayer.addN());
-  }
-
   equipItem() {
     let tempPlayer = this.player.copyPlayer();
     this.addToHistory(tempPlayer.equip());
@@ -338,7 +333,7 @@ class World {
     this.removeHit();
     let tempPlayer = this.player.copyPlayer();
     if (tempPlayer.inspecting[0]?.pos === null) {
-      return this.addToHistory('make a decision on your new item before moving!')
+      tempPlayer.inspecting.splice(0, 1)
     }
     tempPlayer.move(dx, dy);
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
@@ -355,6 +350,12 @@ class World {
     } else {
       this.player.move(dx, dy);
     }
+  }
+
+  addNew() {
+    let tempPlayer = this.player.copyPlayer();
+    this.remove(this.player.inspecting[0].entity)
+    this.addToHistory(tempPlayer.addN());
   }
 
   moveMonsters() {

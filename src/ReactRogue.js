@@ -81,8 +81,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
 
     if (action === "inspect" || action === "inspectE") {
       setWorld(newWorld);
-    } else if (action === "move" && world.player.inspecting[0]?.pos === null) {
-      setWorld(newWorld);
     } else {
       newWorld.moveProjectiles();
       newWorld.moveMonsters();
@@ -97,7 +95,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
     spawner.spawnLoot(60);
-    spawner.spawnMonsters(100);
+    spawner.spawnMonsters(0);
     spawner.spawnStairs();
     setWorld(newWorld);
   }, []);
@@ -342,7 +340,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                       <p>A dusty old tome with strange symbols</p>
                     )}
                     <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
-                    <p>Press "+" to add to inventory, or "K" to destroy</p>
+                    <p>Press "T" to add to inventory, or "G" to destroy</p>
                   </>
                 ) : (
                   <>
@@ -373,14 +371,14 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                     <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
     
                     {typeof inspecting.pos === "string" ? (
-                      <p>Press "Q" to unequip, or "K" to destroy</p>
+                      <p>Press "Q" to unequip, or "G" to destroy</p>
                     ) : inspecting.item.name === "Tome of Fireball" ? (
-                      <p>Press a direction to cast, or "K" to destroy</p>
+                      <p>Press a direction to cast, or "G" to destroy</p>
                     ) : inspecting.item.class === "healthCon" ||
                       inspecting.item.class === "shieldCon" ? (
-                      <p>Press "E" to drink, or "K" to destroy</p>
+                      <p>Press "E" to drink, or "G" to destroy</p>
                     ) : (
-                      <p>Press "E" to equip, or "K" to destroy</p>
+                      <p>Press "E" to equip, or "G" to destroy</p>
                     )}
                   </>
                 )}
