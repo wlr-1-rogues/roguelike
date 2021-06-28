@@ -107,6 +107,12 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
   }
 
   useEffect(() => {
+    if (world.player.attributes.alive === false){
+      setAlive(false)
+    }
+  }, [setAlive])
+
+  useEffect(() => {
     let newWorld = new World();
     Object.assign(newWorld, world);
     newWorld.createCellularMap();
@@ -154,7 +160,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
         }}
       ></header>
 
-{alive && <div 
+{!alive && <div 
               className='deathScreen'>
                 <h1>YOU DEAD KID</h1>
                 <p>Hint will go here</p>
