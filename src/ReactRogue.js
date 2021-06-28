@@ -64,6 +64,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       }
     } else if (action === "inspect") {
       newWorld.inspectItem(data);
+    } else if (action === "addN") {
+      newWorld.addNew();
     } else if (action === "equip") {
       newWorld.equipItem();
       itemPickup.play();
@@ -94,8 +96,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(6);
-    spawner.spawnMonsters(100);
+    spawner.spawnLoot(600);
+    spawner.spawnMonsters(0);
     spawner.spawnStairs();
     setWorld(newWorld);
     console.log((`${currentHealth}` / `${maxHealth}`) * 100);
@@ -319,41 +321,74 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}>
-                <h3>{inspecting.item.name} Readied!</h3>
-                <h4 style={{marginTop: "10px"}}>Upon inspecting the {inspecting.item.name} you find...</h4>
-                {inspecting.item.class === "weapon" ? (
-                  <div>
-                    <p>Hit +{inspecting.item.mod1}</p>
-                    <p>Damage +{inspecting.item.mod2}</p>
-                  </div>
-                ) : inspecting.item.class === "shield" ? (
-                  <p>Block +{inspecting.item.mod1}</p>
-                ) : inspecting.item.class === "head" ||
-                  inspecting.item.class === "torso" ? (
-                  <p>Defense +{inspecting.item.mod1}</p>
-                ) : inspecting.item.class === "healthCon" && inspecting.item.mod2 ? (
-                  <div>
-                    <p>Health +{inspecting.item.mod1}</p>
-                    <p>Max Health +{inspecting.item.mod2}</p>
-                  </div>
-                ) : inspecting.item.class === "healthCon" ? (
-                  <p>Health +{inspecting.item.mod1}</p>
-                ) : inspecting.item.class === "shieldCon" ? (
-                  <p>Block +{inspecting.item.mod1}</p>
+                {inspecting.pos ? (
+                  <>
+                    <h3>{inspecting.item.name} Readied!</h3>
+                    <h4 style={{marginTop: "10px"}}>Upon inspecting the {inspecting.item.name} you find...</h4>
+                    {inspecting.item.class === "weapon" ? (
+                      <div>
+                        <p>Hit +{inspecting.item.mod1}</p>
+                        <p>Damage +{inspecting.item.mod2}</p>
+                      </div>
+                    ) : inspecting.item.class === "shield" ? (
+                      <p>Block +{inspecting.item.mod1}</p>
+                    ) : inspecting.item.class === "head" ||
+                      inspecting.item.class === "torso" ? (
+                      <p>Defense +{inspecting.item.mod1}</p>
+                    ) : inspecting.item.class === "healthCon" && inspecting.item.mod2 ? (
+                      <div>
+                        <p>Health +{inspecting.item.mod1}</p>
+                        <p>Max Health +{inspecting.item.mod2}</p>
+                      </div>
+                    ) : inspecting.item.class === "healthCon" ? (
+                      <p>Health +{inspecting.item.mod1}</p>
+                    ) : inspecting.item.class === "shieldCon" ? (
+                      <p>Block +{inspecting.item.mod1}</p>
+                    ) : (
+                      <p>A dusty old tome with strange symbols</p>
+                    )}
+                    <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
+    
+                    {typeof inspecting.pos === "string" ? (
+                      <p>Press "Q" to unequip, or "K" to destroy</p>
+                    ) : inspecting.item.name === "Tome of Fireball" ? (
+                      <p>Press a direction to cast, or "K" to destroy</p>
+                    ) : inspecting.item.class === "healthCon" ||
+                      inspecting.item.class === "shieldCon" ? (
+                      <p>Press "E" to drink, or "K" to destroy</p>
+                    ) : (
+                      <p>Press "E" to equip, or "K" to destroy</p>
+                    )}
+                  </>
                 ) : (
-                  <p>A dusty old tome with strange symbols</p>
-                )}
-                <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
-
-                {typeof inspecting.pos === "string" ? (
-                  <p>Press "Q" to unequip, or "K" to destroy</p>
-                ) : inspecting.item.name === "Tome of Fireball" ? (
-                  <p>Press a direction to cast, or "K" to destroy</p>
-                ) : inspecting.item.class === "healthCon" ||
-                  inspecting.item.class === "shieldCon" ? (
-                  <p>Press "E" to drink, or "K" to destroy</p>
-                ) : (
-                  <p>Press "E" to equip, or "K" to destroy</p>
+<>
+                    <h3>{inspecting.item.name} Readied!</h3>
+                    <h4 style={{marginTop: "10px"}}>Upon inspecting the {inspecting.item.name} you find...</h4>
+                    {inspecting.item.class === "weapon" ? (
+                      <div>
+                        <p>Hit +{inspecting.item.mod1}</p>
+                        <p>Damage +{inspecting.item.mod2}</p>
+                      </div>
+                    ) : inspecting.item.class === "shield" ? (
+                      <p>Block +{inspecting.item.mod1}</p>
+                    ) : inspecting.item.class === "head" ||
+                      inspecting.item.class === "torso" ? (
+                      <p>Defense +{inspecting.item.mod1}</p>
+                    ) : inspecting.item.class === "healthCon" && inspecting.item.mod2 ? (
+                      <div>
+                        <p>Health +{inspecting.item.mod1}</p>
+                        <p>Max Health +{inspecting.item.mod2}</p>
+                      </div>
+                    ) : inspecting.item.class === "healthCon" ? (
+                      <p>Health +{inspecting.item.mod1}</p>
+                    ) : inspecting.item.class === "shieldCon" ? (
+                      <p>Block +{inspecting.item.mod1}</p>
+                    ) : (
+                      <p>A dusty old tome with strange symbols</p>
+                    )}
+                    <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
+                    <p>Press "+" to add to inventory, or "-" to destroy</p>
+                  </>
                 )}
               </div>
             </div>

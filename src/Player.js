@@ -48,12 +48,26 @@ class Player extends Entity {
     if (this.inventory.length === 5) {
       return "inventory full!";
     } else {
-      this.inventory.push(item.attributes);
-      // working inspect before adding to inventory
-      // 0 (48) in InputManager will handle adding new item to inventory
-      // this.inspecting.push({item: item.attributes});
+      this.inspecting.push({item: item.attributes});
       itemPickup.play();
       return `picked up ${item.attributes.name}`;
+    }
+  }
+
+  addN() {
+    const [inspecting] = this.inspecting;
+    console.log(inspecting.item.name)
+    const added = `added ${inspecting.item.name} to inventory`
+    if (inspecting) {
+      if (!inspecting.pos) {
+        this.inventory.push(inspecting.item);
+        this.inspecting.splice(0, 1);
+        return added;
+      } else {
+        return "this item is already in your inventory!"
+      }
+    } else {
+      return "pick up an item to inspect and add to your inventory"
     }
   }
 
@@ -62,9 +76,6 @@ class Player extends Entity {
     if (this.inventory[index]) {
       if (inspecting?.pos === index) {
         this.inspecting.splice(0, 1);
-        // working inspect before adding to inventory
-        // } else if (!inspecting?.pos) {
-        //   this.inventory.unshift(inspecting);
       } else if (this.inspecting.length === 1) {
         this.inspecting.splice(0, 1);
         this.inspecting.push({ pos: index, item: this.inventory[index] });

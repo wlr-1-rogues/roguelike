@@ -162,6 +162,12 @@ class World {
       this.addToHistory(tempPlayer.inspect(itemIndex));
   }
 
+  addNew() {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.addN() &&
+      this.addToHistory(tempPlayer.addN());
+  }
+
   equipItem() {
     let tempPlayer = this.player.copyPlayer();
     this.addToHistory(tempPlayer.equip());
