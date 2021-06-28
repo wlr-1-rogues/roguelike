@@ -164,8 +164,7 @@ class World {
 
   addNew() {
     let tempPlayer = this.player.copyPlayer();
-    tempPlayer.addN() &&
-      this.addToHistory(tempPlayer.addN());
+    this.addToHistory(tempPlayer.addN());
   }
 
   equipItem() {

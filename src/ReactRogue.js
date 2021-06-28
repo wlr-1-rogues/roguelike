@@ -321,7 +321,36 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 justifyContent: "center",
                 alignItems: "center",
               }}>
-                {inspecting.pos ? (
+                {inspecting.pos === null ? (
+                  <>
+                    <h3>{inspecting.item.name} Readied!</h3>
+                    <h4 style={{marginTop: "10px"}}>Upon inspecting the {inspecting.item.name} you find...</h4>
+                    {inspecting.item.class === "weapon" ? (
+                      <div>
+                        <p>Hit +{inspecting.item.mod1}</p>
+                        <p>Damage +{inspecting.item.mod2}</p>
+                      </div>
+                    ) : inspecting.item.class === "shield" ? (
+                      <p>Block +{inspecting.item.mod1}</p>
+                    ) : inspecting.item.class === "head" ||
+                      inspecting.item.class === "torso" ? (
+                      <p>Defense +{inspecting.item.mod1}</p>
+                    ) : inspecting.item.class === "healthCon" && inspecting.item.mod2 ? (
+                      <div>
+                        <p>Health +{inspecting.item.mod1}</p>
+                        <p>Max Health +{inspecting.item.mod2}</p>
+                      </div>
+                    ) : inspecting.item.class === "healthCon" ? (
+                      <p>Health +{inspecting.item.mod1}</p>
+                    ) : inspecting.item.class === "shieldCon" ? (
+                      <p>Block +{inspecting.item.mod1}</p>
+                    ) : (
+                      <p>A dusty old tome with strange symbols</p>
+                    )}
+                    <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
+                    <p>Press "+" to add to inventory, or "K" to destroy</p>
+                  </>
+                ) : (
                   <>
                     <h3>{inspecting.item.name} Readied!</h3>
                     <h4 style={{marginTop: "10px"}}>Upon inspecting the {inspecting.item.name} you find...</h4>
@@ -359,35 +388,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                     ) : (
                       <p>Press "E" to equip, or "K" to destroy</p>
                     )}
-                  </>
-                ) : (
-<>
-                    <h3>{inspecting.item.name} Readied!</h3>
-                    <h4 style={{marginTop: "10px"}}>Upon inspecting the {inspecting.item.name} you find...</h4>
-                    {inspecting.item.class === "weapon" ? (
-                      <div>
-                        <p>Hit +{inspecting.item.mod1}</p>
-                        <p>Damage +{inspecting.item.mod2}</p>
-                      </div>
-                    ) : inspecting.item.class === "shield" ? (
-                      <p>Block +{inspecting.item.mod1}</p>
-                    ) : inspecting.item.class === "head" ||
-                      inspecting.item.class === "torso" ? (
-                      <p>Defense +{inspecting.item.mod1}</p>
-                    ) : inspecting.item.class === "healthCon" && inspecting.item.mod2 ? (
-                      <div>
-                        <p>Health +{inspecting.item.mod1}</p>
-                        <p>Max Health +{inspecting.item.mod2}</p>
-                      </div>
-                    ) : inspecting.item.class === "healthCon" ? (
-                      <p>Health +{inspecting.item.mod1}</p>
-                    ) : inspecting.item.class === "shieldCon" ? (
-                      <p>Block +{inspecting.item.mod1}</p>
-                    ) : (
-                      <p>A dusty old tome with strange symbols</p>
-                    )}
-                    <InspectSprite atlas={atlases.itemAtlas} item={inspecting.item} />
-                    <p>Press "+" to add to inventory, or "-" to destroy</p>
                   </>
                 )}
               </div>
