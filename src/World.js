@@ -9,6 +9,7 @@ import Blastwave from "./Blastwave";
 import Explosion from './assets/sounds/fireExplosion.mp3'
 
 const explosionSound = new Audio(Explosion)
+explosionSound.volume = 1
 
 const blastwave = {
   name: "blastwave",
