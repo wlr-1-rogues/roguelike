@@ -77,6 +77,24 @@ img{
     z-index: 9;
 }
 
+.deathScreen{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align:center;
+    width: 45%;
+    height: 50%;
+    background-color: gray;
+    z-index: 9;
+    position: absolute;
+    top:15%;
+    left:27.5%;
+}
+
+.deathButtons{
+    
+}
+
 html,body{
     margin:0px
 }

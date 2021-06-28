@@ -88,6 +88,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     }
   };
 
+  const unalive = () => {
+    setAlive(false)
+  }
+
   useEffect(() => {
     let newWorld = new World();
     Object.assign(newWorld, world);
@@ -136,6 +140,27 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
         }}
       ></header>
 
+{alive && <div 
+              className='deathScreen'>
+                <h1>YOU DEAD KID</h1>
+                <p>Hint will go here</p>
+                <div className='deathButtons'>
+                    <button
+                      style={{
+                        backgroundColor:'blue'
+                      }}
+                      >Restart</button>
+                    <button
+                      style={{
+                        backgroundColor:'blue'
+                      }}>View Credits</button>
+                    <button
+                      style={{
+                        backgroundColor:'blue'
+                      }}>Cry about your death</button>
+                  </div>
+
+              </div>}
       <div
         style={{
           display: "flex",
@@ -436,6 +461,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             flexDirection: "column",
           }}
         >
+
           <canvas
             ref={canvasRef}
             width={width * tilesize * 1}
@@ -448,6 +474,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               borderColor: "white",
             }}
           ></canvas>
+
         </div>
 
         <div
