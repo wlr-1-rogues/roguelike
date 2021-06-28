@@ -6,6 +6,9 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Player from "./Player";
 import Blastwave from "./Blastwave";
+import Explosion from './assets/sounds/fireExplosion.mp3'
+
+const explosionSound = new Audio(Explosion)
 
 const blastwave = {
   name: "blastwave",
@@ -235,6 +238,8 @@ class World {
           let endY = y - 2;
 
           this.add(new Blastwave(x - 1, y - 1, this.tilesize, blastwave));
+          explosionSound.play()
+
 
           for (let xCoord = startX; xCoord < endX; xCoord++) {
             for (let yCoord = startY; yCoord > endY; yCoord--) {
