@@ -4,9 +4,9 @@ import Demon1 from './assets/uf_heroes/demon_red_1.png';
 import Demon2 from './assets/uf_heroes/demon_red_2.png';
 import Demon3 from './assets/uf_heroes/demon_red_3.png';
 
-import Dragon1 from './assets/uf_heroes/dragon_blue_1.png';
-import Dragon2 from './assets/uf_heroes/dragon_blue_2.png';
-import Dragon3 from './assets/uf_heroes/dragon_blue_3.png';
+import Dragon1 from './assets/uf_heroes/dragon_red_1.png';
+import Dragon2 from './assets/uf_heroes/dragon_red_2.png';
+import Dragon3 from './assets/uf_heroes/dragon_red_3.png';
 
 import Golem1 from './assets/uf_heroes/golem_fire_1.png';
 import Golem2 from './assets/uf_heroes/golem_fire_2.png';
@@ -24,9 +24,9 @@ import Torturer1 from './assets/uf_heroes/warden_1.png';
 import Torturer2 from './assets/uf_heroes/warden_2.png';
 import Torturer3 from './assets/uf_heroes/warden_3.png';
 
-import Zombie1 from './assets/uf_heroes/zombie_a_1.png';
-import Zombie2 from './assets/uf_heroes/zombie_a_2.png';
-import Zombie3 from './assets/uf_heroes/zombie_a_3.png';
+import Zombie1 from './assets/uf_heroes/zombie_b_1.png';
+import Zombie2 from './assets/uf_heroes/zombie_b_2.png';
+import Zombie3 from './assets/uf_heroes/zombie_b_3.png';
 
 import Snake1 from './assets/uf_heroes/snake_1.png';
 import Snake2 from './assets/uf_heroes/snake_2.png';

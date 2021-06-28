@@ -12,7 +12,7 @@ class Player extends Entity {
       spriteSheet: "itemAtlas",
       spriteSheetCoordinates: {
         y: 48,
-        x: 288,
+        x: 0,
       },
     },
   ];

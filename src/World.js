@@ -376,6 +376,7 @@ class World {
             }
 
             if (entityAtLocation instanceof Loot) {
+              this.addToHistory(`${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`)
               this.remove(entityAtLocation);
             }
 
