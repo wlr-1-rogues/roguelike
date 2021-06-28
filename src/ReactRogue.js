@@ -14,7 +14,7 @@ import LP from "./cssSheets/LP.css";
 import EquippedItems from "./EquippedItems";
 
 const hadoukenAudio = new Audio(Hadouken);
-hadoukenAudio.volume = 0.5;
+hadoukenAudio.volume = 0.25;
 const itemPickup = new Audio(ItemPickup);
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {

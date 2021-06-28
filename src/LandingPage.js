@@ -76,12 +76,7 @@ const LandingPage = (props) => {
             {showControls &&
                 <div className='controlsPage'>
                     <div className='controls'>Controls</div>
-                {/* <div className='playerPic'>
 
-                    <div>Big pic</div>
-                    <div>Small pic</div>
-                </div> */}
-                {/* <div className='divider'></div> */}
                 <div className='instructions'>
                     <div className='controlText'>To move, press</div>
                         <div className='allArrows'>
