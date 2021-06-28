@@ -313,6 +313,9 @@ class World {
 
   movePlayer(dx, dy) {
     let tempPlayer = this.player.copyPlayer();
+    if (tempPlayer.inspecting[0]?.pos === null) {
+      return this.addToHistory('make a decision on your new item before moving!')
+    }
     tempPlayer.move(dx, dy);
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
     if (entity && !(entity instanceof Blood)) {

@@ -39,6 +39,7 @@ class Player extends Entity {
   };
 
   move(dx, dy) {
+    const [inspecting] = this.inspecting;
     if (this.attributes.health <= 0) return;
     this.x += dx;
     this.y += dy;

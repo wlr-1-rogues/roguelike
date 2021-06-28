@@ -83,6 +83,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
 
     if (action === "inspect" || action === "inspectE") {
       setWorld(newWorld);
+    } else if (action === "move" && world.player.inspecting[0]?.pos === null) {
+      setWorld(newWorld);
     } else {
       newWorld.moveProjectiles();
       newWorld.moveMonsters();
@@ -96,7 +98,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(6);
+    spawner.spawnLoot(60);
     spawner.spawnMonsters(100);
     spawner.spawnStairs();
     setWorld(newWorld);
