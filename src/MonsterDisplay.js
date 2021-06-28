@@ -124,10 +124,20 @@ function MonsterDisplay(props) {
 
     return (
 
-        <div>
+        <div className='fullMonsterBox'
+            style={{
+                margin:'0px',
+                padding:'0px'
+            }}
+        >
 
             {visibleMonsters[0] ?
-                <div >
+                <div
+                    style={{
+                        display:'flex',
+                        flexDirection:'column',
+                    }}
+                >
                     {visibleMonsters.length > 1 ?
                         <div className="button-container">
                             <button className="focus-button" style={{ color: 'black' }} onClick={() => { changeMonsterFocus(-1) }}>Previous</button>
@@ -138,6 +148,7 @@ function MonsterDisplay(props) {
 
                     {/* <br /> */}
                     <h1 className="monster-name">{visibleMonsters[monsterIndex].attributes.name}</h1>
+
                     <div className="portrait-flavor">
 
                         <div className="portrait-image">
@@ -183,7 +194,11 @@ function MonsterDisplay(props) {
                         </div>
 
 
-                        <div className="flavortext-box">
+                        <div className="flavortext-box"
+                            style={{
+                                minHeight:'125px',
+                            }}
+                        >
                             <p><em>{visibleMonsters[monsterIndex].attributes.flavortext}</em></p>
                         </div>
                     </div>
@@ -204,14 +219,17 @@ function MonsterDisplay(props) {
                     <section
                         style={{
                             display: "flex",
-                            height: "4vh",
-                            width: `250px`,
+                            textAlign:'center',
+                            alignSelf:'center',
+                            height: "3vh",
+                            width: `375px`,
                             borderStyle: "solid",
                             borderColor: "black",
                             marginTop: "1vh",
                             marginBottom: "1vh",
-                            backgroundColor: "grey",
+                            backgroundColor: "gray",
                             zIndex: 1,
+
                         }}
                     >
                         <section
@@ -221,23 +239,22 @@ function MonsterDisplay(props) {
                                 backgroundColor: "green",
                                 zIndex: 2,
                                 textAlign: "center",
+                                alignSelf:'center',
                                 color: "white",
                             }}
                         >
-                            <section
-                                style={{
-                                    minWidth: "6.25vw",
-                                }}
-                            >
-                                HP: {visibleMonsters[monsterIndex].attributes.health}
-                            </section>
+                        <p className="chance-text">HP: {visibleMonsters[monsterIndex].attributes.health}</p>
+
                         </section>
                     </section>
                     <section
                         style={{
                             display: "flex",
-                            height: "4vh",
-                            width: `250px`,
+                            flexDirection:'center',
+                            justifySelf:'center',
+                            alignSelf:'center',
+                            height: "3vh",
+                            width: `375px`,
                             borderStyle: "solid",
                             borderColor: "black",
                             marginTop: "1vh",
@@ -262,8 +279,9 @@ function MonsterDisplay(props) {
                     <section
                         style={{
                             display: "flex",
-                            height: "4vh",
-                            width: `250px`,
+                            alignSelf:'center',
+                            height: "3vh",
+                            width: `375px`,
                             borderStyle: "solid",
                             borderColor: "black",
                             marginTop: "1vh",
@@ -285,13 +303,12 @@ function MonsterDisplay(props) {
                             <p className="chance-text">Attack Power</p>
                         </section>
                     </section>
-                    <h2></h2>
-
                     <section
                         style={{
                             display: "flex",
-                            height: "4vh",
-                            width: `250px`,
+                            height: "3vh",
+                            width: `375px`,
+                            alignSelf:'center',
                             borderStyle: "solid",
                             borderColor: "black",
                             marginTop: "1vh",
@@ -300,6 +317,7 @@ function MonsterDisplay(props) {
                             zIndex: 1,
                         }}
                     >
+                        <p className="chance-text">Chance to Hit Player: {Math.floor(calculateChanceToHit(visibleMonsters[monsterIndex].attributes.attack))}%</p>
                         <section
                             style={{
                                 height: "100%",
@@ -310,7 +328,6 @@ function MonsterDisplay(props) {
                                 color: "white",
                             }}
                         >
-                            <p className="chance-text">Chance to Hit Player: {Math.floor(calculateChanceToHit(visibleMonsters[monsterIndex].attributes.attack))}%</p>
                         </section>
                     </section>
 
