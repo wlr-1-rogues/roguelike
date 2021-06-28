@@ -180,7 +180,7 @@ const tier1MonsterTable = [
     defense: 4,
     damage: 1,
     flavortext:
-      "The remains of another adventurer like yourself, brought to life by some dark magic.",
+      "The remains of an adventurer like yourself, brought to life by dark magic.",
     health: 18,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
@@ -203,7 +203,7 @@ const tier1MonsterTable = [
   },
   {
     name: "Goblin",
-    flavortext: "A goblin holding a rusty knife.",
+    flavortext: "A goblin holding a rusty iron dagger.",
     attack: 4,
     defense: 7,
     damage: 2,
