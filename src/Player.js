@@ -1,10 +1,21 @@
 import Entity from "./Entity";
-import ItemPickup from './assets/sounds/itemPickup.mp3'
+import ItemPickup from "./assets/sounds/itemPickup.mp3";
 
-const itemPickup = new Audio(ItemPickup)
+const itemPickup = new Audio(ItemPickup);
 
 class Player extends Entity {
-  inventory = [];
+  inventory = [
+    {
+      name: "Tome of Fireball",
+      class: "tome",
+      mod1: 10,
+      spriteSheet: "itemAtlas",
+      spriteSheetCoordinates: {
+        y: 48,
+        x: 0,
+      },
+    },
+  ];
   inspecting = [];
   left = [];
   right = [];
@@ -41,7 +52,7 @@ class Player extends Entity {
       // working inspect before adding to inventory
       // 0 (48) in InputManager will handle adding new item to inventory
       // this.inspecting.push({item: item.attributes});
-      itemPickup.play()
+      itemPickup.play();
       return `picked up ${item.attributes.name}`;
     }
   }
@@ -266,8 +277,8 @@ class Player extends Entity {
 
   drop() {
     const [inspecting] = this.inspecting;
-    const { item } = inspecting;
     if (!inspecting) return "inspect and item first!";
+    const { item } = inspecting;
     if (typeof inspecting?.pos === "string") {
       if (item.class === "weapon") {
         this.attributes.attack -= item.mod1;
