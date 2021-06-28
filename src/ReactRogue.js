@@ -9,6 +9,7 @@ import World from "./World";
 import Fireball from "./Fireball";
 import Hadouken from "./assets/sounds/hadouken.mp3";
 import ItemPickup from "./assets/sounds/itemPickup.mp3";
+import SadSpidey from './assets/sadSpidey.gif'
 import LP from "./cssSheets/LP.css";
 
 import EquippedItems from "./EquippedItems";
@@ -21,6 +22,17 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
 
   const [alive, setAlive] = useState(true);
+  const [credits, setCredits] = useState(false);
+  const [crying, setCrying] = useState(false)
+
+  const displayCredits = () => {
+    setCredits(!credits)
+  }
+
+  const startCrying = () => {
+    setCrying(!crying)
+  }
+
   const [world, setWorld] = useState(
     new World(width, height, tilesize, atlases, 1)
   );
@@ -102,15 +114,13 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     }
   };
 
-  const unalive = () => {
-    setAlive(false)
-  }
+
 
   useEffect(() => {
     if (world.player.attributes.alive === false){
       setAlive(false)
     }
-  }, [setAlive])
+  }, [world, setAlive])
 
   useEffect(() => {
     let newWorld = new World();
@@ -140,6 +150,12 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     world.drawTopLayer(ctx);
   });
 
+  const refreshPage = () => {
+    window.location.reload()
+  }
+
+
+
   return (
     <div
       style={{
@@ -160,27 +176,67 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
         }}
       ></header>
 
-{!alive && <div 
-              className='deathScreen'>
-                <h1>YOU DEAD KID</h1>
-                <p>Hint will go here</p>
-                <div className='deathButtons'>
-                    <button
-                      style={{
-                        backgroundColor:'blue'
-                      }}
-                      >Restart</button>
-                    <button
-                      style={{
-                        backgroundColor:'blue'
-                      }}>View Credits</button>
-                    <button
-                      style={{
-                        backgroundColor:'blue'
-                      }}>Cry about your death</button>
-                  </div>
+      {!alive && <div 
+        className='deathScreen'>
+          {!credits && !crying && <p className='deathText'>YOU DEAD, KID</p>}
+          {!credits && !crying && <p className='deathHint'>Hint will go here</p>}
+          {!credits && !crying && <div className='deathButtons'>
+              <div className='deathButton'
+                onClick={() => refreshPage()}
+                >~Restart~</div>
+              <div
+                 className='deathButton'
+                 onClick={() => displayCredits()}
+                 >~View Credits~</div>
+              <div
+                 className='deathButton'
+                 onClick={() => startCrying()}
+                 >~Cry~</div>
+            </div>}
+            
+            {credits && <div>
+              data
+              <br></br>
+              data
+              <br></br>
+              data
+              <br></br>
+              data
+              <br></br>
+              data
+              <br></br>
+              <br></br>
+              <br></br>
+              <div
+                className='creditsButton'
+                onClick={() => displayCredits()}>~Go Back~</div>
+            </div>}
 
+            {crying && <div
+              style={{
+                // display:'flex',
+                // flexDirection:'column',
+                // justifyContent:'center',
+                // justifyItems:'center',
+                // width:'80%',
+              }}
+            >
+              
+              <img src='https://media1.tenor.com/images/4dd2ef38974816b322689b443f0bf435/tenor.gif?itemid=4535637' 
+              alt='Sad Spidey Gif' 
+              style={{
+                width:'300',
+                height:'300',
+              }}
+              />
+
+              <div 
+              className='cryButton'
+              onClick={() => startCrying()}>~Back~</div>
               </div>}
+
+          </div>}
+     
       <div
         style={{
           display: "flex",
