@@ -24,9 +24,11 @@ class Player extends Entity {
 
   attributes = {
     // name: "Player",
+    preparation: false,
     attack: 0,
     defense: 14,
     damage: 3,
+    moveEvasion: false,
     block: 0,
     maxHealth: 50,
     health: 50,
@@ -45,15 +47,13 @@ class Player extends Entity {
   }
 
   add(item) {
-    if (this.inventory.length === 5) {
-      return "inventory full!";
-    } else if (this.inspecting.length === 1) {
+    if (this.inspecting.length === 1) {
       this.inspecting.splice(0, 1);
-      this.inspecting.push({item: item.attributes, pos: null, entity: item});
+      this.inspecting.push({ item: item.attributes, pos: null, entity: item });
       itemPickup.play();
       return `looks like a ${item.attributes.name}`;
     } else {
-      this.inspecting.push({item: item.attributes, pos: null, entity: item});
+      this.inspecting.push({ item: item.attributes, pos: null, entity: item });
       itemPickup.play();
       return `looks like a ${item.attributes.name}`;
     }
@@ -62,16 +62,16 @@ class Player extends Entity {
   addN() {
     const [inspecting] = this.inspecting;
     if (inspecting?.pos === null && this.inventory.length < 5) {
-      const added = `added ${inspecting.item.name} to inventory`
+      const added = `added ${inspecting.item.name} to inventory`;
       this.inventory.push(inspecting.item);
       this.inspecting.splice(0, 1);
       return added;
     } else if (this.inventory.length >= 5) {
-      return "oh no! your inventory is full :("
+      return "inventory full!";
     } else if (!inspecting) {
-      return "pick up an item to inspect and add to your inventory"
+      return "pick up an item to inspect and add to your inventory";
     } else {
-      return "this item is already in your possession!"
+      return "this item is already in your possession!";
     }
   }
 
@@ -139,7 +139,7 @@ class Player extends Entity {
 
   equip() {
     const [inspecting] = this.inspecting;
-    console.log(inspecting)
+    console.log(inspecting);
     // if (inspecting?.pos === null) return "you must add to inventory before using this!"
     if (this.inspecting.length === 1) {
       const { item } = inspecting;
@@ -155,7 +155,7 @@ class Player extends Entity {
         this.attributes.damage += item.mod2;
         if (item.mod3) this.attributes.sightRadius += item.mod3;
         if (inspecting.pos === null) {
-          this.left.push(inspecting.item)
+          this.left.push(inspecting.item);
         } else {
           this.left.push(this.inventory[inspecting.pos]);
           this.inventory.splice(inspecting.pos, 1);
@@ -167,7 +167,7 @@ class Player extends Entity {
         this.attributes.damage += item.mod2;
         if (item.mod3) this.attributes.sightRadius += item.mod3;
         if (inspecting.pos === null) {
-          this.right.push(inspecting.item)
+          this.right.push(inspecting.item);
         } else {
           this.right.push(this.inventory[inspecting.pos]);
           this.inventory.splice(inspecting.pos, 1);
@@ -179,7 +179,7 @@ class Player extends Entity {
       } else if (item.class === "shield" && this.left.length === 0) {
         this.attributes.block += item.mod1;
         if (inspecting.pos === null) {
-          this.left.push(inspecting.item)
+          this.left.push(inspecting.item);
         } else {
           this.left.push(this.inventory[inspecting.pos]);
           this.inventory.splice(inspecting.pos, 1);
@@ -189,7 +189,7 @@ class Player extends Entity {
       } else if (item.class === "shield" && this.right.length === 0) {
         this.attributes.block += item.mod1;
         if (inspecting.pos === null) {
-          this.right.push(inspecting.item)
+          this.right.push(inspecting.item);
         } else {
           this.right.push(this.inventory[inspecting.pos]);
           this.inventory.splice(inspecting.pos, 1);
@@ -201,7 +201,7 @@ class Player extends Entity {
       } else if (item.class === "head" && this.head.length === 0) {
         this.attributes.defense += item.mod1;
         if (inspecting.pos === null) {
-          this.head.push(inspecting.item)
+          this.head.push(inspecting.item);
         } else {
           this.head.push(this.inventory[inspecting.pos]);
           this.inventory.splice(inspecting.pos, 1);
@@ -213,7 +213,7 @@ class Player extends Entity {
       } else if (item.class === "torso" && this.torso.length === 0) {
         this.attributes.defense += item.mod1;
         if (inspecting.pos === null) {
-          this.torso.push(inspecting.item)
+          this.torso.push(inspecting.item);
         } else {
           this.torso.push(this.inventory[inspecting.pos]);
           this.inventory.splice(inspecting.pos, 1);
