@@ -50,8 +50,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     }
     if (action === "move") {
       if (
-        inspecting?.item.name === "Tome of Fireball" &&
-        inspecting?.pos !== null
+        inspecting?.item.class === "tome"
+        // inspecting?.pos !== null
       ) {
         hadoukenAudio.play();
         let fireDirection = "up";

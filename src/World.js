@@ -207,7 +207,7 @@ class World {
         this.remove(inspecting?.entity);
       } else if (inspecting.item.class === "torso" && torso.length === 0) {
         this.remove(inspecting?.entity);
-      } else if (inspecting.item.class === "tome" || inspecting.item.class === "healthCon") {
+      } else if (inspecting.item.class === "healthCon") {
         this.remove(inspecting?.entity);
       }
     }
