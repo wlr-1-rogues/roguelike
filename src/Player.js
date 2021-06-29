@@ -16,7 +16,7 @@ class Player extends Entity {
       },
     },
     {
-      name: "Rock Pick",
+      name: "Rock Pick (5 uses)",
       class: "weapon",
       type: "rock pick",
       mod1: 0,
