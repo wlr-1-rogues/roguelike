@@ -385,22 +385,22 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               >
                 {world.player.left.map((item, index) => (
                   <p key={index} style={{ margin: 0 }}>
-                    6. {item.name}
+                    7. {item.name}
                   </p>
                 ))}
                 {world.player.right.map((item, index) => (
                   <p key={index} style={{ margin: 0 }}>
-                    7. {item.name}
+                    8. {item.name}
                   </p>
                 ))}
                 {world.player.head.map((item, index) => (
                   <p key={index} style={{ margin: 0 }}>
-                    8. {item.name}
+                    9. {item.name}
                   </p>
                 ))}
                 {world.player.torso.map((item, index) => (
                   <p key={index} style={{ margin: 0 }}>
-                    9. {item.name}
+                    0. {item.name}
                   </p>
                 ))}
                 </div>
