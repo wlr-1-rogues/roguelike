@@ -94,6 +94,8 @@ img{
 
 .deathHint{
     font-size: 150%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 .deathButtons{

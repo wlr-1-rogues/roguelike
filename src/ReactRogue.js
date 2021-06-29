@@ -11,6 +11,7 @@ import Hadouken from "./assets/sounds/hadouken.mp3";
 import ItemPickup from "./assets/sounds/itemPickup.mp3";
 import SadSpidey from './assets/sadSpidey.gif'
 import LP from "./cssSheets/LP.css";
+import hints from './Hints'
 
 import EquippedItems from "./EquippedItems";
 
@@ -23,7 +24,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
 
   const [alive, setAlive] = useState(true);
   const [credits, setCredits] = useState(false);
-  const [crying, setCrying] = useState(false)
+  const [crying, setCrying] = useState(false);
+  const [hintNum, setHintNum] = useState(1)
 
   const displayCredits = () => {
     setCredits(!credits)
@@ -31,6 +33,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
 
   const startCrying = () => {
     setCrying(!crying)
+  }
+
+  const randomHint = () => {
+    setHintNum(Math.floor(Math.random(12)))
   }
 
   const [world, setWorld] = useState(
@@ -58,6 +64,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     }
 
     if (alive === false) {
+      randomHint()
       return;
     }
     if (action === "move") {
@@ -181,7 +188,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       {!alive && <div 
         className='deathScreen'>
           {!credits && !crying && <p className='deathText'>YA DEAD, KID</p>}
-          {!credits && !crying && <p className='deathHint'>Hint will go here</p>}
+          {!credits && !crying && <p className='deathHint'>Hint: {hints[hintNum]}</p>}
           {!credits && !crying && <div className='deathButtons'>
               <div className='deathButton'
                 onClick={() => refreshPage()}
