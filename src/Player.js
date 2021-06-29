@@ -82,7 +82,7 @@ class Player extends Entity {
       this.inventory.push(inspecting.item);
       this.inspecting.splice(0, 1);
       if (inspecting.item.name === "Ring of Domination") {
-        this.attributes.spriteSheet = { y: 48, x: 288 };
+        this.attributes.spriteSheetCoordinates = { y: 48, x: 288 };
       }
       return added;
     } else if (this.inventory.length >= 6) {
