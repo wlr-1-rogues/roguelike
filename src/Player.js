@@ -77,12 +77,12 @@ class Player extends Entity {
 
   addN() {
     const [inspecting] = this.inspecting;
-    if (inspecting?.pos === null && this.inventory.length < 5) {
+    if (inspecting?.pos === null && this.inventory.length < 6) {
       const added = `added ${inspecting.item.name} to inventory`;
       this.inventory.push(inspecting.item);
       this.inspecting.splice(0, 1);
       return added;
-    } else if (this.inventory.length >= 5) {
+    } else if (this.inventory.length >= 6) {
       return "inventory full!";
     } else if (!inspecting) {
       return "pick up an item to inspect and add to your inventory";
@@ -279,7 +279,7 @@ class Player extends Entity {
       const unequip = `you unequip the ${item.name}`;
       if (typeof inspecting?.pos === "string") {
         // WEAPONS
-        if (item.class === "weapon" && this.inventory.length < 5) {
+        if (item.class === "weapon" && this.inventory.length < 6) {
           this.attributes.attack -= item.mod1;
           this.attributes.damage -= item.mod2;
           if (item.mod3) this.attributes.sightRadius -= item.mod3;
@@ -296,7 +296,7 @@ class Player extends Entity {
           return unequip;
 
           // SHIELDS
-        } else if (item.class === "shield" && this.inventory.length < 5) {
+        } else if (item.class === "shield" && this.inventory.length < 6) {
           this.attributes.block -= item.mod1;
 
           if (inspecting.pos === "left") {
@@ -311,7 +311,7 @@ class Player extends Entity {
           return unequip;
 
           // HEAD and TORSO
-        } else if (this.inventory.length < 5) {
+        } else if (this.inventory.length < 6) {
           this.attributes.defense -= item.mod1;
 
           if (inspecting.pos === "head") {
