@@ -83,7 +83,7 @@ class Monster extends Entity {
           world.player.attributes.health -= left.mod1 * 4;
           world.addToHistory(
             `your ${left.name} BURSTS INTO FLAME and you take ${
-              left.mod1 * 2
+              left.mod1 * 4
             } damage`
           );
           if (world.player.inspecting[0]?.pos === "left") {
@@ -105,7 +105,7 @@ class Monster extends Entity {
           world.player.attributes.health -= right.mod1 * 4;
           world.addToHistory(
             `your ${right.name} BURSTS INTO FLAME and you take ${
-              right.mod1 * 2
+              right.mod1 * 4
             } damage`
           );
           if (world.player.inspecting[0]?.pos === "right") {
