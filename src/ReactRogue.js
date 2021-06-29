@@ -195,17 +195,22 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             </div>}
             
             {credits && <div>
-              data
+              Program Developers
               <br></br>
-              data
-              <br></br>
-              data
-              <br></br>
-              data
-              <br></br>
-              data
+              Alex Stapp  Kyle Baugh  Steven Clark  Trevor Martin
               <br></br>
               <br></br>
+              Sprites/Tileset
+              <br></br>
+              (C)2018 ORYX DESIGN LAB
+              <br></br>
+              <br></br>
+              Audio
+              <br></br>
+              asdf
+              <br></br>
+              <br></br>
+              Mixkit.co  
               <br></br>
               <div
                 className='creditsButton'
