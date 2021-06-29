@@ -522,7 +522,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                           marginBottom: "0%",
                         }}
                       >
-                        Add: "T", Use: "E", Destroy ; "G"
+                        Add: "T", Use: "E", Destroy: "G"
                         {/* Press "T" to add to inventory, "E" to drink, or "G" to
                         destroy */}
                       </p>
