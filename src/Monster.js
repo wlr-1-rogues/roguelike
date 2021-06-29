@@ -158,7 +158,14 @@ class Monster extends Entity {
       // end of curse
 
       if (+pAttackMod >= this.attributes.defense) {
-        if (playerAttackRoll === 20) {
+        let deadyBonus = 0;
+        if (world.player.left[0]?.status === "deadly") deadyBonus += 1;
+        if (world.player.right[0]?.status === "deadly") deadyBonus += 1;
+        if (world.player.head[0]?.status === "deadly") deadyBonus += 1;
+        if (world.player.torso[0]?.status === "deadly") deadyBonus += 1;
+        console.log("deadyBonus", deadyBonus);
+
+        if (playerAttackRoll + deadyBonus >= 20) {
           world.addToHistory(
             `PLAYER CRITICAL HITS FOR ${
               world.player.attributes.damage * 2
@@ -201,60 +208,94 @@ class Monster extends Entity {
       }
     }
     if (verb === "monsterBump") {
-      monsterAttackRoll = combatRoll(20);
-      mAttackMod = monsterAttackRoll += this.attributes.attack;
+      let spikeBonus = 0;
+      if (world.player.left[0]?.status === "spiky") spikeBonus += 1;
+      if (world.player.right[0]?.status === "spiky") spikeBonus += 1;
+      if (world.player.head[0]?.status === "spiky") spikeBonus += 1;
+      if (world.player.torso[0]?.status === "spiky") spikeBonus += 1;
+      console.log("spikebonus", spikeBonus);
 
-      world.addToHistory(`${this.attributes.name} attacks Player!`);
+      if (spikeBonus > 0) {
+        this.attributes.health -= spikeBonus;
+        world.addToHistory(
+          `${this.attributes.name} was poked by spikes and has ${this.attributes.health} health remaining!`
+        );
+      }
 
-      if (+mAttackMod >= world.player.attributes.defense) {
-        if (monsterAttackRoll === 20) {
-          world.addToHistory(
-            `${this.attributes.name}  CRITICAL HITS FOR ${
-              this.attributes.damage * 2
-            } DAMAGE!`
-          );
-          let unblocked =
-            this.attributes.damage - world.player.attributes.block < 0
-              ? 0
-              : this.attributes.damage * 2 - world.player.attributes.block;
-
-          world.player.attributes.health -= unblocked;
-        } else {
-          world.addToHistory(
-            `${this.attributes.name} attacks for ${this.attributes.damage} damage!`
-          );
-          let unblocked =
-            this.attributes.damage - world.player.attributes.block < 0
-              ? 0
-              : this.attributes.damage - world.player.attributes.block;
-
-          world.player.attributes.health -= unblocked;
-
-          unblocked > 0
-            ? world.addToHistory(
-                `You were able to block ${
-                  this.attributes.damage - unblocked
-                } damage.`
-              )
-            : world.addToHistory(
-                `You blocked you blocked their attack completely!`
-              );
+      if (this.attributes.health <= 0) {
+        world.addToHistory(
+          `${this.attributes.name} was poked by spikes and dies!`
+        );
+        world.removeHit();
+        world.add(new Blood(this.x, this.y, this.tilesize, blood));
+        gore.play();
+        let dropRoll = Math.random();
+        if (dropRoll < 0.2 || world.tier === "boss") {
+          world.addToHistory(`${this.attributes.name} drops an item!`);
+          let spawner = new Spawner(world);
+          spawner.spawnLootAt(this.x, this.y);
         }
 
-        if (world.player.attributes.health <= 0) {
-          world.addToHistory("You have died");
-          world.entities[0].attributes.spriteSheetCoordinates =
-            tombstone.spriteSheetCoordinates;
-          world.entities[0].attributes.spriteSheet = tombstone.spriteSheet;
-          world.player.attributes.alive = false
-          humanDeathAudio.play();
-        } else {
-          world.addToHistory(
-            `You have ${world.player.attributes.health} health remaining!`
-          );
-        }
+        world.remove(this);
+        return;
       } else {
-        world.addToHistory(`${this.attributes.name}'s attack missed!`);
+        //they didn't die from spikes so they can attack
+
+        monsterAttackRoll = combatRoll(20);
+        mAttackMod = monsterAttackRoll += this.attributes.attack;
+
+        world.addToHistory(`${this.attributes.name} attacks Player!`);
+
+        if (+mAttackMod >= world.player.attributes.defense) {
+          if (monsterAttackRoll === 20) {
+            world.addToHistory(
+              `${this.attributes.name}  CRITICAL HITS FOR ${
+                this.attributes.damage * 2
+              } DAMAGE!`
+            );
+            let unblocked =
+              this.attributes.damage - world.player.attributes.block < 0
+                ? 0
+                : this.attributes.damage * 2 - world.player.attributes.block;
+
+            world.player.attributes.health -= unblocked;
+          } else {
+            world.addToHistory(
+              `${this.attributes.name} attacks for ${this.attributes.damage} damage!`
+            );
+            let unblocked =
+              this.attributes.damage - world.player.attributes.block < 0
+                ? 0
+                : this.attributes.damage - world.player.attributes.block;
+
+            world.player.attributes.health -= unblocked;
+
+            unblocked > 0
+              ? world.addToHistory(
+                  `You were able to block ${
+                    this.attributes.damage - unblocked
+                  } damage.`
+                )
+              : world.addToHistory(
+                  `You blocked you blocked their attack completely!`
+                );
+          }
+
+          if (world.player.attributes.health <= 0) {
+            world.addToHistory("You have died");
+            world.entities[0].attributes.spriteSheetCoordinates =
+              tombstone.spriteSheetCoordinates;
+            world.entities[0].attributes.spriteSheet = tombstone.spriteSheet;
+            world.player.attributes.alive = false;
+            humanDeathAudio.play();
+          } else {
+            world.addToHistory(
+              `You have ${world.player.attributes.health} health remaining!`
+            );
+          }
+        } else {
+          world.addToHistory(`${this.attributes.name}'s attack missed!`);
+        }
       }
     }
   }

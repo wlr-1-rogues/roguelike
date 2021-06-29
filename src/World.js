@@ -192,16 +192,22 @@ class World {
   }
 
   equipItem() {
-    const [inspecting] = this.player.inspecting
-    const {left} = this.player
-    const {right} = this.player
-    const {head} = this.player
-    const {torso} = this.player
+    const [inspecting] = this.player.inspecting;
+    const { left } = this.player;
+    const { right } = this.player;
+    const { head } = this.player;
+    const { torso } = this.player;
     let tempPlayer = this.player.copyPlayer();
     if (inspecting?.pos === null) {
-      if (inspecting.item.class === "weapon" && left.length === 0 || inspecting.item.class === "shield" && left.length === 0) {
+      if (
+        (inspecting.item.class === "weapon" && left.length === 0) ||
+        (inspecting.item.class === "shield" && left.length === 0)
+      ) {
         this.remove(inspecting?.entity);
-      } else if (inspecting.item.class === "weapon" && right.length === 0 || inspecting.item.class === "shield" && right.length === 0) {
+      } else if (
+        (inspecting.item.class === "weapon" && right.length === 0) ||
+        (inspecting.item.class === "shield" && right.length === 0)
+      ) {
         this.remove(inspecting?.entity);
       } else if (inspecting.item.class === "head" && head.length === 0) {
         this.remove(inspecting?.entity);
@@ -437,7 +443,8 @@ class World {
 
   addNew() {
     let tempPlayer = this.player.copyPlayer();
-    if (this.player.inventory.length < 6) this.remove(this.player.inspecting[0]?.entity);
+    if (this.player.inventory.length < 6)
+      this.remove(this.player.inspecting[0]?.entity);
     this.addToHistory(tempPlayer.addN());
   }
 
@@ -463,7 +470,15 @@ class World {
       let distance = Math.sqrt(
         (monster.x - player.x) ** 2 + (monster.y - player.y) ** 2
       );
-      if (distance < 6) {
+
+      let stealthBonus = 0;
+      if (this.player.left[0]?.status === "stealthy") stealthBonus += 1;
+      if (this.player.right[0]?.status === "stealthy") stealthBonus += 1;
+      if (this.player.head[0]?.status === "stealthy") stealthBonus += 1;
+      if (this.player.torso[0]?.status === "stealthy") stealthBonus += 1;
+      console.log("stealth bonus", stealthBonus);
+
+      if (distance < 6 - stealthBonus) {
         let astar = new Path.AStar(
           monster.x,
           monster.y,

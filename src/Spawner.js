@@ -410,6 +410,7 @@ class Spawner {
 
     let itemIndex = getRandomInt(currentLootTable.length);
     let qualityRoll = Math.random();
+    let enchantmentRoll = Math.random();
 
     let spawnedItem = { ...currentLootTable[itemIndex] };
 
@@ -427,13 +428,28 @@ class Spawner {
       //it's damaged
       spawnedItem.name = `Dingy ${spawnedItem.name}`;
       spawnedItem.mod1 = spawnedItem.mod1 === 1 ? 1 : spawnedItem.mod1 - 1;
-    } else if (qualityRoll > 0.9 && isEquipment) {
-      //it's cursed
+    } else {
+      //it's regular
+    }
+
+    if (enchantmentRoll > 0.9 && isEquipment) {
       spawnedItem.name = `Cursed ${spawnedItem.name}`;
       spawnedItem.mod1 *= 2;
       spawnedItem.status = "cursed";
+    } else if (enchantmentRoll > 0.7 && isEquipment) {
+      //it's spiky
+      spawnedItem.name = `Spiky ${spawnedItem.name}`;
+      spawnedItem.status = "spiky";
+    } else if (enchantmentRoll > 0.5 && isEquipment) {
+      //it's stealthy
+      spawnedItem.name = `Stealthy ${spawnedItem.name}`;
+      spawnedItem.status = "stealthy";
+    } else if (enchantmentRoll > 0.3 && isEquipment) {
+      //it's deadly
+      spawnedItem.name = `Deadly ${spawnedItem.name}`;
+      spawnedItem.status = "deadly";
     } else {
-      //it's regular
+      //it's normal
     }
 
     let loot = new Loot(x, y, this.world.tilesize, spawnedItem);
