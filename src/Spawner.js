@@ -436,15 +436,15 @@ class Spawner {
       spawnedItem.name = `Cursed ${spawnedItem.name}`;
       spawnedItem.mod1 *= 2;
       spawnedItem.status = "cursed";
-    } else if (enchantmentRoll > 0.7) {
+    } else if (enchantmentRoll > 0.7 && isEquipment) {
       //it's spiky
       spawnedItem.name = `Spiky ${spawnedItem.name}`;
       spawnedItem.status = "spiky";
-    } else if (enchantmentRoll > 0.5) {
+    } else if (enchantmentRoll > 0.5 && isEquipment) {
       //it's stealthy
       spawnedItem.name = `Stealthy ${spawnedItem.name}`;
       spawnedItem.status = "stealthy";
-    } else if (enchantmentRoll > 0.3) {
+    } else if (enchantmentRoll > 0.3 && isEquipment) {
       //it's deadly
       spawnedItem.name = `Deadly ${spawnedItem.name}`;
       spawnedItem.status = "deadly";

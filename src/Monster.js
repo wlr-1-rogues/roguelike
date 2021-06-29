@@ -215,7 +215,12 @@ class Monster extends Entity {
       if (world.player.torso[0]?.status === "spiky") spikeBonus += 1;
       console.log("spikebonus", spikeBonus);
 
-      this.attributes.health -= spikeBonus;
+      if (spikeBonus > 0) {
+        this.attributes.health -= spikeBonus;
+        world.addToHistory(
+          `${this.attributes.name} was poked by spikes and has ${this.attributes.health} health remaining!`
+        );
+      }
 
       if (this.attributes.health <= 0) {
         world.addToHistory(
@@ -234,10 +239,6 @@ class Monster extends Entity {
         world.remove(this);
         return;
       } else {
-        world.addToHistory(
-          `${this.attributes.name} was poked by spikes and has ${this.attributes.health} health remaining!`
-        );
-
         //they didn't die from spikes so they can attack
 
         monsterAttackRoll = combatRoll(20);
