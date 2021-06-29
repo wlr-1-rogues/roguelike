@@ -130,7 +130,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       setAlive(false)
     }
     randomHint(12)
-    console.log(hintNum)
   }, [world, setAlive])
 
   useEffect(() => {
@@ -190,7 +189,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       {!alive && <div 
         className='deathScreen'>
           {!credits && !crying && <p className='deathText'>YA DEAD, KID</p>}
-          {!credits && !crying && <p className='deathHint'>Hint: {hints[3]}</p>}
+          {!credits && !crying && <p className='deathHint'>Hint: {hints[hintNum]}</p>}
           {!credits && !crying && <div className='deathButtons'>
               <div className='deathButton'
                 onClick={() => refreshPage()}
