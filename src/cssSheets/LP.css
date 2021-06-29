@@ -1,4 +1,6 @@
-
+*{
+    font-family: cursive;
+}
 
 .landingPage{
     min-height: 100vh;
@@ -27,7 +29,7 @@
     flex-direction: row;
     text-align: center;
     padding-top: 10%;
-    font-family: Luminari;
+    font-family: cursive;    
     font-size: 5vh;
 }
 
@@ -41,7 +43,7 @@
     flex-direction: column;
     max-width: 42.5vw;
     text-align: center;
-    font-family: Luminari;
+    font-family: cursive;    
     margin-top: 7.5vh;
     font-size: 7.5vw;}
 
@@ -52,7 +54,7 @@
     cursor:pointer;
     min-width:20%;
     height:10vh;
-    font-family: Luminari;
+    font-family: cursive;    
     font-size: 8vh;
 }
 
@@ -91,12 +93,13 @@
 }
 
 .introScript{
-    font-size: 3.5vh;
+    font-size: 3vh;
 }
 
 .beginButton{
     align-self: center;
     font-size: 3.5vh;
+    font-family: cursive;
 }
 
 .beginButton:hover{
