@@ -26,6 +26,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const [credits, setCredits] = useState(false);
   const [crying, setCrying] = useState(false);
   const [hintNum, setHintNum] = useState(undefined);
+  const [winScreen, setWinScreen] = useState(false)
 
   const displayCredits = () => {
     setCredits(!credits);
@@ -141,7 +142,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     spawner.spawnMonsters(100);
     spawner.spawnStairs();
     setWorld(newWorld);
-  }, []);
+    if(world.showWinScreen === true){
+      setWinScreen(true)
+    }
+  }, [world.showWinScreen]);
 
   useEffect(() => {
     inputManager.bindKeys();
@@ -246,6 +250,12 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
           )}
         </div>
       )}
+
+      {winScreen && <div 
+        className='winScreen'
+        >
+          YOU WON, YOU CRAZY SON OF A GUNDARK
+        </div>}
 
       <div
         style={{

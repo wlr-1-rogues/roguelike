@@ -153,6 +153,20 @@ img{
     margin-top: -10%;
 }
 
+.winScreen{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align:center;
+    width: 45%;
+    height: 50%;
+    background-color: rgba(128, 128, 128, 0.851);
+    z-index: 9;
+    position: absolute;
+    top:15%;
+    left:27.25%;
+}
+
 html,body{
     margin:0px
 }

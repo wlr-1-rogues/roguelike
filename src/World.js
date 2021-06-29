@@ -20,6 +20,7 @@ const blastwave = {
   },
 };
 
+
 const hit = [
   {
     name: "hit",
@@ -56,9 +57,15 @@ class World {
 
     this.lastHit = { x: 0, y: 0 };
     this.didHit = false;
+    this.showWinScreen = false
 
     this.fov = new FOV.RecursiveShadowcasting(this.lightPasses.bind(this));
   }
+
+  showWin(){
+    this.showWinScreen = true
+  }
+  
 
   lightPasses(x, y) {
     if (x >= 0 && y >= 0 && y < this.height && x < this.width) {
