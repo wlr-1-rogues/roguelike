@@ -7,9 +7,11 @@ import Monster from "./Monster";
 import Player from "./Player";
 import Blastwave from "./Blastwave";
 import Explosion from "./assets/sounds/fireExplosion.mp3";
+import DigSound from './assets/sounds/digSound.mp3'
 
 const explosionSound = new Audio(Explosion);
 explosionSound.volume = 1;
+const digSound = new Audio(DigSound)
 
 const blastwave = {
   name: "blastwave",
@@ -19,6 +21,7 @@ const blastwave = {
     y: 24,
   },
 };
+
 
 const hit = [
   {
@@ -56,9 +59,15 @@ class World {
 
     this.lastHit = { x: 0, y: 0 };
     this.didHit = false;
+    this.showWinScreen = false
 
     this.fov = new FOV.RecursiveShadowcasting(this.lightPasses.bind(this));
   }
+
+  showWin(){
+    this.showWinScreen = true
+  }
+  
 
   lightPasses(x, y) {
     if (x >= 0 && y >= 0 && y < this.height && x < this.width) {
@@ -403,6 +412,7 @@ class World {
           ) {
             this.worldmap[tempPlayer.x][tempPlayer.y] = 0;
             left.charges -= 1;
+            digSound.play()
             this.addToHistory("Your Rock Pick is slightly bluntened");
             if (left.charges < 1) {
               this.player.attributes.attack -= left.mod1;

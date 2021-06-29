@@ -5,7 +5,9 @@ class Loot extends Entity {
     if (verb === "bump") {
       world.addToHistory(world.player.add(this));
       if (this.attributes.name === "Ring of Domination") {
-        alert("Congratulations! YOU WIN THE GAME");
+        world.showWin();
+        // alert("Congratulations! YOU WIN THE GAME");
+
       }
     }
 

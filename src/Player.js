@@ -41,7 +41,7 @@ class Player extends Entity {
     // name: "Player",
     preparation: false,
     alive: true,
-    attack: 0,
+    attack: 20,
     defense: 14,
     damage: 3,
     moveEvasion: false,
