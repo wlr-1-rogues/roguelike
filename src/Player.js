@@ -81,6 +81,9 @@ class Player extends Entity {
       const added = `added ${inspecting.item.name} to inventory`;
       this.inventory.push(inspecting.item);
       this.inspecting.splice(0, 1);
+      if (inspecting.item.name === "Ring of Domination") {
+        this.attributes.spriteSheet = { y: 48, x: 288 };
+      }
       return added;
     } else if (this.inventory.length >= 6) {
       return "inventory full!";
