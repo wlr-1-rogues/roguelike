@@ -82,8 +82,8 @@ const bossTable = [
     health: 200,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {
-      y: 384,
-      x: 336,
+      y: 48,
+      x: 288,
     },
   },
 ];
