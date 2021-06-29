@@ -1,7 +1,9 @@
 import Entity from "./Entity";
 import ItemPickup from "./assets/sounds/itemPickup.mp3";
+import ItemDrop from './assets/sounds/dropItem.wav'
 
 const itemPickup = new Audio(ItemPickup);
+const itemDrop = new Audio(ItemDrop)
 
 class Player extends Entity {
   inventory = [
@@ -353,15 +355,18 @@ class Player extends Entity {
         this.attributes.defense -= item.mod1;
       }
       const drop = `the ${inspecting.item.name} crumbles into dust...`;
+      itemDrop.play()
       this[inspecting?.pos].splice(inspecting.pos, 1);
       this.inspecting.splice(0, 1);
       return drop;
     } else if (inspecting?.pos === null) {
       const drop = `the ${inspecting.item.name} crumbles into dust...`;
+      itemDrop.play()
       this.inspecting.splice(0, 1);
       return drop;
     }
     const drop = `the ${inspecting.item.name} crumbles into dust...`;
+    itemDrop.play()
     this.inventory.splice(inspecting.pos, 1);
     this.inspecting.splice(0, 1);
     return drop;
