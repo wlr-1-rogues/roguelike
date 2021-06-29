@@ -79,11 +79,11 @@ class Monster extends Entity {
       // curse
       if (left?.status === "cursed") {
         let curseRoll = Math.random();
-        if (curseRoll < 0.05) {
+        if (curseRoll < 0.01) {
           world.player.attributes.health -= left.mod1 * 4;
           world.addToHistory(
             `your ${left.name} BURSTS INTO FLAME and you take ${
-              left.mod1 * 2
+              left.mod1 * 4
             } damage`
           );
           if (world.player.inspecting[0]?.pos === "left") {
@@ -101,11 +101,11 @@ class Monster extends Entity {
       }
       if (right?.status === "cursed") {
         let curseRoll = Math.random();
-        if (curseRoll < 0.05) {
+        if (curseRoll < 0.01) {
           world.player.attributes.health -= right.mod1 * 4;
           world.addToHistory(
             `your ${right.name} BURSTS INTO FLAME and you take ${
-              right.mod1 * 2
+              right.mod1 * 4
             } damage`
           );
           if (world.player.inspecting[0]?.pos === "right") {
@@ -123,7 +123,7 @@ class Monster extends Entity {
       }
       if (head?.status === "cursed") {
         let curseRoll = Math.random();
-        if (curseRoll < 0.05) {
+        if (curseRoll < 0.01) {
           world.player.attributes.health -= head.mod1 * 4;
           world.addToHistory(
             `your ${head.name} BURSTS INTO FLAME and you take ${
@@ -140,7 +140,7 @@ class Monster extends Entity {
       }
       if (torso?.status === "cursed") {
         let curseRoll = Math.random();
-        if (curseRoll < 0.05) {
+        if (curseRoll < 0.01) {
           world.player.attributes.health -= torso.mod1 * 4;
           world.addToHistory(
             `your ${torso.name} BURSTS INTO FLAME and you take ${

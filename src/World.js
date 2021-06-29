@@ -192,15 +192,36 @@ class World {
   }
 
   equipItem() {
+    const [inspecting] = this.player.inspecting
+    const {left} = this.player
+    const {right} = this.player
+    const {head} = this.player
+    const {torso} = this.player
     let tempPlayer = this.player.copyPlayer();
-    if (this.player.inspecting[0]?.pos === null)
-      this.remove(this.player.inspecting[0]?.entity);
+    if (inspecting?.pos === null) {
+      if (inspecting.item.class === "weapon" && left.length === 0 || inspecting.item.class === "shield" && left.length === 0) {
+        this.remove(inspecting?.entity);
+      } else if (inspecting.item.class === "weapon" && right.length === 0 || inspecting.item.class === "shield" && right.length === 0) {
+        this.remove(inspecting?.entity);
+      } else if (inspecting.item.class === "head" && head.length === 0) {
+        this.remove(inspecting?.entity);
+      } else if (inspecting.item.class === "torso" && torso.length === 0) {
+        this.remove(inspecting?.entity);
+      } else if (inspecting.item.class === "healthCon") {
+        this.remove(inspecting?.entity);
+      }
+    }
     this.addToHistory(tempPlayer.equip());
   }
 
   inspectEquip(item) {
     let tempPlayer = this.player.copyPlayer();
     tempPlayer.inspectE(item) && this.addToHistory(tempPlayer.inspectE(item));
+  }
+
+  uninspect() {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.uninspect();
   }
 
   unequipItem() {

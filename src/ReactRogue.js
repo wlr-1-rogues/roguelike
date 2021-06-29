@@ -62,7 +62,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     }
     if (action === "move") {
       if (
-        inspecting?.item.name === "Tome of Fireball" &&
+        inspecting?.item.class === "tome" &&
         inspecting?.pos !== null
       ) {
         hadoukenAudio.play();
@@ -88,7 +88,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       }
     } else if (action === "inspect") {
       newWorld.inspectItem(data);
-      
     } else if (action === "addN") {
       newWorld.addNew();
     } else if (action === "equip") {
@@ -96,6 +95,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       itemPickup.play();
     } else if (action === "inspectE") {
       newWorld.inspectEquip(data);
+    } else if (action === "uninspect") {
+      newWorld.uninspect();
     } else if (action === "unequip") {
       newWorld.unequipItem();
       itemPickup.play();
@@ -106,7 +107,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       newWorld.rest();
     }
 
-    if (action === "inspect" || action === "inspectE") {
+    if (action === "inspect" || action === "inspectE" || action === "uninspect") {
       setWorld(newWorld);
     } else {
       newWorld.moveProjectiles();

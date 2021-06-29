@@ -71,6 +71,9 @@ class InputManager {
       case 105:
         this.broadcast("inspectE", "torso");
         break;
+      case 27:
+        this.broadcast("uninspect")
+        break;
       case 69:
         this.broadcast("equip");
         break;
