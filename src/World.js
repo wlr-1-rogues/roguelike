@@ -363,14 +363,49 @@ class World {
       return;
     }
     if (this.isWall(tempPlayer.x, tempPlayer.y)) {
-      if (this.isWall(tempPlayer.x, tempPlayer.y)) {
-        if (
-          tempPlayer.x >= 0 &&
-          tempPlayer.y >= 0 &&
-          tempPlayer.y < this.height &&
-          tempPlayer.x < this.width
-        )
-          this.worldmap[tempPlayer.x][tempPlayer.y] = 0;
+      let [left] = this.player.left;
+      let [right] = this.player.right;
+
+      if (left) {
+        if (left.type === "rock pick") {
+          if (
+            tempPlayer.x >= 0 &&
+            tempPlayer.y >= 0 &&
+            tempPlayer.y < this.height &&
+            tempPlayer.x < this.width
+          ) {
+            this.worldmap[tempPlayer.x][tempPlayer.y] = 0;
+            left.charges -= 1;
+            this.addToHistory("Your Rock Pick is slightly bluntened");
+            if (left.charges < 1) {
+              this.player.attributes.attack -= left.mod1;
+              this.player.attributes.damage -= left.mod2;
+              this.player.left.pop();
+              this.addToHistory("Your Rock Pick breaks into pieces.");
+            }
+          }
+        }
+      }
+
+      if (right) {
+        if (right.type === "rock pick") {
+          if (
+            tempPlayer.x >= 0 &&
+            tempPlayer.y >= 0 &&
+            tempPlayer.y < this.height &&
+            tempPlayer.x < this.width
+          ) {
+            this.worldmap[tempPlayer.x][tempPlayer.y] = 0;
+            right.charges -= 1;
+            this.addToHistory("Your Rock Pick is slightly bluntened.");
+            if (right.charges < 1) {
+              this.player.attributes.attack -= right.mod1;
+              this.player.attributes.damage -= right.mod2;
+              this.player.right.pop();
+              this.addToHistory("Your Rock Pick breaks into pieces.");
+            }
+          }
+        }
       }
     } else {
       this.player.move(dx, dy);

@@ -8,8 +8,10 @@ const globalLoot = [
   {
     name: "Rock Pick",
     class: "weapon",
+    type: "rock pick",
     mod1: 0,
-    mod2: 3,
+    mod2: 2,
+    charges: 5,
     spriteSheet: "itemAtlas",
     spriteSheetCoordinates: {
       y: 96,
