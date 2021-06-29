@@ -11,6 +11,7 @@ import Hadouken from "./assets/sounds/hadouken.mp3";
 import ItemPickup from "./assets/sounds/itemPickup.mp3";
 import SadSpidey from './assets/sadSpidey.gif'
 import LP from "./cssSheets/LP.css";
+import hints from './Hints'
 
 import EquippedItems from "./EquippedItems";
 
@@ -23,7 +24,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
 
   const [alive, setAlive] = useState(true);
   const [credits, setCredits] = useState(false);
-  const [crying, setCrying] = useState(false)
+  const [crying, setCrying] = useState(false);
+  const [hintNum, setHintNum] = useState(undefined)
 
   const displayCredits = () => {
     setCredits(!credits)
@@ -31,6 +33,10 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
 
   const startCrying = () => {
     setCrying(!crying)
+  }
+
+  const randomHint = () => {
+    setHintNum(Math.floor(Math.random() * Math.floor(12)))
   }
 
   const [world, setWorld] = useState(
@@ -60,6 +66,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     if (alive === false) {
       return;
     }
+
     if (action === "move") {
       if (
         inspecting?.item.class === "tome" &&
@@ -122,6 +129,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     if (world.player.attributes.alive === false){
       setAlive(false)
     }
+    randomHint(12)
   }, [world, setAlive])
 
   useEffect(() => {
@@ -181,7 +189,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       {!alive && <div 
         className='deathScreen'>
           {!credits && !crying && <p className='deathText'>YA DEAD, KID</p>}
-          {!credits && !crying && <p className='deathHint'>Hint will go here</p>}
+          {!credits && !crying && <p className='deathHint'>Hint: {hints[hintNum]}</p>}
           {!credits && !crying && <div className='deathButtons'>
               <div className='deathButton'
                 onClick={() => refreshPage()}
@@ -223,15 +231,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 onClick={() => displayCredits()}>~Go Back~</div>
             </div>}
 
-            {crying && <div
-              style={{
-                // display:'flex',
-                // flexDirection:'column',
-                // justifyContent:'center',
-                // justifyItems:'center',
-                // width:'80%',
-              }}
-            >
+            {crying && <div>
               
               <img src='https://i.pinimg.com/originals/b2/79/66/b27966140db68d0621628f2309f8a443.gif' 
               alt='Sad Spidey Gif' 
