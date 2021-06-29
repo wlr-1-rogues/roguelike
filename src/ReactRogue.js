@@ -88,6 +88,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       }
     } else if (action === "inspect") {
       newWorld.inspectItem(data);
+      
     } else if (action === "addN") {
       newWorld.addNew();
     } else if (action === "equip") {
@@ -178,7 +179,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
 
       {!alive && <div 
         className='deathScreen'>
-          {!credits && !crying && <p className='deathText'>YOU DEAD, KID</p>}
+          {!credits && !crying && <p className='deathText'>YA DEAD, KID</p>}
           {!credits && !crying && <p className='deathHint'>Hint will go here</p>}
           {!credits && !crying && <div className='deathButtons'>
               <div className='deathButton'
@@ -197,7 +198,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             {credits && <div>
               Program Developers
               <br></br>
-              Alex Stapp  Kyle Baugh  Steven Clark  Trevor Martin
+              Kyle Baugh ~ Alex Stapp ~ Steven Clark ~ Trevor Martin
               <br></br>
               <br></br>
               Sprites/Tileset
@@ -207,10 +208,14 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               <br></br>
               Audio
               <br></br>
-              asdf
+              Sound Library ~ Hollywood Edge - Topic ~ Copopaxi TV  
               <br></br>
               <br></br>
-              Mixkit.co  
+              Visuals
+              <br></br>
+              Depoulaite ~ Mixkit.co ~ Gaming and God
+              <br></br>
+              <br></br>
               <br></br>
               <div
                 className='creditsButton'
@@ -365,32 +370,39 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             }}
           >
             <h3>Equipped Items</h3>
-            <div>
-              <EquippedItems world={world} atlases={atlases} />
-            </div>
+            
+            <div className="equippedItemsSection">
+              <div>
+                <EquippedItems world={world} atlases={atlases} />
+              </div>
 
-            <div>
-              {world.player.left.map((item, index) => (
-                <p key={index} style={{ margin: 0 }}>
-                  6. {item.name}
-                </p>
-              ))}
-              {world.player.right.map((item, index) => (
-                <p key={index} style={{ margin: 0 }}>
-                  7. {item.name}
-                </p>
-              ))}
-              {world.player.head.map((item, index) => (
-                <p key={index} style={{ margin: 0 }}>
-                  8. {item.name}
-                </p>
-              ))}
-              {world.player.torso.map((item, index) => (
-                <p key={index} style={{ margin: 0 }}>
-                  9. {item.name}
-                </p>
-              ))}
-              <p></p>
+              <div
+                style={{
+                  width:'60%',
+                  flexWrap:'wrap',
+                }}
+              >
+                {world.player.left.map((item, index) => (
+                  <p key={index} style={{ margin: 0 }}>
+                    6. {item.name}
+                  </p>
+                ))}
+                {world.player.right.map((item, index) => (
+                  <p key={index} style={{ margin: 0 }}>
+                    7. {item.name}
+                  </p>
+                ))}
+                {world.player.head.map((item, index) => (
+                  <p key={index} style={{ margin: 0 }}>
+                    8. {item.name}
+                  </p>
+                ))}
+                {world.player.torso.map((item, index) => (
+                  <p key={index} style={{ margin: 0 }}>
+                    9. {item.name}
+                  </p>
+                ))}
+                </div>
             </div>
           </div>
 
@@ -414,70 +426,117 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             >
               <div
                 style={{
-                  width: "80%",
+                  width: "95%",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
+                  // backgroundColor:'orange'
                 }}
               >
                 {inspecting.pos === null ? (
                   <>
-                    <h3>{inspecting.item.name} Readied!</h3>
+                    {/* <h3>{inspecting.item.name} Readied!</h3> */}
                     <h4 style={{ marginTop: "10px" }}>
                       Upon inspecting the {inspecting.item.name} you find...
                     </h4>
-                    {inspecting.item.class === "weapon" ? (
-                      <div>
-                        <p>Hit +{inspecting.item.mod1}</p>
-                        <p>Damage +{inspecting.item.mod2}</p>
-                      </div>
-                    ) : inspecting.item.class === "shield" ? (
-                      <p>Block +{inspecting.item.mod1}</p>
-                    ) : inspecting.item.class === "head" ||
-                      inspecting.item.class === "torso" ? (
-                      <p>Defense +{inspecting.item.mod1}</p>
-                    ) : inspecting.item.class === "healthCon" &&
-                      inspecting.item.mod2 ? (
-                      <div>
-                        <p>Health +{inspecting.item.mod1}</p>
-                        <p>Max Health +{inspecting.item.mod2}</p>
-                      </div>
-                    ) : inspecting.item.class === "healthCon" ? (
-                      <p>Health +{inspecting.item.mod1}</p>
-                    ) : inspecting.item.class === "shieldCon" ? (
-                      <p>Block +{inspecting.item.mod1}</p>
-                    ) : (
-                      <p>A dusty old tome with strange symbols</p>
-                    )}
+                    <div 
+                      className='inspectSection'
+                    >
+
                     <InspectSprite
                       atlas={atlases.itemAtlas}
                       item={inspecting.item}
-                    />
-                    {inspecting.item.name === "Tome of Fireball" ? (
-                      <p>Press "T" to add to inventory, or "G" to destroy</p>
+                      />
+                    {inspecting.item.class === "weapon" ? (
+                      <div>
+                        <p>Hit +{inspecting.item.mod1}
+                        <br></br>
+                        Damage +{inspecting.item.mod2}
+                        </p>
+                      </div>
+                    ) : inspecting.item.class === "shield" ? (
+                      <p>Block +{inspecting.item.mod1}</p>
+                      ) : inspecting.item.class === "head" ||
+                      inspecting.item.class === "torso" ? (
+                        <p>Defense +{inspecting.item.mod1}</p>
+                        ) : inspecting.item.class === "healthCon" &&
+                        inspecting.item.mod2 ? (
+                          <div>
+                        <p>Health +{inspecting.item.mod1}
+                        <br></br>
+                        Max Health +{inspecting.item.mod2}</p>
+                      </div>
                     ) : inspecting.item.class === "healthCon" ? (
-                      <p>
-                        Press "T" to add to inventory, "E" to drink, or "G" to
-                        destroy
+                      <p>Health +{inspecting.item.mod1}</p>
+                      ) : inspecting.item.class === "shieldCon" ? (
+                        <p>Block +{inspecting.item.mod1}</p>
+                        ) : (
+                          <p>A dusty old tome with strange symbols</p>
+                          )}
+
+                    </div>
+                    {inspecting.item.name === "Tome of Fireball" ? (
+                      <p
+                      style={{
+                        marginTop:'0%',
+                        marginBottom:'0%'
+                      }}
+                      >
+                        Add: "T", Destroy: "G"
+                        {/* Press "T" to add to inventory, or "G" to destroy */}
+                        </p>
+                      ) : inspecting.item.class === "healthCon" ? (
+                        <p
+                          style={{
+                            marginTop:'0%',
+                            marginBottom:'0%'
+                          }}
+                        >
+                        Add: "T", Use: "E", Destroy: "G"
+                        {/* Press "T" to add to inventory, "E" to drink, or "G" to
+                        destroy */}
                       </p>
                     ) : (
-                      <p>
-                        Press "T" to add to inventory, "E" to equip, or "G" to
-                        destroy
+                      <p
+                      style={{
+                        marginTop:'0%',
+                        marginBottom:'0%'
+                      }}
+                      >
+                        Add: "T", Use: "E", Destroy ; "G"
+                        {/* Press "T" to add to inventory, "E" to drink, or "G" to
+                        destroy */}
                       </p>
                     )}
                   </>
                 ) : (
-                  <>
-                    <h3>{inspecting.item.name} Readied!</h3>
+                  <div
+                    style={{
+                      width: "95%",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      // backgroundColor:'orange'
+                    }}
+                  >
+                    {/* <h3>{inspecting.item.name} Readied!</h3> */}
                     <h4 style={{ marginTop: "10px" }}>
                       Upon inspecting the {inspecting.item.name} you find...
                     </h4>
+
+                    <div className='inspectSection'>
+                      <InspectSprite
+                        atlas={atlases.itemAtlas}
+                        item={inspecting.item}
+                        />
+
                     {inspecting.item.class === "weapon" ? (
                       <div>
-                        <p>Hit +{inspecting.item.mod1}</p>
-                        <p>Damage +{inspecting.item.mod2}</p>
+                        <p>Hit +{inspecting.item.mod1}
+                        <br></br>
+                        Damage +{inspecting.item.mod2}</p>
                       </div>
                     ) : inspecting.item.class === "shield" ? (
                       <p>Block +{inspecting.item.mod1}</p>
@@ -487,8 +546,9 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                     ) : inspecting.item.class === "healthCon" &&
                       inspecting.item.mod2 ? (
                       <div>
-                        <p>Health +{inspecting.item.mod1}</p>
-                        <p>Max Health +{inspecting.item.mod2}</p>
+                        <p>Health +{inspecting.item.mod1}
+                        <br></br>
+                        Max Health +{inspecting.item.mod2}</p>
                       </div>
                     ) : inspecting.item.class === "healthCon" ? (
                       <p>Health +{inspecting.item.mod1}</p>
@@ -497,21 +557,45 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                     ) : (
                       <p>A dusty old tome with strange symbols</p>
                     )}
-                    <InspectSprite
-                      atlas={atlases.itemAtlas}
-                      item={inspecting.item}
-                    />
+                    </div>  
 
                     {typeof inspecting.pos === "string" ? (
-                      <p>Press "Q" to unequip, or "G" to destroy</p>
+                      <p
+                      style={{
+                        marginTop:'0%',
+                        marginBottom:'0%'
+                      }}
+                      >
+                        Unequip: "Q", Destroy: "G"
+                        {/* Press "Q" to unequip, or "G" to destroy */}
+                        </p>
                     ) : inspecting.item.name === "Tome of Fireball" ? (
-                      <p>Press a direction to cast, or "G" to destroy</p>
+                      <p>
+                          Fire: Press any direction, Destroy: "G"
+                          {/* Press a direction to cast, or "G" to destroy */}
+                        </p>
                     ) : inspecting.item.class === "healthCon" ? (
-                      <p>Press "E" to drink, or "G" to destroy</p>
+                      <p
+                      style={{
+                        marginTop:'0%',
+                        marginBottom:'0%'
+                      }}
+                      >
+                        Equip: "E", Destroy: "G"
+                        {/* Press "E" to equip, or "G" to destroy */}
+                      </p>
                     ) : (
-                      <p>Press "E" to equip, or "G" to destroy</p>
+                      <p
+                      style={{
+                        marginTop:'0%',
+                        marginBottom:'0%'
+                      }}
+                      >
+                        Equip: "E", Destroy: "G"
+                        {/* Press "E" to equip, or "G" to destroy */}
+                        </p>
                     )}
-                  </>
+                  </div>
                 )}
               </div>
             </div>
@@ -531,7 +615,11 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               backgroundColor: "rgba(211, 211, 211, 0.598)",
             }}
           >
-            <h3>Inventory</h3>
+            <h3
+              style={{
+                marginBottom:'-2.5%'
+              }}
+            >Inventory</h3>
             <ol type="1">
               {world.player.inventory.map((item, index) => (
                 <li key={index}>
@@ -540,6 +628,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
+                      // backgroundColor:'pink',
                     }}
                   >
                     <div>{item.name}</div>
@@ -550,7 +639,12 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 </li>
               ))}
             </ol>
-            <p>Press Number Key to Ready an Item!</p>
+            <p
+              style={{
+                marginTop:'-3.5%',
+                // backgroundColor:'green'
+              }}
+            >Press Number Key to Ready an Item!</p>
           </div>
 
           <div className="muteOptions"></div>

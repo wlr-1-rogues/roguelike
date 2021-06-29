@@ -131,6 +131,26 @@ img{
     color:red
 }
 
+.equippedItemsSection{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width:80%;
+    margin-bottom: 5%;
+    /* background-color: green; */
+
+}
+
+.inspectSection{
+    display:flex;
+    width:80%;
+    justify-content: space-around;
+    justify-self: center; 
+    align-items: center;
+    /* background-color: green; */
+    margin-top: -10%;
+}
+
 html,body{
     margin:0px
 }
