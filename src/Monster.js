@@ -80,13 +80,13 @@ class Monster extends Entity {
       if (left?.status === "cursed") {
         let curseRoll = Math.random();
         if (curseRoll < 0.05) {
-          world.player.attributes.health -= left.mod1 * 2;
+          world.player.attributes.health -= left.mod1 * 4;
           world.addToHistory(
             `your ${left.name} BURSTS INTO FLAME and you take ${
               left.mod1 * 2
             } damage`
           );
-          if (world.player.inspecting?.pos === "left") {
+          if (world.player.inspecting[0]?.pos === "left") {
             world.player.inspecting.splice(0, 1);
           }
           if (left.class === "shield") {
@@ -102,13 +102,13 @@ class Monster extends Entity {
       if (right?.status === "cursed") {
         let curseRoll = Math.random();
         if (curseRoll < 0.05) {
-          world.player.attributes.health -= right.mod1 * 2;
+          world.player.attributes.health -= right.mod1 * 4;
           world.addToHistory(
             `your ${right.name} BURSTS INTO FLAME and you take ${
               right.mod1 * 2
             } damage`
           );
-          if (world.player.inspecting?.pos === "right") {
+          if (world.player.inspecting[0]?.pos === "right") {
             world.player.inspecting.splice(0, 1);
           }
           if (right.class === "shield") {
@@ -130,7 +130,7 @@ class Monster extends Entity {
               head.mod1 * 4
             } damage`
           );
-          if (world.player.inspecting?.pos === "head") {
+          if (world.player.inspecting[0]?.pos === "head") {
             world.player.inspecting.splice(0, 1);
           }
           world.player.attributes.defense -= head.mod1;
@@ -147,7 +147,7 @@ class Monster extends Entity {
               torso.mod1 * 4
             } damage`
           );
-          if (world.player.inspecting?.pos === "torso") {
+          if (world.player.inspecting[0]?.pos === "torso") {
             world.player.inspecting.splice(0, 1);
           }
           world.player.attributes.defense -= torso.mod1;
