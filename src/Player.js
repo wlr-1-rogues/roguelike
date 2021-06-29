@@ -19,6 +19,7 @@ class Player extends Entity {
       name: "Rock Pick (5 uses)",
       class: "weapon",
       type: "rock pick",
+      status: "deadly",
       mod1: 0,
       mod2: 2,
       charges: 5,
