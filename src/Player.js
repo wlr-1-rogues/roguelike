@@ -60,9 +60,7 @@ class Player extends Entity {
   }
 
   add(item) {
-    if (this.inventory.length === 5) {
-      return "inventory full!";
-    } else if (this.inspecting.length === 1) {
+    if (this.inspecting.length === 1) {
       this.inspecting.splice(0, 1);
       this.inspecting.push({ item: item.attributes, pos: null, entity: item });
       itemPickup.play();
@@ -82,7 +80,7 @@ class Player extends Entity {
       this.inspecting.splice(0, 1);
       return added;
     } else if (this.inventory.length >= 5) {
-      return "oh no! your inventory is full :(";
+      return "inventory full!";
     } else if (!inspecting) {
       return "pick up an item to inspect and add to your inventory";
     } else {

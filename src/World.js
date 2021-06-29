@@ -193,8 +193,8 @@ class World {
 
   equipItem() {
     let tempPlayer = this.player.copyPlayer();
-    if (this.player.inspecting[0].pos === null)
-      this.remove(this.player.inspecting[0].entity);
+    if (this.player.inspecting[0]?.pos === null)
+      this.remove(this.player.inspecting[0]?.entity);
     this.addToHistory(tempPlayer.equip());
   }
 
@@ -215,7 +215,7 @@ class World {
 
   dropItem() {
     let tempPlayer = this.player.copyPlayer();
-    if (this.player.inspecting[0].pos === null)
+    if (this.player.inspecting[0]?.pos === null)
       this.remove(this.player.inspecting[0].entity);
     this.addToHistory(tempPlayer.drop());
   }
@@ -416,7 +416,7 @@ class World {
 
   addNew() {
     let tempPlayer = this.player.copyPlayer();
-    this.remove(this.player.inspecting[0].entity);
+    if (this.player.inventory.length < 5) this.remove(this.player.inspecting[0]?.entity);
     this.addToHistory(tempPlayer.addN());
   }
 
