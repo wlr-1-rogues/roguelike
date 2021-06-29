@@ -157,8 +157,6 @@ class Player extends Entity {
 
   equip() {
     const [inspecting] = this.inspecting;
-    console.log(inspecting);
-    // if (inspecting?.pos === null) return "you must add to inventory before using this!"
     if (this.inspecting.length === 1) {
       const { item } = inspecting;
       const health = `you drink the ${item.name} and gain ${item.mod1} health points`;
