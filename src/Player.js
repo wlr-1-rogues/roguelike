@@ -151,6 +151,10 @@ class Player extends Entity {
     }
   }
 
+  uninspect() {
+    this.inspecting.splice(0, 1);
+  }
+
   equip() {
     const [inspecting] = this.inspecting;
     console.log(inspecting);
@@ -260,7 +264,7 @@ class Player extends Entity {
         }
         return health;
       } else {
-        this.inspecting.splice(0, 1);
+        // this.inspecting.splice(0, 1);
         return "you cannot equip this item!";
       }
     } else {

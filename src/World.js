@@ -219,6 +219,11 @@ class World {
     tempPlayer.inspectE(item) && this.addToHistory(tempPlayer.inspectE(item));
   }
 
+  uninspect() {
+    let tempPlayer = this.player.copyPlayer();
+    tempPlayer.uninspect();
+  }
+
   unequipItem() {
     let tempPlayer = this.player.copyPlayer();
     this.addToHistory(tempPlayer.unequip());
