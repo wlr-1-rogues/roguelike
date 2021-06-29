@@ -35,7 +35,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     setCrying(!crying)
   }
 
-  const randomHint = () => {
+  const randomHint = (max) => {
     setHintNum(Math.floor(Math.random(12)))
   }
 
@@ -64,9 +64,9 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     }
 
     if (alive === false) {
-      randomHint()
       return;
     }
+
     if (action === "move") {
       if (
         inspecting?.item.class === "tome" &&
@@ -129,6 +129,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     if (world.player.attributes.alive === false){
       setAlive(false)
     }
+    randomHint()
   }, [world, setAlive])
 
   useEffect(() => {
