@@ -25,7 +25,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const [alive, setAlive] = useState(true);
   const [credits, setCredits] = useState(false);
   const [crying, setCrying] = useState(false);
-  const [hintNum, setHintNum] = useState(1)
+  const [hintNum, setHintNum] = useState(undefined)
 
   const displayCredits = () => {
     setCredits(!credits)
@@ -35,8 +35,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     setCrying(!crying)
   }
 
-  const randomHint = (max) => {
-    setHintNum(Math.floor(Math.random(12)))
+  const randomHint = () => {
+    setHintNum(Math.floor(Math.random() * Math.floor(12)))
   }
 
   const [world, setWorld] = useState(
@@ -129,7 +129,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     if (world.player.attributes.alive === false){
       setAlive(false)
     }
-    randomHint()
+    randomHint(12)
+    console.log(hintNum)
   }, [world, setAlive])
 
   useEffect(() => {
@@ -189,7 +190,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       {!alive && <div 
         className='deathScreen'>
           {!credits && !crying && <p className='deathText'>YA DEAD, KID</p>}
-          {!credits && !crying && <p className='deathHint'>Hint: {hints[hintNum]}</p>}
+          {!credits && !crying && <p className='deathHint'>Hint: {hints[3]}</p>}
           {!credits && !crying && <div className='deathButtons'>
               <div className='deathButton'
                 onClick={() => refreshPage()}
@@ -231,15 +232,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 onClick={() => displayCredits()}>~Go Back~</div>
             </div>}
 
-            {crying && <div
-              style={{
-                // display:'flex',
-                // flexDirection:'column',
-                // justifyContent:'center',
-                // justifyItems:'center',
-                // width:'80%',
-              }}
-            >
+            {crying && <div>
               
               <img src='https://i.pinimg.com/originals/b2/79/66/b27966140db68d0621628f2309f8a443.gif' 
               alt='Sad Spidey Gif' 
