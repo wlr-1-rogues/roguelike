@@ -153,10 +153,12 @@ class Player extends Entity {
     }
   }
 
+  uninspect() {
+    this.inspecting.splice(0, 1);
+  }
+
   equip() {
     const [inspecting] = this.inspecting;
-    console.log(inspecting);
-    // if (inspecting?.pos === null) return "you must add to inventory before using this!"
     if (this.inspecting.length === 1) {
       const { item } = inspecting;
       const health = `you drink the ${item.name} and gain ${item.mod1} health points`;
@@ -262,7 +264,7 @@ class Player extends Entity {
         }
         return health;
       } else {
-        this.inspecting.splice(0, 1);
+        // this.inspecting.splice(0, 1);
         return "you cannot equip this item!";
       }
     } else {
