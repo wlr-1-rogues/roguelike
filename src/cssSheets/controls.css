@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+*{
+    font-family: 'MedievalSharp', cursive;
+}
+
 .controlsPage{
     display: flex;
     flex-direction: column;
@@ -14,6 +20,7 @@
 .controls{
     min-width: 20%;
     /* background-color: pink; */
+    margin-bottom: -5%;
     min-height:7.5%;
     align-self: center;
     text-align: center;
@@ -244,8 +251,9 @@
     /* border-style: solid;
     border-color: black;
     background-color: rgba(211, 211, 211, 0.214); */
-    line-height: 1.75vw;
-    font-size: 2.5vh;
+    line-height: 2.5vw;
+    font-size: 2.25vh;
+    gap:5%
 }
 
 .controlsButton{
@@ -257,6 +265,7 @@
     text-align: center;
     cursor:pointer;
     font-size: 175%;
+    font-family: 'MedievalSharp', cursive;
 }
 
 .controlsButton:hover{

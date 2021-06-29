@@ -34,15 +34,18 @@ const Controls = (props) => {
                     </div>
                 </div>
             </div>
-            <div className='controlsMisc'>
+            {/* <div className='controlsMisc'>
                 Walk into Enemies to Attack
+                <br></br>
                 <br></br>
                 Walk into Items to add them to your Inventory
                 <br></br>
+                <br></br>
                 Press the given number to Ready one of your Items
                 <br></br>
+                <br></br>
                 Press E to use/equip, or K to Destroy a Readied Item
-            </div>
+            </div> */}
             
             <div
                 className='controlsButton'

@@ -49,20 +49,26 @@ const LandingPage = (props) => {
                     <p className='introScript'>Somehow, Palpatine is still alive. 
                         <br></br>
                         <br></br>
+                        <br></br>
                         But this game has nothing to do with it. 
+                        <br></br>
                         <br></br>
                         <br></br>
                         Stureth, the dark king, has grown powerful in his dark underground kingdom. 
                         <br></br>
                         <br></br>
+                        <br></br>
                         Many adventurers have attempted to end his reign of terror, and many have failed. 
+                        <br></br>
                         <br></br>
                         <br></br>
                         Fight through three exciting levels, gather equipment, and prepare to face the king under the mountain in his...                                
                         <br></br>
                         <br></br>
-                        <h1 style={{fontSize:'2.5vw', marginTop:'-1vw', marginBottom:'-1vw'}}>HYPOGEAN DOMINION</h1>
+                        <br></br>
+                        <h1 style={{fontSize:'2.5vw', marginTop:'-1vw', marginBottom:'0vw'}}>HYPOGEAN DOMINION</h1>
                     </p>
+                    
                     <section
                         className='beginButton'
                         onClick={() => {toggleControls()}}
