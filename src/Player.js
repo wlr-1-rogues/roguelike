@@ -1,7 +1,9 @@
 import Entity from "./Entity";
 import ItemPickup from "./assets/sounds/itemPickup.mp3";
+import ItemDrop from './assets/sounds/dropItem.wav'
 
 const itemPickup = new Audio(ItemPickup);
+const itemDrop = new Audio(ItemDrop)
 
 class Player extends Entity {
   inventory = [
@@ -75,12 +77,12 @@ class Player extends Entity {
 
   addN() {
     const [inspecting] = this.inspecting;
-    if (inspecting?.pos === null && this.inventory.length < 5) {
+    if (inspecting?.pos === null && this.inventory.length < 6) {
       const added = `added ${inspecting.item.name} to inventory`;
       this.inventory.push(inspecting.item);
       this.inspecting.splice(0, 1);
       return added;
-    } else if (this.inventory.length >= 5) {
+    } else if (this.inventory.length >= 6) {
       return "inventory full!";
     } else if (!inspecting) {
       return "pick up an item to inspect and add to your inventory";
@@ -277,7 +279,7 @@ class Player extends Entity {
       const unequip = `you unequip the ${item.name}`;
       if (typeof inspecting?.pos === "string") {
         // WEAPONS
-        if (item.class === "weapon" && this.inventory.length < 5) {
+        if (item.class === "weapon" && this.inventory.length < 6) {
           this.attributes.attack -= item.mod1;
           this.attributes.damage -= item.mod2;
           if (item.mod3) this.attributes.sightRadius -= item.mod3;
@@ -294,7 +296,7 @@ class Player extends Entity {
           return unequip;
 
           // SHIELDS
-        } else if (item.class === "shield" && this.inventory.length < 5) {
+        } else if (item.class === "shield" && this.inventory.length < 6) {
           this.attributes.block -= item.mod1;
 
           if (inspecting.pos === "left") {
@@ -309,7 +311,7 @@ class Player extends Entity {
           return unequip;
 
           // HEAD and TORSO
-        } else if (this.inventory.length < 5) {
+        } else if (this.inventory.length < 6) {
           this.attributes.defense -= item.mod1;
 
           if (inspecting.pos === "head") {
@@ -355,15 +357,18 @@ class Player extends Entity {
         this.attributes.defense -= item.mod1;
       }
       const drop = `the ${inspecting.item.name} crumbles into dust...`;
+      itemDrop.play()
       this[inspecting?.pos].splice(inspecting.pos, 1);
       this.inspecting.splice(0, 1);
       return drop;
     } else if (inspecting?.pos === null) {
       const drop = `the ${inspecting.item.name} crumbles into dust...`;
+      itemDrop.play()
       this.inspecting.splice(0, 1);
       return drop;
     }
     const drop = `the ${inspecting.item.name} crumbles into dust...`;
+    itemDrop.play()
     this.inventory.splice(inspecting.pos, 1);
     this.inspecting.splice(0, 1);
     return drop;
