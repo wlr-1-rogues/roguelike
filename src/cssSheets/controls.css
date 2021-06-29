@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
 *{
-    font-family: fantasy;
+    font-family: 'MedievalSharp', cursive;
 }
 
 .controlsPage{
@@ -263,7 +265,7 @@
     text-align: center;
     cursor:pointer;
     font-size: 175%;
-    font-family: cursive;
+    font-family: fantasy;
 }
 
 .controlsButton:hover{

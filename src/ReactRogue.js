@@ -301,6 +301,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 <section
                   style={{
                     minWidth: "6.25vw",
+                    textAlign:'center'
                   }}
                 >
                   HP: {world.player.attributes.health} /{" "}
