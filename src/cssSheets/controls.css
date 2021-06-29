@@ -265,7 +265,7 @@
     text-align: center;
     cursor:pointer;
     font-size: 175%;
-    font-family: fantasy;
+    font-family: 'MedievalSharp', cursive;
 }
 
 .controlsButton:hover{
