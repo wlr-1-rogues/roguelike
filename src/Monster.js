@@ -169,7 +169,7 @@ class Monster extends Entity {
         if (world.player.torso[0]?.status === "deadly") deadyBonus += 1;
         
         let totalBonus = parseInt(playerAttackRoll) + parseInt(deadyBonus)
-        console.log("deadyBonus", deadyBonus, "totalBonus", totalBonus);
+        console.log("attackRoll", playerAttackRoll, "deadyBonus", deadyBonus, "totalBonus", totalBonus);
 
         if (totalBonus >= 20) {
           world.addToHistory(
