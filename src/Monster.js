@@ -62,19 +62,23 @@ class Monster extends Entity {
         world.add(new Blood(this.x, this.y, this.tilesize, blood));
 
         let dropRoll = Math.random();
-        if (dropRoll < 0.2 || world.tier === "boss") {
+        if (this.attributes.name === "Mimic") {
+          world.addToHistory(`${this.attributes.name} drops an item!`);
+          let spawner = new Spawner(world);
+          spawner.spawnLootAt(this.x, this.y);
+        } else if (dropRoll < 0.2 || world.tier === "boss") {
           world.addToHistory(`${this.attributes.name} drops an item!`);
           let spawner = new Spawner(world);
           spawner.spawnLootAt(this.x, this.y);
         }
-
+        
         world.remove(this);
       }
     }
 
     if (verb === "bump") {
       playerAttackRoll = combatRoll(20);
-      pAttackMod = playerAttackRoll += world.player.attributes.attack;
+      pAttackMod = playerAttackRoll + world.player.attributes.attack;
 
       // curse
       if (left?.status === "cursed") {
@@ -163,9 +167,11 @@ class Monster extends Entity {
         if (world.player.right[0]?.status === "deadly") deadyBonus += 1;
         if (world.player.head[0]?.status === "deadly") deadyBonus += 1;
         if (world.player.torso[0]?.status === "deadly") deadyBonus += 1;
-        console.log("deadyBonus", deadyBonus);
+        
+        let totalBonus = parseInt(playerAttackRoll) + parseInt(deadyBonus)
+        console.log("attackRoll", playerAttackRoll, "deadyBonus", deadyBonus, "totalBonus", totalBonus);
 
-        if (playerAttackRoll + deadyBonus >= 20) {
+        if (totalBonus >= 20) {
           world.addToHistory(
             `PLAYER CRITICAL HITS FOR ${
               world.player.attributes.damage * 2
@@ -189,7 +195,11 @@ class Monster extends Entity {
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
           gore.play();
           let dropRoll = Math.random();
-          if (dropRoll < 0.2 || world.tier === "boss") {
+          if (this.attributes.name === "Mimic") {
+            world.addToHistory(`${this.attributes.name} drops an item!`);
+            let spawner = new Spawner(world);
+            spawner.spawnLootAt(this.x, this.y);
+          } else if (dropRoll < 0.2 || world.tier === "boss") {
             world.addToHistory(`${this.attributes.name} drops an item!`);
             let spawner = new Spawner(world);
             spawner.spawnLootAt(this.x, this.y);
@@ -230,7 +240,11 @@ class Monster extends Entity {
         world.add(new Blood(this.x, this.y, this.tilesize, blood));
         gore.play();
         let dropRoll = Math.random();
-        if (dropRoll < 0.2 || world.tier === "boss") {
+        if (this.attributes.name === "Mimic") {
+          world.addToHistory(`${this.attributes.name} drops an item!`);
+          let spawner = new Spawner(world);
+          spawner.spawnLootAt(this.x, this.y);
+        } else if (dropRoll < 0.2 || world.tier === "boss") {
           world.addToHistory(`${this.attributes.name} drops an item!`);
           let spawner = new Spawner(world);
           spawner.spawnLootAt(this.x, this.y);
@@ -242,7 +256,7 @@ class Monster extends Entity {
         //they didn't die from spikes so they can attack
 
         monsterAttackRoll = combatRoll(20);
-        mAttackMod = monsterAttackRoll += this.attributes.attack;
+        mAttackMod = monsterAttackRoll + this.attributes.attack;
 
         world.addToHistory(`${this.attributes.name} attacks Player!`);
 

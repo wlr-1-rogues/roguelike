@@ -370,6 +370,20 @@ const chest = {
   },
 };
 
+const mimic = {
+  name: "Mimic",
+  flavortext: "The wood bends and cracks, shaping a ghastly mouth full of teeth",
+  attack: 4,
+  defense: 8,
+  damage: 4,
+  health: 15,
+  spriteSheet: "heroAtlas",
+  spriteSheetCoordinates: {
+    y: 576,
+    x: 336,
+  },
+}
+
 class Spawner {
   constructor(world) {
     this.world = world;
@@ -388,6 +402,10 @@ class Spawner {
     this.world.moveToSpace(entity);
   }
 
+  spawnOneMimic(entity) {
+    this.world.add(entity);
+  }
+
   spawnLoot(number) {
     for (let i = 0; i < number; i++) {
       this.spawnOne(
@@ -395,7 +413,7 @@ class Spawner {
           getRandomInt(this.world.width - 1),
           getRandomInt(this.world.height - 1),
           this.world.tilesize,
-          chest
+          chest,
         )
       );
     }
@@ -461,6 +479,39 @@ class Spawner {
 
     let loot = new Loot(x, y, this.world.tilesize, spawnedItem);
     this.world.add(loot);
+  }
+
+  spawnMimicChest() {
+    this.spawnOne(
+      new Chest(
+        getRandomInt(this.world.width - 1),
+        getRandomInt(this.world.height - 1),
+        this.world.tilesize,
+        chest,
+        true
+      )
+    );
+  }
+
+  spawnMimic(x, y) {
+
+    if (this.tier === 2) {
+      mimic.attack += 2
+      mimic.damage += 4
+      mimic.health += 20
+    } else if (this.tier === 3) {
+      mimic.attack += 4
+      mimic.damage += 8
+      mimic.health += 40
+    }
+
+    this.spawnOneMimic(new Monster(
+        x,
+        y,
+        this.world.tilesize,
+        mimic
+      )
+    );
   }
 
   spawnLootAt(x, y) {

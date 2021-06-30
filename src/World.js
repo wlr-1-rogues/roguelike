@@ -527,6 +527,9 @@ class World {
               this.addToHistory(
                 `${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`
               );
+              if (this.player.inspecting[0]?.pos === null) {
+                this.player.inspecting.splice(0, 1)
+              }
               this.remove(entityAtLocation);
             }
 
