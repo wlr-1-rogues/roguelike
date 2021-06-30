@@ -78,7 +78,7 @@ class Monster extends Entity {
 
     if (verb === "bump") {
       playerAttackRoll = combatRoll(20);
-      pAttackMod = playerAttackRoll += world.player.attributes.attack;
+      pAttackMod = playerAttackRoll + world.player.attributes.attack;
 
       // curse
       if (left?.status === "cursed") {
