@@ -810,7 +810,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               borderStyle: "solid",
               borderColor: "black",
               marginTop: "1vw",
-              backgroundColor: "rgba(211, 211, 211, 0.598)",
+              backgroundColor: "rgba(54, 54, 54, 0.598)",
             }}
           >
             <h2
@@ -824,7 +824,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             </h2>
             <ul>
               {world.history.map((item, index) => (
-                <li key={index}>{item}</li>
+                <li key={index} style={{color: `${item.hex}`}}>{item.body}</li>
               ))}
             </ul>
           </div>

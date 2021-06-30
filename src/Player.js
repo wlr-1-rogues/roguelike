@@ -1,11 +1,22 @@
 import Entity from "./Entity";
 import ItemPickup from "./assets/sounds/itemPickup.mp3";
 import ItemDrop from "./assets/sounds/dropItem.wav";
+import HexContext from "./HexContext";
 
 const itemPickup = new Audio(ItemPickup);
 const itemDrop = new Audio(ItemDrop);
 
+  // //hexcodes
+  // const warning = "#FF6B4C"
+  // const consumable = "#48FF47"
+  // const story = "#CACACA"
+  // const equip = "#FFD426"
+
+// const {warning, consumable, story, equip} = useContext(HexContext)
+
 class Player extends Entity {
+
+  static contextType = HexContext
 
   inventory = [
     {
@@ -64,22 +75,24 @@ class Player extends Entity {
   }
 
   add(item) {
+    const {inspect} = this.context
     if (this.inspecting.length === 1) {
       this.inspecting.splice(0, 1);
       this.inspecting.push({ item: item.attributes, pos: null, entity: item });
       itemPickup.play();
-      return `looks like a ${item.attributes.name}`;
+      return [`looks like a ${item.attributes.name}`, inspect];
     } else {
       this.inspecting.push({ item: item.attributes, pos: null, entity: item });
       itemPickup.play();
-      return `looks like a ${item.attributes.name}`;
+      return [`looks like a ${item.attributes.name}`, inspect];
     }
   }
 
   addN() {
+    const {warning, pickup} = this.context
     const [inspecting] = this.inspecting;
     if (inspecting?.pos === null && this.inventory.length < 6) {
-      const added = `added ${inspecting.item.name} to inventory`;
+      const added = [`added ${inspecting.item.name} to inventory`, pickup];
       this.inventory.push(inspecting.item);
       this.inspecting.splice(0, 1);
       // if (inspecting.item.name === "Ring of Domination") {
@@ -89,13 +102,14 @@ class Player extends Entity {
     } else if (this.inventory.length >= 6) {
       return "inventory full!";
     } else if (!inspecting) {
-      return "pick up an item to inspect and add to your inventory";
+      return ["pick up an item to inspect and add to your inventory", warning];
     } else {
-      return "this item is already in your possession!";
+      return ["this item is already in your possession!", warning];
     }
   }
 
   inspect(index) {
+    const {warning} = this.context
     const [inspecting] = this.inspecting;
     if (this.inventory[index]) {
       if (inspecting?.pos === index) {
@@ -107,11 +121,12 @@ class Player extends Entity {
         this.inspecting.push({ pos: index, item: this.inventory[index] });
       }
     } else {
-      return "add an item to your inventory first!";
+      return ["add an item to your inventory first!", warning];
     }
   }
 
   inspectE(position) {
+    const {warning} = this.context
     const [inspecting] = this.inspecting;
     if (position === "left" && this.left.length === 1) {
       if (inspecting?.pos === "left") {
@@ -153,7 +168,7 @@ class Player extends Entity {
         this.inspecting.push({ pos: position, item: this.torso[0] });
       }
     } else {
-      return "equip an item to inspect this slot!";
+      return ["equip an item to inspect this slot!", warning];
     }
   }
 
@@ -162,14 +177,15 @@ class Player extends Entity {
   }
 
   equip() {
+    const {warning, consumable} = this.context
     const [inspecting] = this.inspecting;
     if (this.inspecting.length === 1) {
       const { item } = inspecting;
-      const health = `you drink the ${item.name} and gain ${item.mod1} health points`;
-      const healthMax = `you drink the ${item.name} and max out your health points!`;
-      const equip = `you equip the ${item.name}`;
+      const health = [`you drink the ${item.name} and gain ${item.mod1} health points`, consumable];
+      const healthMax = [`you drink the ${item.name} and max out your health points!`, consumable];
+      const equip = [`you equip the ${item.name}`, equip];
       if (typeof inspecting?.pos === "string")
-        return "you already have this equipped!";
+        return ["you already have this equipped!", warning];
 
       // WEAPONS
       if (item.class === "weapon" && this.left.length === 0) {
@@ -272,18 +288,19 @@ class Player extends Entity {
         return health;
       } else {
         // this.inspecting.splice(0, 1);
-        return "you cannot equip this item!";
+        return ["you cannot equip this item!", warning];
       }
     } else {
-      return "inspect an item in your inventory to equip!";
+      return ["inspect an item in your inventory to equip!", warning];
     }
   }
 
   unequip() {
+    const {warning, equip} = this.context
     if (this.inspecting.length === 1) {
       const [inspecting] = this.inspecting;
       const { item } = inspecting;
-      const unequip = `you unequip the ${item.name}`;
+      const unequip = [`you unequip the ${item.name}`, equip];
       if (typeof inspecting?.pos === "string") {
         // WEAPONS
         if (item.class === "weapon" && this.inventory.length < 6) {
@@ -332,26 +349,28 @@ class Player extends Entity {
           this.inspecting.splice(0, 1);
           return unequip;
         } else {
-          return "drop an item before unequipping";
+          return ["drop an item before unequipping", warning];
         }
       } else {
-        return "inspect an equipped item to unequip!";
+        return ["inspect an equipped item to unequip!", warning];
       }
     } else {
-      return "inspect an equipped item to unequip!";
+      return ["inspect an equipped item to unequip!", warning];
     }
   }
 
   cast() {
+    const {story} = this.context
     const [inspecting] = this.inspecting;
     this.inventory.splice(inspecting.pos, 1);
     this.inspecting.splice(0, 1);
-    return "the tome vanishes in a poof of smoke";
+    return ["the tome vanishes in a poof of smoke", story];
   }
 
   drop() {
+    const {warning, story} = this.context
     const [inspecting] = this.inspecting;
-    if (!inspecting) return "inspect and item first!";
+    if (!inspecting) return ["inspect and item first!", warning];
     const { item } = inspecting;
     if (typeof inspecting?.pos === "string") {
       if (item.class === "weapon") {
@@ -363,18 +382,18 @@ class Player extends Entity {
       } else if (item.class === "head" || item.class === "torso") {
         this.attributes.defense -= item.mod1;
       }
-      const drop = `the ${inspecting.item.name} crumbles into dust...`;
+      const drop = [`the ${inspecting.item.name} crumbles into dust...`, story];
       itemDrop.play();
       this[inspecting?.pos].splice(inspecting.pos, 1);
       this.inspecting.splice(0, 1);
       return drop;
     } else if (inspecting?.pos === null) {
-      const drop = `the ${inspecting.item.name} crumbles into dust...`;
+      const drop = [`the ${inspecting.item.name} crumbles into dust...`, story];
       itemDrop.play();
       this.inspecting.splice(0, 1);
       return drop;
     }
-    const drop = `the ${inspecting.item.name} crumbles into dust...`;
+    const drop = [`the ${inspecting.item.name} crumbles into dust...`, story];
     itemDrop.play();
     this.inventory.splice(inspecting.pos, 1);
     this.inspecting.splice(0, 1);

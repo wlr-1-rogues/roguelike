@@ -1,10 +1,13 @@
 import Entity from "./Entity.js";
 import Spawner from "./Spawner.js";
 import StairSound from "./assets/sounds/stairs.mp3";
+import { HexContext } from "./HexContext.js";
 
 const stairSound = new Audio(StairSound);
 
 class Stairs extends Entity {
+  static contextType = HexContext
+
   attributes = {
     spriteSheet: "terrainAtlas",
     spriteSheetCoordinates: {

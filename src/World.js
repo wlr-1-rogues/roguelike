@@ -50,7 +50,12 @@ class World {
     this.atlases = atlases;
     this.tier = tier;
     this.entities = [new Player(0, 0, 24)];
-    this.history = ["You enter the dungeon", "---", `LEVEL ${tier}`, "---"];
+    this.history = [
+      {body: "You enter the dungeon", hex: "#FFFFFF"},
+      {body: "---", hex: "#FFFFFF"},
+      {body: `LEVEL ${tier}`, hex: "#FFFFFF"},
+      {body: "---", hex: "#FFFFFF"}
+    ];
     this.visibleMonsters = new Set([]);
     this.worldmap = new Array(this.width);
     for (let x = 0; x < this.width; x++) {
@@ -302,7 +307,7 @@ class World {
               }
             }
           }
-          
+
           this.add(new Blastwave(x - 1, y - 1, this.tilesize, blastwave));
           explosionSound.play();
 
@@ -711,10 +716,15 @@ class World {
     );
   }
 
-  addToHistory(history) {
-    this.history.push(history);
+  addToHistory(arr) {
+    this.history.push({body: arr[0], hex: arr[1]});
     if (this.history.length > 9) this.history.shift();
   }
+
+  // addToHistory(body, hex) {
+  //   this.history.push({body, hex});
+  //   if (this.history.length > 9) this.history.shift();
+  // }
 }
 
 function getRandomInt(max) {
