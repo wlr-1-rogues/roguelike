@@ -190,6 +190,7 @@ class Monster extends Entity {
         }
 
         if (this.attributes.health <= 0) {
+          this.attributes.health = 0
           world.addToHistory(`${this.attributes.name} dies!`);
           world.removeHit();
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
@@ -296,6 +297,7 @@ class Monster extends Entity {
           }
 
           if (world.player.attributes.health <= 0) {
+            world.player.attributes.health = 0
             world.addToHistory("You have died");
             world.entities[0].attributes.spriteSheetCoordinates =
               tombstone.spriteSheetCoordinates;
