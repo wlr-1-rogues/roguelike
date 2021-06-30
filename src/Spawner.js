@@ -518,11 +518,11 @@ class Spawner {
   spawnLootAt(x, y) {
     let currentLootTable = [];
     if (this.tier === 1) {
-      currentLootTable = [...tier1LootTable, ...globalLoot];
+      currentLootTable = [...globalLoot];
     } else if (this.tier === 2) {
-      currentLootTable = [...tier2LootTable, ...globalLoot];
+      currentLootTable = [...tier1LootTable, ...globalLoot];
     } else if (this.tier === 3) {
-      currentLootTable = [...tier3LootTable, ...globalLoot];
+      currentLootTable = [...tier2LootTable, ...globalLoot];
     } else if (this.tier === "boss") {
       currentLootTable = bossDrop;
     }
