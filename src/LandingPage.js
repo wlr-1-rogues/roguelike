@@ -107,7 +107,6 @@ const LandingPage = (props) => {
                         </div>
                     </div>
                 </div>
-                {/* <div className='divider'></div> */}
                 <div className='controlsMisc'>
                     Walk into Enemies to Attack
                     <br></br>
