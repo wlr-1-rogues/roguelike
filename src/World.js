@@ -18,7 +18,7 @@ explosionSound.volume = 1;
 const digSound = new Audio(DigSound)
 const bossStart = new Audio(BossStart)
 const bossRoom = new Audio(BossRoom)
-bossRoom.volume = .25
+bossRoom.volume = .35
 
 const blastwave = {
   name: "blastwave",
