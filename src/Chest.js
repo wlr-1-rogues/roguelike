@@ -1,5 +1,10 @@
 import Entity from "./Entity";
 import Spawner from "./Spawner";
+import ChestCreak from './assets/sounds/chestCreak.wav'
+import MimicSound from './assets/sounds/mimicSound.wav'
+
+const chestCreak = new Audio(ChestCreak)
+const mimicSound = new Audio(MimicSound)
 
 class Chest extends Entity {
   constructor(x, y, size, attributes, mimic = false) {
@@ -12,9 +17,12 @@ class Chest extends Entity {
       if(this.mimic === true) {
         world.remove(this);
         spawner.spawnMimic(this.x, this.y)
+        mimicSound.play()
         return;
       }
       spawner.spawnChestLootAt(this.x, this.y);
+      chestCreak.play()
+
       world.remove(this);
     }
 
