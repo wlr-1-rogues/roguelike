@@ -138,8 +138,9 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.createCellularMap();
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
-    spawner.spawnLoot(100);
-    spawner.spawnMonsters(100);
+    spawner.spawnLoot(0);
+    spawner.spawnMimicChest();
+    spawner.spawnMonsters(0);
     spawner.spawnStairs();
     setWorld(newWorld);
     if(world.showWinScreen === true){

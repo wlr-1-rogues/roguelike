@@ -4,6 +4,20 @@ import Monster from "./Monster";
 import Stairs from "./Stairs";
 import Chest from "./Chest";
 
+const mimic = {
+  name: "Mimic",
+  flavortext: "The wood bends and cracks, shaping a ghastly mouth full of teeth",
+  attack: 10,
+  defense: 2,
+  damage: 9,
+  health: 20,
+  spriteSheet: "heroAtlas",
+  spriteSheetCoordinates: {
+    y: 576,
+    x: 336,
+  },
+}
+
 const globalLoot = [
   {
     name: "Rock Pick (5 uses)",
@@ -392,7 +406,7 @@ class Spawner {
           getRandomInt(this.world.width - 1),
           getRandomInt(this.world.height - 1),
           this.world.tilesize,
-          chest
+          chest,
         )
       );
     }
@@ -454,6 +468,29 @@ class Spawner {
 
     let loot = new Loot(x, y, this.world.tilesize, spawnedItem);
     this.world.add(loot);
+  }
+
+  spawnMimicChest() {
+    this.spawnOne(
+      new Chest(
+        getRandomInt(this.world.width - 1),
+        getRandomInt(this.world.height - 1),
+        this.world.tilesize,
+        chest,
+        true
+      )
+    );
+  }
+
+  spawnMimic(x, y) {
+    this.spawn(1, () => {
+      return new Monster(
+        x,
+        y,
+        this.world.tilesize,
+        mimic
+      );
+    });
   }
 
   spawnLootAt(x, y) {
