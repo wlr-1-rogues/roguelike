@@ -36,9 +36,9 @@ import Goblin1 from "./assets/uf_heroes/goblin_1.png";
 import Goblin2 from "./assets/uf_heroes/goblin_2.png";
 import Goblin3 from "./assets/uf_heroes/goblin_3.png";
 
-import Mimic1 from "./assets/uf_heroes/mimic_1.png";
+import Mimic1 from "./assets/uf_heroes/mimic_3.png";
 import Mimic2 from "./assets/uf_heroes/mimic_2.png";
-import Mimic3 from "./assets/uf_heroes/mimic_3.png";
+import Mimic3 from "./assets/uf_heroes/mimic_1.png";
 
 function MonsterDisplay(props) {
     const { world, setWorld } = props;
@@ -56,15 +56,27 @@ function MonsterDisplay(props) {
 
     const [seconds, setSeconds] = useState(0);
     const [isActive, setIsActive] = useState(false);
+    const [down, setDown] = useState(false);
+
 
     useEffect(() => {
         let interval = null;
 
         interval = setInterval(() => {
-            if (animationCount <= 2) {
-                setAnimationCount((animationCount) => animationCount + 1);
+            if (animationCount === 3) {
+                setAnimationCount((animationCount) => animationCount - 1);
+
+            } else if (animationCount === 2 && down) {
+                setAnimationCount((animationCount) => animationCount - 1);
+
+                setDown(false);
+            } else if (animationCount === 2) {
+                setAnimationCount((animationCount) => animationCount + 1)
+
+                setDown(true)
             } else {
-                setAnimationCount(1);
+                setAnimationCount((animationCount) => animationCount + 1);
+
             }
         }, 200);
 
@@ -175,6 +187,28 @@ function MonsterDisplay(props) {
                     <div className="portrait-flavor">
                         <div className="portrait-image">
                             {/* LEVEL ONE MONSTER PORTRAITS */}
+
+                            {visibleMonsters[monsterIndex].attributes.name === "Mimic" &&
+                                animationCount === 1 ? (
+                                <img src={Mimic1} />
+                            ) : (
+                                <div></div>
+                            )}
+                            {visibleMonsters[monsterIndex].attributes.name === "Mimic" &&
+                                animationCount === 2 ? (
+                                <img src={Mimic2} />
+                            ) : (
+                                <div></div>
+                            )}
+                            {visibleMonsters[monsterIndex].attributes.name === "Mimic" &&
+                                animationCount === 3 ? (
+                                <img src={Mimic3} />
+                            ) : (
+                                <div></div>
+                            )}
+
+
+
                             {visibleMonsters[monsterIndex].attributes.name === "Zombie" &&
                                 animationCount === 1 ? (
                                 <img src={Zombie1} />
@@ -399,7 +433,7 @@ function MonsterDisplay(props) {
 
 
                         {/* HEALTH BAR FOR THIRD TIER */}
-                        {(visibleMonsters[monsterIndex].attributes.name === "Golem" || visibleMonsters[monsterIndex].attributes.name === "Dragon" || visibleMonsters[monsterIndex].attributes.name === "Demon") ?
+                        {(visibleMonsters[monsterIndex].attributes.name === "Golem" || visibleMonsters[monsterIndex].attributes.name === "Dragon" || visibleMonsters[monsterIndex].attributes.name === "Demon" || visibleMonsters[monsterIndex].attributes.name === "Mimic") ?
                             <section
                                 style={{
                                     height: "100%",
