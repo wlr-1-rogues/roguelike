@@ -9,6 +9,7 @@ import World from "./World";
 import Fireball from "./Fireball";
 import Hadouken from "./assets/sounds/hadouken.mp3";
 import ItemPickup from "./assets/sounds/itemPickup.mp3";
+import EvilLaugh from './assets/sounds/evilLaugh.mp3';
 import SadSpidey from "./assets/sadSpidey.gif";
 import LP from "./cssSheets/LP.css";
 import hints from "./Hints";
@@ -18,6 +19,7 @@ import EquippedItems from "./EquippedItems";
 const hadoukenAudio = new Audio(Hadouken);
 hadoukenAudio.volume = 0.25;
 const itemPickup = new Audio(ItemPickup);
+const evilLaugh = new Audio(EvilLaugh)
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
@@ -97,12 +99,21 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       newWorld.addNew();
     } else if (action === "equip") {
       newWorld.equipItem();
+
+      if (newWorld.player.left[0]?.name !== "Ring of Domination"  ||
+      newWorld.player.right[0]?.name !== "Ring of Domination"){
+        itemPickup.play();
+      }
+
       if (newWorld.player.left[0]?.name === "Ring of Domination"  ||
       newWorld.player.right[0]?.name === "Ring of Domination"){
         newWorld.player.attributes.spriteSheetCoordinates = { y: 48, x: 288 };
-        newWorld.showWin()
+        setTimeout(() => {evilLaugh.play()}, 1500)
+        setTimeout(() => {setWinScreen(true)}, 8500)
+        // newWorld.showWin()
+        // evilLaugh.play()
       }
-      itemPickup.play();
+
     } else if (action === "inspectE") {
       newWorld.inspectEquip(data);
     } else if (action === "uninspect") {
@@ -258,8 +269,61 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
       {winScreen && <div 
         className='winScreen'
         >
-          YOU WON, YOU CRAZY SON OF A GUNDARK
+          {!credits && <div className='winText'>
+            A booming voice echoes in your head.
+            <br></br><br></br>
+            THANK YOU FOR RELEASING ME FROM THIS WRETCHED STATE
+            <br></br><br></br>
+            I HAVE BEEN IMPRISONED HERE FOR CENTURIES, AWAITING THE ONE WHO WAS AS SELFISH AND AS BLOODTHIRSTY AS I
+            <br></br><br></br>
+            YOU MUST NOW SUFFER THE SAME FATE
+            <br></br><br></br>
+            PRAY THAT SOME UNFORTUNATE SOUL FOLLOWS IN YOUR FOOTSTEPS
+            <br></br><br></br>
+            UNTIL SUCH TIME, ENJOY YOUR...
+          </div>}
+
+          {!credits && <div className='winEnd'>
+            HYPOGEAN DOMINION
+          </div>}
+          
+
+          {!credits && <div>
+            <div className="deathButtons">
+              <div className="deathButton" onClick={() => refreshPage()}>
+                ~Restart~
+              </div>
+              <div className="deathButton" onClick={() => displayCredits()}>
+                ~View Credits~
+              </div>
+            </div>                   
+          </div>}
+
+          {credits && (
+            <div>
+              Program Developers
+              <br></br>
+              Kyle Baugh ~ Alex Stapp ~ Steven Clark ~ Trevor Martin
+              <br></br><br></br>
+              Sprites/Tileset
+              <br></br>
+              (C)2018 ORYX DESIGN LAB
+              <br></br><br></br>
+              Audio
+              <br></br>
+              Sound Library ~ Hollywood Edge - Topic ~ Copopaxi TV ~ Kyle Baugh
+              <br></br><br></br>
+              Visuals
+              <br></br>
+              Depoulaite ~ Mixkit.co ~ Gaming and God
+              <br></br><br></br><br></br>
+              <div className="creditsButton" onClick={() => displayCredits()}>
+                ~Go Back~
+              </div>
+            </div>
+          )}
         </div>}
+
 
       <div
         style={{
