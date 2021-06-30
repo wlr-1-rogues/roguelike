@@ -159,12 +159,22 @@ img{
     justify-content: space-evenly;
     text-align:center;
     width: 45%;
-    height: 50%;
+    height: 60%;
     background-color: rgba(128, 128, 128, 0.851);
     z-index: 9;
     position: absolute;
-    top:15%;
+    top:10%;
     left:27.25%;
+}
+
+.winText{
+    padding-left: 10%;
+    padding-right: 10%;
+    font-size: 125%;
+}
+
+.winEnd{
+    font-size: 275%;
 }
 
 html,body{

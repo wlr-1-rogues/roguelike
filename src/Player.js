@@ -6,6 +6,7 @@ const itemPickup = new Audio(ItemPickup);
 const itemDrop = new Audio(ItemDrop);
 
 class Player extends Entity {
+
   inventory = [
     {
       name: "Tome of Fireball",
@@ -41,7 +42,7 @@ class Player extends Entity {
     // name: "Player",
     preparation: false,
     alive: true,
-    attack: 20,
+    attack: 0,
     defense: 14,
     damage: 3,
     moveEvasion: false,
@@ -81,9 +82,9 @@ class Player extends Entity {
       const added = `added ${inspecting.item.name} to inventory`;
       this.inventory.push(inspecting.item);
       this.inspecting.splice(0, 1);
-      if (inspecting.item.name === "Ring of Domination") {
-        this.attributes.spriteSheetCoordinates = { y: 48, x: 288 };
-      }
+      // if (inspecting.item.name === "Ring of Domination") {
+      //   this.attributes.spriteSheetCoordinates = { y: 48, x: 288 };
+      // }
       return added;
     } else if (this.inventory.length >= 6) {
       return "inventory full!";
@@ -183,6 +184,7 @@ class Player extends Entity {
         }
         this.inspecting.splice(0, 1);
         return equip;
+        
       } else if (item.class === "weapon" && this.right.length === 0) {
         this.attributes.attack += item.mod1;
         this.attributes.damage += item.mod2;
@@ -195,6 +197,8 @@ class Player extends Entity {
         }
         this.inspecting.splice(0, 1);
         return equip;
+      
+
 
         // SHIELDS
       } else if (item.class === "shield" && this.left.length === 0) {

@@ -6,7 +6,7 @@ import Chest from "./Chest";
 
 const globalLoot = [
   {
-    name: "Rock Pick (5 uses)",
+    name: "Rock Pick",
     class: "weapon",
     type: "rock pick",
     mod1: 0,
@@ -92,6 +92,9 @@ const bossDrop = [
   {
     name: "Ring of Domination",
     spriteSheet: "itemAtlas",
+    class: "weapon",
+    mod1: 10, 
+    mod2: 10,
     spriteSheetCoordinates: {
       y: 336,
       x: 336,
@@ -438,6 +441,10 @@ class Spawner {
       spawnedItem.class === "weapon" ||
       spawnedItem.class === "shield";
 
+    if(spawnedItem.name === "Ring of Domination") {
+      isEquipment = false
+    }
+
     if (qualityRoll < 0.1 && isEquipment) {
       //it is prestine
       spawnedItem.name = `Prestine ${spawnedItem.name}`;
@@ -529,6 +536,10 @@ class Spawner {
       spawnedItem.class === "torso" ||
       spawnedItem.class === "weapon" ||
       spawnedItem.class === "shield";
+
+      if(spawnedItem.name === "Ring of Domination") {
+        isEquipment = false
+      }
 
     if (qualityRoll < 0.1 && isEquipment) {
       //it is pristine

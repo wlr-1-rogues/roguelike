@@ -213,7 +213,9 @@ class World {
         (inspecting.item.class === "shield" && left.length === 0)
       ) {
         this.remove(inspecting?.entity);
-      } else if (
+      }
+      
+      else if (
         (inspecting.item.class === "weapon" && right.length === 0) ||
         (inspecting.item.class === "shield" && right.length === 0)
       ) {
