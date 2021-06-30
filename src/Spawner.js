@@ -422,11 +422,11 @@ class Spawner {
   spawnChestLootAt(x, y) {
     let currentLootTable = [];
     if (this.tier === 1) {
-      currentLootTable = [...tier1LootTable, ...globalLoot];
+      currentLootTable = [...tier1LootTable];
     } else if (this.tier === 2) {
-      currentLootTable = [...tier2LootTable, ...globalLoot];
+      currentLootTable = [...tier2LootTable];
     } else if (this.tier === 3) {
-      currentLootTable = [...tier3LootTable, ...globalLoot];
+      currentLootTable = [...tier3LootTable];
     }
 
     let itemIndex = getRandomInt(currentLootTable.length);
@@ -513,6 +513,61 @@ class Spawner {
         mimic
       )
     );
+  }
+
+  spawnMimicLoot(x, y) {
+    let currentLootTable = [];
+    if (this.tier === 1) {
+      currentLootTable = [...tier1LootTable];
+    } else if (this.tier === 2) {
+      currentLootTable = [...tier2LootTable];
+    } else if (this.tier === 3) {
+      currentLootTable = [...tier3LootTable];
+    }
+
+    let itemIndex = getRandomInt(currentLootTable.length);
+    let qualityRoll = Math.random();
+    let enchantmentRoll = Math.random();
+
+    let spawnedItem = { ...currentLootTable[itemIndex] };
+
+    let isEquipment =
+      spawnedItem.class === "head" ||
+      spawnedItem.class === "torso" ||
+      spawnedItem.class === "weapon" ||
+      spawnedItem.class === "shield";
+
+      if (qualityRoll < 0.2 && isEquipment) {
+        //it is prestine
+        spawnedItem.name = `Prestine ${spawnedItem.name}`;
+        spawnedItem.mod1 += 1;
+      } else {
+        //it's regular
+      }
+  
+      if (enchantmentRoll > 0.9 && isEquipment) {
+        spawnedItem.name = `Cursed ${spawnedItem.name}`;
+        spawnedItem.mod1 *= 2;
+        spawnedItem.status = "cursed";
+      } else if (enchantmentRoll > 0.7 && isEquipment) {
+        //it's spiky
+        spawnedItem.name = `Spiky ${spawnedItem.name}`;
+        spawnedItem.status = "spiky";
+      } else if (enchantmentRoll > 0.5 && isEquipment) {
+        //it's stealthy
+        spawnedItem.name = `Stealthy ${spawnedItem.name}`;
+        spawnedItem.status = "stealthy";
+      } else if (enchantmentRoll > 0.3 && isEquipment) {
+        //it's deadly
+        spawnedItem.name = `Deadly ${spawnedItem.name}`;
+        spawnedItem.status = "deadly";
+      } else {
+        //it's normal
+      }
+
+    let loot = new Loot(x, y, this.world.tilesize, spawnedItem);
+    this.world.add(loot);
+    this.world.moveDropToSpace(loot);
   }
 
   spawnLootAt(x, y) {
