@@ -5,6 +5,10 @@
 
 }
 
+#mobile {
+    display: none;
+  }
+
 img{
     max-width: 101px;
     min-width: 100px;
@@ -196,11 +200,19 @@ html,body{
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
     }
   
     #mobile {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      height: 70%;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      font-size: 200%;
     }
+
   
     #mobile > p {
       color: black;
