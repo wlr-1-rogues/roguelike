@@ -256,7 +256,7 @@ class Monster extends Entity {
         //they didn't die from spikes so they can attack
 
         monsterAttackRoll = combatRoll(20);
-        mAttackMod = monsterAttackRoll += this.attributes.attack;
+        mAttackMod = monsterAttackRoll + this.attributes.attack;
 
         world.addToHistory(`${this.attributes.name} attacks Player!`);
 
