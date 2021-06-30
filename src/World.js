@@ -282,8 +282,7 @@ class World {
           let endX = x + 2;
           let endY = y - 2;
 
-          this.add(new Blastwave(x - 1, y - 1, this.tilesize, blastwave));
-          explosionSound.play();
+
 
           for (let xCoord = startX; xCoord < endX; xCoord++) {
             for (let yCoord = startY; yCoord > endY; yCoord--) {
@@ -303,6 +302,10 @@ class World {
               }
             }
           }
+          
+          this.add(new Blastwave(x - 1, y - 1, this.tilesize, blastwave));
+          explosionSound.play();
+
         };
 
         if (direction === "up") {
