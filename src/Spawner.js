@@ -483,6 +483,7 @@ class Spawner {
   }
 
   spawnMimic(x, y) {
+    
     if (this.tier === 2) {
       mimic.attack += 3
       mimic.defense += 2
@@ -494,6 +495,7 @@ class Spawner {
       mimic.damage += 7
       mimic.health += 30
     }
+
     this.spawn(1, () => {
       return new Monster(
         x,
