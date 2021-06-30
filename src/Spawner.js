@@ -4,20 +4,6 @@ import Monster from "./Monster";
 import Stairs from "./Stairs";
 import Chest from "./Chest";
 
-const mimic = {
-  name: "Mimic",
-  flavortext: "The wood bends and cracks, shaping a ghastly mouth full of teeth",
-  attack: 10,
-  defense: 2,
-  damage: 9,
-  health: 20,
-  spriteSheet: "heroAtlas",
-  spriteSheetCoordinates: {
-    y: 576,
-    x: 336,
-  },
-}
-
 const globalLoot = [
   {
     name: "Rock Pick (5 uses)",
@@ -381,6 +367,20 @@ const chest = {
   },
 };
 
+const mimic = {
+  name: "Mimic",
+  flavortext: "The wood bends and cracks, shaping a ghastly mouth full of teeth",
+  attack: 4,
+  defense: 2,
+  damage: 8,
+  health: 20,
+  spriteSheet: "heroAtlas",
+  spriteSheetCoordinates: {
+    y: 576,
+    x: 336,
+  },
+}
+
 class Spawner {
   constructor(world) {
     this.world = world;
@@ -483,6 +483,17 @@ class Spawner {
   }
 
   spawnMimic(x, y) {
+    if (this.tier === 2) {
+      mimic.attack += 3
+      mimic.defense += 2
+      mimic.damage += 4
+      mimic.health += 15
+    } else if (this.tier === 3) {
+      mimic.attack += 5
+      mimic.defense += 4
+      mimic.damage += 7
+      mimic.health += 30
+    }
     this.spawn(1, () => {
       return new Monster(
         x,

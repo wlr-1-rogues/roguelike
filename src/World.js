@@ -618,9 +618,9 @@ class World {
 
     // USE THIS TO DEBUG WHEN WORKING WITH FOG OF WAR
 
-    // this.entities.forEach((entity) => {
-    //   entity.draw(context, entity, this.atlases);
-    // });
+    this.entities.forEach((entity) => {
+      entity.draw(context, entity, this.atlases);
+    });
   }
 
   drawTopLayer(context) {

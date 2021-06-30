@@ -36,6 +36,10 @@ import Goblin1 from "./assets/uf_heroes/goblin_1.png";
 import Goblin2 from "./assets/uf_heroes/goblin_2.png";
 import Goblin3 from "./assets/uf_heroes/goblin_3.png";
 
+import Mimic1 from "./assets/uf_heroes/mimic_1.png";
+import Mimic2 from "./assets/uf_heroes/mimic_2.png";
+import Mimic3 from "./assets/uf_heroes/mimic_3.png";
+
 function MonsterDisplay(props) {
     const { world, setWorld } = props;
     const [visibleMonsters, setVisibleMonsters] = useState([]);
