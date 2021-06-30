@@ -240,7 +240,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               <br></br><br></br>
               Audio
               <br></br>
-              Sound Library ~ Hollywood Edge - Topic ~ Copopaxi TV
+              Sound Library ~ Hollywood Edge - Topic ~ Copopaxi TV ~ Makai Symphony
               <br></br><br></br>
               Visuals
               <br></br>
