@@ -373,10 +373,10 @@ const chest = {
 const mimic = {
   name: "Mimic",
   flavortext: "The wood bends and cracks, shaping a ghastly mouth full of teeth",
-  attack: 4,
+  attack: 5,
   defense: 8,
-  damage: 8,
-  health: 15,
+  damage: 9,
+  health: 17,
   spriteSheet: "heroAtlas",
   spriteSheetCoordinates: {
     y: 576,
