@@ -375,7 +375,7 @@ const mimic = {
   flavortext: "The wood bends and cracks, shaping a ghastly mouth full of teeth",
   attack: 4,
   defense: 8,
-  damage: 4,
+  damage: 8,
   health: 15,
   spriteSheet: "heroAtlas",
   spriteSheetCoordinates: {
@@ -497,11 +497,12 @@ class Spawner {
 
     if (this.tier === 2) {
       mimic.attack += 2
-      mimic.damage += 4
+      mimic.damage += 6
       mimic.health += 20
     } else if (this.tier === 3) {
       mimic.attack += 4
-      mimic.damage += 8
+      mimic.defense += 1
+      mimic.damage += 16
       mimic.health += 40
     }
 
