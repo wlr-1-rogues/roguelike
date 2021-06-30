@@ -732,11 +732,6 @@ class World {
     this.history.push({body: arr[0], hex: arr[1]});
     if (this.history.length > 9) this.history.shift();
   }
-
-  // addToHistory(body, hex) {
-  //   this.history.push({body, hex});
-  //   if (this.history.length > 9) this.history.shift();
-  // }
 }
 
 function getRandomInt(max) {

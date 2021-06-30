@@ -1,22 +1,20 @@
 import Entity from "./Entity";
 import ItemPickup from "./assets/sounds/itemPickup.mp3";
 import ItemDrop from "./assets/sounds/dropItem.wav";
-import HexContext from "./HexContext";
 
 const itemPickup = new Audio(ItemPickup);
 const itemDrop = new Audio(ItemDrop);
 
-  // //hexcodes
-  // const warning = "#FF6B4C"
-  // const consumable = "#48FF47"
-  // const story = "#CACACA"
-  // const equip = "#FFD426"
-
-// const {warning, consumable, story, equip} = useContext(HexContext)
+    // hexcodes
+  const warning = "#FF6B4C"
+  const consumable = "#48FF47"
+  const story = "#CACACA"
+  const equip = "#FFD426"
+  const inspect = "#00A5D8"
+  const pickup = "#3AD1FF"
+    // see HexContext.js for key
 
 class Player extends Entity {
-
-  static contextType = HexContext
 
   inventory = [
     {
@@ -75,7 +73,6 @@ class Player extends Entity {
   }
 
   add(item) {
-    const {inspect} = this.context
     if (this.inspecting.length === 1) {
       this.inspecting.splice(0, 1);
       this.inspecting.push({ item: item.attributes, pos: null, entity: item });
@@ -89,7 +86,6 @@ class Player extends Entity {
   }
 
   addN() {
-    const {warning, pickup} = this.context
     const [inspecting] = this.inspecting;
     if (inspecting?.pos === null && this.inventory.length < 6) {
       const added = [`added ${inspecting.item.name} to inventory`, pickup];
@@ -109,7 +105,6 @@ class Player extends Entity {
   }
 
   inspect(index) {
-    const {warning} = this.context
     const [inspecting] = this.inspecting;
     if (this.inventory[index]) {
       if (inspecting?.pos === index) {
@@ -126,7 +121,6 @@ class Player extends Entity {
   }
 
   inspectE(position) {
-    const {warning} = this.context
     const [inspecting] = this.inspecting;
     if (position === "left" && this.left.length === 1) {
       if (inspecting?.pos === "left") {
@@ -177,7 +171,6 @@ class Player extends Entity {
   }
 
   equip() {
-    const {warning, consumable} = this.context
     const [inspecting] = this.inspecting;
     if (this.inspecting.length === 1) {
       const { item } = inspecting;
@@ -213,8 +206,6 @@ class Player extends Entity {
         }
         this.inspecting.splice(0, 1);
         return equip;
-      
-
 
         // SHIELDS
       } else if (item.class === "shield" && this.left.length === 0) {
@@ -296,7 +287,6 @@ class Player extends Entity {
   }
 
   unequip() {
-    const {warning, equip} = this.context
     if (this.inspecting.length === 1) {
       const [inspecting] = this.inspecting;
       const { item } = inspecting;
@@ -360,7 +350,6 @@ class Player extends Entity {
   }
 
   cast() {
-    const {story} = this.context
     const [inspecting] = this.inspecting;
     this.inventory.splice(inspecting.pos, 1);
     this.inspecting.splice(0, 1);
@@ -368,7 +357,6 @@ class Player extends Entity {
   }
 
   drop() {
-    const {warning, story} = this.context
     const [inspecting] = this.inspecting;
     if (!inspecting) return ["inspect and item first!", warning];
     const { item } = inspecting;

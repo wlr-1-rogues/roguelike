@@ -5,6 +5,9 @@ import { HexContext } from "./HexContext.js";
 
 const stairSound = new Audio(StairSound);
 
+const story = "#CACACA"
+const normal = "#FFFFFF"
+
 class Stairs extends Entity {
   static contextType = HexContext
 
@@ -19,12 +22,12 @@ class Stairs extends Entity {
   action(verb, world) {
     if (verb === "bump") {
       stairSound.play();
-      world.addToHistory("You move down the stairs...");
+      world.addToHistory(["You move down the stairs...", story]);
       world.tier += 1;
       if (world.tier > 3) {
         //spawn boss room here
         world.tier = "boss";
-        world.addToHistory("You suddenly feel a sense of impending doom...");
+        world.addToHistory(["You suddenly feel a sense of impending doom...", story]);
         world.createBossMap();
         world.player.x = 0;
         world.player.y = 0;
@@ -34,7 +37,7 @@ class Stairs extends Entity {
         spawner.spawnBoss();
         return;
       }
-      world.addToHistory(`LEVEL ${world.tier}`);
+      world.addToHistory([`LEVEL ${world.tier}`, normal]);
       world.createCellularMap();
       world.player.x = 0;
       world.player.y = 0;
