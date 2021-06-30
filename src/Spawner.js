@@ -399,6 +399,10 @@ class Spawner {
     this.world.moveToSpace(entity);
   }
 
+  spawnOneMimic(entity) {
+    this.world.add(entity);
+  }
+
   spawnLoot(number) {
     for (let i = 0; i < number; i++) {
       this.spawnOne(
@@ -483,7 +487,7 @@ class Spawner {
   }
 
   spawnMimic(x, y) {
-    
+
     if (this.tier === 2) {
       mimic.attack += 3
       mimic.defense += 2
@@ -496,14 +500,13 @@ class Spawner {
       mimic.health += 30
     }
 
-    this.spawn(1, () => {
-      return new Monster(
+    this.spawnOneMimic(new Monster(
         x,
         y,
         this.world.tilesize,
         mimic
-      );
-    });
+      )
+    );
   }
 
   spawnLootAt(x, y) {

@@ -10,8 +10,8 @@ class Chest extends Entity {
     if (verb === "bump") {
       let spawner = new Spawner(world);
       if(this.mimic === true) {
-        spawner.spawnMimic(this.x, this.y)
         world.remove(this);
+        spawner.spawnMimic(this.x, this.y)
         return;
       }
       spawner.spawnChestLootAt(this.x, this.y);
