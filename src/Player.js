@@ -23,7 +23,7 @@ class Player extends Entity {
       type: "rock pick",
       mod1: 0,
       mod2: 2,
-      charges: 5,
+      charges: 50000,
       spriteSheet: "itemAtlas",
       spriteSheetCoordinates: {
         y: 96,
@@ -47,7 +47,7 @@ class Player extends Entity {
     moveEvasion: false,
     block: 0,
     maxHealth: 50,
-    health: 50,
+    health: 500000,
     sightRadius: 7,
     spriteSheet: "heroAtlas",
     spriteSheetCoordinates: {

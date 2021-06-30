@@ -142,10 +142,14 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     spawner.spawnMonsters(100);
     spawner.spawnStairs();
     setWorld(newWorld);
+
+  }, []);
+
+  useEffect(()=>{
     if(world.showWinScreen === true){
       setWinScreen(true)
     }
-  }, [world.showWinScreen]);
+  }, [world.showWinScreen])
 
   useEffect(() => {
     inputManager.bindKeys();
