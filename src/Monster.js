@@ -167,9 +167,11 @@ class Monster extends Entity {
         if (world.player.right[0]?.status === "deadly") deadyBonus += 1;
         if (world.player.head[0]?.status === "deadly") deadyBonus += 1;
         if (world.player.torso[0]?.status === "deadly") deadyBonus += 1;
-        console.log("deadyBonus", deadyBonus);
+        
+        let totalBonus = parseInt(playerAttackRoll) + parseInt(deadyBonus)
+        console.log("deadyBonus", deadyBonus, "totalBonus", totalBonus);
 
-        if (playerAttackRoll + deadyBonus >= 20) {
+        if (totalBonus >= 20) {
           world.addToHistory(
             `PLAYER CRITICAL HITS FOR ${
               world.player.attributes.damage * 2
