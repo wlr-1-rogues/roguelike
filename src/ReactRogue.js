@@ -139,6 +139,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     newWorld.moveToSpace(world.player);
     let spawner = new Spawner(newWorld);
     spawner.spawnLoot(6);
+    spawner.spawnMimicChest();
     spawner.spawnMonsters(100);
     spawner.spawnStairs();
     setWorld(newWorld);

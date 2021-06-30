@@ -62,12 +62,16 @@ class Monster extends Entity {
         world.add(new Blood(this.x, this.y, this.tilesize, blood));
 
         let dropRoll = Math.random();
-        if (dropRoll < 0.2 || world.tier === "boss") {
+        if (this.attributes.name === "Mimic") {
+          world.addToHistory(`${this.attributes.name} drops an item!`);
+          let spawner = new Spawner(world);
+          spawner.spawnLootAt(this.x, this.y);
+        } else if (dropRoll < 0.2 || world.tier === "boss") {
           world.addToHistory(`${this.attributes.name} drops an item!`);
           let spawner = new Spawner(world);
           spawner.spawnLootAt(this.x, this.y);
         }
-
+        
         world.remove(this);
       }
     }
@@ -189,7 +193,11 @@ class Monster extends Entity {
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
           gore.play();
           let dropRoll = Math.random();
-          if (dropRoll < 0.2 || world.tier === "boss") {
+          if (this.attributes.name === "Mimic") {
+            world.addToHistory(`${this.attributes.name} drops an item!`);
+            let spawner = new Spawner(world);
+            spawner.spawnLootAt(this.x, this.y);
+          } else if (dropRoll < 0.2 || world.tier === "boss") {
             world.addToHistory(`${this.attributes.name} drops an item!`);
             let spawner = new Spawner(world);
             spawner.spawnLootAt(this.x, this.y);
@@ -230,7 +238,11 @@ class Monster extends Entity {
         world.add(new Blood(this.x, this.y, this.tilesize, blood));
         gore.play();
         let dropRoll = Math.random();
-        if (dropRoll < 0.2 || world.tier === "boss") {
+        if (this.attributes.name === "Mimic") {
+          world.addToHistory(`${this.attributes.name} drops an item!`);
+          let spawner = new Spawner(world);
+          spawner.spawnLootAt(this.x, this.y);
+        } else if (dropRoll < 0.2 || world.tier === "boss") {
           world.addToHistory(`${this.attributes.name} drops an item!`);
           let spawner = new Spawner(world);
           spawner.spawnLootAt(this.x, this.y);
