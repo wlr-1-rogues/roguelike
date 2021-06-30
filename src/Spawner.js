@@ -3,6 +3,12 @@ import Loot from "./Loot";
 import Monster from "./Monster";
 import Stairs from "./Stairs";
 import Chest from "./Chest";
+// import BossStart from './assets/sounds/bossStart.wav'
+// import BossRoom from './assets/sounds/bossRoom.mp3'
+
+// const bossStart = new Audio(BossStart)
+// const bossRoom = new Audio(BossRoom)
+// bossRoom.volume = .25
 
 const globalLoot = [
   {
@@ -676,6 +682,8 @@ class Spawner {
     );
     this.world.add(boss);
     this.world.moveToSpace(boss);
+    // bossStart.play()
+    // setTimeout(() => bossRoom.play(), 2500)
   }
 }
 
