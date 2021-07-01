@@ -46,6 +46,7 @@ const hit = [
   },
 ];
 
+const story = "#CACACA"
 const info = "#7F96FF"
 const monsterAttack = "#FF917C"
 const curse = "#CF0000"
@@ -276,7 +277,7 @@ class World {
 
   rest() {
     this.removeHit();
-    this.addToHistory("you give yourself a moment to rest");
+    this.addToHistory(["you give yourself a moment to rest", story]);
     this.player.attributes.didRest = true;
     this.player.attributes.didMove = false;
   }
