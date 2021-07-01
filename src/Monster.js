@@ -9,6 +9,7 @@ import Gore from "./assets/sounds/gore.wav";
 import Wiff from "./assets/sounds/wiff.mp3";
 import Shield from "./assets/sounds/shield.mp3";
 import BossDeath from "./assets/sounds/bossDeath.wav";
+import CursedWeapon from './assets/sounds/cursedWeapon.mp3'
 
 const daggerAudio = new Audio(Dagger);
 daggerAudio.volume = 0.5;
@@ -19,6 +20,7 @@ const wiff = new Audio(Wiff);
 wiff.volume = 0.5;
 const shield = new Audio(Shield);
 const bossDeath = new Audio(BossDeath);
+const cursedWeapon = new Audio(CursedWeapon)
 
 const info = "#7F96FF"
 const monsterDeath = "#00D966"
@@ -93,7 +95,8 @@ class Monster extends Entity {
             [`your ${left.name} BURSTS INTO FLAME and you take ${
               left.mod1 * 4
             } damage`, curse]
-          );
+            );
+          cursedWeapon.play()
           if (world.player.inspecting[0]?.pos === "left") {
             world.player.inspecting.splice(0, 1);
           }

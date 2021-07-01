@@ -583,6 +583,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                             on...
                           </p>
                         </div>
+                      ) : inspecting.item.class === 'tome' ? (
+                        <p>A dusty old tome, with writing in some ancient language</p>
                       ) : (
                         <div>
                           What did you do?? You broke it!! Refresh your screen.
@@ -678,6 +680,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                             what would happen if you put it on...
                           </p>
                         </div>
+                      ) : inspecting.item.class === 'tome' ? (
+                        <p>A dusty old tome, with writing in some ancient language</p>
                       ) : (
                         <div>
                           What did you do?? You broke it!! Refresh your screen.
