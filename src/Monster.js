@@ -71,7 +71,7 @@ class Monster extends Entity {
         if (this.attributes.name === "Mimic") {
           world.addToHistory([`${this.attributes.name} drops an item!`, info]);
           let spawner = new Spawner(world);
-          spawner.spawnLootAt(this.x, this.y);
+          spawner.spawnMimicLoot(this.x, this.y);
         } else if (dropRoll < 0.2 || world.tier === "boss") {
           world.addToHistory([`${this.attributes.name} drops an item!`, info]);
           let spawner = new Spawner(world);

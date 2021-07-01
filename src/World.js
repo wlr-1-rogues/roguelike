@@ -46,6 +46,7 @@ const hit = [
   },
 ];
 
+const story = "#CACACA"
 const info = "#7F96FF"
 const monsterAttack = "#FF917C"
 const curse = "#CF0000"
@@ -59,10 +60,10 @@ class World {
     this.tier = tier;
     this.entities = [new Player(0, 0, 24)];
     this.history = [
-      {body: "You enter the dungeon", hex: "#FFFFFF"},
-      {body: "---", hex: "#FFFFFF"},
-      {body: `LEVEL ${tier}`, hex: "#FFFFFF"},
-      {body: "---", hex: "#FFFFFF"}
+      {body: "You enter the dungeon", hex: story},
+      {body: "---", hex: story},
+      {body: `LEVEL ${tier}`, hex: story},
+      {body: "---", hex: story}
     ];
     this.visibleMonsters = new Set([]);
     this.worldmap = new Array(this.width);
@@ -276,7 +277,7 @@ class World {
 
   rest() {
     this.removeHit();
-    this.addToHistory("you give yourself a moment to rest");
+    this.addToHistory(["you give yourself a moment to rest", story]);
     this.player.attributes.didRest = true;
     this.player.attributes.didMove = false;
   }
