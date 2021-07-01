@@ -6,12 +6,11 @@ const itemPickup = new Audio(ItemPickup);
 const itemDrop = new Audio(ItemDrop);
 
     // hexcodes
-  const warning = "#FF6B4C"
+  const warning = "#D18C8C"
   const consumable = "#48FF47"
   const story = "#CACACA"
-  const equip = "#FFD426"
+  const info = "#7F96FF"
   const inspect = "#00A5D8"
-  const pickup = "#3AD1FF"
     // see HexContext.js for key
 
 class Player extends Entity {
@@ -88,7 +87,7 @@ class Player extends Entity {
   addN() {
     const [inspecting] = this.inspecting;
     if (inspecting?.pos === null && this.inventory.length < 6) {
-      const added = [`added ${inspecting.item.name} to inventory`, pickup];
+      const added = [`added ${inspecting.item.name} to inventory`, info];
       this.inventory.push(inspecting.item);
       this.inspecting.splice(0, 1);
       // if (inspecting.item.name === "Ring of Domination") {
@@ -176,7 +175,7 @@ class Player extends Entity {
       const { item } = inspecting;
       const health = [`you drink the ${item.name} and gain ${item.mod1} health points`, consumable];
       const healthMax = [`you drink the ${item.name} and max out your health points!`, consumable];
-      const equip = [`you equip the ${item.name}`, equip];
+      const equip = [`you equip the ${item.name}`, info];
       if (typeof inspecting?.pos === "string")
         return ["you already have this equipped!", warning];
 
@@ -290,7 +289,7 @@ class Player extends Entity {
     if (this.inspecting.length === 1) {
       const [inspecting] = this.inspecting;
       const { item } = inspecting;
-      const unequip = [`you unequip the ${item.name}`, equip];
+      const unequip = [`you unequip the ${item.name}`, info];
       if (typeof inspecting?.pos === "string") {
         // WEAPONS
         if (item.class === "weapon" && this.inventory.length < 6) {

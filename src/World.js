@@ -48,6 +48,10 @@ const hit = [
   },
 ];
 
+const info = "#7F96FF"
+const monsterAttack = "#FF917C"
+const curse = "#CF0000"
+
 class World {
   constructor(width, height, tilesize, atlases, tier) {
     this.width = width;
@@ -435,12 +439,12 @@ class World {
             this.worldmap[tempPlayer.x][tempPlayer.y] = 0;
             left.charges -= 1;
             digSound.play()
-            this.addToHistory("Your Rock Pick is slightly bluntened");
+            this.addToHistory(["Your Rock Pick is slightly bluntened", info]);
             if (left.charges < 1) {
               this.player.attributes.attack -= left.mod1;
               this.player.attributes.damage -= left.mod2;
               this.player.left.pop();
-              this.addToHistory("Your Rock Pick breaks into pieces.");
+              this.addToHistory(["Your Rock Pick breaks into pieces.", curse]);
             }
           }
         }
@@ -456,12 +460,12 @@ class World {
           ) {
             this.worldmap[tempPlayer.x][tempPlayer.y] = 0;
             right.charges -= 1;
-            this.addToHistory("Your Rock Pick is slightly bluntened.");
+            this.addToHistory(["Your Rock Pick is slightly bluntened.", info]);
             if (right.charges < 1) {
               this.player.attributes.attack -= right.mod1;
               this.player.attributes.damage -= right.mod2;
               this.player.right.pop();
-              this.addToHistory("Your Rock Pick breaks into pieces.");
+              this.addToHistory(["Your Rock Pick breaks into pieces.", curse]);
             }
           }
         }
@@ -545,7 +549,7 @@ class World {
 
             if (entityAtLocation instanceof Loot) {
               this.addToHistory(
-                `${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`
+                [`${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`, monsterAttack]
               );
               if (this.player.inspecting[0]?.pos === null) {
                 this.player.inspecting.splice(0, 1)

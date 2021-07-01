@@ -5,15 +5,16 @@
 // export const HexProvider = (props) => {
 
     const normal = "#FFFFFF"
-    const warning = "#FF6B4C"
+    const warning = "#D18C8C"
     const consumable = "#48FF47"
     const story = "#CACACA"
-    const equip = "#FFD426"
+    const info = "#7F96FF"
     const inspect = "#00A5D8"
-    const pickup = "#3AD1FF"
-    const monsterDeath = "#08E000"
-    const monsterAttack = "#CA0000"
-    const playerAttack = "#7C84FF"
+    const monsterDeath = "#00D966"
+    const monsterAttack = "#FF917C"
+    const playerAttack = "#F6BF00"
+    const critical = "#F6D900"
+    const curse = "#CF0000"
 
 
 //   return (
