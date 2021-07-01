@@ -70,7 +70,7 @@ const App = () => {
             <div className="gameMap">
               <ReactRogue
                 width={40}
-                height={32}
+                height={40}
                 tilesize={24}
                 atlases={atlases}
               />
