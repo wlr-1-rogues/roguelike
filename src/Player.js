@@ -356,6 +356,9 @@ class Player extends Entity {
   drop() {
     const [inspecting] = this.inspecting;
     if (!inspecting) return ["inspect and item first!", warning];
+    if (inspecting.item.name === "Ring of Domination") {
+      return ["the ring cannot be destroyed by any craft that you possess...", story]
+    }
     const { item } = inspecting;
     if (typeof inspecting?.pos === "string") {
       if (item.class === "weapon") {
