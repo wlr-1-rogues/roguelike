@@ -4,6 +4,8 @@
 
 // export const HexProvider = (props) => {
 
+
+// World.js | Player.js | Monster.js | Stairs.js
     const normal = "#FFFFFF"
     const warning = "#D18C8C"
     const consumable = "#48FF47"

@@ -94,7 +94,7 @@ class Player extends Entity {
       // }
       return added;
     } else if (this.inventory.length >= 6) {
-      return "inventory full!";
+      return ["inventory full!", warning];
     } else if (!inspecting) {
       return ["pick up an item to inspect and add to your inventory", warning];
     } else {
