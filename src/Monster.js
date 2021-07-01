@@ -8,7 +8,7 @@ import HumanDeath from "./assets/sounds/humanPain.wav";
 import Gore from "./assets/sounds/gore.wav";
 import Wiff from "./assets/sounds/wiff.mp3";
 import Shield from "./assets/sounds/shield.mp3";
-import BossDeath from './assets/sounds/bossDeath.wav'
+import BossDeath from "./assets/sounds/bossDeath.wav";
 
 const daggerAudio = new Audio(Dagger);
 daggerAudio.volume = 0.5;
@@ -18,7 +18,7 @@ gore.volume = 0.5;
 const wiff = new Audio(Wiff);
 wiff.volume = 0.5;
 const shield = new Audio(Shield);
-const bossDeath = new Audio(BossDeath)
+const bossDeath = new Audio(BossDeath);
 
 const blood = {
   spriteSheet: "terrainAtlas",
@@ -74,12 +74,6 @@ class Monster extends Entity {
     }
 
     if (verb === "bump") {
-      console.log(
-        "did move",
-        world.player.attributes.didMove,
-        "did rest",
-        world.player.attributes.didRest
-      );
       let playerAttackRoll = combatRoll(20);
       let pAttackMod = 0 + playerAttackRoll + world.player.attributes.attack;
 
@@ -165,13 +159,11 @@ class Monster extends Entity {
 
       // end of curse
       if (world.player.attributes.didRest) {
-        console.log("before rest bonus", pAttackMod);
         let restBonus = 3;
         pAttackMod += restBonus;
         world.addToHistory(
           "Your preparation gives you an additional chance to hit."
         );
-        console.log("after rest bonus", pAttackMod);
       }
 
       if (+pAttackMod >= this.attributes.defense) {
@@ -182,14 +174,6 @@ class Monster extends Entity {
         if (world.player.torso[0]?.status === "deadly") deadyBonus += 1;
 
         let totalBonus = parseInt(playerAttackRoll) + parseInt(deadyBonus);
-        console.log(
-          "attackRoll",
-          playerAttackRoll,
-          "deadyBonus",
-          deadyBonus,
-          "totalBonus",
-          totalBonus
-        );
 
         let stealthBonus = 0;
         if (world.player.left[0]?.status === "stealthy") stealthBonus += 2;
@@ -206,7 +190,6 @@ class Monster extends Entity {
           daggerAudio.play();
 
           if (world.player.attributes.didMove && stealthBonus) {
-            console.log("sneak attack");
             world.addToHistory(
               "Your attack surprises the enemy and deals some additional damage."
             );
@@ -222,7 +205,6 @@ class Monster extends Entity {
           );
           daggerAudio.play();
           if (world.player.attributes.didMove && stealthBonus) {
-            console.log("sneak attack");
             world.addToHistory(
               "Your attack surprises the enemy and deals some additional damage."
             );
@@ -247,9 +229,9 @@ class Monster extends Entity {
           } else if (dropRoll < 0.2 || world.tier === "boss") {
             world.addToHistory(`${this.attributes.name} drops an item!`);
             let spawner = new Spawner(world);
-            if(world.tier === 'boss'){
-              world.pauseMusic()
-              bossDeath.play()
+            if (world.tier === "boss") {
+              world.pauseMusic();
+              bossDeath.play();
             }
             spawner.spawnLootAt(this.x, this.y);
           }
@@ -272,7 +254,6 @@ class Monster extends Entity {
       if (world.player.right[0]?.status === "spiky") spikeBonus += 1;
       if (world.player.head[0]?.status === "spiky") spikeBonus += 1;
       if (world.player.torso[0]?.status === "spiky") spikeBonus += 1;
-      console.log("spikebonus", spikeBonus);
 
       if (spikeBonus > 0) {
         this.attributes.health -= spikeBonus;
@@ -309,7 +290,15 @@ class Monster extends Entity {
 
         world.addToHistory(`${this.attributes.name} attacks Player!`);
 
-        if (+mAttackMod >= world.player.attributes.defense) {
+        let moveBonus = 0;
+        if (world.player.attributes.didMove) {
+          moveBonus = 3;
+          world.addToHistory(
+            "Your movement makes it harder for the enemy to hit you."
+          );
+        }
+
+        if (+mAttackMod >= world.player.attributes.defense + moveBonus) {
           if (monsterAttackRoll === 20) {
             world.addToHistory(
               `${this.attributes.name}  CRITICAL HITS FOR ${

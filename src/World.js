@@ -500,7 +500,6 @@ class World {
       if (this.player.right[0]?.status === "stealthy") stealthBonus += 1;
       if (this.player.head[0]?.status === "stealthy") stealthBonus += 1;
       if (this.player.torso[0]?.status === "stealthy") stealthBonus += 1;
-      console.log("stealth bonus", stealthBonus);
 
       if (distance < 6 - stealthBonus) {
         let astar = new Path.AStar(
