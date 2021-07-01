@@ -54,7 +54,7 @@ const LandingPage = (props) => {
                         <br></br>
                         <br></br>
                         <br></br>
-                        Stureth, the dark king, has grown powerful in his dark underground kingdom. 
+                        Stuarth, the dark king, has grown powerful in his dark underground kingdom. 
                         <br></br>
                         <br></br>
                         <br></br>
