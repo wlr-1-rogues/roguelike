@@ -379,10 +379,10 @@ const chest = {
 const mimic = {
   name: "Mimic",
   flavortext: "The wood bends and cracks, shaping a ghastly mouth full of teeth",
-  attack: 4,
+  attack: 5,
   defense: 8,
-  damage: 4,
-  health: 15,
+  damage: 9,
+  health: 17,
   spriteSheet: "heroAtlas",
   spriteSheetCoordinates: {
     y: 576,
@@ -428,11 +428,11 @@ class Spawner {
   spawnChestLootAt(x, y) {
     let currentLootTable = [];
     if (this.tier === 1) {
-      currentLootTable = [...tier1LootTable, ...globalLoot];
+      currentLootTable = [...tier1LootTable];
     } else if (this.tier === 2) {
-      currentLootTable = [...tier2LootTable, ...globalLoot];
+      currentLootTable = [...tier2LootTable];
     } else if (this.tier === 3) {
-      currentLootTable = [...tier3LootTable, ...globalLoot];
+      currentLootTable = [...tier3LootTable];
     }
 
     let itemIndex = getRandomInt(currentLootTable.length);
@@ -503,11 +503,12 @@ class Spawner {
 
     if (this.tier === 2) {
       mimic.attack += 2
-      mimic.damage += 4
+      mimic.damage += 6
       mimic.health += 20
     } else if (this.tier === 3) {
       mimic.attack += 4
-      mimic.damage += 8
+      mimic.defense += 1
+      mimic.damage += 16
       mimic.health += 40
     }
 
@@ -520,20 +521,76 @@ class Spawner {
     );
   }
 
+  spawnMimicLoot(x, y) {
+    let currentLootTable = [];
+    if (this.tier === 1) {
+      currentLootTable = [...tier1LootTable];
+    } else if (this.tier === 2) {
+      currentLootTable = [...tier2LootTable];
+    } else if (this.tier === 3) {
+      currentLootTable = [...tier3LootTable];
+    }
+
+    let itemIndex = getRandomInt(currentLootTable.length);
+    let qualityRoll = Math.random();
+    let enchantmentRoll = Math.random();
+
+    let spawnedItem = { ...currentLootTable[itemIndex] };
+
+    let isEquipment =
+      spawnedItem.class === "head" ||
+      spawnedItem.class === "torso" ||
+      spawnedItem.class === "weapon" ||
+      spawnedItem.class === "shield";
+
+      if (qualityRoll < 0.2 && isEquipment) {
+        //it is prestine
+        spawnedItem.name = `Prestine ${spawnedItem.name}`;
+        spawnedItem.mod1 += 1;
+      } else {
+        //it's regular
+      }
+  
+      if (enchantmentRoll > 0.9 && isEquipment) {
+        spawnedItem.name = `Cursed ${spawnedItem.name}`;
+        spawnedItem.mod1 *= 2;
+        spawnedItem.status = "cursed";
+      } else if (enchantmentRoll > 0.7 && isEquipment) {
+        //it's spiky
+        spawnedItem.name = `Spiky ${spawnedItem.name}`;
+        spawnedItem.status = "spiky";
+      } else if (enchantmentRoll > 0.5 && isEquipment) {
+        //it's stealthy
+        spawnedItem.name = `Stealthy ${spawnedItem.name}`;
+        spawnedItem.status = "stealthy";
+      } else if (enchantmentRoll > 0.3 && isEquipment) {
+        //it's deadly
+        spawnedItem.name = `Deadly ${spawnedItem.name}`;
+        spawnedItem.status = "deadly";
+      } else {
+        //it's normal
+      }
+
+    let loot = new Loot(x, y, this.world.tilesize, spawnedItem);
+    this.world.add(loot);
+    this.world.moveDropToSpace(loot);
+  }
+
   spawnLootAt(x, y) {
     let currentLootTable = [];
     if (this.tier === 1) {
-      currentLootTable = [...tier1LootTable, ...globalLoot];
+      currentLootTable = [...globalLoot];
     } else if (this.tier === 2) {
-      currentLootTable = [...tier2LootTable, ...globalLoot];
+      currentLootTable = [...tier1LootTable, ...globalLoot];
     } else if (this.tier === 3) {
-      currentLootTable = [...tier3LootTable, ...globalLoot];
+      currentLootTable = [...tier2LootTable, ...globalLoot];
     } else if (this.tier === "boss") {
       currentLootTable = bossDrop;
     }
 
     let itemIndex = getRandomInt(currentLootTable.length);
     let qualityRoll = Math.random();
+    let enchantmentRoll = Math.random();
 
     let spawnedItem = { ...currentLootTable[itemIndex] };
 
@@ -547,22 +604,37 @@ class Spawner {
         isEquipment = false
       }
 
-    if (qualityRoll < 0.1 && isEquipment) {
-      //it is pristine
-      spawnedItem.name = `Pristine ${spawnedItem.name}`;
-      spawnedItem.mod1 += 1;
-    } else if (qualityRoll > 0.65 && qualityRoll < 0.95 && isEquipment) {
-      //it's damaged
-      spawnedItem.name = `Dingy ${spawnedItem.name}`;
-      spawnedItem.mod1 = spawnedItem.mod1 === 1 ? 1 : spawnedItem.mod1 - 1;
-    } else if (qualityRoll > 0.95 && isEquipment) {
-      //it's cursed
-      spawnedItem.name = `Cursed ${spawnedItem.name}`;
-      spawnedItem.mod2 ? (spawnedItem.mod2 *= 2) : (spawnedItem.mod1 *= 2);
-      spawnedItem.status = "cursed";
-    } else {
-      //it's regular
-    }
+      if (qualityRoll < 0.1 && isEquipment) {
+        //it is prestine
+        spawnedItem.name = `Prestine ${spawnedItem.name}`;
+        spawnedItem.mod1 += 1;
+      } else if (qualityRoll > 0.7 && qualityRoll < 0.9 && isEquipment) {
+        //it's damaged
+        spawnedItem.name = `Dingy ${spawnedItem.name}`;
+        spawnedItem.mod1 = spawnedItem.mod1 === 1 ? 1 : spawnedItem.mod1 - 1;
+      } else {
+        //it's regular
+      }
+  
+      if (enchantmentRoll > 0.9 && isEquipment) {
+        spawnedItem.name = `Cursed ${spawnedItem.name}`;
+        spawnedItem.mod1 *= 2;
+        spawnedItem.status = "cursed";
+      } else if (enchantmentRoll > 0.7 && isEquipment) {
+        //it's spiky
+        spawnedItem.name = `Spiky ${spawnedItem.name}`;
+        spawnedItem.status = "spiky";
+      } else if (enchantmentRoll > 0.5 && isEquipment) {
+        //it's stealthy
+        spawnedItem.name = `Stealthy ${spawnedItem.name}`;
+        spawnedItem.status = "stealthy";
+      } else if (enchantmentRoll > 0.3 && isEquipment) {
+        //it's deadly
+        spawnedItem.name = `Deadly ${spawnedItem.name}`;
+        spawnedItem.status = "deadly";
+      } else {
+        //it's normal
+      }
 
     let loot = new Loot(x, y, this.world.tilesize, spawnedItem);
     this.world.add(loot);

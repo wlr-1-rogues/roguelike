@@ -46,6 +46,10 @@ const hit = [
   },
 ];
 
+const info = "#7F96FF"
+const monsterAttack = "#FF917C"
+const curse = "#CF0000"
+
 class World {
   constructor(width, height, tilesize, atlases, tier) {
     this.width = width;
@@ -54,7 +58,12 @@ class World {
     this.atlases = atlases;
     this.tier = tier;
     this.entities = [new Player(0, 0, 24)];
-    this.history = ["You enter the dungeon", "---", `LEVEL ${tier}`, "---"];
+    this.history = [
+      {body: "You enter the dungeon", hex: "#FFFFFF"},
+      {body: "---", hex: "#FFFFFF"},
+      {body: `LEVEL ${tier}`, hex: "#FFFFFF"},
+      {body: "---", hex: "#FFFFFF"}
+    ];
     this.visibleMonsters = new Set([]);
     this.worldmap = new Array(this.width);
     for (let x = 0; x < this.width; x++) {
@@ -289,8 +298,7 @@ class World {
           let endX = x + 2;
           let endY = y - 2;
 
-          this.add(new Blastwave(x - 1, y - 1, this.tilesize, blastwave));
-          explosionSound.play();
+
 
           for (let xCoord = startX; xCoord < endX; xCoord++) {
             for (let yCoord = startY; yCoord > endY; yCoord--) {
@@ -310,6 +318,10 @@ class World {
               }
             }
           }
+
+          this.add(new Blastwave(x - 1, y - 1, this.tilesize, blastwave));
+          explosionSound.play();
+
         };
 
         if (direction === "up") {
@@ -427,13 +439,13 @@ class World {
           ) {
             this.worldmap[tempPlayer.x][tempPlayer.y] = 0;
             left.charges -= 1;
-            digSound.play();
-            this.addToHistory("Your Rock Pick is slightly bluntened");
+            digSound.play()
+            this.addToHistory(["Your Rock Pick is slightly bluntened", info]);
             if (left.charges < 1) {
               this.player.attributes.attack -= left.mod1;
               this.player.attributes.damage -= left.mod2;
               this.player.left.pop();
-              this.addToHistory("Your Rock Pick breaks into pieces.");
+              this.addToHistory(["Your Rock Pick breaks into pieces.", curse]);
             }
           }
         }
@@ -449,12 +461,12 @@ class World {
           ) {
             this.worldmap[tempPlayer.x][tempPlayer.y] = 0;
             right.charges -= 1;
-            this.addToHistory("Your Rock Pick is slightly bluntened.");
+            this.addToHistory(["Your Rock Pick is slightly bluntened.", info]);
             if (right.charges < 1) {
               this.player.attributes.attack -= right.mod1;
               this.player.attributes.damage -= right.mod2;
               this.player.right.pop();
-              this.addToHistory("Your Rock Pick breaks into pieces.");
+              this.addToHistory(["Your Rock Pick breaks into pieces.", curse]);
             }
           }
         }
@@ -536,7 +548,7 @@ class World {
 
             if (entityAtLocation instanceof Loot) {
               this.addToHistory(
-                `${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`
+                [`${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`, monsterAttack]
               );
               if (this.player.inspecting[0]?.pos === null) {
                 this.player.inspecting.splice(0, 1);
@@ -719,8 +731,8 @@ class World {
     );
   }
 
-  addToHistory(history) {
-    this.history.push(history);
+  addToHistory(arr) {
+    this.history.push({body: arr[0], hex: arr[1]});
     if (this.history.length > 9) this.history.shift();
   }
 }

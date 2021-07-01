@@ -20,6 +20,13 @@ wiff.volume = 0.5;
 const shield = new Audio(Shield);
 const bossDeath = new Audio(BossDeath);
 
+const info = "#7F96FF"
+const monsterDeath = "#00D966"
+const monsterAttack = "#FF917C"
+const playerAttack = "#F6BF00"
+const critical = "#F6D900"
+const curse = "#CF0000"
+
 const blood = {
   spriteSheet: "terrainAtlas",
   spriteSheetCoordinates: {
@@ -50,21 +57,21 @@ class Monster extends Entity {
     if (verb === "fireball") {
       if (world.tier === "boss") {
         world.addToHistory(
-          `${this.attributes.name.toUpperCase()} IMMUNE TO YOUR PATHETIC FIREBALL!`
+          [`${this.attributes.name.toUpperCase()} IMMUNE TO YOUR PATHETIC FIREBALL!`, monsterAttack]
         );
       } else {
         world.addToHistory(
-          `${this.attributes.name.toUpperCase()} IS OBLITERATED!`
+          [`${this.attributes.name.toUpperCase()} IS OBLITERATED!`, monsterDeath]
         );
         world.add(new Blood(this.x, this.y, this.tilesize, blood));
 
         let dropRoll = Math.random();
         if (this.attributes.name === "Mimic") {
-          world.addToHistory(`${this.attributes.name} drops an item!`);
+          world.addToHistory([`${this.attributes.name} drops an item!`, info]);
           let spawner = new Spawner(world);
           spawner.spawnLootAt(this.x, this.y);
         } else if (dropRoll < 0.2 || world.tier === "boss") {
-          world.addToHistory(`${this.attributes.name} drops an item!`);
+          world.addToHistory([`${this.attributes.name} drops an item!`, info]);
           let spawner = new Spawner(world);
           spawner.spawnLootAt(this.x, this.y);
         }
@@ -83,9 +90,9 @@ class Monster extends Entity {
         if (curseRoll < 0.01) {
           world.player.attributes.health -= left.mod1 * 4;
           world.addToHistory(
-            `your ${left.name} BURSTS INTO FLAME and you take ${
+            [`your ${left.name} BURSTS INTO FLAME and you take ${
               left.mod1 * 4
-            } damage`
+            } damage`, curse]
           );
           if (world.player.inspecting[0]?.pos === "left") {
             world.player.inspecting.splice(0, 1);
@@ -105,9 +112,9 @@ class Monster extends Entity {
         if (curseRoll < 0.01) {
           world.player.attributes.health -= right.mod1 * 4;
           world.addToHistory(
-            `your ${right.name} BURSTS INTO FLAME and you take ${
+            [`your ${right.name} BURSTS INTO FLAME and you take ${
               right.mod1 * 4
-            } damage`
+            } damage`, curse]
           );
           if (world.player.inspecting[0]?.pos === "right") {
             world.player.inspecting.splice(0, 1);
@@ -127,9 +134,9 @@ class Monster extends Entity {
         if (curseRoll < 0.01) {
           world.player.attributes.health -= head.mod1 * 4;
           world.addToHistory(
-            `your ${head.name} BURSTS INTO FLAME and you take ${
+            [`your ${head.name} BURSTS INTO FLAME and you take ${
               head.mod1 * 4
-            } damage`
+            } damage`, curse]
           );
           if (world.player.inspecting[0]?.pos === "head") {
             world.player.inspecting.splice(0, 1);
@@ -144,9 +151,9 @@ class Monster extends Entity {
         if (curseRoll < 0.01) {
           world.player.attributes.health -= torso.mod1 * 4;
           world.addToHistory(
-            `your ${torso.name} BURSTS INTO FLAME and you take ${
+            [`your ${torso.name} BURSTS INTO FLAME and you take ${
               torso.mod1 * 4
-            } damage`
+            } damage`, curse]
           );
           if (world.player.inspecting[0]?.pos === "torso") {
             world.player.inspecting.splice(0, 1);
@@ -162,7 +169,7 @@ class Monster extends Entity {
         let restBonus = 3;
         pAttackMod += restBonus;
         world.addToHistory(
-          "Your preparation gives you an additional chance to hit."
+          ["Your preparation gives you an additional chance to hit.", playerAttack]
         );
       }
 
@@ -183,15 +190,15 @@ class Monster extends Entity {
 
         if (totalBonus >= 20) {
           world.addToHistory(
-            `PLAYER CRITICAL HITS FOR ${
+            [`PLAYER CRITICAL HITS FOR ${
               world.player.attributes.damage * 2
-            } DAMAGE!`
+            } DAMAGE!`, critical]
           );
           daggerAudio.play();
 
           if (world.player.attributes.didMove && stealthBonus) {
             world.addToHistory(
-              "Your attack surprises the enemy and deals some additional damage."
+              ["Your attack surprises the enemy and deals some additional damage.", playerAttack]
             );
             let tempDamage = world.player.attributes.damage + stealthBonus;
             this.attributes.health = this.attributes.health - tempDamage * 2;
@@ -201,12 +208,12 @@ class Monster extends Entity {
           }
         } else {
           world.addToHistory(
-            `Player attacks for ${world.player.attributes.damage} damage`
+            [`Player attacks for ${world.player.attributes.damage} damage`, playerAttack]
           );
           daggerAudio.play();
           if (world.player.attributes.didMove && stealthBonus) {
             world.addToHistory(
-              "Your attack surprises the enemy and deals some additional damage."
+              ["Your attack surprises the enemy and deals some additional damage.", playerAttack]
             );
             let tempDamage = world.player.attributes.damage + stealthBonus;
             this.attributes.health = this.attributes.health - tempDamage;
@@ -217,17 +224,18 @@ class Monster extends Entity {
         }
 
         if (this.attributes.health <= 0) {
-          world.addToHistory(`${this.attributes.name} dies!`);
+          this.attributes.health = 0
+          world.addToHistory([`${this.attributes.name} dies!`, monsterDeath]);
           world.removeHit();
           world.add(new Blood(this.x, this.y, this.tilesize, blood));
           gore.play();
           let dropRoll = Math.random();
           if (this.attributes.name === "Mimic") {
-            world.addToHistory(`${this.attributes.name} drops an item!`);
+            world.addToHistory([`${this.attributes.name} drops an item!`, info]);
             let spawner = new Spawner(world);
             spawner.spawnLootAt(this.x, this.y);
           } else if (dropRoll < 0.2 || world.tier === "boss") {
-            world.addToHistory(`${this.attributes.name} drops an item!`);
+            world.addToHistory([`${this.attributes.name} drops an item!`, info]);
             let spawner = new Spawner(world);
             if (world.tier === "boss") {
               world.pauseMusic();
@@ -240,12 +248,12 @@ class Monster extends Entity {
           return;
         } else {
           world.addToHistory(
-            `${this.attributes.name} has ${this.attributes.health} health remaining!`
+            [`${this.attributes.name} has ${this.attributes.health} health remaining!`, info]
           );
         }
       } else {
         wiff.play();
-        world.addToHistory("Your attack missed!");
+        world.addToHistory(["Your attack missed!", info]);
       }
     }
     if (verb === "monsterBump") {
@@ -258,24 +266,24 @@ class Monster extends Entity {
       if (spikeBonus > 0) {
         this.attributes.health -= spikeBonus;
         world.addToHistory(
-          `${this.attributes.name} was poked by spikes and has ${this.attributes.health} health remaining!`
+          [`${this.attributes.name} was poked by spikes and has ${this.attributes.health} health remaining!`, info]
         );
       }
 
       if (this.attributes.health <= 0) {
         world.addToHistory(
-          `${this.attributes.name} was poked by spikes and dies!`
+          [`${this.attributes.name} was poked by spikes and dies!`, monsterDeath]
         );
         world.removeHit();
         world.add(new Blood(this.x, this.y, this.tilesize, blood));
         gore.play();
         let dropRoll = Math.random();
         if (this.attributes.name === "Mimic") {
-          world.addToHistory(`${this.attributes.name} drops an item!`);
+          world.addToHistory([`${this.attributes.name} drops an item!`, info]);
           let spawner = new Spawner(world);
           spawner.spawnLootAt(this.x, this.y);
         } else if (dropRoll < 0.2 || world.tier === "boss") {
-          world.addToHistory(`${this.attributes.name} drops an item!`);
+          world.addToHistory([`${this.attributes.name} drops an item!`, info]);
           let spawner = new Spawner(world);
           spawner.spawnLootAt(this.x, this.y);
         }
@@ -288,22 +296,22 @@ class Monster extends Entity {
         let monsterAttackRoll = combatRoll(20);
         let mAttackMod = 0 + monsterAttackRoll + this.attributes.attack;
 
-        world.addToHistory(`${this.attributes.name} attacks Player!`);
+        world.addToHistory([`${this.attributes.name} attacks Player!`, monsterAttack]);
 
         let moveBonus = 0;
         if (world.player.attributes.didMove) {
           moveBonus = 3;
           world.addToHistory(
-            "Your movement makes it harder for the enemy to hit you."
+            ["Your movement makes it harder for the enemy to hit you.", info]
           );
         }
 
         if (+mAttackMod >= world.player.attributes.defense + moveBonus) {
           if (monsterAttackRoll === 20) {
             world.addToHistory(
-              `${this.attributes.name}  CRITICAL HITS FOR ${
+              [`${this.attributes.name}  CRITICAL HITS FOR ${
                 this.attributes.damage * 2
-              } DAMAGE!`
+              } DAMAGE!`, critical]
             );
             let unblocked =
               this.attributes.damage - world.player.attributes.block < 0
@@ -313,7 +321,7 @@ class Monster extends Entity {
             world.player.attributes.health -= unblocked;
           } else {
             world.addToHistory(
-              `${this.attributes.name} attacks for ${this.attributes.damage} damage!`
+              [`${this.attributes.name} attacks for ${this.attributes.damage} damage!`, monsterAttack]
             );
             let unblocked =
               this.attributes.damage - world.player.attributes.block < 0
@@ -324,17 +332,18 @@ class Monster extends Entity {
 
             unblocked > 0
               ? world.addToHistory(
-                  `You were able to block ${
+                  [`You were able to block ${
                     this.attributes.damage - unblocked
-                  } damage.`
+                  } damage.`, info]
                 )
               : world.addToHistory(
-                  `You blocked you blocked their attack completely!`
+                  [`you blocked their attack completely!`, info]
                 );
           }
 
           if (world.player.attributes.health <= 0) {
-            world.addToHistory("You have died");
+            world.player.attributes.health = 0
+            world.addToHistory(["You have died", curse]);
             world.entities[0].attributes.spriteSheetCoordinates =
               tombstone.spriteSheetCoordinates;
             world.entities[0].attributes.spriteSheet = tombstone.spriteSheet;
@@ -342,11 +351,11 @@ class Monster extends Entity {
             humanDeathAudio.play();
           } else {
             world.addToHistory(
-              `You have ${world.player.attributes.health} health remaining!`
+              [`You have ${world.player.attributes.health} health remaining!`, info]
             );
           }
         } else {
-          world.addToHistory(`${this.attributes.name}'s attack missed!`);
+          world.addToHistory([`${this.attributes.name}'s attack missed!`, info]);
         }
       }
     }
