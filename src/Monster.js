@@ -8,6 +8,7 @@ import HumanDeath from "./assets/sounds/humanPain.wav";
 import Gore from "./assets/sounds/gore.wav";
 import Wiff from "./assets/sounds/wiff.mp3";
 import Shield from "./assets/sounds/shield.mp3";
+import BossDeath from './assets/sounds/bossDeath.wav'
 
 const daggerAudio = new Audio(Dagger);
 daggerAudio.volume = 0.5;
@@ -17,6 +18,7 @@ gore.volume = 0.5;
 const wiff = new Audio(Wiff);
 wiff.volume = 0.5;
 const shield = new Audio(Shield);
+const bossDeath = new Audio(BossDeath)
 
 const blood = {
   spriteSheet: "terrainAtlas",
@@ -245,6 +247,10 @@ class Monster extends Entity {
           } else if (dropRoll < 0.2 || world.tier === "boss") {
             world.addToHistory(`${this.attributes.name} drops an item!`);
             let spawner = new Spawner(world);
+            if(world.tier === 'boss'){
+              world.pauseMusic()
+              bossDeath.play()
+            }
             spawner.spawnLootAt(this.x, this.y);
           }
 

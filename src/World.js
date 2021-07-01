@@ -7,11 +7,26 @@ import Monster from "./Monster";
 import Player from "./Player";
 import Blastwave from "./Blastwave";
 import Explosion from "./assets/sounds/fireExplosion.mp3";
+<<<<<<< HEAD
 import DigSound from "./assets/sounds/digSound.mp3";
 
 const explosionSound = new Audio(Explosion);
 explosionSound.volume = 1;
 const digSound = new Audio(DigSound);
+=======
+import DigSound from './assets/sounds/digSound.mp3'
+import BossStart from './assets/sounds/bossStart.wav'
+import BossRoom from './assets/sounds/bossRoom.mp3'
+
+
+
+const explosionSound = new Audio(Explosion);
+explosionSound.volume = 1;
+const digSound = new Audio(DigSound)
+const bossStart = new Audio(BossStart)
+const bossRoom = new Audio(BossRoom)
+bossRoom.volume = .35
+>>>>>>> master
 
 const blastwave = {
   name: "blastwave",
@@ -66,6 +81,14 @@ class World {
   showWin() {
     this.showWinScreen = true;
   }
+<<<<<<< HEAD
+=======
+
+  pauseMusic(){
+    bossRoom.pause()
+  }
+  
+>>>>>>> master
 
   lightPasses(x, y) {
     if (x >= 0 && y >= 0 && y < this.height && x < this.width) {
@@ -115,6 +138,8 @@ class World {
 
     map.create(userCallback);
     map.connect(userCallback, 1);
+    bossStart.play();
+    setTimeout(() => bossRoom.play(), 2000);
   }
 
   add(entity) {
