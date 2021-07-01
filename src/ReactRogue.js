@@ -10,7 +10,7 @@ import Fireball from "./Fireball";
 import Hadouken from "./assets/sounds/hadouken.mp3";
 import ItemPickup from "./assets/sounds/itemPickup.mp3";
 import EvilLaugh from "./assets/sounds/evilLaugh.mp3";
-import SadSpidey from "./assets/sadSpidey.gif";
+import CrySound from './assets/sounds/crySound.mp3'
 import LP from "./cssSheets/LP.css";
 import hints from "./Hints";
 
@@ -20,6 +20,7 @@ const hadoukenAudio = new Audio(Hadouken);
 hadoukenAudio.volume = 0.25;
 const itemPickup = new Audio(ItemPickup);
 const evilLaugh = new Audio(EvilLaugh);
+const crySound = new Audio(CrySound)
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
@@ -36,6 +37,12 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
 
   const startCrying = () => {
     setCrying(!crying);
+    crySound.play()
+  };
+
+  const stopCrying = () => {
+    setCrying(!crying);
+    crySound.pause()
   };
 
   const randomHint = () => {
@@ -261,7 +268,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 alt="Sad Spidey Gif"
               />
 
-              <div className="cryButton" onClick={() => startCrying()}>
+              <div className="cryButton" onClick={() => stopCrying()}>
                 ~Back~
               </div>
             </div>
