@@ -89,7 +89,7 @@ class Monster extends Entity {
       // curse
       if (left?.status === "cursed") {
         let curseRoll = Math.random();
-        if (curseRoll < 0.99) {
+        if (curseRoll < 0.01) {
           world.player.attributes.health -= left.mod1 * 4;
           world.addToHistory(
             [`your ${left.name} BURSTS INTO FLAME and you take ${

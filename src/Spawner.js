@@ -452,8 +452,8 @@ class Spawner {
     }
 
     if (qualityRoll < 0.1 && isEquipment) {
-      //it is prestine
-      spawnedItem.name = `Prestine ${spawnedItem.name}`;
+      //it is Pristine
+      spawnedItem.name = `Pristine ${spawnedItem.name}`;
       spawnedItem.mod1 += 1;
     } else if (qualityRoll > 0.7 && qualityRoll < 0.9 && isEquipment) {
       //it's damaged
@@ -544,8 +544,8 @@ class Spawner {
       spawnedItem.class === "shield";
 
       if (qualityRoll < 0.2 && isEquipment) {
-        //it is prestine
-        spawnedItem.name = `Prestine ${spawnedItem.name}`;
+        //it is Pristine
+        spawnedItem.name = `Pristine ${spawnedItem.name}`;
         spawnedItem.mod1 += 1;
       } else {
         //it's regular
@@ -605,8 +605,8 @@ class Spawner {
       }
 
       if (qualityRoll < 0.1 && isEquipment) {
-        //it is prestine
-        spawnedItem.name = `Prestine ${spawnedItem.name}`;
+        //it is Pristine
+        spawnedItem.name = `Pristine ${spawnedItem.name}`;
         spawnedItem.mod1 += 1;
       } else if (qualityRoll > 0.7 && qualityRoll < 0.9 && isEquipment) {
         //it's damaged
