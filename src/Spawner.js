@@ -27,7 +27,7 @@ const globalLoot = [
   {
     name: "Torch",
     class: "weapon",
-    mod1: 6,
+    mod1: 4,
     mod2: 1,
     mod3: 3,
     spriteSheet: "itemAtlas",
