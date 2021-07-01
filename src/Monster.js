@@ -9,7 +9,7 @@ import Gore from "./assets/sounds/gore.wav";
 import Wiff from "./assets/sounds/wiff.mp3";
 import Shield from "./assets/sounds/shield.mp3";
 import BossDeath from "./assets/sounds/bossDeath.wav";
-import CursedWeapon from './assets/sounds/cursedWeapon.mp3'
+import CursedWeapon from './assets/sounds/cursedBreak.mp3'
 
 const daggerAudio = new Audio(Dagger);
 daggerAudio.volume = 0.5;
@@ -72,7 +72,7 @@ class Monster extends Entity {
           world.addToHistory([`${this.attributes.name} drops an item!`, info]);
           let spawner = new Spawner(world);
           spawner.spawnMimicLoot(this.x, this.y);
-        } else if (dropRoll < 0.2 || world.tier === "boss") {
+        } else if (dropRoll < 0.99 || world.tier === "boss") {
           world.addToHistory([`${this.attributes.name} drops an item!`, info]);
           let spawner = new Spawner(world);
           spawner.spawnLootAt(this.x, this.y);
@@ -89,7 +89,7 @@ class Monster extends Entity {
       // curse
       if (left?.status === "cursed") {
         let curseRoll = Math.random();
-        if (curseRoll < 0.01) {
+        if (curseRoll < 0.99) {
           world.player.attributes.health -= left.mod1 * 4;
           world.addToHistory(
             [`your ${left.name} BURSTS INTO FLAME and you take ${

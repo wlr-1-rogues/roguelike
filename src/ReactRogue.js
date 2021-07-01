@@ -239,8 +239,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               Audio
               <br></br>
               Sound Library ~ Hollywood Edge - Topic ~ Copopaxi TV ~ Makai
-              Symphony
-              <br></br>
+              Symphony ~ Fesliyan Studios
+              <br></br> 
               <br></br>
               Visuals
               <br></br>
