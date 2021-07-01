@@ -27,7 +27,7 @@ const globalLoot = [
   {
     name: "Torch",
     class: "weapon",
-    mod1: 6,
+    mod1: 4,
     mod2: 1,
     mod3: 3,
     spriteSheet: "itemAtlas",
@@ -452,8 +452,8 @@ class Spawner {
     }
 
     if (qualityRoll < 0.1 && isEquipment) {
-      //it is prestine
-      spawnedItem.name = `Prestine ${spawnedItem.name}`;
+      //it is Pristine
+      spawnedItem.name = `Pristine ${spawnedItem.name}`;
       spawnedItem.mod1 += 1;
     } else if (qualityRoll > 0.7 && qualityRoll < 0.9 && isEquipment) {
       //it's damaged
@@ -544,8 +544,8 @@ class Spawner {
       spawnedItem.class === "shield";
 
       if (qualityRoll < 0.2 && isEquipment) {
-        //it is prestine
-        spawnedItem.name = `Prestine ${spawnedItem.name}`;
+        //it is Pristine
+        spawnedItem.name = `Pristine ${spawnedItem.name}`;
         spawnedItem.mod1 += 1;
       } else {
         //it's regular
@@ -605,8 +605,8 @@ class Spawner {
       }
 
       if (qualityRoll < 0.1 && isEquipment) {
-        //it is prestine
-        spawnedItem.name = `Prestine ${spawnedItem.name}`;
+        //it is Pristine
+        spawnedItem.name = `Pristine ${spawnedItem.name}`;
         spawnedItem.mod1 += 1;
       } else if (qualityRoll > 0.7 && qualityRoll < 0.9 && isEquipment) {
         //it's damaged
@@ -682,8 +682,6 @@ class Spawner {
     );
     this.world.add(boss);
     this.world.moveToSpace(boss);
-    // bossStart.play()
-    // setTimeout(() => bossRoom.play(), 2500)
   }
 }
 

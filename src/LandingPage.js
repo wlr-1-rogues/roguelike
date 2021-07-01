@@ -114,7 +114,7 @@ const LandingPage = (props) => {
                     <br></br>
                     Press the given number to Ready one of your Items
                     <br></br>
-                    Press E to use/equip, or K to Destroy a Readied Item
+                    Press E to use/equip, or G to Destroy a Readied Item
                     <br></br>
                     Pres SPACE to wait for one turn
                 </div>

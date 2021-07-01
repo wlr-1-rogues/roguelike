@@ -395,7 +395,107 @@ function MonsterDisplay(props) {
                         </div>
                     </div>
 
-                    <section
+                    {(visibleMonsters[monsterIndex].attributes.name === "Stuarth") && <section
+                        style={{
+                            display: "flex",
+                            textAlign: "center",
+                            alignSelf: "center",
+                            height: "3vh",
+                            width: `450%`,
+                            borderStyle: "solid",
+                            borderColor: "black",
+                            marginTop: "1vh",
+                            marginBottom: "1vh",
+                            backgroundColor: "gray",
+                            zIndex: 1,
+                        }}
+                    >
+
+                        {/* HEALTH BAR FOR BOSS TIER */}
+                        {(visibleMonsters[monsterIndex].attributes.name === "Stuarth") ?
+                            <section
+                                style={{
+                                    height: "100%",
+                                    width: `${(visibleMonsters[monsterIndex].attributes.health / 200) * 100}%`,
+                                    backgroundColor: "green",
+                                    zIndex: 2,
+                                    textAlign: "center",
+                                    alignSelf: "center",
+                                    color: "white",
+                                }}
+                            >
+                                <p className="chance-text">
+                                    HP: {visibleMonsters[monsterIndex].attributes.health}
+                                </p>
+                            </section>
+                            :
+                            <div></div>}
+
+
+                        {/* HEALTH BAR FOR THIRD TIER */}
+                        {(visibleMonsters[monsterIndex].attributes.name === "Golem" || visibleMonsters[monsterIndex].attributes.name === "Dragon" || visibleMonsters[monsterIndex].attributes.name === "Demon" || visibleMonsters[monsterIndex].attributes.name === "Mimic") ?
+                            <section
+                                style={{
+                                    height: "100%",
+                                    width: `${(visibleMonsters[monsterIndex].attributes.health / 62) * 100}%`,
+                                    backgroundColor: "green",
+                                    zIndex: 2,
+                                    textAlign: "center",
+                                    alignSelf: "center",
+                                    color: "white",
+                                }}
+                            >
+                                <p className="chance-text">
+                                    HP: {visibleMonsters[monsterIndex].attributes.health}
+                                </p>
+                            </section>
+                            :
+                            <div></div>}
+
+                        {/* HEALTH BAR FOR SECOND TIER */}
+                        {(visibleMonsters[monsterIndex].attributes.name === "Torturer" || visibleMonsters[monsterIndex].attributes.name === "Ogre" || visibleMonsters[monsterIndex].attributes.name === "Banshee") ?
+                            <section
+                                style={{
+                                    height: "100%",
+                                    width: `${(visibleMonsters[monsterIndex].attributes.health / 30) * 100}%`,
+                                    backgroundColor: "green",
+                                    zIndex: 2,
+                                    textAlign: "center",
+                                    alignSelf: "center",
+                                    color: "white",
+                                }}
+                            >
+                                <p className="chance-text">
+                                    HP: {visibleMonsters[monsterIndex].attributes.health}
+                                </p>
+                            </section>
+                            :
+                            <div></div>}
+
+                        {/* HEALTH BAR FOR FIRST TIER */}
+                        {(visibleMonsters[monsterIndex].attributes.name === "Goblin" || visibleMonsters[monsterIndex].attributes.name === "Snake" || visibleMonsters[monsterIndex].attributes.name === "Zombie") ?
+                            <section
+                                style={{
+                                    height: "100%",
+                                    width: `${(visibleMonsters[monsterIndex].attributes.health / 18) * 100}%`,
+                                    backgroundColor: "green",
+                                    zIndex: 2,
+                                    textAlign: "center",
+                                    alignSelf: "center",
+                                    color: "white",
+                                }}
+                            >
+                                <p className="chance-text">
+                                    HP: {visibleMonsters[monsterIndex].attributes.health}
+                                </p>
+                            </section>
+                            :
+                            <div></div>}
+
+                    </section>}
+
+
+                    {(visibleMonsters[monsterIndex].attributes.name !== "Stuarth") && <section
                         style={{
                             display: "flex",
                             textAlign: "center",
@@ -492,9 +592,42 @@ function MonsterDisplay(props) {
                             :
                             <div></div>}
 
-                    </section>
+                    </section>}
 
-                    <section
+
+
+
+                    {(visibleMonsters[monsterIndex].attributes.name === "Stuarth") && <section
+                        style={{
+                            display: "flex",
+                            alignSelf: "center",
+                            height: "3vh",
+                            width: `450%`,
+                            borderStyle: "solid",
+                            borderColor: "black",
+                            marginTop: "1vh",
+                            marginBottom: "1vh",
+                            backgroundColor: "grey",
+                            zIndex: 1,
+                        }}
+                    >
+                        <section
+                            style={{
+                                height: "100%",
+                                width: `${visibleMonsters[monsterIndex].attributes.damage * 5
+                                    }%`,
+                                backgroundColor: "darkred",
+                                zIndex: 2,
+                                textAlign: "center",
+                                color: "white",
+                            }}
+                        >
+                            <p className="chance-text">Attack Power</p>
+                        </section>
+                    </section>}
+
+
+                    {(visibleMonsters[monsterIndex].attributes.name !== "Stuarth") && <section
                         style={{
                             display: "flex",
                             alignSelf: "center",
@@ -521,8 +654,50 @@ function MonsterDisplay(props) {
                         >
                             <p className="chance-text">Attack Power</p>
                         </section>
-                    </section>
-                    <section
+                    </section>}
+
+
+
+
+
+                    {(visibleMonsters[monsterIndex].attributes.name === "Stuarth") && <section
+                        style={{
+                            display: "flex",
+                            height: "3vh",
+                            width: `450%`,
+                            alignSelf: "center",
+                            borderStyle: "solid",
+                            borderColor: "black",
+                            marginTop: "1vh",
+                            marginBottom: "1vh",
+                            backgroundColor: "grey",
+                            zIndex: 1,
+                        }}
+                    >
+                        <p className="chance-text">
+                            Chance to Hit Player:{" "}
+                            {Math.floor(
+                                calculateChanceToHit(
+                                    visibleMonsters[monsterIndex].attributes.attack
+                                )
+                            )}
+              %
+            </p>
+                        <section
+                            style={{
+                                height: "100%",
+                                width: `${calculateChanceToHit(
+                                    visibleMonsters[monsterIndex].attributes.attack
+                                )}%`,
+                                backgroundColor: "black",
+                                zIndex: 2,
+                                textAlign: "center",
+                                color: "white",
+                            }}
+                        ></section>
+                    </section>}
+
+                    {(visibleMonsters[monsterIndex].attributes.name !== "Stuarth") && <section
                         style={{
                             display: "flex",
                             height: "3vh",
@@ -557,8 +732,54 @@ function MonsterDisplay(props) {
                                 color: "white",
                             }}
                         ></section>
-                    </section>
-                    <section
+                    </section>}
+
+
+
+
+
+                    {(visibleMonsters[monsterIndex].attributes.name === "Stuarth") && <section
+                        style={{
+                            display: "flex",
+                            flexDirection: "center",
+                            justifySelf: "center",
+                            alignSelf: "center",
+                            height: "3vh",
+                            width: `450%`,
+                            borderStyle: "solid",
+                            borderColor: "black",
+                            marginTop: "1vh",
+                            marginBottom: "1vh",
+                            backgroundColor: "grey",
+                            zIndex: 1,
+                        }}
+                    >
+                        <section
+                            style={{
+                                height: "100%",
+                                width: `${100 -
+                                    calculateChanceToDodge(
+                                        visibleMonsters[monsterIndex].attributes.defense
+                                    )
+                                    }%`,
+                                backgroundColor: "darkblue",
+                                zIndex: 2,
+                                textAlign: "center",
+                                color: "white",
+                            }}
+                        >
+                            <p className="chance-text">
+                                Player Chance to Miss:{" "}
+                                {100 -
+                                    calculateChanceToDodge(
+                                        visibleMonsters[monsterIndex].attributes.defense
+                                    )}
+                %
+              </p>
+                        </section>
+                    </section>}
+
+                    {(visibleMonsters[monsterIndex].attributes.name !== "Stuarth") && <section
                         style={{
                             display: "flex",
                             flexDirection: "center",
@@ -597,10 +818,18 @@ function MonsterDisplay(props) {
                 %
               </p>
                         </section>
-                    </section>
+                    </section>}
+
+
+
+
                 </div>
             ) : (
-                <div>Monsters: None</div>
+                <div
+                    style={{
+                        paddingTop:'10%'
+                    }}
+                >Monsters: None</div>
             )}
         </div>
     );

@@ -9,6 +9,7 @@ import Gore from "./assets/sounds/gore.wav";
 import Wiff from "./assets/sounds/wiff.mp3";
 import Shield from "./assets/sounds/shield.mp3";
 import BossDeath from "./assets/sounds/bossDeath.wav";
+import CursedWeapon from './assets/sounds/cursedBreak.mp3'
 
 const daggerAudio = new Audio(Dagger);
 daggerAudio.volume = 0.5;
@@ -19,6 +20,7 @@ const wiff = new Audio(Wiff);
 wiff.volume = 0.5;
 const shield = new Audio(Shield);
 const bossDeath = new Audio(BossDeath);
+const cursedWeapon = new Audio(CursedWeapon)
 
 const info = "#7F96FF"
 const monsterDeath = "#00D966"
@@ -70,7 +72,7 @@ class Monster extends Entity {
           world.addToHistory([`${this.attributes.name} drops an item!`, info]);
           let spawner = new Spawner(world);
           spawner.spawnMimicLoot(this.x, this.y);
-        } else if (dropRoll < 0.2 || world.tier === "boss") {
+        } else if (dropRoll < 0.99 || world.tier === "boss") {
           world.addToHistory([`${this.attributes.name} drops an item!`, info]);
           let spawner = new Spawner(world);
           spawner.spawnLootAt(this.x, this.y);
@@ -93,7 +95,8 @@ class Monster extends Entity {
             [`your ${left.name} BURSTS INTO FLAME and you take ${
               left.mod1 * 4
             } damage`, curse]
-          );
+            );
+          cursedWeapon.play()
           if (world.player.inspecting[0]?.pos === "left") {
             world.player.inspecting.splice(0, 1);
           }
@@ -116,6 +119,7 @@ class Monster extends Entity {
               right.mod1 * 4
             } damage`, curse]
           );
+          cursedWeapon.play()
           if (world.player.inspecting[0]?.pos === "right") {
             world.player.inspecting.splice(0, 1);
           }
@@ -138,6 +142,7 @@ class Monster extends Entity {
               head.mod1 * 4
             } damage`, curse]
           );
+          cursedWeapon.play()
           if (world.player.inspecting[0]?.pos === "head") {
             world.player.inspecting.splice(0, 1);
           }
@@ -155,6 +160,7 @@ class Monster extends Entity {
               torso.mod1 * 4
             } damage`, curse]
           );
+          cursedWeapon.play()
           if (world.player.inspecting[0]?.pos === "torso") {
             world.player.inspecting.splice(0, 1);
           }
