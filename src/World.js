@@ -60,10 +60,10 @@ class World {
     this.tier = tier;
     this.entities = [new Player(0, 0, 24)];
     this.history = [
-      {body: "You enter the dungeon", hex: "#FFFFFF"},
-      {body: "---", hex: "#FFFFFF"},
-      {body: `LEVEL ${tier}`, hex: "#FFFFFF"},
-      {body: "---", hex: "#FFFFFF"}
+      {body: "You enter the dungeon", hex: story},
+      {body: "---", hex: story},
+      {body: `LEVEL ${tier}`, hex: story},
+      {body: "---", hex: story}
     ];
     this.visibleMonsters = new Set([]);
     this.worldmap = new Array(this.width);
