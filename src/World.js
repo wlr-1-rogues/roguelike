@@ -7,18 +7,16 @@ import Monster from "./Monster";
 import Player from "./Player";
 import Blastwave from "./Blastwave";
 import Explosion from "./assets/sounds/fireExplosion.mp3";
-import DigSound from './assets/sounds/digSound.mp3'
-import BossStart from './assets/sounds/bossStart.wav'
-import BossRoom from './assets/sounds/bossRoom.mp3'
-
-
+import DigSound from "./assets/sounds/digSound.mp3";
+import BossStart from "./assets/sounds/bossStart.wav";
+import BossRoom from "./assets/sounds/bossRoom.mp3";
 
 const explosionSound = new Audio(Explosion);
 explosionSound.volume = 1;
-const digSound = new Audio(DigSound)
-const bossStart = new Audio(BossStart)
-const bossRoom = new Audio(BossRoom)
-bossRoom.volume = .35
+const digSound = new Audio(DigSound);
+const bossStart = new Audio(BossStart);
+const bossRoom = new Audio(BossRoom);
+bossRoom.volume = 0.35;
 
 const blastwave = {
   name: "blastwave",
@@ -65,19 +63,18 @@ class World {
 
     this.lastHit = { x: 0, y: 0 };
     this.didHit = false;
-    this.showWinScreen = false
+    this.showWinScreen = false;
 
     this.fov = new FOV.RecursiveShadowcasting(this.lightPasses.bind(this));
   }
 
-  showWin(){
-    this.showWinScreen = true
+  showWin() {
+    this.showWinScreen = true;
   }
 
-  pauseMusic(){
-    bossRoom.pause()
+  pauseMusic() {
+    bossRoom.pause();
   }
-  
 
   lightPasses(x, y) {
     if (x >= 0 && y >= 0 && y < this.height && x < this.width) {
@@ -225,9 +222,7 @@ class World {
         (inspecting.item.class === "shield" && left.length === 0)
       ) {
         this.remove(inspecting?.entity);
-      }
-      
-      else if (
+      } else if (
         (inspecting.item.class === "weapon" && right.length === 0) ||
         (inspecting.item.class === "shield" && right.length === 0)
       ) {
@@ -273,8 +268,8 @@ class World {
   rest() {
     this.removeHit();
     this.addToHistory("you give yourself a moment to rest");
-    this.player.attributes.attack += 3;
-    this.player.attributes.preparation = true;
+    this.player.attributes.didRest = true;
+    this.player.attributes.didMove = false;
   }
 
   moveProjectiles() {
@@ -405,6 +400,8 @@ class World {
     let entity = this.getEntityAtLocation(tempPlayer.x, tempPlayer.y);
     if (entity && !(entity instanceof Blood)) {
       entity.action("bump", this);
+      this.player.attributes.didMove = false;
+      this.player.attributes.didRest = false;
       if (entity instanceof Monster) {
         this.didHit = true;
         this.lastHit.x = tempPlayer.x;
@@ -412,7 +409,11 @@ class World {
       }
       return;
     }
+
+    this.player.attributes.didRest = false;
+
     if (this.isWall(tempPlayer.x, tempPlayer.y)) {
+      this.player.attributes.didMove = false;
       let [left] = this.player.left;
       let [right] = this.player.right;
 
@@ -426,7 +427,7 @@ class World {
           ) {
             this.worldmap[tempPlayer.x][tempPlayer.y] = 0;
             left.charges -= 1;
-            digSound.play()
+            digSound.play();
             this.addToHistory("Your Rock Pick is slightly bluntened");
             if (left.charges < 1) {
               this.player.attributes.attack -= left.mod1;
@@ -460,8 +461,7 @@ class World {
       }
     } else {
       this.player.move(dx, dy);
-      this.player.attributes.defense += 3;
-      this.player.attributes.moveEvasion = true;
+      this.player.attributes.didMove = true;
     }
   }
 
@@ -500,7 +500,6 @@ class World {
       if (this.player.right[0]?.status === "stealthy") stealthBonus += 1;
       if (this.player.head[0]?.status === "stealthy") stealthBonus += 1;
       if (this.player.torso[0]?.status === "stealthy") stealthBonus += 1;
-      console.log("stealth bonus", stealthBonus);
 
       if (distance < 6 - stealthBonus) {
         let astar = new Path.AStar(
@@ -540,7 +539,7 @@ class World {
                 `${entityAtLocation.attributes.name} has been destroyed by ${monster.attributes.name}!`
               );
               if (this.player.inspecting[0]?.pos === null) {
-                this.player.inspecting.splice(0, 1)
+                this.player.inspecting.splice(0, 1);
               }
               this.remove(entityAtLocation);
             }
