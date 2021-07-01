@@ -6,7 +6,6 @@ const itemPickup = new Audio(ItemPickup);
 const itemDrop = new Audio(ItemDrop);
 
 class Player extends Entity {
-
   inventory = [
     {
       name: "Tome of Fireball",
@@ -40,12 +39,12 @@ class Player extends Entity {
 
   attributes = {
     // name: "Player",
-    preparation: false,
     alive: true,
+    didMove: false,
+    didRest: false,
     attack: 0,
     defense: 14,
     damage: 3,
-    moveEvasion: false,
     block: 0,
     maxHealth: 50,
     health: 50,
@@ -184,7 +183,6 @@ class Player extends Entity {
         }
         this.inspecting.splice(0, 1);
         return equip;
-        
       } else if (item.class === "weapon" && this.right.length === 0) {
         this.attributes.attack += item.mod1;
         this.attributes.damage += item.mod2;
@@ -197,8 +195,6 @@ class Player extends Entity {
         }
         this.inspecting.splice(0, 1);
         return equip;
-      
-
 
         // SHIELDS
       } else if (item.class === "shield" && this.left.length === 0) {

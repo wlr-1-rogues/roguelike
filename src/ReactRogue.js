@@ -9,7 +9,7 @@ import World from "./World";
 import Fireball from "./Fireball";
 import Hadouken from "./assets/sounds/hadouken.mp3";
 import ItemPickup from "./assets/sounds/itemPickup.mp3";
-import EvilLaugh from './assets/sounds/evilLaugh.mp3';
+import EvilLaugh from "./assets/sounds/evilLaugh.mp3";
 import SadSpidey from "./assets/sadSpidey.gif";
 import LP from "./cssSheets/LP.css";
 import hints from "./Hints";
@@ -19,7 +19,7 @@ import EquippedItems from "./EquippedItems";
 const hadoukenAudio = new Audio(Hadouken);
 hadoukenAudio.volume = 0.25;
 const itemPickup = new Audio(ItemPickup);
-const evilLaugh = new Audio(EvilLaugh)
+const evilLaugh = new Audio(EvilLaugh);
 
 const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const canvasRef = React.useRef(null);
@@ -28,7 +28,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const [credits, setCredits] = useState(false);
   const [crying, setCrying] = useState(false);
   const [hintNum, setHintNum] = useState(undefined);
-  const [winScreen, setWinScreen] = useState(false)
+  const [winScreen, setWinScreen] = useState(false);
 
   const displayCredits = () => {
     setCredits(!credits);
@@ -55,16 +55,6 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
   const handleInput = (action, data) => {
     let newWorld = new World();
     Object.assign(newWorld, world);
-
-    if (newWorld.player.attributes.moveEvasion) {
-      newWorld.player.attributes.defense -= 3;
-      newWorld.player.attributes.moveEvasion = false;
-    }
-
-    if (newWorld.player.attributes.preparation) {
-      newWorld.player.attributes.attack -= 3;
-      newWorld.player.attributes.preparation = false;
-    }
 
     if (alive === false) {
       return;
@@ -100,20 +90,27 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     } else if (action === "equip") {
       newWorld.equipItem();
 
-      if (newWorld.player.left[0]?.name !== "Ring of Domination"  ||
-      newWorld.player.right[0]?.name !== "Ring of Domination"){
+      if (
+        newWorld.player.left[0]?.name !== "Ring of Domination" ||
+        newWorld.player.right[0]?.name !== "Ring of Domination"
+      ) {
         itemPickup.play();
       }
 
-      if (newWorld.player.left[0]?.name === "Ring of Domination"  ||
-      newWorld.player.right[0]?.name === "Ring of Domination"){
+      if (
+        newWorld.player.left[0]?.name === "Ring of Domination" ||
+        newWorld.player.right[0]?.name === "Ring of Domination"
+      ) {
         newWorld.player.attributes.spriteSheetCoordinates = { y: 48, x: 288 };
-        setTimeout(() => {evilLaugh.play()}, 1500)
-        setTimeout(() => {setWinScreen(true)}, 8500)
+        setTimeout(() => {
+          evilLaugh.play();
+        }, 1500);
+        setTimeout(() => {
+          setWinScreen(true);
+        }, 8500);
         // newWorld.showWin()
         // evilLaugh.play()
       }
-
     } else if (action === "inspectE") {
       newWorld.inspectEquip(data);
     } else if (action === "uninspect") {
@@ -159,14 +156,13 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
     spawner.spawnMonsters(100);
     spawner.spawnStairs();
     setWorld(newWorld);
-
   }, []);
 
-  useEffect(()=>{
-    if(world.showWinScreen === true){
-      setWinScreen(true)
+  useEffect(() => {
+    if (world.showWinScreen === true) {
+      setWinScreen(true);
     }
-  }, [world.showWinScreen])
+  }, [world.showWinScreen]);
 
   useEffect(() => {
     inputManager.bindKeys();
@@ -233,19 +229,24 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
               Program Developers
               <br></br>
               Kyle Baugh ~ Alex Stapp ~ Steven Clark ~ Trevor Martin
-              <br></br><br></br>
+              <br></br>
+              <br></br>
               Sprites/Tileset
               <br></br>
               (C)2018 ORYX DESIGN LAB
-              <br></br><br></br>
+              <br></br>
+              <br></br>
               Audio
               <br></br>
               Sound Library ~ Hollywood Edge - Topic ~ Copopaxi TV
-              <br></br><br></br>
+              <br></br>
+              <br></br>
               Visuals
               <br></br>
               Depoulaite ~ Mixkit.co ~ Gaming and God
-              <br></br><br></br><br></br>
+              <br></br>
+              <br></br>
+              <br></br>
               <div className="creditsButton" onClick={() => displayCredits()}>
                 ~Go Back~
               </div>
@@ -267,64 +268,73 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
         </div>
       )}
 
-      {winScreen && <div 
-        className='winScreen'
-        >
-          {!credits && <div className='winText'>
-            A booming voice echoes in your head.
-            <br></br><br></br>
-            THANK YOU FOR RELEASING ME FROM THIS WRETCHED STATE
-            <br></br><br></br>
-            I HAVE BEEN IMPRISONED HERE FOR CENTURIES, AWAITING THE ONE WHO WAS AS SELFISH AND AS BLOODTHIRSTY AS I
-            <br></br><br></br>
-            YOU MUST NOW SUFFER THE SAME FATE
-            <br></br><br></br>
-            PRAY THAT SOME UNFORTUNATE SOUL FOLLOWS IN YOUR FOOTSTEPS
-            <br></br><br></br>
-            UNTIL SUCH TIME, ENJOY YOUR...
-          </div>}
+      {winScreen && (
+        <div className="winScreen">
+          {!credits && (
+            <div className="winText">
+              A booming voice echoes in your head.
+              <br></br>
+              <br></br>
+              THANK YOU FOR RELEASING ME FROM THIS WRETCHED STATE
+              <br></br>
+              <br></br>I HAVE BEEN IMPRISONED HERE FOR CENTURIES, AWAITING THE
+              ONE WHO WAS AS SELFISH AND AS BLOODTHIRSTY AS I<br></br>
+              <br></br>
+              YOU MUST NOW SUFFER THE SAME FATE
+              <br></br>
+              <br></br>
+              PRAY THAT SOME UNFORTUNATE SOUL FOLLOWS IN YOUR FOOTSTEPS
+              <br></br>
+              <br></br>
+              UNTIL SUCH TIME, ENJOY YOUR...
+            </div>
+          )}
 
-          {!credits && <div className='winEnd'>
-            HYPOGEAN DOMINION
-          </div>}
-          
+          {!credits && <div className="winEnd">HYPOGEAN DOMINION</div>}
 
-          {!credits && <div>
-            <div className="deathButtons">
-              <div className="deathButton" onClick={() => refreshPage()}>
-                ~Restart~
+          {!credits && (
+            <div>
+              <div className="deathButtons">
+                <div className="deathButton" onClick={() => refreshPage()}>
+                  ~Restart~
+                </div>
+                <div className="deathButton" onClick={() => displayCredits()}>
+                  ~View Credits~
+                </div>
               </div>
-              <div className="deathButton" onClick={() => displayCredits()}>
-                ~View Credits~
-              </div>
-            </div>                   
-          </div>}
+            </div>
+          )}
 
           {credits && (
             <div>
               Program Developers
               <br></br>
               Kyle Baugh ~ Alex Stapp ~ Steven Clark ~ Trevor Martin
-              <br></br><br></br>
+              <br></br>
+              <br></br>
               Sprites/Tileset
               <br></br>
               (C)2018 ORYX DESIGN LAB
-              <br></br><br></br>
+              <br></br>
+              <br></br>
               Audio
               <br></br>
               Sound Library ~ Hollywood Edge - Topic ~ Copopaxi TV ~ Kyle Baugh
-              <br></br><br></br>
+              <br></br>
+              <br></br>
               Visuals
               <br></br>
               Depoulaite ~ Mixkit.co ~ Gaming and God
-              <br></br><br></br><br></br>
+              <br></br>
+              <br></br>
+              <br></br>
               <div className="creditsButton" onClick={() => displayCredits()}>
                 ~Go Back~
               </div>
             </div>
           )}
-        </div>}
-
+        </div>
+      )}
 
       <div
         style={{
@@ -384,7 +394,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                 <section
                   style={{
                     minWidth: "6.25vw",
-                    textAlign:'center'
+                    textAlign: "center",
                   }}
                 >
                   HP: {world.player.attributes.health} /{" "}
@@ -418,13 +428,9 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                   textAlign: "right",
                 }}
               >
-                {world.player.attributes.preparation === true
-                  ? `${world.player.attributes.attack - 3}(+3)`
-                  : world.player.attributes.attack}
+                {world.player.attributes.attack}
                 <br></br>
-                {world.player.attributes.moveEvasion === true
-                  ? `${world.player.attributes.defense - 3}(+3)`
-                  : world.player.attributes.defense}
+                {world.player.attributes.defense}
                 <br></br>
                 {world.player.attributes.damage}
                 <br></br>
@@ -533,7 +539,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                         atlas={atlases.itemAtlas}
                         item={inspecting.item}
                       />
-                      {inspecting.item.class === "weapon" && inspecting.item.name !== "Ring of Domination" ? (
+                      {inspecting.item.class === "weapon" &&
+                      inspecting.item.name !== "Ring of Domination" ? (
                         <div>
                           <p>
                             Hit +{inspecting.item.mod1}
@@ -562,7 +569,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                         <p>Health +{inspecting.item.mod1}</p>
                       ) : inspecting.item.class === "shieldCon" ? (
                         <p>Block +{inspecting.item.mod1}</p>
-                      ) : inspecting.item.name === "Ring of Domination" ?(
+                      ) : inspecting.item.name === "Ring of Domination" ? (
                         <div>
                           {/* <p>
                             Hit +{inspecting.item.mod1}
@@ -571,17 +578,15 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                           </p> */}
                           <p>
                             A strange power emanates from the mystical Ring.
-                            <br></br>
-                            I wonder what will happen if you put it on...
+                            <br></br>I wonder what will happen if you put it
+                            on...
                           </p>
                         </div>
                       ) : (
                         <div>
                           What did you do?? You broke it!! Refresh your screen.
                         </div>
-                      )
-                    
-                    }
+                      )}
                     </div>
                     {inspecting.item.name === "Tome of Fireball" ? (
                       <p
@@ -633,7 +638,8 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                         item={inspecting.item}
                       />
 
-                      {inspecting.item.class === "weapon" && inspecting.item.name !== "Ring of Domination" ?(
+                      {inspecting.item.class === "weapon" &&
+                      inspecting.item.name !== "Ring of Domination" ? (
                         <div>
                           <p>
                             Hit +{inspecting.item.mod1}
@@ -659,7 +665,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                         <p>Health +{inspecting.item.mod1}</p>
                       ) : inspecting.item.class === "shieldCon" ? (
                         <p>Block +{inspecting.item.mod1}</p>
-                      ) : inspecting.item.name === "Ring of Domination" ?(
+                      ) : inspecting.item.name === "Ring of Domination" ? (
                         <div>
                           <p>
                             Hit +{inspecting.item.mod1}
@@ -667,16 +673,15 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                             Damage +{inspecting.item.mod2}
                           </p>
                           <p>
-                          A strange power eminates from the Ring.
-                          I wonder what would happen if you put it on...
+                            A strange power eminates from the Ring. I wonder
+                            what would happen if you put it on...
                           </p>
                         </div>
                       ) : (
                         <div>
                           What did you do?? You broke it!! Refresh your screen.
                         </div>
-                      )
-                      }
+                      )}
                     </div>
 
                     {typeof inspecting.pos === "string" ? (
@@ -689,9 +694,7 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
                         Unequip: "Q", Destroy: "G"
                       </p>
                     ) : inspecting.item.name === "Tome of Fireball" ? (
-                      <p>
-                        Fire: Press any direction, Destroy: "G"
-                      </p>
+                      <p>Fire: Press any direction, Destroy: "G"</p>
                     ) : inspecting.item.class === "healthCon" ? (
                       <p
                         style={{
