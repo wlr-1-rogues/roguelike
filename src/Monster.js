@@ -119,6 +119,7 @@ class Monster extends Entity {
               right.mod1 * 4
             } damage`, curse]
           );
+          cursedWeapon.play()
           if (world.player.inspecting[0]?.pos === "right") {
             world.player.inspecting.splice(0, 1);
           }
@@ -141,6 +142,7 @@ class Monster extends Entity {
               head.mod1 * 4
             } damage`, curse]
           );
+          cursedWeapon.play()
           if (world.player.inspecting[0]?.pos === "head") {
             world.player.inspecting.splice(0, 1);
           }
@@ -158,6 +160,7 @@ class Monster extends Entity {
               torso.mod1 * 4
             } damage`, curse]
           );
+          cursedWeapon.play()
           if (world.player.inspecting[0]?.pos === "torso") {
             world.player.inspecting.splice(0, 1);
           }
