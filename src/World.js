@@ -135,7 +135,7 @@ class World {
     map.create(userCallback);
     map.connect(userCallback, 1);
     bossStart.play();
-    setTimeout(() => bossRoom.play(), 2000);
+    setTimeout(() => bossRoom.play(), 1000);
   }
 
   add(entity) {

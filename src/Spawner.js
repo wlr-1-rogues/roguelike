@@ -682,8 +682,6 @@ class Spawner {
     );
     this.world.add(boss);
     this.world.moveToSpace(boss);
-    // bossStart.play()
-    // setTimeout(() => bossRoom.play(), 2500)
   }
 }
 
