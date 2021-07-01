@@ -734,7 +734,7 @@ class World {
 
   addToHistory(arr) {
     this.history.push({body: arr[0], hex: arr[1]});
-    if (this.history.length > 9) this.history.shift();
+    if (this.history.length > 45) this.history.shift();
   }
 }
 

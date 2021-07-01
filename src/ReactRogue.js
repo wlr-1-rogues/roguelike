@@ -830,11 +830,13 @@ const ReactRogue = ({ width, height, tilesize, atlases }) => {
             >
               Event History
             </h2>
-            <ul>
-              {world.history.map((item, index) => (
-                <li key={index} style={{color: `${item.hex}`}}>{item.body}</li>
-              ))}
-            </ul>
+            <div style={{overflow: "auto", height: "80%"}}>
+              <ul>
+                {world.history.map((item, index) => (
+                  <li key={index} style={{color: `${item.hex}`}}>{item.body}</li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <div className="monster-box">
